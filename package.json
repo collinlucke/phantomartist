@@ -1,0 +1,49 @@
+{
+  "name": "@collinlucke/phantomartist",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/collinlucke"
+  },
+  "version": "0.0.0",
+  "type": "module",
+  "module": "dist/ems/index.js",
+  "main": "dist/cjs/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "rollup": "rollup -c",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@stylexjs/stylex": "^0.7.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "react": "^18.3.1",
+    "rollup": "^4.18.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "tslib": "^2.6.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1"
+  }
+}
