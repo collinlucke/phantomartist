@@ -1,1 +1,1 @@
-export { default as FormInputLabel } from "./FormElements";
+export * from './FormElements';

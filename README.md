@@ -1,0 +1,14 @@
+# PhantomArtist
+
+<sub>(yes, I too want to read it as "Philanthropist" every time I look at it)</sub>
+
+So, the initial goal of this was to make a sort of "joke" library. The gag was that each component
+would require configuring so many props, you'd be better of just creating your own components.
+Hilarious, right?
+
+Anyway...
+
+I started using it with another project and so now I'm more concerned with creating the
+functionality for that. Maybe someday...
+
+...maybe someday.

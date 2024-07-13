@@ -1,1 +1,2 @@
-export { default } from "./FormInputLabel";
+export { FormInputLabel } from './FormInputLabel';
+export { FormTextInput } from './FormTextInput';

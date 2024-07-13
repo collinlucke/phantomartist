@@ -1,32 +1,32 @@
-import FormInputLabel from "../FormInputLabel";
+import { FormInputLabel } from './FormInputLabel';
 
-type Props = {
+type FormTextInputProps = {
   label?: string;
   name?: string;
-  type?: "text" | "password" | "number";
-  labelPos?: "left" | "right" | "above" | "below";
+  type?: 'text' | 'password' | 'number';
+  labelPos?: 'left' | 'right' | 'above' | 'below';
   value?: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const FormTextInput = ({
-  label = "",
-  name = "",
-  type = "text",
-  labelPos = "left",
-  value = "",
-  onChange,
-}: Props) => {
+export const FormTextInput: React.FC<FormTextInputProps> = ({
+  label = '',
+  name = '',
+  type = 'text',
+  labelPos = 'left',
+  value = '',
+  onChange
+}) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
   };
 
   return (
     <div>
-      {labelPos === "left" || labelPos === "above" ? (
+      {labelPos === 'left' || labelPos === 'above' ? (
         <FormInputLabel position={labelPos} name={name} label={label} />
       ) : (
-        ""
+        ''
       )}
       <input
         value={value}
@@ -35,13 +35,11 @@ const FormTextInput = ({
         id={name}
         onChange={onChangeHandler}
       />
-      {labelPos === "right" || labelPos === "below" ? (
+      {labelPos === 'right' || labelPos === 'below' ? (
         <FormInputLabel position={labelPos} name={name} label={label} />
       ) : (
-        ""
+        ''
       )}
     </div>
   );
 };
-
-export default FormTextInput;
