@@ -1,19 +1,8 @@
-// import * as stylex from "@stylexjs/stylex";
-
 type Props = {
   position: 'left' | 'right' | 'above' | 'below';
   name: string;
   label: string;
 };
-
-// const defStyles = stylex.create({
-//   labelLeft: {
-//     marginRight: "8px",
-//   },
-//   labelRight: {
-//     marginLeft: "8px",
-//   },
-// });
 
 export const FormInputLabel: React.FC<Props> = ({ position, name, label }) => {
   switch (position) {

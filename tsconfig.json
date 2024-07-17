@@ -1,16 +1,9 @@
 {
-  // "files": [],
-  // "references": [
-  //   {
-  //     "path": "./tsconfig.node.json"
-  //   },
-  //   { "path": "./tsconfig.app.json" }
-  // ],
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": "lib",
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2020",
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
@@ -22,12 +15,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    // "noEmit": true,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Transpilation */
+    "typeRoots": ["./dist/index.d.ts"],
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
 
     /* Linting */
     "strict": true,
@@ -40,5 +32,5 @@
     "sourceMap": true,
     "outDir": "dist"
   },
-  "include": ["src", "../vite.config.ts"]
+  "include": ["lib/**/*", "vite.config.mjs"]
 }

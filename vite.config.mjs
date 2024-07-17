@@ -8,8 +8,10 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, './lib/index.ts'),
-      name: 'phantomairtist',
-      fileName: format => `index.${format}.js`
+      name: '@crazy-overlord/phantomairtist',
+      fileName: function (format) {
+        return 'index.'.concat(format, '.js');
+      }
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'tailwindcss'],
@@ -29,5 +31,8 @@ export default defineConfig({
     postcss: {
       plugins: [tailwindcss]
     }
+  },
+  server: {
+    port: 2525
   }
 });
