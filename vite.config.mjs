@@ -2,8 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import dts from 'vite-plugin-dts';
-import tailwindcss from 'tailwindcss';
-
+console.log('is this working');
 export default defineConfig({
   build: {
     lib: {
@@ -14,25 +13,17 @@ export default defineConfig({
       }
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'tailwindcss'],
+      input: resolve(__dirname, 'lib/index.ts'),
+      external: ['react', 'react-dom'],
       output: {
         globals: {
           react: 'React',
-          'react-dom': 'ReactDOM',
-          tailwindcss: 'tailwindcss'
+          'react-dom': 'ReactDOM'
         }
       }
     },
     sourcemap: true,
     emptyOutDir: true
   },
-  plugins: [react(), dts({ rollupTypes: true })],
-  css: {
-    postcss: {
-      plugins: [tailwindcss]
-    }
-  },
-  server: {
-    port: 2525
-  }
+  plugins: [react(), dts({ rollupTypes: true })]
 });

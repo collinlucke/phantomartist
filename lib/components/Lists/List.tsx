@@ -7,5 +7,5 @@ type ListProps = {
 
 export const List: React.FC<ListProps> = ({ children, className }) => {
   console.log(className);
-  return <ul className="bg-red-300">{children}</ul>;
+  return <ul> {children}</ul>;
 };

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "rootDir": "lib",
-    "composite": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    // "composite": true,
+    // "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -26,11 +26,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
     "declaration": true,
-    "declarationDir": "types",
     "sourceMap": true,
     "outDir": "dist"
   },
-  "include": ["lib/**/*", "vite.config.mjs"]
+  "include": ["lib/**/*"]
 }

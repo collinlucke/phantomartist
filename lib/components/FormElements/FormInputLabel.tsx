@@ -7,15 +7,9 @@ type Props = {
 export const FormInputLabel: React.FC<Props> = ({ position, name, label }) => {
   switch (position) {
     case 'left':
-      return (
-        // <label {...stylex.props(defStyles.labelLeft)} htmlFor={name}>
-        <label htmlFor={name}>{label}</label>
-      );
+      return <label htmlFor={name}>{label}</label>;
     case 'right':
-      return (
-        // <label {...stylex.props(defStyles.labelRight)} htmlFor={name}>
-        <label htmlFor={name}>{label}</label>
-      );
+      return <label htmlFor={name}>{label}</label>;
     case 'above':
       return (
         <>

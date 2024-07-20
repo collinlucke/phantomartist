@@ -8,7 +8,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
 dist-ssr
 *rollup.cache
 .npmrc
@@ -27,3 +26,4 @@ dist-ssr
 
 # Temporary Hidems
 lib/components/Navigation
+/dist
