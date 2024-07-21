@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 type ListItemProps = {
   children: ReactNode;
   id: React.Key;
-  className: string;
+  className?: string;
 };
 
 export const ListItem: React.FC<ListItemProps> = ({ children, id }) => {
