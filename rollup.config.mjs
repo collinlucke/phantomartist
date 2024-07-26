@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import stylexPlugin from '@stylexjs/rollup-plugin';
 import packageJson from './package.json' assert { type: 'json' };
+import postcss from 'rollup-plugin-postcss';
 
 export default [
   {
@@ -28,17 +29,18 @@ export default [
       resolve(),
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
-
       stylexPlugin({
         useLayers: true,
         dev: true,
-        // filename: './dist/stylex.css',
         classNamePrefix: 'x-',
         unstable_moduleResolution: {
           type: 'commonJS',
           rootDir: './lib',
           themeFileExtensions: ['.css']
         }
+      }),
+      postcss({
+        extensions: ['.css']
       })
     ]
   }
