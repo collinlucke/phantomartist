@@ -9,6 +9,8 @@ Hilarious, right?
 Anyway...
 
 I started using it with another project and so now I'm more concerned with creating the
-functionality for that. Maybe someday...
+functionality for that.
+
+Please note that this is still super rough... SUPER rough
 
 ...maybe someday.
