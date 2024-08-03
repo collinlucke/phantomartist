@@ -5,28 +5,25 @@ import type { StyleXStyles } from '@stylexjs/stylex';
 
 type ListItemProps = {
   children: ReactNode;
-  id: React.Key;
   className?: StyleXStyles;
 };
 
-export const ListItem: React.FC<ListItemProps> = ({
-  children,
-  id,
-  className
-}) => {
-  return (
-    <li key={id} {...stylex.props(baseStyles.li, className)}>
-      {children}
-    </li>
-  );
+export const ListItem: React.FC<ListItemProps> = ({ children, className }) => {
+  // As stylex doesn't support child targeting, user-agent styles will be applied to all children by
+  // default. They can only be changed by the consuming component based on what they use inside of
+  // the <ListItem> component
+  return <li {...stylex.props(baseStyles.li, className)}>{children}</li>;
 };
 
 const baseStyles = stylex.create({
   li: {
-    border: `1px solid ${colors.secondaryColor}`,
     borderRadius: '6px',
-    color: colors.primaryColor,
     marginBottom: '10px',
-    padding: '10px'
+    padding: '10px',
+    backgroundColor: colors.lightText,
+    boxShadow: {
+      default: 'none',
+      ':hover': '1px 1px 3px'
+    }
   }
 });

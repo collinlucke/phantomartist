@@ -1,6 +1,13 @@
+import { ReactNode } from 'react';
+import { StyleXStyles } from '@stylexjs/stylex';
 import * as stylex from '@stylexjs/stylex';
 
-export const Block = ({ children, className }) => {
+type BlockProps = {
+  children?: ReactNode;
+  className?: StyleXStyles;
+};
+
+export const Block: React.FC<BlockProps> = ({ children, className }) => {
   return <div {...stylex.props(baseStyles.block, className)}>{children}</div>;
 };
 

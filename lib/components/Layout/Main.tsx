@@ -1,12 +1,16 @@
 import * as stylex from '@stylexjs/stylex';
-import { widths } from '../../styling/tokens.stylex';
+import { StyleXStyles } from '@stylexjs/stylex';
+import { ReactNode } from 'react';
 
-export const Main = ({ children, className }) => {
+type MainProps = {
+  children?: ReactNode;
+  className?: StyleXStyles;
+};
+
+export const Main: React.FC<MainProps> = ({ children, className }) => {
   return <main {...stylex.props(baseStyles.page, className)}>{children}</main>;
 };
 
 const baseStyles = stylex.create({
-  page: {
-    border: '1px solid red'
-  }
+  page: {}
 });
