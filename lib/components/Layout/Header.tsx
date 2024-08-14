@@ -1,17 +1,32 @@
-import { ReactNode } from 'react';
-import { StyleXStyles } from '@stylexjs/stylex';
+import React, { ReactElement } from 'react';
+// import { StyleXStyles } from '@stylexjs/stylex';
 import * as stylex from '@stylexjs/stylex';
+import { useModifiedChildren } from '../../hooks/useModifiedChildren';
+import { ModifyProps } from '../../types/ModifyProps.types';
 
-type HeaderProps = {
-  children?: ReactNode;
-  className?: StyleXStyles;
+type HeaderModifyProps = ModifyProps & {
+  children: ReactElement;
 };
 
-export const Header: React.FC<HeaderProps> = ({ children, className }) => {
-  // TODO: Make a recursive function to find certain element types to pass styles to
+export const Header: React.FC<HeaderModifyProps> = ({
+  children,
+  className,
+  props,
+  type,
+  key
+}) => {
+  let modifiedChildren = useModifiedChildren({
+    element: children,
+    className,
+    props: {},
+    type: children.type,
+    key: children.key
+  });
 
   return (
-    <header {...stylex.props(baseStyles.header, className)}>{children}</header>
+    <header {...stylex.props(baseStyles.header, className)}>
+      {modifiedChildren || children}
+    </header>
   );
 };
 const baseStyles = stylex.create({

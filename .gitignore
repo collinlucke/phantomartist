@@ -25,6 +25,6 @@ dist-ssr
 *.sw?
 
 # Temporary Hidems
-lib/components/Navigation
+# lib/components/Navigation
 /dist
 /unused-*
