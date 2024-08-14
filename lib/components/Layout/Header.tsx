@@ -23,6 +23,9 @@ export const Header: React.FC<HeaderModifyProps> = ({
     key: children.key
   });
 
+  // Keeps the build quiet
+  console.log(props, type, key);
+
   return (
     <header {...stylex.props(baseStyles.header, className)}>
       {modifiedChildren || children}

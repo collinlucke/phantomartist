@@ -35,5 +35,8 @@ const baseStyles = stylex.create({
       default: 'none',
       ':hover': `1px 1px 3px color-mix(in srgb-linear, ${colors.lightText} 50%, black)`
     }
+  },
+  a: {
+    color: colors.tertiary
   }
 });

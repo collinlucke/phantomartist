@@ -27,4 +27,4 @@ dist-ssr
 # Temporary Hidems
 # lib/components/Navigation
 /dist
-/unused-*
+unused-*

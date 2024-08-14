@@ -20,7 +20,7 @@ export const InnerWidth: React.FC<InnerWidthProps> = ({
 const baseStyles = stylex.create({
   base: {
     alignSelf: 'start',
-    backgroundColor: `color-mix(in srgb, ${colors.primaryColor} 35%, white)`,
+    backgroundColor: `color-mix(in srgb, ${colors.primary} 35%, white)`,
     width: {
       default: 'calc(100% - 20px)',
       '@media  (min-width: 320px)': 'calc(100% - 20px)',

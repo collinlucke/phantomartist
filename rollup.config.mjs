@@ -21,14 +21,13 @@ export default [
         file: packageJson.module,
         format: 'es',
         exports: 'named',
-
         sourcemap: true
       }
     ],
     plugins: [
+      typescript({ tsconfig: './tsconfig.json' }),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: './tsconfig.json' }),
       stylexPlugin({
         useLayers: true,
         dev: true,
