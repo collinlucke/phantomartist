@@ -1,7 +1,7 @@
 {
-  "name": "@collinlucke/phantomartist",
+  "name": "@crazy-overlord/phantomartist",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/crazy-overlord"
+    "registry": "https://npm.pkg.github.com/"
   },
   "version": "0.0.0",
   "type": "module",
