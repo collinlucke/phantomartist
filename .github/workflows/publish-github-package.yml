@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 18
       - run: npm install
-      - run: npm rollup
+      - run: npm run rollup
 
   publish-gpr:
     needs: build
