@@ -12,14 +12,14 @@ export default [
       {
         name: 'phantomartist-umd',
         file: packageJson.main,
-        format: 'umd',
+        format: 'cjs',
         exports: 'named',
         sourcemap: true
       },
       {
         name: 'phantomartist-es',
         file: packageJson.module,
-        format: 'es',
+        format: 'esm',
         exports: 'named',
         sourcemap: true
       }
