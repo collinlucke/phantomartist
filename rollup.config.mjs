@@ -10,14 +10,14 @@ export default [
     input: 'lib/index.ts',
     output: [
       {
-        name: 'phantomartist-umd',
+        name: 'phantomartist-cjs',
         file: packageJson.main,
         format: 'cjs',
         exports: 'named',
         sourcemap: true
       },
       {
-        name: 'phantomartist-es',
+        name: 'phantomartist-esm',
         file: packageJson.module,
         format: 'esm',
         exports: 'named',

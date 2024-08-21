@@ -5,12 +5,18 @@
   },
   "version": "0.0.19",
   "type": "module",
-  "module": "dist/esm/index.es.js",
-  "main": "dist/cjs/index.umd.js",
-  "types": "dist/esm/index.d.ts",
+  "module": "./dist/esm/index.esm.js",
+  "main": "./dist/cjs/index.cjs.js",
+  "types": "./dist/esm/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.esm.js",
+      "require": "./dist/cjs/index.cjs.js"
+    }
+  },
   "repository": "https://github.com/crazy-overlord/phantomartist",
   "scripts": {
     "build": "rollup -c",

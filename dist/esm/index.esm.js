@@ -1,5 +1,3 @@
-'use strict';
-
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -4888,13 +4886,5 @@ const baseStyles = {
   }
 };
 
-exports.Block = Block;
-exports.Form = Form;
-exports.FormInputLabel = FormInputLabel;
-exports.FormTextInput = FormTextInput;
-exports.Header = Header;
-exports.InnerWidth = InnerWidth;
-exports.List = List;
-exports.ListItem = ListItem;
-exports.Main = Main;
-//# sourceMappingURL=index.umd.js.map
+export { Block, Form, FormInputLabel, FormTextInput, Header, InnerWidth, List, ListItem, Main };
+//# sourceMappingURL=index.esm.js.map

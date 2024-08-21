@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { ModifyProps } from '../types/ModifyProps.types';
+import { ModifyProps } from '../sharedTypes/ModifyProps.types';
 type UseModifiedProps = ModifyProps & {
     element: ReactElement;
 };

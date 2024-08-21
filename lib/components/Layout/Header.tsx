@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 // import { StyleXStyles } from '@stylexjs/stylex';
 import * as stylex from '@stylexjs/stylex';
 import { useModifiedChildren } from '../../hooks/useModifiedChildren';
-import { ModifyProps } from '../../types/ModifyProps.types';
+import { ModifyProps } from '../../sharedTypes/ModifyProps.types';
 
 type HeaderModifyProps = ModifyProps & {
   children: ReactElement;

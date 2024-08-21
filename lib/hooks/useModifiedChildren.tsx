@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import * as stylex from '@stylexjs/stylex';
 import { colors } from '../styling/tokens.stylex';
-import { ModifyProps } from '../types/ModifyProps.types';
+import { ModifyProps } from '../sharedTypes/ModifyProps.types';
 
 type UseModifiedProps = ModifyProps & {
   element: ReactElement;
