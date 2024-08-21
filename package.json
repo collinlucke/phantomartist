@@ -10,6 +10,7 @@
   "files": [
     "dist"
   ],
+  "repository": "https://github.com/crazy-overlord/phantomartist",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
