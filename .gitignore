@@ -12,6 +12,7 @@ dist-ssr
 *rollup.cache
 .npmrc
 *.local
+.env
 
 # Editor directories and files
 .vscode/*
