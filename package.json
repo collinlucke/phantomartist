@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "version": "0.0.20",
+  "version": "0.0.21",
   "type": "module",
   "module": "./dist/esm/index.esm.js",
   "main": "./dist/cjs/index.cjs.js",
@@ -19,7 +19,7 @@
   },
   "repository": "https://github.com/crazy-overlord/phantomartist",
   "scripts": {
-    "build": "rollup -c",
+    "build": "NODE_OPTIONS='--trace-warnings' rollup -c",
     "dev": "rollup -c -w",
     "lint": "eslint . --ext ts,tsx .ts,.tsx"
   },
@@ -35,13 +35,11 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@stylexjs/eslint-plugin": "^0.7.5",
+    "@stylexjs/eslint-plugin": "^0.3.0",
     "@stylexjs/rollup-plugin": "^0.7.5",
     "@types/node": "^20.15.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -53,7 +51,7 @@
     "tslib": "^2.6.3",
     "typescript": "^5.5.4",
     "vite": "^5.4.1",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^4.0.3"
   },
   "peerDependencies": {
     "react": "^18.3.1",
