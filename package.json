@@ -1,5 +1,5 @@
 {
-  "name": "@crazy-overlord/phantomartist",
+  "name": "@collinlucke/phantomartist",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -17,7 +17,7 @@
       "require": "./dist/cjs/index.cjs.js"
     }
   },
-  "repository": "https://github.com/crazy-overlord/phantomartist",
+  "repository": "https://github.com/collinlucke/phantomartist",
   "scripts": {
     "build": "NODE_OPTIONS='--trace-warnings' rollup -c",
     "dev": "rollup -c -w",
