@@ -1,12 +1,16 @@
+import { ReactNode } from 'react';
 import { FormInputLabel } from './FormInputLabel';
+import { StyleXStyles } from '@stylexjs/stylex';
+import * as stylex from '@stylexjs/stylex';
 
 type FormTextInputProps = {
-  label?: string;
+  label?: string | ReactNode;
   name?: string;
   type?: 'text' | 'password' | 'number';
   labelPos?: 'left' | 'right' | 'above' | 'below';
   value?: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: StyleXStyles;
 };
 
 export const FormTextInput: React.FC<FormTextInputProps> = ({
@@ -15,7 +19,8 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
   type = 'text',
   labelPos = 'left',
   value = '',
-  onChange
+  onChange,
+  className = {}
 }) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
@@ -29,6 +34,7 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
         ''
       )}
       <input
+        {...stylex.props(baseStyles.input, className)}
         value={value}
         type={type}
         name={name}
@@ -43,3 +49,11 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
     </div>
   );
 };
+
+const baseStyles = stylex.create({
+  input: {
+    border: 'none',
+    padding: '10px',
+    borderRadius: '10px'
+  }
+});

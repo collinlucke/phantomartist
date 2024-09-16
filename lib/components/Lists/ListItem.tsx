@@ -9,20 +9,7 @@ type ListItemProps = {
 };
 
 export const ListItem: React.FC<ListItemProps> = ({ children, className }) => {
-  let newChildren;
-
-  // TODO: Make a recursive function to find certain element types to pass styles to
-  if (children?.type.displayName === 'NavLink') {
-    newChildren = React.cloneElement(children, {
-      className: { ...stylex.props(baseStyles.a, className) }.className
-    });
-  }
-
-  return (
-    <li {...stylex.props(baseStyles.li, className)}>
-      {newChildren || children}
-    </li>
-  );
+  return <li {...stylex.props(baseStyles.li, className)}>{children}</li>;
 };
 
 const baseStyles = stylex.create({
@@ -33,10 +20,7 @@ const baseStyles = stylex.create({
     backgroundColor: colors.lightText,
     boxShadow: {
       default: 'none',
-      ':hover': `1px 1px 3px color-mix(in srgb-linear, ${colors.lightText} 50%, black)`
+      ':hover': `3px 3px 3px color-mix(in srgb-linear, ${colors.lightText} 50%, black)`
     }
-  },
-  a: {
-    color: colors.tertiary
   }
 });

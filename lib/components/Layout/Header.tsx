@@ -1,40 +1,67 @@
 import React, { ReactElement } from 'react';
-// import { StyleXStyles } from '@stylexjs/stylex';
 import * as stylex from '@stylexjs/stylex';
-import { useModifiedChildren } from '../../hooks/useModifiedChildren';
+import type { StyleXStyles } from '@stylexjs/stylex';
 import { ModifyProps } from '../../sharedTypes/ModifyProps.types';
+import { colors } from '../../styling/tokens.stylex';
+import { InnerWidth } from './InnerWidth';
 
 type HeaderModifyProps = ModifyProps & {
   children: ReactElement;
+  useInnerWidth?: boolean;
+  isHeading?: boolean;
+  className?: {
+    header?: StyleXStyles;
+    isHeading?: StyleXStyles;
+    useInnerWidth?: StyleXStyles;
+    innerWidth?: StyleXStyles;
+  };
 };
 
 export const Header: React.FC<HeaderModifyProps> = ({
   children,
   className,
-  props,
-  type,
-  key
+  useInnerWidth,
+  isHeading
 }) => {
-  let modifiedChildren = useModifiedChildren({
-    element: children,
-    className,
-    props: {},
-    type: children.type,
-    key: children.key
-  });
-
-  // Keeps the build quiet
-  console.log(props, type, key);
-
   return (
-    <header {...stylex.props(baseStyles.header, className)}>
-      {modifiedChildren || children}
+    <header
+      {...stylex.props(
+        baseStyles.header,
+        useInnerWidth && baseStyles.useInnerWidth,
+        isHeading && baseStyles.isHeading,
+        className && className.header,
+        className && className.useInnerWidth,
+        className && className.innerWidth,
+        className && className.isHeading
+      )}
+    >
+      {useInnerWidth ? (
+        <InnerWidth
+          className={[baseStyles.innerWidth, className && className.innerWidth]}
+        >
+          {children}
+        </InnerWidth>
+      ) : (
+        children
+      )}
     </header>
   );
 };
+
 const baseStyles = stylex.create({
   header: {
     display: 'flex',
+    color: colors.tertiary,
+    backgroundColor: 'green'
+  },
+  useInnerWidth: {
     justifyContent: 'center'
+  },
+  innerWidth: {
+    alignSelf: 'center'
+  },
+  isHeading: {
+    height: '135px',
+    backgroundColor: `color-mix(in srgb, ${colors.tertiary} 40%, white)`
   }
 });

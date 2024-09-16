@@ -1,19 +1,31 @@
+import { ReactNode } from 'react';
+import * as stylex from '@stylexjs/stylex';
+
 type Props = {
   position: 'left' | 'right' | 'above' | 'below';
   name: string;
-  label: string;
+  label: string | ReactNode;
 };
 
 export const FormInputLabel: React.FC<Props> = ({ position, name, label }) => {
   switch (position) {
     case 'left':
-      return <label htmlFor={name}>{label}</label>;
+      return (
+        <label {...stylex.props(baseStyles.label)} htmlFor={name}>
+          {label}
+        </label>
+      );
     case 'right':
       return <label htmlFor={name}>{label}</label>;
     case 'above':
       return (
         <>
-          <label htmlFor={name}>{label}</label>
+          <label
+            {...stylex.props(baseStyles.label, baseStyles.above)}
+            htmlFor={name}
+          >
+            {label}
+          </label>
           <br />
         </>
       );
@@ -26,3 +38,13 @@ export const FormInputLabel: React.FC<Props> = ({ position, name, label }) => {
       );
   }
 };
+
+const baseStyles = stylex.create({
+  label: {
+    fontWeight: '500',
+    position: 'relative'
+  },
+  above: {
+    marginBottom: '5px'
+  }
+});

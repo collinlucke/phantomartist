@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import stylexPlugin from '@stylexjs/rollup-plugin';
+import external from 'rollup-plugin-peer-deps-external';
 import packageJson from './package.json' assert { type: 'json' };
 import postcss from 'rollup-plugin-postcss';
 
@@ -28,6 +29,7 @@ export default [
       typescript({ tsconfig: './tsconfig.json' }),
       resolve(),
       commonjs(),
+      external(),
       stylexPlugin({
         useLayers: true,
         dev: true,
@@ -41,6 +43,7 @@ export default [
       postcss({
         extensions: ['.css']
       })
-    ]
+    ],
+    external: ['react', 'react-dom', 'stylex']
   }
 ];
