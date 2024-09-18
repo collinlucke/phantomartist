@@ -1,7 +1,12 @@
+import { FC, ReactElement } from 'react';
 import { InnerWidth } from './InnerWidth';
 import * as stylex from '@stylexjs/stylex';
 
-export const TwoColumn = ({ left, right }) => {
+type TwoColumn = {
+  left: ReactElement;
+  right: ReactElement;
+};
+export const TwoColumn: FC<TwoColumn> = ({ left, right }) => {
   return (
     <div {...stylex.props(baseStyles.columnWrapper)}>
       <div {...stylex.props(baseStyles.column)}>{left}</div>
@@ -18,8 +23,8 @@ const baseStyles = stylex.create({
       '@media (max-width: 580px)': 'column'
     },
     gap: {
-      default: '20px'
-      // '@media (max-width: 580px)': '0'
+      default: '50px',
+      '@media (max-width: 580px)': '0'
     }
   },
   column: {

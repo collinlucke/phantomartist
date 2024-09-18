@@ -5,11 +5,30 @@ import type { StyleXStyles } from '@stylexjs/stylex';
 
 type ListItemProps = {
   children?: JSX.Element;
-  className?: StyleXStyles;
+  className?: {
+    li: StyleXStyles;
+    liHover: StyleXStyles;
+  };
+  useHover?: boolean;
 };
 
-export const ListItem: React.FC<ListItemProps> = ({ children, className }) => {
-  return <li {...stylex.props(baseStyles.li, className)}>{children}</li>;
+export const ListItem: React.FC<ListItemProps> = ({
+  children,
+  className,
+  useHover
+}) => {
+  return (
+    <li
+      {...stylex.props(
+        baseStyles.li,
+        useHover && baseStyles.liHover,
+        className && className.li,
+        className && useHover && className.liHover
+      )}
+    >
+      {children}
+    </li>
+  );
 };
 
 const baseStyles = stylex.create({
@@ -17,10 +36,11 @@ const baseStyles = stylex.create({
     borderRadius: '6px',
     marginBottom: '10px',
     padding: '10px',
-    backgroundColor: colors.lightText,
-    boxShadow: {
-      default: 'none',
-      ':hover': `3px 3px 3px color-mix(in srgb-linear, ${colors.lightText} 50%, black)`
+    backgroundColor: colors.tertiary
+  },
+  liHover: {
+    ':hover': {
+      boxShadow: `0 0 7px color-mix(in srgb-linear, ${colors.tertiary} 30%, black)`
     }
   }
 });

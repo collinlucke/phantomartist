@@ -27,7 +27,7 @@ export const Form = ({ children, onSubmit, className }: FormProps) => {
 
 const baseStyles = stylex.create({
   formWrapper: {
-    background: colors.primary,
+    backgroundColor: `color-mix(in srgb, ${colors.primary} 75%, white)`,
     borderRadius: '6px',
     padding: '20px'
   }

@@ -31,13 +31,15 @@ export const Header: React.FC<HeaderModifyProps> = ({
         isHeading && baseStyles.isHeading,
         className && className.header,
         className && className.useInnerWidth,
-        className && className.innerWidth,
         className && className.isHeading
       )}
     >
       {useInnerWidth ? (
         <InnerWidth
-          className={[baseStyles.innerWidth, className && className.innerWidth]}
+          className={{
+            ...baseStyles,
+            ...(className && className)
+          }}
         >
           {children}
         </InnerWidth>
@@ -51,17 +53,20 @@ export const Header: React.FC<HeaderModifyProps> = ({
 const baseStyles = stylex.create({
   header: {
     display: 'flex',
-    color: colors.tertiary,
-    backgroundColor: 'green'
+    marginBottom: '25px',
+    color: colors.tertiary
   },
   useInnerWidth: {
     justifyContent: 'center'
   },
+  isHeading: {
+    height: '135px',
+    backgroundColor: colors.tertiary
+  },
   innerWidth: {
     alignSelf: 'center'
   },
-  isHeading: {
-    height: '135px',
-    backgroundColor: `color-mix(in srgb, ${colors.tertiary} 40%, white)`
+  PANavLink: {
+    color: colors.secondary
   }
 });
