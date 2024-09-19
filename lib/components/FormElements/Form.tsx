@@ -6,7 +6,9 @@ import { colors } from '../../styling/tokens.stylex';
 type FormProps = {
   children?: ReactNode;
   onSubmit?: FormEventHandler;
-  className?: StyleXStyles;
+  className?: {
+    formWrapper?: StyleXStyles;
+  };
 };
 
 export const Form = ({ children, onSubmit, className }: FormProps) => {
@@ -17,7 +19,10 @@ export const Form = ({ children, onSubmit, className }: FormProps) => {
 
   return (
     <form
-      {...stylex.props(baseStyles.formWrapper, className)}
+      {...stylex.props(
+        baseStyles.formWrapper,
+        className && className.formWrapper
+      )}
       onSubmit={handleOnSubmit}
     >
       {children}

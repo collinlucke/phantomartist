@@ -1,15 +1,33 @@
-import { ReactElement } from 'react';
+import { MouseEventHandler, ReactElement } from 'react';
+import type { StyleXStyles } from '@stylexjs/stylex';
 import * as stylex from '@stylexjs/stylex';
 import { colors } from '../../styling/tokens.stylex';
 
 type Button = {
   children: ReactElement | string;
+  className?: {
+    button?: StyleXStyles;
+  };
   type: HTMLButtonElement['type'];
+
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
-export const Button: React.FC<Button> = ({ children, type }) => {
+export const Button: React.FC<Button> = ({
+  children,
+  className,
+  type,
+  onClick
+}) => {
+  const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
+    onClick?.(e);
+  };
   return (
-    <button type={type} {...stylex.props(baseStyles.button)}>
+    <button
+      type={type}
+      onClick={onClickHandler}
+      {...stylex.props(baseStyles.button, className && className.button)}
+    >
       {children}
     </button>
   );
@@ -24,8 +42,7 @@ const baseStyles = stylex.create({
     fontWeight: '500',
     boxShadow: {
       default: 'inherit',
-
-      ':hover': `0 0 5px color-mix(in srgb, ${colors.secondary} 58%, rgba(255,255,255,.8) )`
+      ':hover': `0 0 3px black`
     }
   }
 });

@@ -7,11 +7,11 @@ type Props = {
   name: string;
   label: string | ReactNode;
   className?: {
-    label: StyleXStyles;
-    above: StyleXStyles;
-    below: StyleXStyles;
-    left: StyleXStyles;
-    right: StyleXStyles;
+    label?: StyleXStyles;
+    above?: StyleXStyles;
+    below?: StyleXStyles;
+    left?: StyleXStyles;
+    right?: StyleXStyles;
   };
 };
 
@@ -52,50 +52,50 @@ export const FormInputLabel: React.FC<Props> = ({
       );
     case 'above':
       return (
-        <>
-          <label
-            {...stylex.props(
-              baseStyles.label,
-              baseStyles.above,
-              className && className.label,
-              className && className.above
-            )}
-            htmlFor={name}
-          >
-            {label}
-          </label>
-          <br />
-        </>
+        <label
+          {...stylex.props(
+            baseStyles.label,
+            baseStyles.above,
+            className && className.label,
+            className && className.above
+          )}
+          htmlFor={name}
+        >
+          {label}
+        </label>
       );
     case 'below':
       return (
-        <>
-          <br />
-          <label
-            htmlFor={name}
-            {...stylex.props(
-              baseStyles.label,
-              baseStyles.below,
-              className && className.label,
-              className && className.below
-            )}
-          >
-            {label}
-          </label>
-        </>
+        <label
+          htmlFor={name}
+          {...stylex.props(
+            baseStyles.label,
+            baseStyles.below,
+            className && className.label,
+            className && className.below
+          )}
+        >
+          {label}
+        </label>
       );
   }
 };
 
 const baseStyles = stylex.create({
   label: {
-    fontWeight: '500',
-    position: 'relative'
+    fontWeight: '500'
+    // position: 'relative'
   },
   above: {
     marginBottom: '5px'
   },
-  left: {},
-  right: {},
-  below: {}
+  left: {
+    alignSelf: 'end',
+    marginRight: '10px'
+  },
+  right: {
+    alignSelf: 'end',
+    marginLeft: '10px'
+  },
+  below: { marginTop: '7px' }
 });

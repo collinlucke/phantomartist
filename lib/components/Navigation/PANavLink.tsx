@@ -50,8 +50,7 @@ const baseStyles = stylex.create({
     fontWeight: '500',
     boxShadow: {
       default: 'inherit',
-
-      ':hover': `0 0 5px color-mix(in srgb, ${colors.secondary} 58%, rgba(255,255,255,.8) )`
+      ':hover': `0 0 3px black`
     }
   }
 });

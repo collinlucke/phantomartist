@@ -9,17 +9,18 @@ type FormTextInputProps = {
   type?: 'text' | 'password' | 'number';
   labelPos?: 'left' | 'right' | 'above' | 'below';
   value?: string | number;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: {
-    input: StyleXStyles;
-    inputWrapper: StyleXStyles;
+    input?: StyleXStyles;
+    inputWrapper?: StyleXStyles;
     // For <FormInputLabel>
-    label: StyleXStyles;
-    above: StyleXStyles;
-    below: StyleXStyles;
-    left: StyleXStyles;
-    right: StyleXStyles;
+    label?: StyleXStyles;
+    above?: StyleXStyles;
+    below?: StyleXStyles;
+    left?: StyleXStyles;
+    right?: StyleXStyles;
   };
+
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const FormTextInput: React.FC<FormTextInputProps> = ({
@@ -38,11 +39,11 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
   return (
     <div
       {...stylex.props(
-        baseStyles.inputWrapper,
+        baseStyles.inputWrapper(labelPos),
         className && className.inputWrapper
       )}
     >
-      {labelPos === 'left' || labelPos === 'above' ? (
+      {(label && labelPos === 'left') || labelPos === 'above' ? (
         <FormInputLabel position={labelPos} name={name} label={label} />
       ) : (
         ''
@@ -55,7 +56,7 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
         id={name}
         onChange={onChangeHandler}
       />
-      {labelPos === 'right' || labelPos === 'below' ? (
+      {(label && labelPos === 'right') || labelPos === 'below' ? (
         <FormInputLabel
           position={labelPos}
           name={name}
@@ -70,9 +71,12 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
 };
 
 const baseStyles = stylex.create({
-  inputWrapper: {
-    marginBottom: '20px'
-  },
+  inputWrapper: labelPos => ({
+    marginBottom: '20px',
+    display: 'flex',
+    flexDirection:
+      labelPos === 'above' || labelPos === 'below' ? 'column' : 'row'
+  }),
   input: {
     border: 'none',
     padding: '10px',
