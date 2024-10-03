@@ -5,7 +5,7 @@ import { StyleXStyles } from '@stylexjs/stylex';
 type Props = {
   position: 'left' | 'right' | 'above' | 'below';
   name: string;
-  label: string | ReactNode;
+  label?: string | ReactNode;
   className?: {
     label?: StyleXStyles;
     above?: StyleXStyles;

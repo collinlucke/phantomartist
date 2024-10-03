@@ -8,9 +8,23 @@ Hilarious, right?
 
 Anyway...
 
-I started using it with another project and so now I'm more concerned with creating the
+I started using it with another `project` and so now I'm more concerned with creating the
 functionality for that.
 
 Please note that this is still super rough... SUPER rough
 
 ...maybe someday.
+
+### Stuff to change, do, cogitate on
+
+- Try to get rid of `<NavLink>`/`<PANavLink>`
+- Create model component
+- Work on styles - better contrast would be nice
+- Maybe change the name `phantomartist`
+
+<br/>
+<br/>
+
+Current Stack: JavaScript, TypeScript, React, StyleX, React Router (kinda hacky... If I can use `<Link/>`
+in `baphomet-ui`,
+I can probably get rid of this)

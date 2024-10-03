@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useRef, useLayoutEffect } from 'react';
 import { FormInputLabel } from './FormInputLabel';
 import { StyleXStyles } from '@stylexjs/stylex';
 import * as stylex from '@stylexjs/stylex';
@@ -6,10 +6,11 @@ import * as stylex from '@stylexjs/stylex';
 type FormTextAreaProps = {
   label?: string | ReactNode;
   name?: string;
-  type?: 'text' | 'password' | 'number';
+  type?: HTMLInputElement;
   labelPos?: 'left' | 'right' | 'above' | 'below';
-  value?: string | number;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  value?: string;
+  readonly?: boolean;
+  autoResize?: boolean;
   className?: {
     textArea: StyleXStyles;
     textAreaWrapper: StyleXStyles;
@@ -20,19 +21,36 @@ type FormTextAreaProps = {
     left: StyleXStyles;
     right: StyleXStyles;
   };
+
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 export const FormTextArea: React.FC<FormTextAreaProps> = ({
   label = '',
   name = '',
-  labelPos = 'left',
+  labelPos,
   value = '',
   onChange,
-  className
+  className,
+  readonly,
+  autoResize
 }) => {
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange?.(e);
+    resize(e.target);
   };
+
+  const resize = (textArea: HTMLTextAreaElement) => {
+    textArea.style.height = 'auto';
+    textArea.style.height = `${textArea.scrollHeight}px`;
+  };
+
+  useLayoutEffect(() => {
+    if (textAreaRef.current && autoResize) {
+      resize(textAreaRef.current);
+    }
+  }, [value]);
 
   return (
     <div
@@ -47,11 +65,17 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
         ''
       )}
       <textarea
-        {...stylex.props(baseStyles.textArea, className && className.textArea)}
+        {...stylex.props(
+          baseStyles.textArea,
+          readonly && baseStyles.readonly,
+          className && className.textArea
+        )}
         value={value}
         name={name}
         id={name}
         onChange={onChangeHandler}
+        readOnly={readonly}
+        ref={textAreaRef}
       />
       {labelPos === 'right' || labelPos === 'below' ? (
         <FormInputLabel
@@ -75,6 +99,14 @@ const baseStyles = stylex.create({
     border: 'none',
     padding: '10px',
     borderRadius: '5px',
-    width: '100%'
+    width: '100%',
+    minHeight: '50px',
+    resize: 'none',
+    overflow: 'hidden'
+  },
+  readonly: {
+    backgroundColor: 'transparent',
+    outline: 'none',
+    padding: 0
   }
 });

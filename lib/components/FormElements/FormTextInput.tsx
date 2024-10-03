@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { HTMLInputTypeAttribute, ReactNode } from 'react';
 import { FormInputLabel } from './FormInputLabel';
 import { StyleXStyles } from '@stylexjs/stylex';
 import * as stylex from '@stylexjs/stylex';
@@ -6,9 +6,10 @@ import * as stylex from '@stylexjs/stylex';
 type FormTextInputProps = {
   label?: string | ReactNode;
   name?: string;
-  type?: 'text' | 'password' | 'number';
+  type?: HTMLInputTypeAttribute;
   labelPos?: 'left' | 'right' | 'above' | 'below';
-  value?: string | number;
+  value?: string;
+  readonly?: boolean;
   className?: {
     input?: StyleXStyles;
     inputWrapper?: StyleXStyles;
@@ -30,7 +31,8 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
   labelPos = 'left',
   value = '',
   onChange,
-  className
+  className,
+  readonly
 }) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
@@ -48,13 +50,19 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
       ) : (
         ''
       )}
+
       <input
-        {...stylex.props(baseStyles.input, className && className.input)}
+        {...stylex.props(
+          baseStyles.input,
+          readonly && baseStyles.readonly,
+          className && className.input
+        )}
         value={value || ''}
         type={type}
         name={name}
         id={name}
         onChange={onChangeHandler}
+        readOnly={readonly}
       />
       {(label && labelPos === 'right') || labelPos === 'below' ? (
         <FormInputLabel
@@ -82,5 +90,10 @@ const baseStyles = stylex.create({
     padding: '10px',
     borderRadius: '5px',
     width: '100%'
+  },
+  readonly: {
+    backgroundColor: 'transparent',
+    outline: 'none',
+    padding: 0
   }
 });

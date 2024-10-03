@@ -8,7 +8,8 @@ type Button = {
   className?: {
     button?: StyleXStyles;
   };
-  type: HTMLButtonElement['type'];
+  type?: HTMLButtonElement['type'];
+  kind?: 'primary' | 'secondary';
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
@@ -17,6 +18,7 @@ export const Button: React.FC<Button> = ({
   children,
   className,
   type,
+  kind = 'primary',
   onClick
 }) => {
   const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
@@ -26,7 +28,7 @@ export const Button: React.FC<Button> = ({
     <button
       type={type}
       onClick={onClickHandler}
-      {...stylex.props(baseStyles.button, className && className.button)}
+      {...stylex.props(baseStyles.button(kind), className && className.button)}
     >
       {children}
     </button>
@@ -34,15 +36,25 @@ export const Button: React.FC<Button> = ({
 };
 
 const baseStyles = stylex.create({
-  button: {
-    padding: '10px 40px',
-    border: 'none',
+  button: kind => ({
+    padding:
+      (kind === 'primary' && '10px 40px') ||
+      (kind === 'secondary' && '8px 38px'),
+    border:
+      (kind === 'primary' && 'none') ||
+      (kind === 'secondary' && `1px solid ${colors.primary}`),
     borderRadius: '5px',
-    backgroundColor: `color-mix(in srgb, ${colors.secondary} 85%, white)`,
+    color: (kind === 'primary' && 'black') || (kind === 'secondary' && 'white'),
+    backgroundColor:
+      (kind === 'primary' &&
+        `color-mix(in srgb, ${colors.secondary} 85%, white)`) ||
+      (kind === 'secondary' &&
+        `color-mix(in srgb, ${colors.primary} 80%, white)`),
     fontWeight: '500',
+    marginRight: '10px',
     boxShadow: {
       default: 'inherit',
       ':hover': `0 0 3px black`
     }
-  }
+  })
 });

@@ -31,6 +31,7 @@ export const Search: React.FC<Search> = ({
       <div>Results: {resultsCount}</div>
       <Form className={baseStyles} onSubmit={onSearchHandler}>
         <FormTextInput
+          type="search"
           value={searchTerm}
           name="searchTerm"
           labelPos="above"
