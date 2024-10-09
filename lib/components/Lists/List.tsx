@@ -1,24 +1,24 @@
 import { ReactNode } from 'react';
-import * as stylex from '@stylexjs/stylex';
-import type { StyleXStyles } from '@stylexjs/stylex';
-import { colors } from '../../styling/tokens.stylex';
+import { colors } from '../../styling/globalStyles';
+import { CSSObject } from '@emotion/react';
 
 type ListProps = {
   children?: ReactNode;
-  className?: StyleXStyles;
+  className?: CSSObject;
 };
 
 export const List: React.FC<ListProps> = ({ className, children }) => {
-  return <ul {...stylex.props(className, baseStyles.ul)}>{children}</ul>;
+  return <ul css={[baseStyles.ul, className?.ul]}>{children}</ul>;
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   ul: {
     borderRadius: '6px',
     backgroundColor: `color-mix(in srgb, ${colors.primary} 35%, white)`,
     minHeight: '5px',
     fontWeight: '500',
     padding: '20px',
-    margin: 0
+    margin: 0,
+    width: '100%'
   }
-});
+};

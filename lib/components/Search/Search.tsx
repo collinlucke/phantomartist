@@ -1,12 +1,15 @@
 import { FormTextInput, Form } from '../FormElements';
 import { Button } from '../Buttons';
-import * as stylex from '@stylexjs/stylex';
 import { ChangeEvent } from 'react';
+import { CSSObject } from '@emotion/react';
 
 type Search = {
   searchTerm?: string;
   searchLabel?: string;
   resultsCount?: number;
+  className?: {
+    searchWrapper?: CSSObject;
+  };
 
   onSearch?: React.FormEventHandler<HTMLFormElement>;
   setSearchTerm: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -16,6 +19,7 @@ export const Search: React.FC<Search> = ({
   searchTerm,
   searchLabel,
   resultsCount,
+  className,
   onSearch,
   setSearchTerm
 }) => {
@@ -27,7 +31,7 @@ export const Search: React.FC<Search> = ({
   };
 
   return (
-    <div {...stylex.props(baseStyles.searchWrapper)}>
+    <div css={[baseStyles.searchWrapper, className?.searchWrapper]}>
       <div>Results: {resultsCount}</div>
       <Form className={baseStyles} onSubmit={onSearchHandler}>
         <FormTextInput
@@ -47,7 +51,7 @@ export const Search: React.FC<Search> = ({
   );
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   searchWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -58,7 +62,8 @@ const baseStyles = stylex.create({
     display: 'flex',
     justifyContent: 'end',
     alignItems: 'flex-end',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap' as 'wrap',
+    width: 'inherit',
 
     // Kill Form defaults
     backgroundColor: 'transparent',
@@ -70,4 +75,4 @@ const baseStyles = stylex.create({
   inputWrapper: {
     margin: 0
   }
-});
+};

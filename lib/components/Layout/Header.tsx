@@ -1,72 +1,50 @@
 import React, { ReactElement } from 'react';
-import * as stylex from '@stylexjs/stylex';
-import type { StyleXStyles } from '@stylexjs/stylex';
 import { ModifyProps } from '../../sharedTypes/ModifyProps.types';
-import { colors } from '../../styling/tokens.stylex';
-import { InnerWidth } from './InnerWidth';
+import { colors } from '../../styling/globalStyles';
+import { CSSObject } from '@emotion/react';
 
 type HeaderModifyProps = ModifyProps & {
   children: ReactElement;
   useInnerWidth?: boolean;
   isHeading?: boolean;
   className?: {
-    header?: StyleXStyles;
-    isHeading?: StyleXStyles;
-    useInnerWidth?: StyleXStyles;
-    innerWidth?: StyleXStyles;
+    header?: CSSObject;
+    isHeading?: CSSObject;
+    useInnerWidth?: CSSObject;
+    innerWidth?: CSSObject;
   };
 };
 
 export const Header: React.FC<HeaderModifyProps> = ({
   children,
-  className,
-  useInnerWidth,
-  isHeading
+  className
 }) => {
   return (
     <header
-      {...stylex.props(
+      css={[
         baseStyles.header,
-        useInnerWidth && baseStyles.useInnerWidth,
-        isHeading && baseStyles.isHeading,
         className && className.header,
         className && className.useInnerWidth,
         className && className.isHeading
-      )}
+      ]}
+      className="pa-header"
     >
-      {useInnerWidth ? (
-        <InnerWidth
-          className={{
-            ...baseStyles,
-            ...(className && className)
-          }}
-        >
-          {children}
-        </InnerWidth>
-      ) : (
-        children
-      )}
+      {children}
     </header>
   );
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   header: {
     display: 'flex',
     marginBottom: '25px',
-    color: colors.tertiary
-  },
-  useInnerWidth: {
-    justifyContent: 'center'
-  },
-  isHeading: {
+    padding: '20px 0',
+    color: colors.secondary,
+    justifyContent: 'center',
     height: '135px',
     backgroundColor: colors.tertiary
   },
   innerWidth: {
     alignSelf: 'center'
-  },
-  PANavLink: {
-    color: colors.secondary
   }
-});
+};

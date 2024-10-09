@@ -1,15 +1,15 @@
 import { MouseEventHandler, ReactElement } from 'react';
-import type { StyleXStyles } from '@stylexjs/stylex';
-import * as stylex from '@stylexjs/stylex';
-import { colors } from '../../styling/tokens.stylex';
+import { colors } from '../../styling/globalStyles';
+import { CSSObject } from '@emotion/react';
 
 type Button = {
   children: ReactElement | string;
   className?: {
-    button?: StyleXStyles;
+    button?: CSSObject;
   };
   type?: HTMLButtonElement['type'];
-  kind?: 'primary' | 'secondary';
+  kind?: 'primary' | 'secondary' | 'tertiary';
+  size?: 'large' | 'medium' | 'small';
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
@@ -19,6 +19,7 @@ export const Button: React.FC<Button> = ({
   className,
   type,
   kind = 'primary',
+  size = 'large',
   onClick
 }) => {
   const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
@@ -28,33 +29,44 @@ export const Button: React.FC<Button> = ({
     <button
       type={type}
       onClick={onClickHandler}
-      {...stylex.props(baseStyles.button(kind), className && className.button)}
+      css={[baseStyles.button(kind, size), className && className.button]}
+      className={`pa-button ${kind} ${size}`}
     >
       {children}
     </button>
   );
 };
 
-const baseStyles = stylex.create({
-  button: kind => ({
+const baseStyles = {
+  button: (kind: string, size: string) => ({
+    fontWeight: '500',
+    borderRadius: '5px',
+    marginLeft: '10px',
     padding:
-      (kind === 'primary' && '10px 40px') ||
-      (kind === 'secondary' && '8px 38px'),
+      (size === 'large' && kind === 'primary' && '10px 40px') ||
+      (size === 'large' && kind === 'secondary' && '8px 34px') ||
+      (size === 'large' && kind === 'tertiary' && '8px 34px') ||
+      // To Do: Add other sizes and kinds
+      undefined,
     border:
       (kind === 'primary' && 'none') ||
-      (kind === 'secondary' && `1px solid ${colors.primary}`),
-    borderRadius: '5px',
-    color: (kind === 'primary' && 'black') || (kind === 'secondary' && 'white'),
+      (kind === 'secondary' &&
+        `3px solid color-mix(in srgb, ${colors.primary} 50%, white)`) ||
+      (kind === 'tertiary' && `1px solid ${colors.tertiary}`) ||
+      undefined,
+    color:
+      (kind === 'primary' && 'black') ||
+      (kind === 'tertiary' && 'black') ||
+      (kind === 'secondary' && 'white') ||
+      'inherit',
     backgroundColor:
       (kind === 'primary' &&
         `color-mix(in srgb, ${colors.secondary} 85%, white)`) ||
       (kind === 'secondary' &&
-        `color-mix(in srgb, ${colors.primary} 80%, white)`),
-    fontWeight: '500',
-    marginRight: '10px',
-    boxShadow: {
-      default: 'inherit',
-      ':hover': `0 0 3px black`
+        `color-mix(in srgb, ${colors.primary} 75%, black)`) ||
+      undefined,
+    '&:hover': {
+      boxShadow: `0 0 3px black`
     }
   })
-});
+};

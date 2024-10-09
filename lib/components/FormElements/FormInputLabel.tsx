@@ -1,17 +1,16 @@
 import { ReactNode } from 'react';
-import * as stylex from '@stylexjs/stylex';
-import { StyleXStyles } from '@stylexjs/stylex';
+import { CSSObject } from '@emotion/react';
 
 type Props = {
   position: 'left' | 'right' | 'above' | 'below';
   name: string;
   label?: string | ReactNode;
   className?: {
-    label?: StyleXStyles;
-    above?: StyleXStyles;
-    below?: StyleXStyles;
-    left?: StyleXStyles;
-    right?: StyleXStyles;
+    label?: CSSObject;
+    above?: CSSObject;
+    below?: CSSObject;
+    left?: CSSObject;
+    right?: CSSObject;
   };
 };
 
@@ -25,12 +24,12 @@ export const FormInputLabel: React.FC<Props> = ({
     case 'left':
       return (
         <label
-          {...stylex.props(
+          css={[
             baseStyles.label,
             baseStyles.left,
             className && className.label,
             className && className.left
-          )}
+          ]}
           htmlFor={name}
         >
           {label}
@@ -40,12 +39,12 @@ export const FormInputLabel: React.FC<Props> = ({
       return (
         <label
           htmlFor={name}
-          {...stylex.props(
+          css={[
             baseStyles.label,
             baseStyles.right,
             className && className.label,
             className && className.right
-          )}
+          ]}
         >
           {label}
         </label>
@@ -53,12 +52,12 @@ export const FormInputLabel: React.FC<Props> = ({
     case 'above':
       return (
         <label
-          {...stylex.props(
+          css={[
             baseStyles.label,
             baseStyles.above,
             className && className.label,
             className && className.above
-          )}
+          ]}
           htmlFor={name}
         >
           {label}
@@ -68,12 +67,12 @@ export const FormInputLabel: React.FC<Props> = ({
       return (
         <label
           htmlFor={name}
-          {...stylex.props(
+          css={[
             baseStyles.label,
             baseStyles.below,
             className && className.label,
             className && className.below
-          )}
+          ]}
         >
           {label}
         </label>
@@ -81,7 +80,7 @@ export const FormInputLabel: React.FC<Props> = ({
   }
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   label: {
     fontWeight: '500'
     // position: 'relative'
@@ -98,4 +97,4 @@ const baseStyles = stylex.create({
     marginLeft: '10px'
   },
   below: { marginTop: '7px' }
-});
+};

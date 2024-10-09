@@ -1,13 +1,12 @@
 import React, { FormEventHandler, ReactNode } from 'react';
-import * as stylex from '@stylexjs/stylex';
-import type { StyleXStyles } from '@stylexjs/stylex';
-import { colors } from '../../styling/tokens.stylex';
+import { colors } from '../../styling/globalStyles';
+import { CSSObject } from '@emotion/react';
 
 type FormProps = {
   children?: ReactNode;
   onSubmit?: FormEventHandler;
   className?: {
-    formWrapper?: StyleXStyles;
+    formWrapper?: CSSObject;
   };
 };
 
@@ -19,10 +18,7 @@ export const Form = ({ children, onSubmit, className }: FormProps) => {
 
   return (
     <form
-      {...stylex.props(
-        baseStyles.formWrapper,
-        className && className.formWrapper
-      )}
+      css={[baseStyles.formWrapper, className?.formWrapper]}
       onSubmit={handleOnSubmit}
     >
       {children}
@@ -30,10 +26,11 @@ export const Form = ({ children, onSubmit, className }: FormProps) => {
   );
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   formWrapper: {
     backgroundColor: `color-mix(in srgb, ${colors.primary} 75%, white)`,
     borderRadius: '6px',
-    padding: '20px'
+    padding: '20px',
+    width: '100%'
   }
-});
+};

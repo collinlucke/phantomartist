@@ -1,7 +1,6 @@
 import { HTMLInputTypeAttribute, ReactNode } from 'react';
 import { FormInputLabel } from './FormInputLabel';
-import { StyleXStyles } from '@stylexjs/stylex';
-import * as stylex from '@stylexjs/stylex';
+import { CSSObject } from '@emotion/react';
 
 type FormTextInputProps = {
   label?: string | ReactNode;
@@ -11,14 +10,15 @@ type FormTextInputProps = {
   value?: string;
   readonly?: boolean;
   className?: {
-    input?: StyleXStyles;
-    inputWrapper?: StyleXStyles;
+    input?: CSSObject;
+    inputWrapper?: CSSObject;
+
     // For <FormInputLabel>
-    label?: StyleXStyles;
-    above?: StyleXStyles;
-    below?: StyleXStyles;
-    left?: StyleXStyles;
-    right?: StyleXStyles;
+    label?: CSSObject;
+    above?: CSSObject;
+    below?: CSSObject;
+    left?: CSSObject;
+    right?: CSSObject;
   };
 
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -39,12 +39,7 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
   };
 
   return (
-    <div
-      {...stylex.props(
-        baseStyles.inputWrapper(labelPos),
-        className && className.inputWrapper
-      )}
-    >
+    <div css={[baseStyles.inputWrapper(labelPos), className?.inputWrapper]}>
       {(label && labelPos === 'left') || labelPos === 'above' ? (
         <FormInputLabel position={labelPos} name={name} label={label} />
       ) : (
@@ -52,11 +47,11 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
       )}
 
       <input
-        {...stylex.props(
+        css={[
           baseStyles.input,
           readonly && baseStyles.readonly,
           className && className.input
-        )}
+        ]}
         value={value || ''}
         type={type}
         name={name}
@@ -78,12 +73,14 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
   );
 };
 
-const baseStyles = stylex.create({
-  inputWrapper: labelPos => ({
+const baseStyles = {
+  inputWrapper: (labelPos: string) => ({
     marginBottom: '20px',
     display: 'flex',
     flexDirection:
-      labelPos === 'above' || labelPos === 'below' ? 'column' : 'row'
+      labelPos === 'above' || labelPos === 'below'
+        ? ('column' as 'column')
+        : ('row' as 'row')
   }),
   input: {
     border: 'none',
@@ -96,4 +93,4 @@ const baseStyles = stylex.create({
     outline: 'none',
     padding: 0
   }
-});
+};

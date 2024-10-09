@@ -1,13 +1,12 @@
 import React from 'react';
-import { colors } from '../../styling/tokens.stylex';
-import * as stylex from '@stylexjs/stylex';
-import type { StyleXStyles } from '@stylexjs/stylex';
+import { colors } from '../../styling/globalStyles';
+import { CSSObject } from '@emotion/react';
 
 type ListItemProps = {
   children?: JSX.Element;
   className?: {
-    li: StyleXStyles;
-    liHover: StyleXStyles;
+    li: CSSObject;
+    liHover: CSSObject;
   };
   useHover?: boolean;
 };
@@ -19,19 +18,19 @@ export const ListItem: React.FC<ListItemProps> = ({
 }) => {
   return (
     <li
-      {...stylex.props(
+      css={[
         baseStyles.li,
-        useHover && baseStyles.liHover,
         className && className.li,
+        useHover && baseStyles.liHover,
         className && useHover && className.liHover
-      )}
+      ]}
     >
       {children}
     </li>
   );
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   li: {
     borderRadius: '6px',
     marginBottom: '10px',
@@ -43,4 +42,4 @@ const baseStyles = stylex.create({
       boxShadow: `0 0 7px color-mix(in srgb-linear, ${colors.tertiary} 30%, black)`
     }
   }
-});
+};

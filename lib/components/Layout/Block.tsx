@@ -1,20 +1,26 @@
+import { CSSObject } from '@emotion/react';
 import { ReactNode } from 'react';
-import { StyleXStyles } from '@stylexjs/stylex';
-import * as stylex from '@stylexjs/stylex';
 
 type BlockProps = {
   children?: ReactNode;
-  className?: StyleXStyles;
+  className?: {
+    block?: CSSObject;
+  };
 };
 
 export const Block: React.FC<BlockProps> = ({ children, className }) => {
-  return <div {...stylex.props(baseStyles.block, className)}>{children}</div>;
+  return (
+    <div css={[baseStyles.block, className?.block]} className="pa-block">
+      {children}
+    </div>
+  );
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   block: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignSelf: 'end'
   }
-});
+};

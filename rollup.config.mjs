@@ -1,9 +1,9 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
-import stylexPlugin from '@stylexjs/rollup-plugin';
 import external from 'rollup-plugin-peer-deps-external';
 import packageJson from './package.json' with { type: 'json' };
+import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 
 export default [
@@ -30,20 +30,14 @@ export default [
       resolve(),
       commonjs(),
       external(),
-      stylexPlugin({
-        useLayers: true,
-        dev: true,
-        classNamePrefix: 'x-',
-        unstable_moduleResolution: {
-          type: 'commonJS',
-          rootDir: './lib',
-          themeFileExtensions: ['.css']
-        }
+      babel({
+        babelHelpers: 'bundled',
+        plugins: ['@emotion/babel-plugin'],
       }),
       postcss({
         extensions: ['.css']
       })
     ],
-    external: ['react', 'react-dom', 'stylex']
+    external: ['react', 'react-dom']
   }
 ];

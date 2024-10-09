@@ -1,16 +1,15 @@
-import * as stylex from '@stylexjs/stylex';
-import { StyleXStyles } from '@stylexjs/stylex';
+import { CSSObject } from '@emotion/react';
 import { ReactNode } from 'react';
 
 type MainProps = {
   children?: ReactNode;
-  className?: StyleXStyles;
+  className?: CSSObject;
 };
 
 export const Main: React.FC<MainProps> = ({ children, className }) => {
-  return <main {...stylex.props(baseStyles.page, className)}>{children}</main>;
+  return <main css={[baseStyles.main, className?.main]}>{children}</main>;
 };
 
-const baseStyles = stylex.create({
-  page: {}
-});
+const baseStyles = {
+  main: {}
+};

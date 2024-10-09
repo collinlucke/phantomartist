@@ -18,6 +18,7 @@
     "typeRoots": ["./dist/index.d.ts"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "jsxImportSource": "@emotion/react",
 
     /* Linting */
     "strict": true,

@@ -1,7 +1,6 @@
 import { ReactNode, useRef, useLayoutEffect } from 'react';
 import { FormInputLabel } from './FormInputLabel';
-import { StyleXStyles } from '@stylexjs/stylex';
-import * as stylex from '@stylexjs/stylex';
+import { CSSObject } from '@emotion/react';
 
 type FormTextAreaProps = {
   label?: string | ReactNode;
@@ -12,14 +11,14 @@ type FormTextAreaProps = {
   readonly?: boolean;
   autoResize?: boolean;
   className?: {
-    textArea: StyleXStyles;
-    textAreaWrapper: StyleXStyles;
+    textArea: CSSObject;
+    textAreaWrapper: CSSObject;
     // For <FormInputLabel>
-    label: StyleXStyles;
-    above: StyleXStyles;
-    below: StyleXStyles;
-    left: StyleXStyles;
-    right: StyleXStyles;
+    label: CSSObject;
+    above: CSSObject;
+    below: CSSObject;
+    left: CSSObject;
+    right: CSSObject;
   };
 
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -53,23 +52,18 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
   }, [value]);
 
   return (
-    <div
-      {...stylex.props(
-        baseStyles.textAreaWrapper,
-        className && className.textAreaWrapper
-      )}
-    >
+    <div css={[baseStyles.textAreaWrapper, className?.textAreaWrapper]}>
       {labelPos === 'left' || labelPos === 'above' ? (
         <FormInputLabel position={labelPos} name={name} label={label} />
       ) : (
         ''
       )}
       <textarea
-        {...stylex.props(
+        css={[
           baseStyles.textArea,
           readonly && baseStyles.readonly,
           className && className.textArea
-        )}
+        ]}
         value={value}
         name={name}
         id={name}
@@ -91,7 +85,7 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
   );
 };
 
-const baseStyles = stylex.create({
+const baseStyles = {
   textAreaWrapper: {
     marginBottom: '20px'
   },
@@ -101,7 +95,7 @@ const baseStyles = stylex.create({
     borderRadius: '5px',
     width: '100%',
     minHeight: '50px',
-    resize: 'none',
+    resize: 'none' as 'none',
     overflow: 'hidden'
   },
   readonly: {
@@ -109,4 +103,4 @@ const baseStyles = stylex.create({
     outline: 'none',
     padding: 0
   }
-});
+};
