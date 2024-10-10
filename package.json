@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "version": "0.0.26",
+  "version": "0.0.27",
   "type": "module",
   "module": "./dist/esm/index.esm.js",
   "main": "./dist/cjs/index.cjs.js",
@@ -18,7 +18,10 @@
       "types": "./dist/esm/index.d.ts"
     }
   },
-  "repository": "https://github.com/collinlucke/phantomartist",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/collinlucke/phantomartist.git"
+  },
   "scripts": {
     "build": "NODE_OPTIONS='--trace-warnings' rollup -c",
     "dev": "rollup -c -w",
