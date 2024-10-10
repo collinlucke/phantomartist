@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { ModifyProps } from '../../sharedTypes/ModifyProps.types';
-import { colors } from '../../styling/globalStyles';
+import { colors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type HeaderModifyProps = ModifyProps & {

@@ -1,4 +1,5 @@
-import * as stylex from '@stylexjs/stylex';
-import { colors } from './globalStyles';
-
-export const baseTheme = stylex.createTheme(colors, {});
+export const colors = {
+  primary: '#244855',
+  secondary: '#E64833',
+  tertiary: '#FBE9D0'
+};

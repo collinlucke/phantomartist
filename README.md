@@ -25,6 +25,4 @@ Please note that this is still super rough... SUPER rough
 <br/>
 <br/>
 
-Current Stack: JavaScript, TypeScript, React, ~~StyleX~~ Emotion <sup>(Sytlex was too cumbersome)</sup>, React Router (kinda hacky... If I can use `<Link/>`
-in `baphomet-ui`,
-I can probably get rid of this)
+Current Stack: JavaScript, TypeScript, React, Emotion

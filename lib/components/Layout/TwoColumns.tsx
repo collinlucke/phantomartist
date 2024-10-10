@@ -1,10 +1,10 @@
-import { FC, ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 type TwoColumn = {
   left: ReactElement;
   right: ReactElement;
 };
-export const TwoColumn: FC<TwoColumn> = ({ left, right }) => {
+export const TwoColumn: React.FC<TwoColumn> = ({ left, right }) => {
   return (
     <div css={[baseStyles.columnWrapper]}>
       <div css={[baseStyles.column]}>{left}</div>

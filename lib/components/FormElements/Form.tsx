@@ -1,5 +1,5 @@
-import React, { FormEventHandler, ReactNode } from 'react';
-import { colors } from '../../styling/globalStyles';
+import { FormEventHandler, ReactNode } from 'react';
+import { colors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type FormProps = {

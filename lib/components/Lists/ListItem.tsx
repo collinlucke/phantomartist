@@ -1,5 +1,4 @@
-import React from 'react';
-import { colors } from '../../styling/globalStyles';
+import { colors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListItemProps = {
