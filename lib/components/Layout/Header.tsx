@@ -1,15 +1,15 @@
 import { ReactElement } from 'react';
 import { ModifyProps } from '../../sharedTypes/ModifyProps.types';
-import { colors } from '../../styling/baseTheme';
+import { baseTheme } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type HeaderModifyProps = ModifyProps & {
   children: ReactElement;
   useInnerWidth?: boolean;
   isHeading?: boolean;
+  propStyles?: CSSObject;
   className?: {
     header?: CSSObject;
-    isHeading?: CSSObject;
     useInnerWidth?: CSSObject;
     innerWidth?: CSSObject;
   };
@@ -17,18 +17,11 @@ type HeaderModifyProps = ModifyProps & {
 
 export const Header: React.FC<HeaderModifyProps> = ({
   children,
-  className
+  className,
+  propStyles
 }) => {
   return (
-    <header
-      css={[
-        baseStyles.header,
-        className && className.header,
-        className && className.useInnerWidth,
-        className && className.isHeading
-      ]}
-      className="pa-header"
-    >
+    <header css={[baseStyles.header, propStyles]} className="pa-header">
       {children}
     </header>
   );
@@ -39,12 +32,13 @@ const baseStyles = {
     display: 'flex',
     marginBottom: '25px',
     padding: '20px 0',
-    color: colors.secondary,
+    color: baseTheme.colors.secondary,
     justifyContent: 'center',
     height: '135px',
-    backgroundColor: colors.tertiary
-  },
-  innerWidth: {
-    alignSelf: 'center'
+    borderBottom: `2px solid ${baseTheme.colors.primary}`,
+    backgroundColor: baseTheme.colors.tertiaryLight,
+    '@media (max-width: 580px)': {
+      height: '75px'
+    }
   }
 };

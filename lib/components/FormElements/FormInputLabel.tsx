@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { CSSObject } from '@emotion/react';
+import { ClassNames, CSSObject } from '@emotion/react';
 
 type Props = {
   position: 'left' | 'right' | 'above' | 'below';
@@ -27,8 +27,8 @@ export const FormInputLabel: React.FC<Props> = ({
           css={[
             baseStyles.label,
             baseStyles.left,
-            className && className.label,
-            className && className.left
+            className?.label,
+            className?.left
           ]}
           htmlFor={name}
         >
@@ -83,7 +83,6 @@ export const FormInputLabel: React.FC<Props> = ({
 const baseStyles = {
   label: {
     fontWeight: '500'
-    // position: 'relative'
   },
   above: {
     marginBottom: '5px'

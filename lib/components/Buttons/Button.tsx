@@ -1,11 +1,12 @@
 import { MouseEventHandler, ReactElement } from 'react';
-import { colors } from '../../styling/baseTheme';
-import { CSSObject } from '@emotion/react';
+import { CSSObject, useTheme } from '@emotion/react';
+import { ConsumerThemeTypes } from '../../styling/consumerTheme.types';
+import { baseTheme } from '../../styling/baseTheme';
 
 type Button = {
   children: ReactElement | string;
   className?: {
-    button?: CSSObject;
+    buttons?: CSSObject;
   };
   type?: HTMLButtonElement['type'];
   kind?: 'primary' | 'secondary' | 'tertiary';
@@ -22,51 +23,24 @@ export const Button: React.FC<Button> = ({
   size = 'large',
   onClick
 }) => {
+  const consumerTheme = useTheme() as ConsumerThemeTypes;
+
   const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
     onClick?.(e);
   };
+
   return (
     <button
       type={type}
       onClick={onClickHandler}
-      css={[baseStyles.button(kind, size), className && className.button]}
+      css={[
+        baseTheme.buttons({ kind, size }),
+        consumerTheme?.buttons && consumerTheme.buttons({ kind, size }),
+        className?.buttons
+      ]}
       className={`pa-button ${kind} ${size}`}
     >
       {children}
     </button>
   );
-};
-
-const baseStyles = {
-  button: (kind: string, size: string) => ({
-    fontWeight: '500',
-    borderRadius: '5px',
-    marginLeft: '10px',
-    padding:
-      (size === 'large' && kind === 'primary' && '10px 40px') ||
-      (size === 'large' && kind === 'secondary' && '8px 34px') ||
-      (size === 'large' && kind === 'tertiary' && '8px 34px') ||
-      // To Do: Add other sizes and kinds
-      undefined,
-    border:
-      (kind === 'primary' && 'none') ||
-      (kind === 'secondary' &&
-        `3px solid color-mix(in srgb, ${colors.primary} 50%, white)`) ||
-      (kind === 'tertiary' && `1px solid ${colors.tertiary}`) ||
-      undefined,
-    color:
-      (kind === 'primary' && 'black') ||
-      (kind === 'tertiary' && 'black') ||
-      (kind === 'secondary' && 'white') ||
-      'inherit',
-    backgroundColor:
-      (kind === 'primary' &&
-        `color-mix(in srgb, ${colors.secondary} 85%, white)`) ||
-      (kind === 'secondary' &&
-        `color-mix(in srgb, ${colors.primary} 75%, black)`) ||
-      undefined,
-    '&:hover': {
-      boxShadow: `0 0 3px black`
-    }
-  })
 };

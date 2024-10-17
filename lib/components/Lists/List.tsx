@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { colors } from '../../styling/baseTheme';
+import { baseTheme } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListProps = {
@@ -8,17 +8,24 @@ type ListProps = {
 };
 
 export const List: React.FC<ListProps> = ({ className, children }) => {
-  return <ul css={[baseStyles.ul, className?.ul]}>{children}</ul>;
+  return (
+    <ul css={[baseStyles.ul, className?.ul]} className="pa-list">
+      {children}
+    </ul>
+  );
 };
 
 const baseStyles = {
   ul: {
     borderRadius: '6px',
-    backgroundColor: `color-mix(in srgb, ${colors.primary} 35%, white)`,
+    backgroundColor: baseTheme.colors.tertiaryLight,
     minHeight: '5px',
     fontWeight: '500',
     padding: '20px',
     margin: 0,
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column' as 'column',
+    listStyleType: 'none'
   }
 };

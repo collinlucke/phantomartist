@@ -3,3 +3,4 @@ export { InnerWidth } from './InnerWidth';
 export { Header } from './Header';
 export { Block } from './Block';
 export { TwoColumn } from './TwoColumns';
+export { Image } from './Image';

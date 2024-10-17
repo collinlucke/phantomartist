@@ -26,21 +26,22 @@ const baseStyles = {
   innerWidth: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'end',
-    '@media (max-width: 769px)': {
-      width: 'calc(100% - 40px)'
+    flexDirection: 'column' as 'column',
+    width: 'calc(100% - 2 * 20px)',
+    '@media (min-width: 634px)': {
+      width: '594px'
     },
-    '@media (min-width: 770px)': {
-      minWidth: '720px'
+    '@media (min-width: 720px)': {
+      width: 'calc(100% - 126px)'
     },
-    '@media (min-width: 920px)': {
-      minWidth: '870px'
+    '@media (min-width: 1000px)': {
+      width: '874px'
     },
-    '@media (min-width: 1024px)': {
-      minWidth: '900px'
+    '@media (min-width: 1100px)': {
+      width: 'calc(100% - 226px)'
     },
-    '@media (min-width: 1200px)': {
-      minWidth: '1024px'
+    '@media (min-width: 1250px)': {
+      width: '1024px'
     }
   }
 };

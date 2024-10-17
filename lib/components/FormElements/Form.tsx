@@ -1,16 +1,17 @@
 import { FormEventHandler, ReactNode } from 'react';
-import { colors } from '../../styling/baseTheme';
+import { baseTheme } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type FormProps = {
   children?: ReactNode;
   onSubmit?: FormEventHandler;
+  role?: string;
   className?: {
-    formWrapper?: CSSObject;
+    form?: CSSObject;
   };
 };
 
-export const Form = ({ children, onSubmit, className }: FormProps) => {
+export const Form = ({ children, role, className, onSubmit }: FormProps) => {
   const handleOnSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit?.(e);
@@ -18,8 +19,9 @@ export const Form = ({ children, onSubmit, className }: FormProps) => {
 
   return (
     <form
-      css={[baseStyles.formWrapper, className?.formWrapper]}
+      css={[baseStyles.form, className?.form]}
       onSubmit={handleOnSubmit}
+      role={role}
     >
       {children}
     </form>
@@ -27,8 +29,8 @@ export const Form = ({ children, onSubmit, className }: FormProps) => {
 };
 
 const baseStyles = {
-  formWrapper: {
-    backgroundColor: `color-mix(in srgb, ${colors.primary} 75%, white)`,
+  form: {
+    backgroundColor: baseTheme.colors.tertiaryLight,
     borderRadius: '6px',
     padding: '20px',
     width: '100%'

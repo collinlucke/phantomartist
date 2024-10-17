@@ -8,7 +8,7 @@ import postcss from 'rollup-plugin-postcss';
 
 export default [
   {
-    input: 'lib/index.ts',
+    input: 'lib/index.tsx',
     output: [
       {
         name: 'phantomartist-cjs',

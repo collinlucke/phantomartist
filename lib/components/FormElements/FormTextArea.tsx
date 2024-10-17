@@ -1,6 +1,7 @@
 import { ReactNode, useRef, useLayoutEffect } from 'react';
 import { FormInputLabel } from './FormInputLabel';
 import { CSSObject } from '@emotion/react';
+import { baseTheme } from '../../styling/baseTheme';
 
 type FormTextAreaProps = {
   label?: string | ReactNode;
@@ -11,14 +12,14 @@ type FormTextAreaProps = {
   readonly?: boolean;
   autoResize?: boolean;
   className?: {
-    textArea: CSSObject;
-    textAreaWrapper: CSSObject;
+    textArea?: CSSObject;
+    textAreaWrapper?: CSSObject;
     // For <FormInputLabel>
-    label: CSSObject;
-    above: CSSObject;
-    below: CSSObject;
-    left: CSSObject;
-    right: CSSObject;
+    label?: CSSObject;
+    above?: CSSObject;
+    below?: CSSObject;
+    left?: CSSObject;
+    right?: CSSObject;
   };
 
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -54,7 +55,15 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
   return (
     <div css={[baseStyles.textAreaWrapper, className?.textAreaWrapper]}>
       {labelPos === 'left' || labelPos === 'above' ? (
-        <FormInputLabel position={labelPos} name={name} label={label} />
+        <FormInputLabel
+          position={labelPos}
+          name={name}
+          label={label}
+          className={{
+            [labelPos]: className?.[labelPos],
+            label: className?.label
+          }}
+        />
       ) : (
         ''
       )}
@@ -76,7 +85,10 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
           position={labelPos}
           name={name}
           label={label}
-          className={className}
+          className={{
+            [labelPos]: className?.[labelPos],
+            label: className?.label
+          }}
         />
       ) : (
         ''
@@ -90,7 +102,7 @@ const baseStyles = {
     marginBottom: '20px'
   },
   textArea: {
-    border: 'none',
+    border: `1px solid ${baseTheme.colors.tertiary}`,
     padding: '10px',
     borderRadius: '5px',
     width: '100%',
@@ -101,6 +113,7 @@ const baseStyles = {
   readonly: {
     backgroundColor: 'transparent',
     outline: 'none',
-    padding: 0
+    padding: 0,
+    border: 'none'
   }
 };

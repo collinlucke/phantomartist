@@ -11,5 +11,8 @@ export const Main: React.FC<MainProps> = ({ children, className }) => {
 };
 
 const baseStyles = {
-  main: {}
+  main: {
+    display: 'flex',
+    justifyContent: 'center'
+  }
 };

@@ -7,6 +7,9 @@ type Search = {
   searchTerm?: string;
   searchLabel?: string;
   resultsCount?: number;
+  buttonSize?: 'large' | 'medium' | 'small';
+  inputSize?: 'large' | 'medium' | 'small';
+  useSearchButton?: boolean;
   className?: {
     searchWrapper?: CSSObject;
   };
@@ -20,6 +23,9 @@ export const Search: React.FC<Search> = ({
   searchLabel,
   resultsCount,
   className,
+  buttonSize,
+  inputSize,
+  useSearchButton,
   onSearch,
   setSearchTerm
 }) => {
@@ -29,23 +35,32 @@ export const Search: React.FC<Search> = ({
   const setSearchTermHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e);
   };
-
   return (
-    <div css={[baseStyles.searchWrapper, className?.searchWrapper]}>
-      <div>Results: {resultsCount}</div>
-      <Form className={baseStyles} onSubmit={onSearchHandler}>
+    <div
+      css={[baseStyles.searchWrapper, className?.searchWrapper]}
+      className="pa-search-wrapper"
+    >
+      <div css={baseStyles.results}>Results: {resultsCount}</div>
+      <Form className={baseStyles} onSubmit={onSearchHandler} role="search">
         <FormTextInput
           type="search"
           value={searchTerm}
           name="searchTerm"
           labelPos="above"
-          label={searchLabel || 'Search'}
+          placeholder={searchLabel || 'Search'}
           className={baseStyles}
           onChange={setSearchTermHandler}
+          size={inputSize}
         />
-        <Button className={{ button: baseStyles.button }} type="submit">
-          Search
-        </Button>
+        {useSearchButton && (
+          <Button
+            size={buttonSize}
+            className={{ buttons: baseStyles.button }}
+            type="submit"
+          >
+            Search
+          </Button>
+        )}
       </Form>
     </div>
   );
@@ -56,14 +71,27 @@ const baseStyles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'end',
-    marginBottom: '20px'
+    marginBottom: '20px',
+    '@media (max-width: 580px)': {
+      flexDirection: 'column' as 'column'
+    }
   },
-  formWrapper: {
+  results: {
+    alignSelf: 'end',
+    '@media (max-width: 580px)': {
+      alignSelf: 'start'
+    }
+  },
+  form: {
     display: 'flex',
     justifyContent: 'end',
     alignItems: 'flex-end',
     flexWrap: 'wrap' as 'wrap',
     width: 'inherit',
+    border: 'none',
+    '@media (max-width: 580px)': {
+      width: '100%'
+    },
 
     // Kill Form defaults
     backgroundColor: 'transparent',
@@ -73,6 +101,7 @@ const baseStyles = {
     marginLeft: '10px'
   },
   inputWrapper: {
-    margin: 0
+    margin: 0,
+    flex: 1
   }
 };
