@@ -27,4 +27,4 @@ dist-ssr
 
 # Temporary Hidems
 unused-*
-dist
+/dist
