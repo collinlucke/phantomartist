@@ -32,6 +32,6 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@collinlucke'
       - run: npm publish
-        # env:
+        env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GIT_REGISTRY_TOKEN: ${{secrets.GIT_REGISTRY_TOKEN}}
