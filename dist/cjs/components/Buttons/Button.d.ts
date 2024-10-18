@@ -3,7 +3,7 @@ import { CSSObject } from '@emotion/react';
 type Button = {
     children: ReactElement | string;
     className?: {
-        buttons?: CSSObject;
+        button?: CSSObject;
     };
     type?: HTMLButtonElement['type'];
     kind?: 'primary' | 'secondary' | 'tertiary';

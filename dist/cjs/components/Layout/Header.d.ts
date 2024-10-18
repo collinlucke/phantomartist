@@ -5,7 +5,6 @@ type HeaderModifyProps = ModifyProps & {
     children: ReactElement;
     useInnerWidth?: boolean;
     isHeading?: boolean;
-    propStyles?: CSSObject;
     className?: {
         header?: CSSObject;
         useInnerWidth?: CSSObject;

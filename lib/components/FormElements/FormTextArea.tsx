@@ -1,7 +1,7 @@
 import { ReactNode, useRef, useLayoutEffect } from 'react';
 import { FormInputLabel } from './FormInputLabel';
 import { CSSObject } from '@emotion/react';
-import { baseTheme } from '../../styling/baseTheme';
+import { baseColors } from '../../styling/baseTheme';
 
 type FormTextAreaProps = {
   label?: string | ReactNode;
@@ -102,7 +102,7 @@ const baseStyles = {
     marginBottom: '20px'
   },
   textArea: {
-    border: `1px solid ${baseTheme.colors.tertiary}`,
+    border: `1px solid ${baseColors.tertiary}`,
     padding: '10px',
     borderRadius: '5px',
     width: '100%',

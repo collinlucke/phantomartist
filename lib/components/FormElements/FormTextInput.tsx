@@ -1,7 +1,7 @@
 import { HTMLInputTypeAttribute, ReactNode } from 'react';
 import { FormInputLabel } from './FormInputLabel';
 import { CSSObject } from '@emotion/react';
-import { baseTheme } from '../../styling/baseTheme';
+import { baseColors } from '../../styling/baseTheme';
 
 type FormTextInputProps = {
   label?: string | ReactNode;
@@ -95,7 +95,7 @@ const baseStyles = {
   }),
   input: (size: string) => {
     return {
-      border: `1px solid ${baseTheme.colors.tertiary}`,
+      border: `1px solid ${baseColors.tertiary}`,
       padding:
         (size === 'large' && '10px') ||
         (size === 'medium' && '8px') ||

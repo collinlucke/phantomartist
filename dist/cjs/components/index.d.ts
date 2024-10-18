@@ -4,3 +4,4 @@ export * from './Layout';
 export * from './Lists';
 export * from './Navigation';
 export * from './Search';
+export * from './Modals';

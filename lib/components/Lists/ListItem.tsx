@@ -1,4 +1,4 @@
-import { baseTheme } from '../../styling/baseTheme';
+import { baseColors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListItemProps = {
@@ -33,14 +33,14 @@ export const ListItem: React.FC<ListItemProps> = ({
 const baseStyles = {
   li: {
     borderRadius: '6px',
-    border: `1px solid ${baseTheme.colors.secondary}`,
+    border: `1px solid ${baseColors.secondary}`,
     marginBottom: '10px',
     padding: '10px',
-    color: baseTheme.colors.secondary
+    color: baseColors.secondary
   },
   liHover: {
     ':hover': {
-      boxShadow: `0 0 7px ${baseTheme.colors.secondaryDark}`
+      boxShadow: `0 0 7px ${baseColors.secondaryDark}`
     }
   }
 };

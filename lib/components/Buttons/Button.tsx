@@ -6,7 +6,7 @@ import { baseTheme } from '../../styling/baseTheme';
 type Button = {
   children: ReactElement | string;
   className?: {
-    buttons?: CSSObject;
+    button?: CSSObject;
   };
   type?: HTMLButtonElement['type'];
   kind?: 'primary' | 'secondary' | 'tertiary';
@@ -34,9 +34,9 @@ export const Button: React.FC<Button> = ({
       type={type}
       onClick={onClickHandler}
       css={[
-        baseTheme.buttons({ kind, size }),
-        consumerTheme?.buttons && consumerTheme.buttons({ kind, size }),
-        className?.buttons
+        baseTheme.button({ kind, size }),
+        consumerTheme?.button && consumerTheme.button({ kind, size }),
+        className?.button
       ]}
       className={`pa-button ${kind} ${size}`}
     >
