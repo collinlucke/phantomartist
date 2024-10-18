@@ -55,7 +55,7 @@ export const Search: React.FC<Search> = ({
         {useSearchButton && (
           <Button
             size={buttonSize}
-            className={{ buttons: baseStyles.button }}
+            className={{ button: baseStyles.button }}
             type="submit"
           >
             Search

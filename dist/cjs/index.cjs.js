@@ -407,7 +407,7 @@ const Search = ({ searchTerm, searchLabel, resultsCount, className, buttonSize, 
     const setSearchTermHandler = (e) => {
         setSearchTerm(e);
     };
-    return (jsxRuntime.jsxs("div", { css: [baseStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [jsxRuntime.jsxs("div", { css: baseStyles.results, children: ["Results: ", resultsCount] }), jsxRuntime.jsxs(Form, { className: baseStyles, onSubmit: onSearchHandler, role: "search", children: [jsxRuntime.jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: baseStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsxRuntime.jsx(Button, { size: buttonSize, className: { buttons: baseStyles.button }, type: "submit", children: "Search" }))] })] }));
+    return (jsxRuntime.jsxs("div", { css: [baseStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [jsxRuntime.jsxs("div", { css: baseStyles.results, children: ["Results: ", resultsCount] }), jsxRuntime.jsxs(Form, { className: baseStyles, onSubmit: onSearchHandler, role: "search", children: [jsxRuntime.jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: baseStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsxRuntime.jsx(Button, { size: buttonSize, className: { button: baseStyles.button }, type: "submit", children: "Search" }))] })] }));
 };
 const baseStyles = {
     searchWrapper: {
