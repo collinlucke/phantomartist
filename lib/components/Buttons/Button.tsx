@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { MouseEventHandler, ReactElement } from 'react';
 import { CSSObject, useTheme } from '@emotion/react';
 import { ConsumerThemeTypes } from '../../styling/consumerTheme.types';
@@ -9,8 +10,10 @@ type Button = {
     button?: CSSObject;
   };
   type?: HTMLButtonElement['type'];
-  kind?: 'primary' | 'secondary' | 'tertiary';
+  kind?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
   size?: 'large' | 'medium' | 'small';
+  iconOnly?: boolean;
+  icon?: ReactElement | string;
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
@@ -21,6 +24,8 @@ export const Button: React.FC<Button> = ({
   type,
   kind = 'primary',
   size = 'large',
+  icon,
+  iconOnly,
   onClick
 }) => {
   const consumerTheme = useTheme() as ConsumerThemeTypes;
@@ -34,12 +39,13 @@ export const Button: React.FC<Button> = ({
       type={type}
       onClick={onClickHandler}
       css={[
-        baseTheme.button({ kind, size }),
-        consumerTheme?.button && consumerTheme.button({ kind, size }),
+        baseTheme.button({ kind, size, iconOnly }),
+        consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
         className?.button
       ]}
       className={`pa-button ${kind} ${size}`}
     >
+      {icon}
       {children}
     </button>
   );

@@ -15,8 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm ci
-      - run: npm run build
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm build
 
   publish-gpr:
     needs: build
@@ -31,7 +31,7 @@ jobs:
           node-version: 22
           registry-url: https://npm.pkg.github.com/
           scope: '@collinlucke'
-      - run: npm publish
+      - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           GIT_REGISTRY_TOKEN: ${{secrets.GIT_REGISTRY_TOKEN}}

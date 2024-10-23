@@ -36,7 +36,8 @@ const baseStyles = {
     border: `1px solid ${baseColors.secondary}`,
     marginBottom: '10px',
     padding: '10px',
-    color: baseColors.secondary
+    color: baseColors.secondary,
+    display: 'flex'
   },
   liHover: {
     ':hover': {
