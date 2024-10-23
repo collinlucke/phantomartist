@@ -4,6 +4,7 @@
 
 ### Added
 
+- Added `iconoir` package
 - Rudimentary icon support for `<Button>`
 - "Close" functionality in `<Modal>`
 
@@ -11,6 +12,7 @@
 
 - Base styles on `<ListItem>`
 - General `baseTheme` changes
+- Made changes to `workflow` file
 
 ### Removed
 
