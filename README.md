@@ -15,14 +15,13 @@ Please note that this is still super rough... SUPER rough
 
 ...maybe someday.
 
-### Stuff to change, do, cogitate on
+### On the roadmap
 
-- Try to get rid of `<NavLink>`/`<PANavLink>`
-- Create model component
-- Work on styles - better contrast would be nice
+- Clean up `baseStyles` - add them to `baseTheme`
+- Introduce accessibility
 - Maybe change the name `phantomartist`
 
 <br/>
 <br/>
 
-Current Stack: JavaScript, TypeScript, React, Emotion
+Current Stack: JavaScript, TypeScript, Vite, Rollup, React, Emotion

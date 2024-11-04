@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { MouseEventHandler, ReactElement } from 'react';
 import { CSSObject } from '@emotion/react';
 type Button = {

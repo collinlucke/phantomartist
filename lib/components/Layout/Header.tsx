@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
-import { ModifyProps } from '../../sharedTypes/ModifyProps.types';
-import { baseColors } from '../../styling/baseTheme';
+import { ModifyPropsTypes } from '../../CustomTypes.types';
+import { baseColors, shadesAndTints } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
-type HeaderModifyProps = ModifyProps & {
+type HeaderModifyProps = ModifyPropsTypes & {
   children: ReactElement;
   useInnerWidth?: boolean;
   isHeading?: boolean;
@@ -34,7 +34,7 @@ const baseStyles = {
     justifyContent: 'center',
     height: '135px',
     borderBottom: `2px solid ${baseColors.primary}`,
-    backgroundColor: baseColors.tertiaryLight,
+    backgroundColor: shadesAndTints.tertiaryLight,
     '@media (max-width: 580px)': {
       height: '75px'
     }

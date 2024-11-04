@@ -1,4 +1,4 @@
-import { baseColors } from '../../styling/baseTheme';
+import { baseColors, shadesAndTints } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListItemProps = {
@@ -41,7 +41,7 @@ const baseStyles = {
   },
   liHover: {
     ':hover': {
-      boxShadow: `0 0 7px ${baseColors.secondaryDark}`
+      boxShadow: `0 0 7px ${shadesAndTints.secondaryDark}`
     }
   }
 };

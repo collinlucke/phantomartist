@@ -1,18 +1,25 @@
-import { CSSObject } from '@emotion/react';
+import { CSSObject, keyframes } from '@emotion/react';
 
 export const baseColors = {
   primary: '#02000d',
-  primaryLight: 'color-mix(in srgb, #02000d, white)',
-  primaryDark: 'color-mix(in srgb, #02000d, black)',
   secondary: '#07203f',
-  secondaryLight: 'color-mix(in srgb, #07203f, white)',
-  secondaryDark: 'color-mix(in srgb, #07203f, black)',
   tertiary: '#f1d2b6',
-  tertiaryLight: '#f8e9db',
-  tertiaryDark: '#79695b',
   accentLight: '#D9AA90',
   accentDark: '#A65e46'
 };
+
+export const shadesAndTints = {
+  primaryLight: `color-mix(in srgb, ${baseColors.primary}, white)`,
+  primaryDark: `color-mix(in srgb, ${baseColors.primary}, color)`,
+  secondaryLight: `color-mix(in srgb, ${baseColors.secondary}, white)`,
+  secondaryDark: `color-mix(in srgb, ${baseColors.secondary}, black)`,
+  tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`,
+  tertiaryDark: `color-mix(in srgb, ${baseColors.tertiary}, black)`
+};
+
+const modalOpen = keyframes`
+  
+`;
 
 export const baseTheme = {
   button: ({
@@ -42,8 +49,8 @@ export const baseTheme = {
         (kind === 'primary' && 'none') ||
         // (kind === 'secondary' &&
         //   `3px solid color-mix(in srgb, ${baseColors.primary} 50%, white)`) ||
-        (kind === 'secondary' && `2px solid ${baseColors.primaryDark}`) ||
-        (kind === 'tertiary' && `3px solid ${baseColors.primaryDark}`) ||
+        (kind === 'secondary' && `2px solid ${shadesAndTints.primaryDark}`) ||
+        (kind === 'tertiary' && `3px solid ${shadesAndTints.primaryDark}`) ||
         (kind === 'ghost' && 'none') ||
         // (kind === 'tertiary' && `1px solid ${baseColors.tertiary}`) ||
         undefined,
@@ -68,7 +75,8 @@ export const baseTheme = {
   buttonGroup: {
     display: 'flex',
     gap: '20px',
-    justifyContent: 'end'
+    justifyContent: 'end',
+    marginTop: '20px'
   },
   img: () => ({
     border: `1px solid ${baseColors.primary}`,
@@ -83,15 +91,17 @@ export const baseTheme = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: baseColors.secondary,
+    // backgroundColor: baseColors.secondary,
+    backgroundColor: `${shadesAndTints.primaryLight}`,
     flexDirection: 'column' as 'column'
   },
   modalContentWrapper: {
-    backgroundColor: baseColors.tertiaryLight,
+    backgroundColor: shadesAndTints.tertiaryLight,
     padding: '20px',
     boxShadow: `0 0 4px black`,
     display: 'flex',
-    flexDirection: 'column' as 'column'
+    flexDirection: 'column' as 'column',
+    width: '400px'
   },
   modalHeading: {
     alignSelf: 'end'

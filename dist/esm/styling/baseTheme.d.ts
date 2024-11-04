@@ -1,16 +1,18 @@
 import { CSSObject } from '@emotion/react';
 export declare const baseColors: {
     primary: string;
-    primaryLight: string;
-    primaryDark: string;
     secondary: string;
-    secondaryLight: string;
-    secondaryDark: string;
     tertiary: string;
-    tertiaryLight: string;
-    tertiaryDark: string;
     accentLight: string;
     accentDark: string;
+};
+export declare const shadesAndTints: {
+    primaryLight: string;
+    primaryDark: string;
+    secondaryLight: string;
+    secondaryDark: string;
+    tertiaryLight: string;
+    tertiaryDark: string;
 };
 export declare const baseTheme: {
     button: ({ kind, size, iconOnly }: {
@@ -22,6 +24,7 @@ export declare const baseTheme: {
         display: string;
         gap: string;
         justifyContent: string;
+        marginTop: string;
     };
     img: () => {
         border: string;
@@ -45,6 +48,7 @@ export declare const baseTheme: {
         boxShadow: string;
         display: string;
         flexDirection: "column";
+        width: string;
     };
     modalHeading: {
         alignSelf: string;

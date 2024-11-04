@@ -1,5 +1,5 @@
 import { FormEventHandler, ReactNode } from 'react';
-import { baseColors } from '../../styling/baseTheme';
+import { baseColors, shadesAndTints } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type FormProps = {
@@ -30,7 +30,7 @@ export const Form = ({ children, role, className, onSubmit }: FormProps) => {
 
 const baseStyles = {
   form: {
-    backgroundColor: baseColors.tertiaryLight,
+    backgroundColor: shadesAndTints.tertiaryLight,
     borderRadius: '6px',
     padding: '20px',
     width: '100%'

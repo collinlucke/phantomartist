@@ -1,6 +1,6 @@
 import { jsxs, jsx } from '@emotion/react/jsx-runtime';
-import { useTheme } from '@emotion/react';
-import { isValidElement, useRef, useLayoutEffect, useState, useEffect } from 'react';
+import { keyframes, useTheme } from '@emotion/react';
+import { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import { XmarkCircle } from 'iconoir-react';
 
 function styleInject(css, ref) {
@@ -28,22 +28,27 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "/* Box sizing rules */\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n/* Prevent font size inflation */\nhtml {\n  -moz-text-size-adjust: none;\n  -webkit-text-size-adjust: none;\n  text-size-adjust: none;\n}\n\n/* Remove default margin in favour of better control in authored CSS */\nbody,\nh1,\nh2,\nh3,\nh4,\np,\nfigure,\nblockquote,\ndl,\ndd {\n  margin-block-end: 0;\n}\n\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\nul,\nol {\n  list-style: none;\n}\n\n/* Set core body defaults */\nbody {\n  min-height: 100vh;\n  line-height: 1.5;\n  margin: 0;\n}\n\n/* Set shorter line heights on headings and interactive elements */\nh1,\nh2,\nh3,\nh4,\nbutton,\ninput,\nlabel {\n  line-height: 1.1;\n}\n\n/* Balance text wrapping on headings */\nh1,\nh2,\nh3,\nh4 {\n  text-wrap: balance;\n}\n\n/* A elements that don't have a class get default styles */\na:not([class]) {\n  text-decoration-skip-ink: auto;\n  color: currentColor;\n}\n\n/* Make images easier to work with */\nimg,\npicture {\n  max-width: 100%;\n  display: block;\n}\n\n/* Inherit fonts for inputs and buttons */\ninput,\nbutton,\ntextarea,\nselect {\n  font-family: inherit;\n  font-size: inherit;\n}\n\n/* Make sure textareas without a rows attribute are not tiny */\ntextarea:not([rows]) {\n  min-height: 5em;\n}\n\n/* Anything that has been anchored to should have extra scroll margin */\n:target {\n  scroll-margin-block: 5ex;\n}\n";
+var css_248z = "/* Box sizing rules */\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n/* Prevent font size inflation */\nhtml {\n  -moz-text-size-adjust: none;\n  -webkit-text-size-adjust: none;\n  text-size-adjust: none;\n}\n\n/* Remove default margin in favour of better control in authored CSS */\nbody,\nh1,\nh2,\nh3,\nh4,\np,\nfigure,\nblockquote,\ndl,\ndd {\n  margin-block-end: 0;\n}\n\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\nul,\nol {\n  list-style: none;\n}\n\n/* Set core body defaults */\nbody {\n  min-height: 100vh;\n  line-height: 1.5;\n  margin: 0;\n}\n\n/* Set shorter line heights on headings and interactive elements */\nh1,\nh2,\nh3,\nh4,\nbutton,\ninput,\nlabel {\n  line-height: 1.1;\n}\n\n/* Balance text wrapping on headings */\nh1,\nh2,\nh3,\nh4 {\n  text-wrap: balance;\n  margin-top: 0px;\n}\n\n/* A elements that don't have a class get default styles */\na:not([class]) {\n  text-decoration-skip-ink: auto;\n  color: currentColor;\n}\n\n/* Make images easier to work with */\nimg,\npicture {\n  max-width: 100%;\n  display: block;\n}\n\n/* Inherit fonts for inputs and buttons */\ninput,\nbutton,\ntextarea,\nselect {\n  font-family: inherit;\n  font-size: inherit;\n}\n\n/* Make sure textareas without a rows attribute are not tiny */\ntextarea:not([rows]) {\n  min-height: 5em;\n}\n\n/* Anything that has been anchored to should have extra scroll margin */\n:target {\n  scroll-margin-block: 5ex;\n}\n";
 styleInject(css_248z);
 
 const baseColors = {
     primary: '#02000d',
-    primaryLight: 'color-mix(in srgb, #02000d, white)',
-    primaryDark: 'color-mix(in srgb, #02000d, black)',
     secondary: '#07203f',
-    secondaryLight: 'color-mix(in srgb, #07203f, white)',
-    secondaryDark: 'color-mix(in srgb, #07203f, black)',
     tertiary: '#f1d2b6',
-    tertiaryLight: '#f8e9db',
-    tertiaryDark: '#79695b',
     accentLight: '#D9AA90',
     accentDark: '#A65e46'
 };
+const shadesAndTints = {
+    primaryLight: `color-mix(in srgb, ${baseColors.primary}, white)`,
+    primaryDark: `color-mix(in srgb, ${baseColors.primary}, color)`,
+    secondaryLight: `color-mix(in srgb, ${baseColors.secondary}, white)`,
+    secondaryDark: `color-mix(in srgb, ${baseColors.secondary}, black)`,
+    tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`,
+    tertiaryDark: `color-mix(in srgb, ${baseColors.tertiary}, black)`
+};
+keyframes `
+  
+`;
 const baseTheme = {
     button: ({ kind, size, iconOnly }) => {
         return {
@@ -63,8 +68,8 @@ const baseTheme = {
             border: (kind === 'primary' && 'none') ||
                 // (kind === 'secondary' &&
                 //   `3px solid color-mix(in srgb, ${baseColors.primary} 50%, white)`) ||
-                (kind === 'secondary' && `2px solid ${baseColors.primaryDark}`) ||
-                (kind === 'tertiary' && `3px solid ${baseColors.primaryDark}`) ||
+                (kind === 'secondary' && `2px solid ${shadesAndTints.primaryDark}`) ||
+                (kind === 'tertiary' && `3px solid ${shadesAndTints.primaryDark}`) ||
                 (kind === 'ghost' && 'none') ||
                 // (kind === 'tertiary' && `1px solid ${baseColors.tertiary}`) ||
                 undefined,
@@ -86,7 +91,8 @@ const baseTheme = {
     buttonGroup: {
         display: 'flex',
         gap: '20px',
-        justifyContent: 'end'
+        justifyContent: 'end',
+        marginTop: '20px'
     },
     img: () => ({
         border: `1px solid ${baseColors.primary}`,
@@ -101,15 +107,17 @@ const baseTheme = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: baseColors.secondary,
+        // backgroundColor: baseColors.secondary,
+        backgroundColor: `${shadesAndTints.primaryLight}`,
         flexDirection: 'column'
     },
     modalContentWrapper: {
-        backgroundColor: baseColors.tertiaryLight,
+        backgroundColor: shadesAndTints.tertiaryLight,
         padding: '20px',
         boxShadow: `0 0 4px black`,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        width: '400px'
     },
     modalHeading: {
         alignSelf: 'end'
@@ -133,11 +141,7 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
 };
 
 const ButtonGroup = ({ children }) => {
-    // If you're not a button, you can get the **** out
-    const buttonsOnly = children?.filter(child => isValidElement(child) &&
-        typeof child.type !== 'string' &&
-        child.type.name === 'Button');
-    return jsx("div", { css: [baseTheme.buttonGroup], children: buttonsOnly });
+    return jsx("div", { css: [baseTheme.buttonGroup], children: children });
 };
 
 const Form = ({ children, role, className, onSubmit }) => {
@@ -145,11 +149,11 @@ const Form = ({ children, role, className, onSubmit }) => {
         e.preventDefault();
         onSubmit?.(e);
     };
-    return (jsx("form", { css: [baseStyles$b.form, className?.form], onSubmit: handleOnSubmit, role: role, children: children }));
+    return (jsx("form", { css: [baseStyles$c.form, className?.form], onSubmit: handleOnSubmit, role: role, children: children }));
 };
-const baseStyles$b = {
+const baseStyles$c = {
     form: {
-        backgroundColor: baseColors.tertiaryLight,
+        backgroundColor: shadesAndTints.tertiaryLight,
         borderRadius: '6px',
         padding: '20px',
         width: '100%'
@@ -160,35 +164,35 @@ const FormInputLabel = ({ position, name, label, className }) => {
     switch (position) {
         case 'left':
             return (jsx("label", { css: [
-                    baseStyles$a.label,
-                    baseStyles$a.left,
+                    baseStyles$b.label,
+                    baseStyles$b.left,
                     className?.label,
                     className?.left
                 ], htmlFor: name, children: label }));
         case 'right':
             return (jsx("label", { htmlFor: name, css: [
-                    baseStyles$a.label,
-                    baseStyles$a.right,
+                    baseStyles$b.label,
+                    baseStyles$b.right,
                     className && className.label,
                     className && className.right
                 ], children: label }));
         case 'above':
             return (jsx("label", { css: [
-                    baseStyles$a.label,
-                    baseStyles$a.above,
+                    baseStyles$b.label,
+                    baseStyles$b.above,
                     className && className.label,
                     className && className.above
                 ], htmlFor: name, children: label }));
         case 'below':
             return (jsx("label", { htmlFor: name, css: [
-                    baseStyles$a.label,
-                    baseStyles$a.below,
+                    baseStyles$b.label,
+                    baseStyles$b.below,
                     className && className.label,
                     className && className.below
                 ], children: label }));
     }
 };
-const baseStyles$a = {
+const baseStyles$b = {
     label: {
         fontWeight: '500'
     },
@@ -210,13 +214,13 @@ const FormTextInput = ({ label = '', name = '', type = 'text', labelPos = 'left'
     const onChangeHandler = (e) => {
         onChange?.(e);
     };
-    return (jsxs("div", { css: [baseStyles$9.inputWrapper(labelPos), className?.inputWrapper], children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsx("input", { css: [
-                    baseStyles$9.input(size),
-                    readonly && baseStyles$9.readonly,
+    return (jsxs("div", { css: [baseStyles$a.inputWrapper(labelPos), className?.inputWrapper], children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsx("input", { css: [
+                    baseStyles$a.input(size),
+                    readonly && baseStyles$a.readonly,
                     className && className.input
                 ], value: value || '', type: type, name: name, id: name, onChange: onChangeHandler, readOnly: readonly, placeholder: placeholder }), (label && labelPos === 'right') || labelPos === 'below' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : ('')] }));
 };
-const baseStyles$9 = {
+const baseStyles$a = {
     inputWrapper: (labelPos) => ({
         marginBottom: '20px',
         display: 'flex',
@@ -258,19 +262,19 @@ const FormTextArea = ({ label = '', name = '', labelPos, value = '', onChange, c
             resize(textAreaRef.current);
         }
     }, [value]);
-    return (jsxs("div", { css: [baseStyles$8.textAreaWrapper, className?.textAreaWrapper], children: [labelPos === 'left' || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
+    return (jsxs("div", { css: [baseStyles$9.textAreaWrapper, className?.textAreaWrapper], children: [labelPos === 'left' || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
                     [labelPos]: className?.[labelPos],
                     label: className?.label
                 } })) : (''), jsx("textarea", { css: [
-                    baseStyles$8.textArea,
-                    readonly && baseStyles$8.readonly,
+                    baseStyles$9.textArea,
+                    readonly && baseStyles$9.readonly,
                     className && className.textArea
                 ], value: value, name: name, id: name, onChange: onChangeHandler, readOnly: readonly, ref: textAreaRef }), labelPos === 'right' || labelPos === 'below' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
                     [labelPos]: className?.[labelPos],
                     label: className?.label
                 } })) : ('')] }));
 };
-const baseStyles$8 = {
+const baseStyles$9 = {
     textAreaWrapper: {
         marginBottom: '20px'
     },
@@ -292,9 +296,9 @@ const baseStyles$8 = {
 };
 
 const Main = ({ children, className }) => {
-    return jsx("main", { css: [baseStyles$7.main, className?.main], children: children });
+    return jsx("main", { css: [baseStyles$8.main, className?.main], children: children });
 };
-const baseStyles$7 = {
+const baseStyles$8 = {
     main: {
         display: 'flex',
         justifyContent: 'center'
@@ -302,9 +306,9 @@ const baseStyles$7 = {
 };
 
 const InnerWidth = ({ children, className }) => {
-    return (jsx("div", { css: [baseStyles$6.innerWidth, className?.innerWidth], className: "pa-inner-width", children: children }));
+    return (jsx("div", { css: [baseStyles$7.innerWidth, className?.innerWidth], className: "pa-inner-width", children: children }));
 };
-const baseStyles$6 = {
+const baseStyles$7 = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -329,9 +333,9 @@ const baseStyles$6 = {
 };
 
 const Header = ({ children, className }) => {
-    return (jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", children: children }));
+    return (jsx("header", { css: [baseStyles$6.header, className?.header], className: "pa-header", children: children }));
 };
-const baseStyles$5 = {
+const baseStyles$6 = {
     header: {
         display: 'flex',
         marginBottom: '25px',
@@ -340,7 +344,7 @@ const baseStyles$5 = {
         justifyContent: 'center',
         height: '135px',
         borderBottom: `2px solid ${baseColors.primary}`,
-        backgroundColor: baseColors.tertiaryLight,
+        backgroundColor: shadesAndTints.tertiaryLight,
         '@media (max-width: 580px)': {
             height: '75px'
         }
@@ -348,9 +352,9 @@ const baseStyles$5 = {
 };
 
 const Block = ({ children, className }) => {
-    return (jsx("div", { css: [baseStyles$4.block, className?.block], className: "pa-block", children: children }));
+    return (jsx("div", { css: [baseStyles$5.block, className?.block], className: "pa-block", children: children }));
 };
-const baseStyles$4 = {
+const baseStyles$5 = {
     block: {
         width: '100%',
         display: 'flex',
@@ -360,9 +364,9 @@ const baseStyles$4 = {
 };
 
 const TwoColumn = ({ left, right }) => {
-    return (jsxs("div", { css: [baseStyles$3.columnWrapper], children: [jsx("div", { css: [baseStyles$3.column], children: left }), jsx("div", { css: [baseStyles$3.column], children: right })] }));
+    return (jsxs("div", { css: [baseStyles$4.columnWrapper], children: [jsx("div", { css: [baseStyles$4.column], children: left }), jsx("div", { css: [baseStyles$4.column], children: right })] }));
 };
-const baseStyles$3 = {
+const baseStyles$4 = {
     columnWrapper: {
         gap: '50px',
         display: 'flex',
@@ -382,9 +386,9 @@ const Image = ({ src, className }) => {
 };
 
 const List = ({ className, children }) => {
-    return (jsx("ul", { css: [baseStyles$2.ul, className?.ul], className: "pa-list", children: children }));
+    return (jsx("ul", { css: [baseStyles$3.ul, className?.ul], className: "pa-list", children: children }));
 };
-const baseStyles$2 = {
+const baseStyles$3 = {
     ul: {
         borderRadius: '6px',
         backgroundColor: baseColors.tertiaryLight,
@@ -401,13 +405,13 @@ const baseStyles$2 = {
 
 const ListItem = ({ children, className, useHover }) => {
     return (jsx("li", { css: [
-            baseStyles$1.li,
+            baseStyles$2.li,
             className && className.li,
-            useHover && baseStyles$1.liHover,
+            useHover && baseStyles$2.liHover,
             className && useHover && className.liHover
         ], className: "pa-list-item", children: children }));
 };
-const baseStyles$1 = {
+const baseStyles$2 = {
     li: {
         borderRadius: '6px',
         border: `1px solid ${baseColors.secondary}`,
@@ -418,7 +422,7 @@ const baseStyles$1 = {
     },
     liHover: {
         ':hover': {
-            boxShadow: `0 0 7px ${baseColors.secondaryDark}`
+            boxShadow: `0 0 7px ${shadesAndTints.secondaryDark}`
         }
     }
 };
@@ -430,9 +434,9 @@ const Search = ({ searchTerm, searchLabel, resultsCount, className, buttonSize, 
     const setSearchTermHandler = (e) => {
         setSearchTerm(e);
     };
-    return (jsxs("div", { css: [baseStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles.results, children: ["Results: ", resultsCount] }), jsxs(Form, { className: baseStyles, onSubmit: onSearchHandler, role: "search", children: [jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: baseStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: { button: baseStyles.button }, type: "submit", children: "Search" }))] })] }));
+    return (jsxs("div", { css: [baseStyles$1.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles$1.results, children: ["Results: ", resultsCount] }), jsxs(Form, { className: baseStyles$1, onSubmit: onSearchHandler, role: "search", children: [jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: baseStyles$1, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: { button: baseStyles$1.button }, type: "submit", children: "Search" }))] })] }));
 };
-const baseStyles = {
+const baseStyles$1 = {
     searchWrapper: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -471,11 +475,24 @@ const baseStyles = {
     }
 };
 
-const Modal = ({ className = {}, children, close }) => {
+const Modal = ({ className = {}, children, closeModal }) => {
+    const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
     const closeModalHandler = () => {
-        close?.();
+        closeModal?.();
     };
-    return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: close && (jsx(XmarkCircle, { style: baseTheme.modalCloseButton, onClick: closeModalHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
+    return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", style: isVisible ? baseStyles.visible : baseStyles.hidden, children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsx(XmarkCircle, { style: baseTheme.modalCloseButton, onClick: closeModalHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
+};
+const baseStyles = {
+    visible: {
+        opacity: '1',
+        transition: 'opacity .333s'
+    },
+    hidden: {
+        opacity: '0'
+    }
 };
 
 const useResizedWidth = () => {

@@ -5,7 +5,7 @@ type ModalTypes = {
     className?: {
         modal?: CSSObject;
     };
-    close?: () => void;
+    closeModal?: () => void;
 };
 export declare const Modal: FC<ModalTypes>;
 export {};

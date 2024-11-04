@@ -1,7 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import { MouseEventHandler, ReactElement } from 'react';
 import { CSSObject, useTheme } from '@emotion/react';
-import { ConsumerThemeTypes } from '../../styling/consumerTheme.types';
+import { ConsumerThemeTypes } from '../../CustomTypes.types';
 import { baseTheme } from '../../styling/baseTheme';
 
 type Button = {

@@ -1,18 +1,35 @@
 # Changelog
 
+## [0.0.33] - 2024-23-09
+
+### Added
+
+- Fun little fade-in when modals show up
+
+### Changed
+
+- Branched off derivative colors to `shadesAndTints`
+- Got rid of that thing that filters out non-button elements
+
+### Removed
+
+- ## N/A
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
 ## [0.0.32] - 2024-23-09
 
 ### Added
 
-- Added `iconoir` package
-- Rudimentary icon support for `<Button>`
-- "Close" functionality in `<Modal>`
+-
 
 ### Changed
 
-- Base styles on `<ListItem>`
-- General `baseTheme` changes
-- Made changes to `workflow` file
+-
 
 ### Removed
 
