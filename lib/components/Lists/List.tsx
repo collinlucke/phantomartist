@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { baseColors } from '../../styling/baseTheme';
+import { shadesAndTints } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListProps = {
@@ -18,7 +18,7 @@ export const List: React.FC<ListProps> = ({ className, children }) => {
 const baseStyles = {
   ul: {
     borderRadius: '6px',
-    backgroundColor: baseColors.tertiaryLight,
+    backgroundColor: shadesAndTints.tertiaryLight,
     minHeight: '5px',
     fontWeight: '500',
     padding: '20px',

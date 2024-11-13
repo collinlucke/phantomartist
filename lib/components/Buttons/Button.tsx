@@ -10,7 +10,7 @@ type Button = {
   };
   type?: HTMLButtonElement['type'];
   kind?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
-  size?: 'large' | 'medium' | 'small';
+  size?: 'small' | 'medium' | 'large';
   iconOnly?: boolean;
   icon?: ReactElement | string;
 
@@ -28,7 +28,6 @@ export const Button: React.FC<Button> = ({
   onClick
 }) => {
   const consumerTheme = useTheme() as ConsumerThemeTypes;
-
   const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
     onClick?.(e);
   };
@@ -44,8 +43,14 @@ export const Button: React.FC<Button> = ({
       ]}
       className={`pa-button ${kind} ${size}`}
     >
-      {icon}
-      {children}
+      {icon ? (
+        <>
+          {icon}
+          {children}
+        </>
+      ) : (
+        <>{children}</>
+      )}
     </button>
   );
 };

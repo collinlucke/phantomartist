@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "version": "0.0.33",
+  "version": "0.0.34",
   "type": "module",
   "module": "./dist/esm/index.esm.js",
   "main": "./dist/cjs/index.cjs.js",
@@ -35,6 +35,7 @@
     "autoprefixer": "^10.4.20",
     "facepaint": "^1.2.1",
     "glob": "^11.0.0",
+    "hugeicons-react": "^0.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "ts-node": "^10.9.2"
   },
@@ -49,7 +50,6 @@
     "eslint": "^8.57.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.12",
-    "iconoir-react": "^7.9.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rollup": "^4.24.0",
@@ -62,7 +62,6 @@
   },
   "peerDependencies": {
     "@emotion/react": "^11.13.3",
-    "iconoir-react": "^7.9.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2"

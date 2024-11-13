@@ -4,7 +4,6 @@ import { CSSObject } from '@emotion/react';
 type HeaderModifyProps = ModifyPropsTypes & {
     children: ReactElement;
     useInnerWidth?: boolean;
-    isHeading?: boolean;
     className?: {
         header?: CSSObject;
         useInnerWidth?: CSSObject;

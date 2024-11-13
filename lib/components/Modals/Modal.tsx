@@ -1,7 +1,7 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, MouseEvent, ReactNode, useState } from 'react';
 import { baseTheme } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
-import { XmarkCircle } from 'iconoir-react';
+import { CancelCircleIcon } from 'hugeicons-react';
 
 type ModalTypes = {
   children: ReactNode;
@@ -17,27 +17,29 @@ export const Modal: FC<ModalTypes> = ({
   children,
   closeModal
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
+  const [hovering, setHovering] = useState(false);
   const closeModalHandler = () => {
     closeModal?.();
   };
+
+  const mouseCloseHoverHandler = (e: MouseEvent) => {
+    if (e.type === 'mouseenter') {
+      setHovering(true);
+    } else {
+      setHovering(false);
+    }
+  };
+
   return (
-    <div
-      css={[baseTheme.modal, className?.modal]}
-      className="pa-modal"
-      style={isVisible ? baseStyles.visible : baseStyles.hidden}
-    >
+    <div css={[baseTheme.modal, className?.modal]} className="pa-modal">
       <div css={baseTheme.modalContentWrapper}>
         <div css={baseTheme.modalHeading} className="pa-modal-heading">
           {closeModal && (
-            <XmarkCircle
-              style={baseTheme.modalCloseButton}
+            <CancelCircleIcon
+              fill={hovering ? 'rgba(125,125,125,.5)' : 'none'}
               onClick={closeModalHandler}
+              onMouseEnter={mouseCloseHoverHandler}
+              onMouseLeave={mouseCloseHoverHandler}
             />
           )}
         </div>
@@ -47,14 +49,4 @@ export const Modal: FC<ModalTypes> = ({
       </div>
     </div>
   );
-};
-
-const baseStyles = {
-  visible: {
-    opacity: '1',
-    transition: 'opacity .333s'
-  },
-  hidden: {
-    opacity: '0'
-  }
 };

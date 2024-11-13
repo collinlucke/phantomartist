@@ -97,7 +97,7 @@ const baseStyles = {
     return {
       border: `1px solid ${baseColors.tertiary}`,
       padding:
-        (size === 'large' && '10px') ||
+        (size === 'large' && '9px') ||
         (size === 'medium' && '8px') ||
         (size === 'small' && '5px') ||
         undefined,

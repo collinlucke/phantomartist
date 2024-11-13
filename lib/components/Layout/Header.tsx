@@ -6,7 +6,6 @@ import { CSSObject } from '@emotion/react';
 type HeaderModifyProps = ModifyPropsTypes & {
   children: ReactElement;
   useInnerWidth?: boolean;
-  isHeading?: boolean;
   className?: {
     header?: CSSObject;
     useInnerWidth?: CSSObject;
@@ -32,7 +31,7 @@ const baseStyles = {
     padding: '20px 0',
     color: baseColors.secondary,
     justifyContent: 'center',
-    height: '135px',
+    height: '115px',
     borderBottom: `2px solid ${baseColors.primary}`,
     backgroundColor: shadesAndTints.tertiaryLight,
     '@media (max-width: 580px)': {

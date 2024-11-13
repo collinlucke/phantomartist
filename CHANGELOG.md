@@ -1,6 +1,26 @@
 # Changelog
 
-## [0.0.33] - 2024-23-09
+## [0.0.34] - 11-13-2024
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- Just some tweaks here and there
+
+### Removed
+
+- Got rid of that fun little fade-in
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
+## [0.0.33] - 09-23-2024
 
 ### Added
 
@@ -21,7 +41,7 @@
 
 <br/>
 
-## [0.0.32] - 2024-23-09
+## [0.0.32] - 09-23-2024
 
 ### Added
 
@@ -41,7 +61,7 @@
 
 <br/>
 
-## [0.0.30] - 2024-17-09
+## [0.0.30] - 09-17-2024
 
 ### Added
 

@@ -7,7 +7,7 @@ type Button = {
     };
     type?: HTMLButtonElement['type'];
     kind?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
-    size?: 'large' | 'medium' | 'small';
+    size?: 'small' | 'medium' | 'large';
     iconOnly?: boolean;
     icon?: ReactElement | string;
     onClick?: MouseEventHandler<HTMLButtonElement>;

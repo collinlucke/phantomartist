@@ -1,4 +1,4 @@
-import { CSSObject, keyframes } from '@emotion/react';
+import { CSSObject } from '@emotion/react';
 
 export const baseColors = {
   primary: '#02000d',
@@ -17,10 +17,6 @@ export const shadesAndTints = {
   tertiaryDark: `color-mix(in srgb, ${baseColors.tertiary}, black)`
 };
 
-const modalOpen = keyframes`
-  
-`;
-
 export const baseTheme = {
   button: ({
     kind,
@@ -32,9 +28,12 @@ export const baseTheme = {
     iconOnly?: boolean;
   }): CSSObject => {
     return {
+      display: 'flex',
+      alignItems: 'end',
       fontWeight: '500',
       borderRadius: '5px',
       cursor: 'pointer',
+      gap: '10px',
       padding: !iconOnly
         ? (size === 'large' && kind === 'primary' && '10px 40px') ||
           (size === 'large' && kind === 'secondary' && '8px 34px') ||
@@ -42,7 +41,7 @@ export const baseTheme = {
           (size === 'medium' && kind === 'primary' && '8px 15px') ||
           (size === 'small' && kind === 'primary' && '5px 10px') ||
           undefined
-        : (size === 'large' && kind === 'primary' && '5px 5px') ||
+        : (kind === 'primary' && '8px') ||
           (size === 'large' && kind === 'ghost' && '0') ||
           undefined,
       border:
@@ -68,7 +67,8 @@ export const baseTheme = {
         //   `color-mix(in srgb, ${baseColors.primary} 75%, black)`) ||
         undefined,
       '&:hover': {
-        boxShadow: kind === 'ghost' ? '' : `0 0 7px black`
+        boxShadow: kind === 'ghost' ? '' : `0 0 7px black`,
+        textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : ''
       }
     };
   },

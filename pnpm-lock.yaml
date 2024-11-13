@@ -29,6 +29,9 @@ importers:
       glob:
         specifier: ^11.0.0
         version: 11.0.0
+      hugeicons-react:
+        specifier: ^0.3.0
+        version: 0.3.0(react@18.3.1)
       react-router-dom:
         specifier: ^6.26.2
         version: 6.27.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -69,9 +72,6 @@ importers:
       eslint-plugin-react-refresh:
         specifier: ^0.4.12
         version: 0.4.14(eslint@8.57.1)
-      iconoir-react:
-        specifier: ^7.9.0
-        version: 7.9.0(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1173,10 +1173,10 @@ packages:
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
 
-  iconoir-react@7.9.0:
-    resolution: {integrity: sha512-6DKkVs7YKxYL3ZCqpoYDD89p/bvuDwPV8JXmrpDGRUafRH6QBMXMAMnQe4rWHLTUIB5UXVVSikvHcpJZjN5/TA==}
+  hugeicons-react@0.3.0:
+    resolution: {integrity: sha512-znmC+uX7xVqcIs0q09LvwEvJkjX0U3xgT05BSiRV19farS4lPONOKjYT0JkcQG5cvfV0rXHSEAEVNjbHAu81rg==}
     peerDependencies:
-      react: ^16.8.6 || ^17 || ^18
+      react: '>=16.0.0'
 
   icss-replace-symbols@1.1.0:
     resolution: {integrity: sha512-chIaY3Vh2mh2Q3RGXttaDIzeiPvaVXJ+C4DAh/w3c37SKZ/U6PGMmuicR2EQQp9bKG8zLMCl7I+PtIoOOPp8Gg==}
@@ -3219,7 +3219,7 @@ snapshots:
     dependencies:
       react-is: 16.13.1
 
-  iconoir-react@7.9.0(react@18.3.1):
+  hugeicons-react@0.3.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 

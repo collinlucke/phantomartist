@@ -1,7 +1,6 @@
-import { jsxs, jsx } from '@emotion/react/jsx-runtime';
-import { keyframes, useTheme } from '@emotion/react';
-import { useRef, useLayoutEffect, useState, useEffect } from 'react';
-import { XmarkCircle } from 'iconoir-react';
+import { jsx, jsxs, Fragment } from '@emotion/react/jsx-runtime';
+import { useTheme } from '@emotion/react';
+import { useRef, useLayoutEffect, useState, forwardRef, createElement } from 'react';
 
 function styleInject(css, ref) {
   if (ref === void 0) ref = {};
@@ -46,15 +45,15 @@ const shadesAndTints = {
     tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`,
     tertiaryDark: `color-mix(in srgb, ${baseColors.tertiary}, black)`
 };
-keyframes `
-  
-`;
 const baseTheme = {
     button: ({ kind, size, iconOnly }) => {
         return {
+            display: 'flex',
+            alignItems: 'end',
             fontWeight: '500',
             borderRadius: '5px',
             cursor: 'pointer',
+            gap: '10px',
             padding: !iconOnly
                 ? (size === 'large' && kind === 'primary' && '10px 40px') ||
                     (size === 'large' && kind === 'secondary' && '8px 34px') ||
@@ -62,7 +61,7 @@ const baseTheme = {
                     (size === 'medium' && kind === 'primary' && '8px 15px') ||
                     (size === 'small' && kind === 'primary' && '5px 10px') ||
                     undefined
-                : (size === 'large' && kind === 'primary' && '5px 5px') ||
+                : (kind === 'primary' && '8px') ||
                     (size === 'large' && kind === 'ghost' && '0') ||
                     undefined,
             border: (kind === 'primary' && 'none') ||
@@ -84,7 +83,9 @@ const baseTheme = {
                 //   `color-mix(in srgb, ${baseColors.primary} 75%, black)`) ||
                 undefined,
             '&:hover': {
-                boxShadow: kind === 'ghost' ? '' : `0 0 7px black`
+                boxShadow: kind === 'ghost' ? '' : `0 0 7px black`,
+                textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : '',
+                fill: 'pink'
             }
         };
     },
@@ -133,11 +134,11 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
     const onClickHandler = e => {
         onClick?.(e);
     };
-    return (jsxs("button", { type: type, onClick: onClickHandler, css: [
+    return (jsx("button", { type: type, onClick: onClickHandler, css: [
             baseTheme.button({ kind, size, iconOnly }),
             consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
             className?.button
-        ], className: `pa-button ${kind} ${size}`, children: [icon, children] }));
+        ], className: `pa-button ${kind} ${size}`, children: icon ? (jsxs(Fragment, { children: [icon, children] })) : (jsx(Fragment, { children: children })) }));
 };
 
 const ButtonGroup = ({ children }) => {
@@ -149,9 +150,9 @@ const Form = ({ children, role, className, onSubmit }) => {
         e.preventDefault();
         onSubmit?.(e);
     };
-    return (jsx("form", { css: [baseStyles$c.form, className?.form], onSubmit: handleOnSubmit, role: role, children: children }));
+    return (jsx("form", { css: [baseStyles$b.form, className?.form], onSubmit: handleOnSubmit, role: role, children: children }));
 };
-const baseStyles$c = {
+const baseStyles$b = {
     form: {
         backgroundColor: shadesAndTints.tertiaryLight,
         borderRadius: '6px',
@@ -164,35 +165,35 @@ const FormInputLabel = ({ position, name, label, className }) => {
     switch (position) {
         case 'left':
             return (jsx("label", { css: [
-                    baseStyles$b.label,
-                    baseStyles$b.left,
+                    baseStyles$a.label,
+                    baseStyles$a.left,
                     className?.label,
                     className?.left
                 ], htmlFor: name, children: label }));
         case 'right':
             return (jsx("label", { htmlFor: name, css: [
-                    baseStyles$b.label,
-                    baseStyles$b.right,
+                    baseStyles$a.label,
+                    baseStyles$a.right,
                     className && className.label,
                     className && className.right
                 ], children: label }));
         case 'above':
             return (jsx("label", { css: [
-                    baseStyles$b.label,
-                    baseStyles$b.above,
+                    baseStyles$a.label,
+                    baseStyles$a.above,
                     className && className.label,
                     className && className.above
                 ], htmlFor: name, children: label }));
         case 'below':
             return (jsx("label", { htmlFor: name, css: [
-                    baseStyles$b.label,
-                    baseStyles$b.below,
+                    baseStyles$a.label,
+                    baseStyles$a.below,
                     className && className.label,
                     className && className.below
                 ], children: label }));
     }
 };
-const baseStyles$b = {
+const baseStyles$a = {
     label: {
         fontWeight: '500'
     },
@@ -214,13 +215,13 @@ const FormTextInput = ({ label = '', name = '', type = 'text', labelPos = 'left'
     const onChangeHandler = (e) => {
         onChange?.(e);
     };
-    return (jsxs("div", { css: [baseStyles$a.inputWrapper(labelPos), className?.inputWrapper], children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsx("input", { css: [
-                    baseStyles$a.input(size),
-                    readonly && baseStyles$a.readonly,
+    return (jsxs("div", { css: [baseStyles$9.inputWrapper(labelPos), className?.inputWrapper], children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsx("input", { css: [
+                    baseStyles$9.input(size),
+                    readonly && baseStyles$9.readonly,
                     className && className.input
                 ], value: value || '', type: type, name: name, id: name, onChange: onChangeHandler, readOnly: readonly, placeholder: placeholder }), (label && labelPos === 'right') || labelPos === 'below' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : ('')] }));
 };
-const baseStyles$a = {
+const baseStyles$9 = {
     inputWrapper: (labelPos) => ({
         marginBottom: '20px',
         display: 'flex',
@@ -231,7 +232,7 @@ const baseStyles$a = {
     input: (size) => {
         return {
             border: `1px solid ${baseColors.tertiary}`,
-            padding: (size === 'large' && '10px') ||
+            padding: (size === 'large' && '9px') ||
                 (size === 'medium' && '8px') ||
                 (size === 'small' && '5px') ||
                 undefined,
@@ -262,19 +263,19 @@ const FormTextArea = ({ label = '', name = '', labelPos, value = '', onChange, c
             resize(textAreaRef.current);
         }
     }, [value]);
-    return (jsxs("div", { css: [baseStyles$9.textAreaWrapper, className?.textAreaWrapper], children: [labelPos === 'left' || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
+    return (jsxs("div", { css: [baseStyles$8.textAreaWrapper, className?.textAreaWrapper], children: [labelPos === 'left' || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
                     [labelPos]: className?.[labelPos],
                     label: className?.label
                 } })) : (''), jsx("textarea", { css: [
-                    baseStyles$9.textArea,
-                    readonly && baseStyles$9.readonly,
+                    baseStyles$8.textArea,
+                    readonly && baseStyles$8.readonly,
                     className && className.textArea
                 ], value: value, name: name, id: name, onChange: onChangeHandler, readOnly: readonly, ref: textAreaRef }), labelPos === 'right' || labelPos === 'below' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
                     [labelPos]: className?.[labelPos],
                     label: className?.label
                 } })) : ('')] }));
 };
-const baseStyles$9 = {
+const baseStyles$8 = {
     textAreaWrapper: {
         marginBottom: '20px'
     },
@@ -296,9 +297,9 @@ const baseStyles$9 = {
 };
 
 const Main = ({ children, className }) => {
-    return jsx("main", { css: [baseStyles$8.main, className?.main], children: children });
+    return jsx("main", { css: [baseStyles$7.main, className?.main], children: children });
 };
-const baseStyles$8 = {
+const baseStyles$7 = {
     main: {
         display: 'flex',
         justifyContent: 'center'
@@ -306,9 +307,9 @@ const baseStyles$8 = {
 };
 
 const InnerWidth = ({ children, className }) => {
-    return (jsx("div", { css: [baseStyles$7.innerWidth, className?.innerWidth], className: "pa-inner-width", children: children }));
+    return (jsx("div", { css: [baseStyles$6.innerWidth, className?.innerWidth], className: "pa-inner-width", children: children }));
 };
-const baseStyles$7 = {
+const baseStyles$6 = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -333,16 +334,16 @@ const baseStyles$7 = {
 };
 
 const Header = ({ children, className }) => {
-    return (jsx("header", { css: [baseStyles$6.header, className?.header], className: "pa-header", children: children }));
+    return (jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", children: children }));
 };
-const baseStyles$6 = {
+const baseStyles$5 = {
     header: {
         display: 'flex',
         marginBottom: '25px',
         padding: '20px 0',
         color: baseColors.secondary,
         justifyContent: 'center',
-        height: '135px',
+        height: '115px',
         borderBottom: `2px solid ${baseColors.primary}`,
         backgroundColor: shadesAndTints.tertiaryLight,
         '@media (max-width: 580px)': {
@@ -352,9 +353,9 @@ const baseStyles$6 = {
 };
 
 const Block = ({ children, className }) => {
-    return (jsx("div", { css: [baseStyles$5.block, className?.block], className: "pa-block", children: children }));
+    return (jsx("div", { css: [baseStyles$4.block, className?.block], className: "pa-block", children: children }));
 };
-const baseStyles$5 = {
+const baseStyles$4 = {
     block: {
         width: '100%',
         display: 'flex',
@@ -364,9 +365,9 @@ const baseStyles$5 = {
 };
 
 const TwoColumn = ({ left, right }) => {
-    return (jsxs("div", { css: [baseStyles$4.columnWrapper], children: [jsx("div", { css: [baseStyles$4.column], children: left }), jsx("div", { css: [baseStyles$4.column], children: right })] }));
+    return (jsxs("div", { css: [baseStyles$3.columnWrapper], children: [jsx("div", { css: [baseStyles$3.column], children: left }), jsx("div", { css: [baseStyles$3.column], children: right })] }));
 };
-const baseStyles$4 = {
+const baseStyles$3 = {
     columnWrapper: {
         gap: '50px',
         display: 'flex',
@@ -382,16 +383,20 @@ const baseStyles$4 = {
 };
 
 const Image = ({ src, className }) => {
-    return (jsx("img", { src: src, css: [baseTheme.img, className?.img], className: "pa-image" }));
+    const [isLoaded, setIsLoaded] = useState(false);
+    const handleImageLoad = () => {
+        setIsLoaded(true);
+    };
+    return (jsx("img", { src: src, css: [baseTheme.img, className?.img], className: "pa-image", onLoad: handleImageLoad, style: { display: isLoaded ? 'block' : 'none' } }));
 };
 
 const List = ({ className, children }) => {
-    return (jsx("ul", { css: [baseStyles$3.ul, className?.ul], className: "pa-list", children: children }));
+    return (jsx("ul", { css: [baseStyles$2.ul, className?.ul], className: "pa-list", children: children }));
 };
-const baseStyles$3 = {
+const baseStyles$2 = {
     ul: {
         borderRadius: '6px',
-        backgroundColor: baseColors.tertiaryLight,
+        backgroundColor: shadesAndTints.tertiaryLight,
         minHeight: '5px',
         fontWeight: '500',
         padding: '20px',
@@ -405,13 +410,13 @@ const baseStyles$3 = {
 
 const ListItem = ({ children, className, useHover }) => {
     return (jsx("li", { css: [
-            baseStyles$2.li,
+            baseStyles$1.li,
             className && className.li,
-            useHover && baseStyles$2.liHover,
+            useHover && baseStyles$1.liHover,
             className && useHover && className.liHover
         ], className: "pa-list-item", children: children }));
 };
-const baseStyles$2 = {
+const baseStyles$1 = {
     li: {
         borderRadius: '6px',
         border: `1px solid ${baseColors.secondary}`,
@@ -434,9 +439,9 @@ const Search = ({ searchTerm, searchLabel, resultsCount, className, buttonSize, 
     const setSearchTermHandler = (e) => {
         setSearchTerm(e);
     };
-    return (jsxs("div", { css: [baseStyles$1.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles$1.results, children: ["Results: ", resultsCount] }), jsxs(Form, { className: baseStyles$1, onSubmit: onSearchHandler, role: "search", children: [jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: baseStyles$1, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: { button: baseStyles$1.button }, type: "submit", children: "Search" }))] })] }));
+    return (jsxs("div", { css: [baseStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles.results, children: ["Results: ", resultsCount] }), jsxs(Form, { className: baseStyles, onSubmit: onSearchHandler, role: "search", children: [jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: baseStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: { button: baseStyles.button }, type: "submit", children: "Search" }))] })] }));
 };
-const baseStyles$1 = {
+const baseStyles = {
     searchWrapper: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -475,37 +480,95 @@ const baseStyles$1 = {
     }
 };
 
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var e = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const y = (a, c) => {
+  const t = forwardRef(({
+    color: i = "currentColor",
+    size: e$1 = 24,
+    strokeWidth: l = 1.5,
+    className: m = "",
+    children: r,
+    ...n
+  }, d) => {
+    const f = {
+      ref: d,
+      ...e,
+      width: e$1,
+      height: e$1,
+      strokeWidth: l,
+      color: i,
+      className: m,
+      ...n
+    };
+    return createElement("svg", f, c?.map(([h, o]) => createElement(h, {
+      key: o.id,
+      ...o
+    })) ?? [], ...(Array.isArray(r) ? r : [r]));
+  });
+  return t.displayName = `${a}Icon`, t;
+};
+
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const r = y("CancelCircleIcon", [["path", {
+  d: "M14.9994 15L9 9M9.00064 15L15 9",
+  stroke: "currentColor",
+  key: "k0"
+}], ["path", {
+  d: "M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z",
+  stroke: "currentColor",
+  key: "k1"
+}]]);
+
 const Modal = ({ className = {}, children, closeModal }) => {
-    const [isVisible, setIsVisible] = useState(false);
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
+    const iconRef = useRef(null);
+    const [hovering, setHovering] = useState(false);
     const closeModalHandler = () => {
         closeModal?.();
     };
-    return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", style: isVisible ? baseStyles.visible : baseStyles.hidden, children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsx(XmarkCircle, { style: baseTheme.modalCloseButton, onClick: closeModalHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
-};
-const baseStyles = {
-    visible: {
-        opacity: '1',
-        transition: 'opacity .333s'
-    },
-    hidden: {
-        opacity: '0'
-    }
-};
-
-const useResizedWidth = () => {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    useEffect(() => {
-        function handleResize() {
-            setWindowWidth(window.innerWidth);
+    // useEffect(() => {
+    //   if (iconRef.current) {
+    //     iconRef.current.addEventListener('mouseenter', e => {
+    //       console.log(e);
+    //     });
+    //   }
+    // });
+    const mouseCloseHoverHandler = (e) => {
+        if (e.type === 'mouseenter') {
+            setHovering(true);
         }
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-    return windowWidth;
+        else {
+            setHovering(false);
+        }
+    };
+    return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, ref: iconRef, className: "pa-modal-heading", children: closeModal && (jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
 };
 
-export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, Search, TwoColumn, useResizedWidth };
+export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, Search, TwoColumn };
 //# sourceMappingURL=index.esm.js.map
