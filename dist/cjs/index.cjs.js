@@ -86,8 +86,7 @@ const baseTheme = {
                 undefined,
             '&:hover': {
                 boxShadow: kind === 'ghost' ? '' : `0 0 7px black`,
-                textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : '',
-                fill: 'pink'
+                textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : ''
             }
         };
     },
@@ -549,18 +548,10 @@ const r = y("CancelCircleIcon", [["path", {
 }]]);
 
 const Modal = ({ className = {}, children, closeModal }) => {
-    const iconRef = react$1.useRef(null);
     const [hovering, setHovering] = react$1.useState(false);
     const closeModalHandler = () => {
         closeModal?.();
     };
-    // useEffect(() => {
-    //   if (iconRef.current) {
-    //     iconRef.current.addEventListener('mouseenter', e => {
-    //       console.log(e);
-    //     });
-    //   }
-    // });
     const mouseCloseHoverHandler = (e) => {
         if (e.type === 'mouseenter') {
             setHovering(true);
@@ -569,7 +560,7 @@ const Modal = ({ className = {}, children, closeModal }) => {
             setHovering(false);
         }
     };
-    return (jsxRuntime.jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", children: jsxRuntime.jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsxRuntime.jsx("div", { css: baseTheme.modalHeading, ref: iconRef, className: "pa-modal-heading", children: closeModal && (jsxRuntime.jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsxRuntime.jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
+    return (jsxRuntime.jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", children: jsxRuntime.jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsxRuntime.jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsxRuntime.jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsxRuntime.jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
 };
 
 exports.Block = Block;

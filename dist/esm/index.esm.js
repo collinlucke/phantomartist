@@ -84,8 +84,7 @@ const baseTheme = {
                 undefined,
             '&:hover': {
                 boxShadow: kind === 'ghost' ? '' : `0 0 7px black`,
-                textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : '',
-                fill: 'pink'
+                textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : ''
             }
         };
     },
@@ -547,18 +546,10 @@ const r = y("CancelCircleIcon", [["path", {
 }]]);
 
 const Modal = ({ className = {}, children, closeModal }) => {
-    const iconRef = useRef(null);
     const [hovering, setHovering] = useState(false);
     const closeModalHandler = () => {
         closeModal?.();
     };
-    // useEffect(() => {
-    //   if (iconRef.current) {
-    //     iconRef.current.addEventListener('mouseenter', e => {
-    //       console.log(e);
-    //     });
-    //   }
-    // });
     const mouseCloseHoverHandler = (e) => {
         if (e.type === 'mouseenter') {
             setHovering(true);
@@ -567,7 +558,7 @@ const Modal = ({ className = {}, children, closeModal }) => {
             setHovering(false);
         }
     };
-    return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, ref: iconRef, className: "pa-modal-heading", children: closeModal && (jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
+    return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
 };
 
 export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, Search, TwoColumn };
