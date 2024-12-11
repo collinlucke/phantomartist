@@ -130,7 +130,7 @@ const baseTheme = {
     modalContent: {}
 };
 
-const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, onClick }) => {
+const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, onClick }) => {
     const consumerTheme = react.useTheme();
     const onClickHandler = e => {
         onClick?.(e);
@@ -139,7 +139,7 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
             baseTheme.button({ kind, size, iconOnly }),
             consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
             className?.button
-        ], className: `pa-button ${kind} ${size}`, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [icon, children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
+        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [icon, children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
 };
 
 const ButtonGroup = ({ children }) => {
@@ -334,8 +334,8 @@ const baseStyles$6 = {
     }
 };
 
-const Header = ({ children, className }) => {
-    return (jsxRuntime.jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", children: children }));
+const Header = ({ children, className, dataTestId }) => {
+    return (jsxRuntime.jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: children }));
 };
 const baseStyles$5 = {
     header: {
@@ -353,8 +353,8 @@ const baseStyles$5 = {
     }
 };
 
-const Block = ({ children, className }) => {
-    return (jsxRuntime.jsx("div", { css: [baseStyles$4.block, className?.block], className: "pa-block", children: children }));
+const Block = ({ children, className, dataTestId }) => {
+    return (jsxRuntime.jsx("div", { css: [baseStyles$4.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
 };
 const baseStyles$4 = {
     block: {
@@ -547,7 +547,7 @@ const r = y("CancelCircleIcon", [["path", {
   key: "k1"
 }]]);
 
-const Modal = ({ className = {}, children, closeModal }) => {
+const Modal = ({ className = {}, children, dataTestId, closeModal }) => {
     const [hovering, setHovering] = react$1.useState(false);
     const closeModalHandler = () => {
         closeModal?.();
@@ -560,7 +560,7 @@ const Modal = ({ className = {}, children, closeModal }) => {
             setHovering(false);
         }
     };
-    return (jsxRuntime.jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", children: jsxRuntime.jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsxRuntime.jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsxRuntime.jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsxRuntime.jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
+    return (jsxRuntime.jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", "data-testid": dataTestId, children: jsxRuntime.jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsxRuntime.jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsxRuntime.jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsxRuntime.jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
 };
 
 exports.Block = Block;

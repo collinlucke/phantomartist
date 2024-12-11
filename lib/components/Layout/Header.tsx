@@ -6,6 +6,7 @@ import { CSSObject } from '@emotion/react';
 type HeaderModifyProps = ModifyPropsTypes & {
   children: ReactElement;
   useInnerWidth?: boolean;
+  dataTestId?: string;
   className?: {
     header?: CSSObject;
     useInnerWidth?: CSSObject;
@@ -15,10 +16,15 @@ type HeaderModifyProps = ModifyPropsTypes & {
 
 export const Header: React.FC<HeaderModifyProps> = ({
   children,
-  className
+  className,
+  dataTestId
 }) => {
   return (
-    <header css={[baseStyles.header, className?.header]} className="pa-header">
+    <header
+      css={[baseStyles.header, className?.header]}
+      className="pa-header"
+      data-testid={dataTestId}
+    >
       {children}
     </header>
   );

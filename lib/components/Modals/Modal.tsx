@@ -5,6 +5,7 @@ import { CancelCircleIcon } from 'hugeicons-react';
 
 type ModalTypes = {
   children: ReactNode;
+  dataTestId?: string;
   className?: {
     modal?: CSSObject;
   };
@@ -15,6 +16,7 @@ type ModalTypes = {
 export const Modal: FC<ModalTypes> = ({
   className = {},
   children,
+  dataTestId,
   closeModal
 }) => {
   const [hovering, setHovering] = useState(false);
@@ -31,7 +33,11 @@ export const Modal: FC<ModalTypes> = ({
   };
 
   return (
-    <div css={[baseTheme.modal, className?.modal]} className="pa-modal">
+    <div
+      css={[baseTheme.modal, className?.modal]}
+      className="pa-modal"
+      data-testid={dataTestId}
+    >
       <div css={baseTheme.modalContentWrapper}>
         <div css={baseTheme.modalHeading} className="pa-modal-heading">
           {closeModal && (

@@ -6,11 +6,20 @@ type BlockProps = {
   className?: {
     block?: CSSObject;
   };
+  dataTestId?: string;
 };
 
-export const Block: React.FC<BlockProps> = ({ children, className }) => {
+export const Block: React.FC<BlockProps> = ({
+  children,
+  className,
+  dataTestId
+}) => {
   return (
-    <div css={[baseStyles.block, className?.block]} className="pa-block">
+    <div
+      css={[baseStyles.block, className?.block]}
+      className="pa-block"
+      data-testid={dataTestId}
+    >
       {children}
     </div>
   );

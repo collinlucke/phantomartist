@@ -10,6 +10,7 @@ type Button = {
     size?: 'small' | 'medium' | 'large';
     iconOnly?: boolean;
     icon?: ReactElement | string;
+    dataTestId?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 export declare const Button: React.FC<Button>;

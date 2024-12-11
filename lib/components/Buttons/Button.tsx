@@ -13,6 +13,7 @@ type Button = {
   size?: 'small' | 'medium' | 'large';
   iconOnly?: boolean;
   icon?: ReactElement | string;
+  dataTestId?: string;
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
@@ -25,6 +26,7 @@ export const Button: React.FC<Button> = ({
   size = 'large',
   icon,
   iconOnly,
+  dataTestId,
   onClick
 }) => {
   const consumerTheme = useTheme() as ConsumerThemeTypes;
@@ -42,6 +44,7 @@ export const Button: React.FC<Button> = ({
         className?.button
       ]}
       className={`pa-button ${kind} ${size}`}
+      data-testid={dataTestId}
     >
       {icon ? (
         <>
