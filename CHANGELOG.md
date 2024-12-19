@@ -1,6 +1,26 @@
 # Changelog
 
-## [0.0.35] - 12-13-2024
+## [0.0.35] - 12-19-2024
+
+### Added
+
+- Workflow for Storybook
+
+### Changed
+
+- ## N/A
+
+### Removed
+
+- ## N/A
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
+## [0.0.35] - 12-19-2024
 
 ### Added
 
