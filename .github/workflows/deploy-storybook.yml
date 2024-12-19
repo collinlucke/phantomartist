@@ -18,14 +18,11 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install pnpm
-        run: npm install pnpm
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install Dependencies
+        run: npm install
 
       - name: Build Storybook
-        run: npx run storybook built
+        run: npx run storybook build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
