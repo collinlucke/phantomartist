@@ -1,6 +1,6 @@
 import { MouseEventHandler, ReactElement } from 'react';
 import { CSSObject } from '@emotion/react';
-type Button = {
+interface ButtonProps {
     children: ReactElement | string;
     className?: {
         button?: CSSObject;
@@ -12,6 +12,7 @@ type Button = {
     icon?: ReactElement | string;
     dataTestId?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
-};
-export declare const Button: React.FC<Button>;
+}
+/** How do buh-tun? */
+export declare const Button: React.FC<ButtonProps>;
 export {};

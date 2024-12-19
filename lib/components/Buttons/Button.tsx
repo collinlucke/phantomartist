@@ -3,7 +3,7 @@ import { CSSObject, useTheme } from '@emotion/react';
 import { ConsumerThemeTypes } from '../../CustomTypes.types';
 import { baseTheme } from '../../styling/baseTheme';
 
-type Button = {
+interface ButtonProps {
   children: ReactElement | string;
   className?: {
     button?: CSSObject;
@@ -16,9 +16,9 @@ type Button = {
   dataTestId?: string;
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
-};
-
-export const Button: React.FC<Button> = ({
+}
+/** How do buh-tun? */
+export const Button: React.FC<ButtonProps> = ({
   children,
   className,
   type,
@@ -33,7 +33,7 @@ export const Button: React.FC<Button> = ({
   const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
     onClick?.(e);
   };
-
+  console.log(children);
   return (
     <button
       type={type}

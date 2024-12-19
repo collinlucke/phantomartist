@@ -1,5 +1,105 @@
 # Changelog
 
+## [0.0.35] - 12-13-2024
+
+### Added
+
+- Storybook added
+
+### Changed
+
+- ## N/A
+
+### Removed
+
+- ## N/A
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
+## [0.0.34] - 11-13-2024
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- Just some tweaks here and there
+
+### Removed
+
+- Got rid of that fun little fade-in
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
+## [0.0.34] - 11-13-2024
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- Just some tweaks here and there
+
+### Removed
+
+- Got rid of that fun little fade-in
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
+## [0.0.34] - 11-13-2024
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- Just some tweaks here and there
+
+### Removed
+
+- Got rid of that fun little fade-in
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
+## [0.0.34] - 11-13-2024
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- Just some tweaks here and there
+
+### Removed
+
+- Got rid of that fun little fade-in
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
 ## [0.0.34] - 11-13-2024
 
 ### Added
@@ -45,11 +145,7 @@
 
 ### Added
 
--
-
 ### Changed
-
--
 
 ### Removed
 

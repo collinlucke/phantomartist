@@ -29,5 +29,5 @@
     "sourceMap": true,
     "outDir": "dist"
   },
-  "include": ["lib/**/*"]
+  "include": ["./lib/**/*", ".storybook"]
 }

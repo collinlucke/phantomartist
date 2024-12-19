@@ -128,11 +128,13 @@ const baseTheme = {
     modalContent: {}
 };
 
+/** How do buh-tun? */
 const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, onClick }) => {
     const consumerTheme = useTheme();
     const onClickHandler = e => {
         onClick?.(e);
     };
+    console.log(children);
     return (jsx("button", { type: type, onClick: onClickHandler, css: [
             baseTheme.button({ kind, size, iconOnly }),
             consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
