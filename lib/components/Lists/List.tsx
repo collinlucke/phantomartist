@@ -3,7 +3,7 @@ import { shadesAndTints } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListProps = {
-  children?: ReactNode;
+  children?: ReactNode[];
   className?: CSSObject;
 };
 
@@ -15,17 +15,16 @@ export const List: React.FC<ListProps> = ({ className, children }) => {
   );
 };
 
-const baseStyles = {
-  ul: {
+const baseStyles: CSSObject = {
+  unOList: {
     borderRadius: '6px',
     backgroundColor: shadesAndTints.tertiaryLight,
-    minHeight: '5px',
     fontWeight: '500',
     padding: '20px',
     margin: 0,
     width: '100%',
     display: 'flex',
-    flexDirection: 'column' as 'column',
+    flexDirection: 'column',
     listStyleType: 'none'
   }
 };

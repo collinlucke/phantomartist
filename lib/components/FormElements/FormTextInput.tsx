@@ -35,16 +35,19 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
   value = '',
   placeholder,
   size = 'large',
-  onChange,
   className,
-  readonly
+  readonly,
+  onChange
 }) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
   };
 
   return (
-    <div css={[baseStyles.inputWrapper(labelPos), className?.inputWrapper]}>
+    <div
+      css={[baseStyles.inputWrapper(labelPos), className?.inputWrapper]}
+      className="pa-form-text-input"
+    >
       {(label && labelPos === 'left') || labelPos === 'above' ? (
         <FormInputLabel
           position={labelPos}
@@ -85,13 +88,11 @@ export const FormTextInput: React.FC<FormTextInputProps> = ({
 };
 
 const baseStyles = {
-  inputWrapper: (labelPos: string) => ({
+  inputWrapper: (labelPos: string): CSSObject => ({
     marginBottom: '20px',
     display: 'flex',
     flexDirection:
-      labelPos === 'above' || labelPos === 'below'
-        ? ('column' as 'column')
-        : ('row' as 'row')
+      labelPos === 'above' || labelPos === 'below' ? 'column' : 'row'
   }),
   input: (size: string) => {
     return {

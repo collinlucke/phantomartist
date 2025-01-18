@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
-import { ModifyPropsTypes } from '../../CustomTypes.types';
 import { CSSObject } from '@emotion/react';
-type HeaderModifyProps = ModifyPropsTypes & {
+type HeaderModifyProps = {
     children: ReactElement;
     useInnerWidth?: boolean;
     dataTestId?: string;

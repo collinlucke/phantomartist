@@ -17,7 +17,6 @@ interface ButtonProps {
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
-/** How do buh-tun? */
 export const Button: React.FC<ButtonProps> = ({
   children,
   className,
@@ -33,7 +32,6 @@ export const Button: React.FC<ButtonProps> = ({
   const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
     onClick?.(e);
   };
-  console.log(children);
   return (
     <button
       type={type}

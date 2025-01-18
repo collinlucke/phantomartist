@@ -4,6 +4,26 @@
 
 ### Added
 
+- ## N/A
+
+### Changed
+
+- ## N/A
+
+### Removed
+
+- ## N/A
+
+### Fixed
+
+- General cleanup
+
+<br/>
+
+## [0.0.36] - 12-19-2024
+
+### Added
+
 - Workflow for Storybook
 
 ### Changed

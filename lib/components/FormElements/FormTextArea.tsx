@@ -30,10 +30,10 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
   name = '',
   labelPos,
   value = '',
-  onChange,
   className,
   readonly,
-  autoResize
+  autoResize,
+  onChange
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -50,7 +50,7 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
     if (textAreaRef.current && autoResize) {
       resize(textAreaRef.current);
     }
-  }, [value]);
+  });
 
   return (
     <div css={[baseStyles.textAreaWrapper, className?.textAreaWrapper]}>
@@ -97,7 +97,7 @@ export const FormTextArea: React.FC<FormTextAreaProps> = ({
   );
 };
 
-const baseStyles = {
+const baseStyles: CSSObject = {
   textAreaWrapper: {
     marginBottom: '20px'
   },
@@ -107,7 +107,7 @@ const baseStyles = {
     borderRadius: '5px',
     width: '100%',
     minHeight: '50px',
-    resize: 'none' as 'none',
+    resize: 'none',
     overflow: 'hidden'
   },
   readonly: {

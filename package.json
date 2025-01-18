@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "version": "0.0.36-d",
+  "version": "0.0.37",
   "type": "module",
   "module": "./dist/esm/index.esm.js",
   "main": "./dist/cjs/index.cjs.js",
@@ -25,7 +25,7 @@
   "scripts": {
     "build": "NODE_OPTIONS='--trace-warnings' rollup -c",
     "dev": "rollup -c -w",
-    "lint": "eslint . --ext ts,tsx .ts,.tsx",
+    "lint": "eslint . --ext ts,tsx,.ts,.tsx --debug",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -35,13 +35,16 @@
     "@rollup/plugin-commonjs": "^26.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@storybook/addon-controls": "^8.4.7",
+    "@storybook/addons": "^7.6.17",
     "autoprefixer": "^10.4.20",
     "facepaint": "^1.2.1",
     "glob": "^11.0.0",
     "hugeicons-react": "^0.3.0",
     "react-docgen-typescript-plugin": "^1.0.8",
+    "react-tabs": "^6.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "storybook-addon-react-docgen": "^1.2.44",
+    "tabs": "^0.2.0",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
@@ -61,6 +64,8 @@
     "@types/node": "^20.16.12",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
     "@vitejs/plugin-react": "^4.3.2",
     "eslint": "^8.57.1",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -81,8 +86,8 @@
   },
   "peerDependencies": {
     "@emotion/react": "^11.13.3",
-    "react": ">=16.8.0 || < ^18.3.1",
-    "react-dom": ">=16.8.0 || < ^18.3.1",
+    "react": "^16.8.0 || ^18.3.1",
+    "react-dom": "^16.8.0 || ^18.3.1",
     "react-router-dom": "^6.26.2"
   },
   "eslintConfig": {

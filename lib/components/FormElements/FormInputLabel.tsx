@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ClassNames, CSSObject } from '@emotion/react';
+import { CSSObject } from '@emotion/react';
 
 type Props = {
   position: 'left' | 'right' | 'above' | 'below';

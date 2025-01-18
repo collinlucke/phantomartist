@@ -34,6 +34,7 @@ export const baseTheme = {
       borderRadius: '5px',
       cursor: 'pointer',
       gap: '10px',
+      width: 'fit-content',
       padding: !iconOnly
         ? (size === 'large' && kind === 'primary' && '10px 40px') ||
           (size === 'large' && kind === 'secondary' && '8px 34px') ||
@@ -83,7 +84,7 @@ export const baseTheme = {
     borderRadius: '5px'
   }),
   modal: {
-    position: 'absolute' as 'absolute',
+    position: 'absolute' as const,
     width: '100%',
     height: '100%',
     top: 0,
@@ -93,14 +94,14 @@ export const baseTheme = {
     alignItems: 'center',
     // backgroundColor: baseColors.secondary,
     backgroundColor: `${shadesAndTints.primaryLight}`,
-    flexDirection: 'column' as 'column'
+    flexDirection: 'column' as const
   },
   modalContentWrapper: {
     backgroundColor: shadesAndTints.tertiaryLight,
     padding: '20px',
     boxShadow: `0 0 4px black`,
     display: 'flex',
-    flexDirection: 'column' as 'column',
+    flexDirection: 'column' as const,
     width: '400px'
   },
   modalHeading: {

@@ -1,3 +1,4 @@
+import { CSSObject } from '@emotion/react';
 import { ReactElement } from 'react';
 
 type TwoColumn = {
@@ -13,13 +14,13 @@ export const TwoColumn: React.FC<TwoColumn> = ({ left, right }) => {
   );
 };
 
-const baseStyles = {
+const baseStyles: CSSObject = {
   columnWrapper: {
     gap: '50px',
     display: 'flex',
-    flexDirection: 'row' as 'row',
+    flexDirection: 'row',
     '@media (max-width: 740px)': {
-      flexDirection: 'column' as 'column',
+      flexDirection: 'column',
       gap: '0'
     }
   },

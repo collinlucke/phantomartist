@@ -5,7 +5,7 @@ var react = require('@emotion/react');
 var react$1 = require('react');
 
 function styleInject(css, ref) {
-  if (ref === void 0) ref = {};
+  if (ref === undefined) ref = {};
   var insertAt = ref.insertAt;
   if (typeof document === 'undefined') {
     return;
@@ -56,6 +56,7 @@ const baseTheme = {
             borderRadius: '5px',
             cursor: 'pointer',
             gap: '10px',
+            width: 'fit-content',
             padding: !iconOnly
                 ? (size === 'large' && kind === 'primary' && '10px 40px') ||
                     (size === 'large' && kind === 'secondary' && '8px 34px') ||
@@ -136,7 +137,6 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
     const onClickHandler = e => {
         onClick?.(e);
     };
-    console.log(children);
     return (jsxRuntime.jsx("button", { type: type, onClick: onClickHandler, css: [
             baseTheme.button({ kind, size, iconOnly }),
             consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
@@ -214,11 +214,12 @@ const baseStyles$a = {
     below: { marginTop: '7px' }
 };
 
-const FormTextInput = ({ label = '', name = '', type = 'text', labelPos = 'left', value = '', placeholder, size = 'large', onChange, className, readonly }) => {
+const FormTextInput = ({ label = '', name = '', type = 'text', labelPos = 'left', value = '', placeholder, size = 'large', className, readonly, onChange }) => {
     const onChangeHandler = (e) => {
         onChange?.(e);
     };
-    return (jsxRuntime.jsxs("div", { css: [baseStyles$9.inputWrapper(labelPos), className?.inputWrapper], children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsxRuntime.jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsxRuntime.jsx("input", { css: [
+    console.log(className);
+    return (jsxRuntime.jsxs("div", { css: [baseStyles$9.inputWrapper(labelPos), className?.inputWrapper], className: "pa-form-text-input", children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsxRuntime.jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsxRuntime.jsx("input", { css: [
                     baseStyles$9.input(size),
                     readonly && baseStyles$9.readonly,
                     className && className.input
@@ -228,9 +229,7 @@ const baseStyles$9 = {
     inputWrapper: (labelPos) => ({
         marginBottom: '20px',
         display: 'flex',
-        flexDirection: labelPos === 'above' || labelPos === 'below'
-            ? 'column'
-            : 'row'
+        flexDirection: labelPos === 'above' || labelPos === 'below' ? 'column' : 'row'
     }),
     input: (size) => {
         return {
@@ -251,7 +250,7 @@ const baseStyles$9 = {
     }
 };
 
-const FormTextArea = ({ label = '', name = '', labelPos, value = '', onChange, className, readonly, autoResize }) => {
+const FormTextArea = ({ label = '', name = '', labelPos, value = '', className, readonly, autoResize, onChange }) => {
     const textAreaRef = react$1.useRef(null);
     const onChangeHandler = (e) => {
         onChange?.(e);
@@ -265,7 +264,7 @@ const FormTextArea = ({ label = '', name = '', labelPos, value = '', onChange, c
         if (textAreaRef.current && autoResize) {
             resize(textAreaRef.current);
         }
-    }, [value]);
+    });
     return (jsxRuntime.jsxs("div", { css: [baseStyles$8.textAreaWrapper, className?.textAreaWrapper], children: [labelPos === 'left' || labelPos === 'above' ? (jsxRuntime.jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
                     [labelPos]: className?.[labelPos],
                     label: className?.label
@@ -299,8 +298,22 @@ const baseStyles$8 = {
     }
 };
 
+const FormDropdown = ({ 
+// value,
+// title,
+options, onSelect }) => {
+    const [selected, setSelected] = react$1.useState(options[0].value);
+    const [isOpen, setIsOpen] = react$1.useState(false);
+    const handleSelect = (option) => {
+        setSelected(option.value);
+        setIsOpen(false);
+        onSelect(option.value);
+    };
+    return (jsxRuntime.jsxs("div", { className: "pa-dropdown", children: [jsxRuntime.jsxs("div", { className: "pa-dropdown-field", onClick: () => setIsOpen(!isOpen), children: [selected, " ", jsxRuntime.jsx("span", { className: "caret", children: "\u25BC" })] }), isOpen && (jsxRuntime.jsx("ul", { className: "pa-dropdown-menu", children: options.map((option, index) => (jsxRuntime.jsxs("li", { className: "pa-dropdown-item", onClick: () => handleSelect(option), children: ["fdaerersefrrs", option.label || option.value] }, index))) }))] }));
+};
+
 const Main = ({ children, className }) => {
-    return jsxRuntime.jsx("main", { css: [baseStyles$7.main, className?.main], children: children });
+    return (jsxRuntime.jsx("main", { className: "pa-main", css: [baseStyles$7.main, className?.main], children: children }));
 };
 const baseStyles$7 = {
     main: {
@@ -317,6 +330,7 @@ const baseStyles$6 = {
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
+        alignSelf: 'center',
         width: 'calc(100% - 2 * 20px)',
         '@media (min-width: 634px)': {
             width: '594px'
@@ -363,7 +377,8 @@ const baseStyles$4 = {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignSelf: 'end'
+        alignSelf: 'end',
+        flexDirection: 'column'
     }
 };
 
@@ -397,10 +412,9 @@ const List = ({ className, children }) => {
     return (jsxRuntime.jsx("ul", { css: [baseStyles$2.ul, className?.ul], className: "pa-list", children: children }));
 };
 const baseStyles$2 = {
-    ul: {
+    unOList: {
         borderRadius: '6px',
         backgroundColor: shadesAndTints.tertiaryLight,
-        minHeight: '5px',
         fontWeight: '500',
         padding: '20px',
         margin: 0,
@@ -435,31 +449,31 @@ const baseStyles$1 = {
     }
 };
 
-const Search = ({ searchTerm, searchLabel, resultsCount, className, buttonSize, inputSize, useSearchButton, onSearch, setSearchTerm }) => {
+const Search = ({ searchTerm, searchLabel, totalResultsCount, className, buttonSize, inputSize, useSearchButton, onSearch, setSearchTerm }) => {
     const onSearchHandler = e => {
         onSearch?.(e);
     };
     const setSearchTermHandler = (e) => {
         setSearchTerm(e);
     };
-    return (jsxRuntime.jsxs("div", { css: [baseStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [jsxRuntime.jsxs("div", { css: baseStyles.results, children: ["Results: ", resultsCount] }), jsxRuntime.jsxs(Form, { className: baseStyles, onSubmit: onSearchHandler, role: "search", children: [jsxRuntime.jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: baseStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsxRuntime.jsx(Button, { size: buttonSize, className: { button: baseStyles.button }, type: "submit", children: "Search" }))] })] }));
+    return (jsxRuntime.jsxs("div", { css: [
+            baseStyles.searchWrapper,
+            className?.searchWrapper,
+            searchWrapperMediaQuery
+        ], className: "pa-search-wrapper", children: [jsxRuntime.jsxs("div", { css: baseStyles.results, children: ["Total Results: ", totalResultsCount] }), jsxRuntime.jsxs(Form, { className: formStyles, onSubmit: onSearchHandler, role: "search", children: [jsxRuntime.jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: formTextInputStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsxRuntime.jsx(Button, { size: buttonSize, className: buttonStyles, type: "submit", children: "Search" }))] })] }));
 };
-const baseStyles = {
-    searchWrapper: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'end',
-        marginBottom: '20px',
-        '@media (max-width: 580px)': {
-            flexDirection: 'column'
-        }
-    },
-    results: {
-        alignSelf: 'end',
-        '@media (max-width: 580px)': {
-            alignSelf: 'start'
-        }
-    },
+const searchWrapperMediaQuery = {
+    '@media (max-width: 580px)': {
+        flexDirection: 'column'
+    }
+};
+const formTextInputStyles = {
+    inputWrapper: {
+        margin: 0,
+        flex: 1
+    }
+};
+const formStyles = {
     form: {
         display: 'flex',
         justifyContent: 'end',
@@ -473,13 +487,35 @@ const baseStyles = {
         // Kill Form defaults
         backgroundColor: 'transparent',
         padding: '0'
-    },
+    }
+};
+const buttonStyles = {
     button: {
         marginLeft: '10px'
+    }
+};
+const baseStyles = {
+    searchWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'end',
+        paddingBottom: '20px',
+        paddingTop: '20px',
+        background: 'white'
     },
-    inputWrapper: {
-        margin: 0,
-        flex: 1
+    resultsWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        '@media (max-width: 580px)': {
+            flexDirection: 'column'
+        }
+    },
+    results: {
+        alignSelf: 'end',
+        '@media (max-width: 580px)': {
+            alignSelf: 'start'
+        }
     }
 };
 
@@ -569,6 +605,7 @@ exports.Block = Block;
 exports.Button = Button;
 exports.ButtonGroup = ButtonGroup;
 exports.Form = Form;
+exports.FormDropdown = FormDropdown;
 exports.FormInputLabel = FormInputLabel;
 exports.FormTextArea = FormTextArea;
 exports.FormTextInput = FormTextInput;

@@ -9,6 +9,7 @@ type Search = {
   resultsCount?: number;
   buttonSize?: 'large' | 'medium' | 'small';
   inputSize?: 'large' | 'medium' | 'small';
+  totalResultsCount?: string;
   useSearchButton?: boolean;
   className?: {
     searchWrapper?: CSSObject;
@@ -21,7 +22,7 @@ type Search = {
 export const Search: React.FC<Search> = ({
   searchTerm,
   searchLabel,
-  resultsCount,
+  totalResultsCount,
   className,
   buttonSize,
   inputSize,
@@ -35,29 +36,31 @@ export const Search: React.FC<Search> = ({
   const setSearchTermHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e);
   };
+
   return (
     <div
-      css={[baseStyles.searchWrapper, className?.searchWrapper]}
+      css={[
+        baseStyles.searchWrapper,
+        className?.searchWrapper,
+        searchWrapperMediaQuery
+      ]}
       className="pa-search-wrapper"
     >
-      <div css={baseStyles.results}>Results: {resultsCount}</div>
-      <Form className={baseStyles} onSubmit={onSearchHandler} role="search">
+      <div css={baseStyles.results}>Total Results: {totalResultsCount}</div>
+
+      <Form className={formStyles} onSubmit={onSearchHandler} role="search">
         <FormTextInput
           type="search"
           value={searchTerm}
           name="searchTerm"
           labelPos="above"
           placeholder={searchLabel || 'Search'}
-          className={baseStyles}
+          className={formTextInputStyles}
           onChange={setSearchTermHandler}
           size={inputSize}
         />
         {useSearchButton && (
-          <Button
-            size={buttonSize}
-            className={{ button: baseStyles.button }}
-            type="submit"
-          >
+          <Button size={buttonSize} className={buttonStyles} type="submit">
             Search
           </Button>
         )}
@@ -66,27 +69,25 @@ export const Search: React.FC<Search> = ({
   );
 };
 
-const baseStyles = {
-  searchWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'end',
-    marginBottom: '20px',
-    '@media (max-width: 580px)': {
-      flexDirection: 'column' as 'column'
-    }
-  },
-  results: {
-    alignSelf: 'end',
-    '@media (max-width: 580px)': {
-      alignSelf: 'start'
-    }
-  },
+const searchWrapperMediaQuery = {
+  '@media (max-width: 580px)': {
+    flexDirection: 'column' as const
+  }
+};
+
+const formTextInputStyles = {
+  inputWrapper: {
+    margin: 0,
+    flex: 1
+  }
+};
+
+const formStyles = {
   form: {
     display: 'flex',
     justifyContent: 'end',
     alignItems: 'flex-end',
-    flexWrap: 'wrap' as 'wrap',
+    flexWrap: 'wrap' as const,
     width: 'inherit',
     border: 'none',
     '@media (max-width: 580px)': {
@@ -96,12 +97,36 @@ const baseStyles = {
     // Kill Form defaults
     backgroundColor: 'transparent',
     padding: '0'
-  },
+  }
+};
+
+const buttonStyles = {
   button: {
     marginLeft: '10px'
+  }
+};
+
+const baseStyles = {
+  searchWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'end',
+    paddingBottom: '20px',
+    paddingTop: '20px',
+    background: 'white'
   },
-  inputWrapper: {
-    margin: 0,
-    flex: 1
+  resultsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    '@media (max-width: 580px)': {
+      flexDirection: 'column'
+    }
+  },
+  results: {
+    alignSelf: 'end',
+    '@media (max-width: 580px)': {
+      alignSelf: 'start'
+    }
   }
 };

@@ -6,6 +6,7 @@ type Search = {
     resultsCount?: number;
     buttonSize?: 'large' | 'medium' | 'small';
     inputSize?: 'large' | 'medium' | 'small';
+    totalResultsCount?: string;
     useSearchButton?: boolean;
     className?: {
         searchWrapper?: CSSObject;

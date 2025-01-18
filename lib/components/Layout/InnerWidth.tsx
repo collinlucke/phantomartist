@@ -22,11 +22,12 @@ export const InnerWidth: React.FC<InnerWidthProps> = ({
   );
 };
 
-const baseStyles = {
+const baseStyles: CSSObject = {
   innerWidth: {
     display: 'flex',
     justifyContent: 'space-between',
-    flexDirection: 'column' as 'column',
+    flexDirection: 'column',
+    alignSelf: 'center',
     width: 'calc(100% - 2 * 20px)',
     '@media (min-width: 634px)': {
       width: '594px'

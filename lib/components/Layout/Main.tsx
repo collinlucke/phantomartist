@@ -7,7 +7,11 @@ type MainProps = {
 };
 
 export const Main: React.FC<MainProps> = ({ children, className }) => {
-  return <main css={[baseStyles.main, className?.main]}>{children}</main>;
+  return (
+    <main className="pa-main" css={[baseStyles.main, className?.main]}>
+      {children}
+    </main>
+  );
 };
 
 const baseStyles = {
