@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 import { CSSObject } from '@emotion/react';
 
 type Search = {
-  searchTerm?: string;
+  searchTerm?: string | number;
   searchLabel?: string;
   resultsCount?: number;
   buttonSize?: 'large' | 'medium' | 'small';
@@ -27,6 +27,7 @@ export const Search: React.FC<Search> = ({
   buttonSize,
   inputSize,
   useSearchButton,
+
   onSearch,
   setSearchTerm
 }) => {

@@ -13,6 +13,5 @@ interface ButtonProps {
     dataTestId?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
 }
-/** How do buh-tun? */
 export declare const Button: React.FC<ButtonProps>;
 export {};

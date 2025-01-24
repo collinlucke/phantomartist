@@ -129,7 +129,6 @@ const baseTheme = {
     modalContent: {}
 };
 
-/** How do buh-tun? */
 const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, onClick }) => {
     const consumerTheme = useTheme();
     const onClickHandler = e => {
@@ -216,7 +215,6 @@ const FormTextInput = ({ label = '', name = '', type = 'text', labelPos = 'left'
     const onChangeHandler = (e) => {
         onChange?.(e);
     };
-    console.log(className);
     return (jsxs("div", { css: [baseStyles$9.inputWrapper(labelPos), className?.inputWrapper], className: "pa-form-text-input", children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsx("input", { css: [
                     baseStyles$9.input(size),
                     readonly && baseStyles$9.readonly,
@@ -294,20 +292,6 @@ const baseStyles$8 = {
         padding: 0,
         border: 'none'
     }
-};
-
-const FormDropdown = ({ 
-// value,
-// title,
-options, onSelect }) => {
-    const [selected, setSelected] = useState(options[0].value);
-    const [isOpen, setIsOpen] = useState(false);
-    const handleSelect = (option) => {
-        setSelected(option.value);
-        setIsOpen(false);
-        onSelect(option.value);
-    };
-    return (jsxs("div", { className: "pa-dropdown", children: [jsxs("div", { className: "pa-dropdown-field", onClick: () => setIsOpen(!isOpen), children: [selected, " ", jsx("span", { className: "caret", children: "\u25BC" })] }), isOpen && (jsx("ul", { className: "pa-dropdown-menu", children: options.map((option, index) => (jsxs("li", { className: "pa-dropdown-item", onClick: () => handleSelect(option), children: ["fdaerersefrrs", option.label || option.value] }, index))) }))] }));
 };
 
 const Main = ({ children, className }) => {
@@ -410,7 +394,7 @@ const List = ({ className, children }) => {
     return (jsx("ul", { css: [baseStyles$2.ul, className?.ul], className: "pa-list", children: children }));
 };
 const baseStyles$2 = {
-    unOList: {
+    ul: {
         borderRadius: '6px',
         backgroundColor: shadesAndTints.tertiaryLight,
         fontWeight: '500',
@@ -599,5 +583,5 @@ const Modal = ({ className = {}, children, dataTestId, closeModal }) => {
     return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", "data-testid": dataTestId, children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
 };
 
-export { Block, Button, ButtonGroup, Form, FormDropdown, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, Search, TwoColumn };
+export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, Search, TwoColumn };
 //# sourceMappingURL=index.esm.js.map

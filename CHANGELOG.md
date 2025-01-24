@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.0.38] - 01-23-2024
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- Minor tweaks
+
+### Removed
+
+- ## N/A
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
 ## [0.0.36] - 12-19-2024
 
 ### Added

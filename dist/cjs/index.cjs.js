@@ -131,7 +131,6 @@ const baseTheme = {
     modalContent: {}
 };
 
-/** How do buh-tun? */
 const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, onClick }) => {
     const consumerTheme = react.useTheme();
     const onClickHandler = e => {
@@ -218,7 +217,6 @@ const FormTextInput = ({ label = '', name = '', type = 'text', labelPos = 'left'
     const onChangeHandler = (e) => {
         onChange?.(e);
     };
-    console.log(className);
     return (jsxRuntime.jsxs("div", { css: [baseStyles$9.inputWrapper(labelPos), className?.inputWrapper], className: "pa-form-text-input", children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsxRuntime.jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsxRuntime.jsx("input", { css: [
                     baseStyles$9.input(size),
                     readonly && baseStyles$9.readonly,
@@ -296,20 +294,6 @@ const baseStyles$8 = {
         padding: 0,
         border: 'none'
     }
-};
-
-const FormDropdown = ({ 
-// value,
-// title,
-options, onSelect }) => {
-    const [selected, setSelected] = react$1.useState(options[0].value);
-    const [isOpen, setIsOpen] = react$1.useState(false);
-    const handleSelect = (option) => {
-        setSelected(option.value);
-        setIsOpen(false);
-        onSelect(option.value);
-    };
-    return (jsxRuntime.jsxs("div", { className: "pa-dropdown", children: [jsxRuntime.jsxs("div", { className: "pa-dropdown-field", onClick: () => setIsOpen(!isOpen), children: [selected, " ", jsxRuntime.jsx("span", { className: "caret", children: "\u25BC" })] }), isOpen && (jsxRuntime.jsx("ul", { className: "pa-dropdown-menu", children: options.map((option, index) => (jsxRuntime.jsxs("li", { className: "pa-dropdown-item", onClick: () => handleSelect(option), children: ["fdaerersefrrs", option.label || option.value] }, index))) }))] }));
 };
 
 const Main = ({ children, className }) => {
@@ -412,7 +396,7 @@ const List = ({ className, children }) => {
     return (jsxRuntime.jsx("ul", { css: [baseStyles$2.ul, className?.ul], className: "pa-list", children: children }));
 };
 const baseStyles$2 = {
-    unOList: {
+    ul: {
         borderRadius: '6px',
         backgroundColor: shadesAndTints.tertiaryLight,
         fontWeight: '500',
@@ -605,7 +589,6 @@ exports.Block = Block;
 exports.Button = Button;
 exports.ButtonGroup = ButtonGroup;
 exports.Form = Form;
-exports.FormDropdown = FormDropdown;
 exports.FormInputLabel = FormInputLabel;
 exports.FormTextArea = FormTextArea;
 exports.FormTextInput = FormTextInput;

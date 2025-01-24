@@ -5,7 +5,7 @@ type FormTextInputProps = {
     name?: string;
     type?: HTMLInputTypeAttribute;
     labelPos?: 'left' | 'right' | 'above' | 'below';
-    value?: string;
+    value?: string | number;
     placeholder?: string;
     readonly?: boolean;
     size?: 'large' | 'medium' | 'small';

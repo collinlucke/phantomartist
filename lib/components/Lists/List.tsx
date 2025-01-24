@@ -16,7 +16,7 @@ export const List: React.FC<ListProps> = ({ className, children }) => {
 };
 
 const baseStyles: CSSObject = {
-  unOList: {
+  ul: {
     borderRadius: '6px',
     backgroundColor: shadesAndTints.tertiaryLight,
     fontWeight: '500',
