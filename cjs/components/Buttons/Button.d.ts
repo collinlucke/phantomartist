@@ -1,6 +1,6 @@
 import { MouseEventHandler, ReactElement } from 'react';
 import { CSSObject } from '@emotion/react';
-export type ButtonProps = {
+interface ButtonProps {
     children: ReactElement | string;
     className?: {
         button?: CSSObject;
@@ -12,5 +12,6 @@ export type ButtonProps = {
     icon?: ReactElement | string;
     dataTestId?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
-};
+}
 export declare const Button: React.FC<ButtonProps>;
+export {};

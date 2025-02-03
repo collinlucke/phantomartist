@@ -1,11 +1,12 @@
 import { ChangeEvent } from 'react';
 import { CSSObject } from '@emotion/react';
 type Search = {
-    searchTerm?: string;
+    searchTerm?: string | number;
     searchLabel?: string;
     resultsCount?: number;
     buttonSize?: 'large' | 'medium' | 'small';
     inputSize?: 'large' | 'medium' | 'small';
+    totalResultsCount?: string;
     useSearchButton?: boolean;
     className?: {
         searchWrapper?: CSSObject;
