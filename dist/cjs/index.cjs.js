@@ -585,6 +585,24 @@ const Modal = ({ className = {}, children, dataTestId, closeModal }) => {
     return (jsxRuntime.jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", "data-testid": dataTestId, children: jsxRuntime.jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsxRuntime.jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsxRuntime.jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsxRuntime.jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
 };
 
+function useDebounce(func, wait) {
+    const timeoutRef = react$1.useRef();
+    const debounceFunc = react$1.useCallback((...args) => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            func(...args);
+        }, wait);
+    }, [func, wait]);
+    return debounceFunc;
+}
+
+var index = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  useDebounce: useDebounce
+});
+
 exports.Block = Block;
 exports.Button = Button;
 exports.ButtonGroup = ButtonGroup;
@@ -599,6 +617,7 @@ exports.List = List;
 exports.ListItem = ListItem;
 exports.Main = Main;
 exports.Modal = Modal;
+exports.PAHooks = index;
 exports.Search = Search;
 exports.TwoColumn = TwoColumn;
 //# sourceMappingURL=index.cjs.js.map

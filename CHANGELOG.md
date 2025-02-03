@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.0] - 02-03-2024
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- Move useDebounced
+- Setting project 1.0.0 for all projects
+
+### Removed
+
+- ## N/A
+
+### Fixed
+
+- ## N/A
+
+<br/>
+
 ## [0.0.38] - 01-23-2024
 
 ### Added

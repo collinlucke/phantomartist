@@ -1,6 +1,6 @@
 import { jsx, jsxs, Fragment } from '@emotion/react/jsx-runtime';
 import { useTheme } from '@emotion/react';
-import { useRef, useLayoutEffect, useState, forwardRef, createElement } from 'react';
+import { useRef, useLayoutEffect, useState, forwardRef, createElement, useCallback } from 'react';
 
 function styleInject(css, ref) {
   if (ref === undefined) ref = {};
@@ -583,5 +583,23 @@ const Modal = ({ className = {}, children, dataTestId, closeModal }) => {
     return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", "data-testid": dataTestId, children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
 };
 
-export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, Search, TwoColumn };
+function useDebounce(func, wait) {
+    const timeoutRef = useRef();
+    const debounceFunc = useCallback((...args) => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+            func(...args);
+        }, wait);
+    }, [func, wait]);
+    return debounceFunc;
+}
+
+var index = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  useDebounce: useDebounce
+});
+
+export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, index as PAHooks, Search, TwoColumn };
 //# sourceMappingURL=index.esm.js.map
