@@ -23,7 +23,7 @@
     "url": "git+https://github.com/collinlucke/phantomartist.git"
   },
   "scripts": {
-    "build": "NODE_OPTIONS='--trace-warnings' rollup -c",
+    "build": "rollup -c",
     "dev": "rollup -c -w",
     "lint": "eslint . --ext ts,tsx,.ts,.tsx --debug",
     "storybook": "storybook dev -p 6006",

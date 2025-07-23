@@ -30,7 +30,6 @@ const baseStyles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignSelf: 'end',
     flexDirection: 'column' as const
   }
 };

@@ -29,8 +29,9 @@ export const baseTheme = {
   }): CSSObject => {
     return {
       display: 'flex',
-      alignItems: 'end',
-      fontWeight: '500',
+      alignItems: 'center',
+      fontWeight: kind === 'ghost' || kind === 'ghostOnDark' ? '600' : '500', // semibold for ghost buttons
+      fontSize: kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : undefined, // 18px for ghost buttons
       borderRadius: '5px',
       cursor: 'pointer',
       gap: '10px',
@@ -39,11 +40,21 @@ export const baseTheme = {
         ? (size === 'large' && kind === 'primary' && '10px 40px') ||
           (size === 'large' && kind === 'secondary' && '8px 34px') ||
           (size === 'large' && kind === 'tertiary' && '8px 34px') ||
+          (size === 'large' && kind === 'ghost' && '10px 40px') ||
+          (size === 'large' && kind === 'ghostOnDark' && '10px 40px') ||
           (size === 'medium' && kind === 'primary' && '8px 15px') ||
+          (size === 'medium' && kind === 'secondary' && '8px 15px') ||
+          (size === 'medium' && kind === 'ghost' && '8px 15px') ||
+          (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
           (size === 'small' && kind === 'primary' && '5px 10px') ||
+          (size === 'small' && kind === 'secondary' && '5px 10px') ||
+          (size === 'small' && kind === 'ghost' && '5px 10px') ||
+          (size === 'small' && kind === 'ghostOnDark' && '5px 10px') ||
           undefined
         : (kind === 'primary' && '8px') ||
-          (size === 'large' && kind === 'ghost' && '0') ||
+          (kind === 'secondary' && '8px') ||
+          (kind === 'ghost' && '8px') ||
+          (kind === 'ghostOnDark' && '8px') ||
           undefined,
       border:
         (kind === 'primary' && 'none') ||
@@ -52,6 +63,7 @@ export const baseTheme = {
         (kind === 'secondary' && `2px solid ${shadesAndTints.primaryDark}`) ||
         (kind === 'tertiary' && `3px solid ${shadesAndTints.primaryDark}`) ||
         (kind === 'ghost' && 'none') ||
+        (kind === 'ghostOnDark' && 'none') ||
         // (kind === 'tertiary' && `1px solid ${baseColors.tertiary}`) ||
         undefined,
 
@@ -59,25 +71,47 @@ export const baseTheme = {
         (kind === 'primary' && 'white') ||
         (kind === 'tertiary' && 'black') ||
         (kind === 'secondary' && baseColors.primary) ||
+        (kind === 'ghost' && 'inherit') ||
+        (kind === 'ghostOnDark' && 'inherit') ||
         'inherit',
       backgroundColor:
         (kind === 'primary' && baseColors.secondary) ||
         (kind === 'secondary' && baseColors.tertiary) ||
         (kind === 'ghost' && 'transparent') ||
+        (kind === 'ghostOnDark' && 'transparent') ||
         // (kind === 'secondary' &&
         //   `color-mix(in srgb, ${baseColors.primary} 75%, black)`) ||
         undefined,
       '&:hover': {
-        boxShadow: kind === 'ghost' ? '' : `0 0 7px black`,
-        textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : ''
+        boxShadow:
+          kind === 'ghost' || kind === 'ghostOnDark' ? '' : `0 0 7px black`,
+        textShadow:
+          kind === 'ghost' || kind === 'ghostOnDark'
+            ? `0 0 2px rgba(0,0,0,.75)`
+            : ''
       }
     };
   },
-  buttonGroup: {
-    display: 'flex',
-    gap: '20px',
-    justifyContent: 'end',
-    marginTop: '20px'
+  buttonGroup: ({
+    direction = 'horizontal',
+    gap = 'medium'
+  }: {
+    direction?: 'horizontal' | 'vertical';
+    gap?: 'small' | 'medium' | 'large';
+  } = {}): CSSObject => {
+    const gapSize =
+      (gap === 'small' && '10px') ||
+      (gap === 'medium' && '20px') ||
+      (gap === 'large' && '30px') ||
+      '20px';
+
+    return {
+      display: 'flex',
+      flexDirection: direction === 'vertical' ? 'column' : 'row',
+      gap: gapSize,
+      alignItems: 'center',
+      justifyContent: 'flex-start'
+    };
   },
   img: () => ({
     border: `1px solid ${baseColors.primary}`,
