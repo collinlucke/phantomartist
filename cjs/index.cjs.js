@@ -2,10 +2,10 @@
 
 var jsxRuntime = require('@emotion/react/jsx-runtime');
 var react = require('@emotion/react');
-var react$1 = require('react');
+var React = require('react');
 
 function styleInject(css, ref) {
-  if (ref === undefined) ref = {};
+  if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
   if (typeof document === 'undefined') {
     return;
@@ -29,30 +29,25 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "/* Box sizing rules */\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n/* Prevent font size inflation */\nhtml {\n  -moz-text-size-adjust: none;\n  -webkit-text-size-adjust: none;\n  text-size-adjust: none;\n}\n\n/* Remove default margin in favour of better control in authored CSS */\nbody,\nh1,\nh2,\nh3,\nh4,\np,\nfigure,\nblockquote,\ndl,\ndd {\n  margin-block-end: 0;\n}\n\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\nul,\nol {\n  list-style: none;\n}\n\n/* Set core body defaults */\nbody {\n  min-height: 100vh;\n  line-height: 1.5;\n  margin: 0;\n}\n\n/* Set shorter line heights on headings and interactive elements */\nh1,\nh2,\nh3,\nh4,\nbutton,\ninput,\nlabel {\n  line-height: 1.1;\n}\n\n/* Balance text wrapping on headings */\nh1,\nh2,\nh3,\nh4 {\n  text-wrap: balance;\n  margin-top: 0px;\n}\n\n/* A elements that don't have a class get default styles */\na:not([class]) {\n  text-decoration-skip-ink: auto;\n  color: currentColor;\n}\n\n/* Make images easier to work with */\nimg,\npicture {\n  max-width: 100%;\n  display: block;\n}\n\n/* Inherit fonts for inputs and buttons */\ninput,\nbutton,\ntextarea,\nselect {\n  font-family: inherit;\n  font-size: inherit;\n}\n\n/* Make sure textareas without a rows attribute are not tiny */\ntextarea:not([rows]) {\n  min-height: 5em;\n}\n\n/* Anything that has been anchored to should have extra scroll margin */\n:target {\n  scroll-margin-block: 5ex;\n}\n";
+var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: border-box;\r\n}\r\n\r\n/* Prevent font size inflation */\r\nhtml {\r\n  -moz-text-size-adjust: none;\r\n  -webkit-text-size-adjust: none;\r\n  text-size-adjust: none;\r\n}\r\n\r\n/* Remove default margin in favour of better control in authored CSS */\r\nbody,\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\np,\r\nfigure,\r\nblockquote,\r\ndl,\r\ndd {\r\n  margin-block-end: 0;\r\n}\r\n\r\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\r\nul,\r\nol {\r\n  list-style: none;\r\n}\r\n\r\n/* Set core body defaults */\r\nbody {\r\n  min-height: 100vh;\r\n  line-height: 1.5;\r\n  margin: 0;\r\n}\r\n\r\n/* Set shorter line heights on headings and interactive elements */\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nbutton,\r\ninput,\r\nlabel {\r\n  line-height: 1.1;\r\n}\r\n\r\n/* Balance text wrapping on headings */\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n  text-wrap: balance;\r\n  margin-top: 0px;\r\n}\r\n\r\n/* A elements that don't have a class get default styles */\r\na:not([class]) {\r\n  text-decoration-skip-ink: auto;\r\n  color: currentColor;\r\n}\r\n\r\n/* Make images easier to work with */\r\nimg,\r\npicture {\r\n  max-width: 100%;\r\n  display: block;\r\n}\r\n\r\n/* Inherit fonts for inputs and buttons */\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font-family: inherit;\r\n  font-size: inherit;\r\n}\r\n\r\n/* Make sure textareas without a rows attribute are not tiny */\r\ntextarea:not([rows]) {\r\n  min-height: 5em;\r\n}\r\n\r\n/* Anything that has been anchored to should have extra scroll margin */\r\n:target {\r\n  scroll-margin-block: 5ex;\r\n}\r\n";
 styleInject(css_248z);
 
 const baseColors = {
     primary: '#02000d',
     secondary: '#07203f',
-    tertiary: '#f1d2b6',
-    accentLight: '#D9AA90',
-    accentDark: '#A65e46'
-};
+    tertiary: '#f1d2b6'};
 const shadesAndTints = {
     primaryLight: `color-mix(in srgb, ${baseColors.primary}, white)`,
     primaryDark: `color-mix(in srgb, ${baseColors.primary}, color)`,
-    secondaryLight: `color-mix(in srgb, ${baseColors.secondary}, white)`,
     secondaryDark: `color-mix(in srgb, ${baseColors.secondary}, black)`,
-    tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`,
-    tertiaryDark: `color-mix(in srgb, ${baseColors.tertiary}, black)`
-};
+    tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`};
 const baseTheme = {
     button: ({ kind, size, iconOnly }) => {
         return {
             display: 'flex',
-            alignItems: 'end',
-            fontWeight: '500',
+            alignItems: 'center',
+            fontWeight: kind === 'ghost' || kind === 'ghostOnDark' ? '600' : '500', // semibold for ghost buttons
+            fontSize: kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : undefined, // 18px for ghost buttons
             borderRadius: '5px',
             cursor: 'pointer',
             gap: '10px',
@@ -61,11 +56,21 @@ const baseTheme = {
                 ? (size === 'large' && kind === 'primary' && '10px 40px') ||
                     (size === 'large' && kind === 'secondary' && '8px 34px') ||
                     (size === 'large' && kind === 'tertiary' && '8px 34px') ||
+                    (size === 'large' && kind === 'ghost' && '10px 40px') ||
+                    (size === 'large' && kind === 'ghostOnDark' && '10px 40px') ||
                     (size === 'medium' && kind === 'primary' && '8px 15px') ||
+                    (size === 'medium' && kind === 'secondary' && '8px 15px') ||
+                    (size === 'medium' && kind === 'ghost' && '8px 15px') ||
+                    (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
                     (size === 'small' && kind === 'primary' && '5px 10px') ||
+                    (size === 'small' && kind === 'secondary' && '5px 10px') ||
+                    (size === 'small' && kind === 'ghost' && '5px 10px') ||
+                    (size === 'small' && kind === 'ghostOnDark' && '5px 10px') ||
                     undefined
                 : (kind === 'primary' && '8px') ||
-                    (size === 'large' && kind === 'ghost' && '0') ||
+                    (kind === 'secondary' && '8px') ||
+                    (kind === 'ghost' && '8px') ||
+                    (kind === 'ghostOnDark' && '8px') ||
                     undefined,
             border: (kind === 'primary' && 'none') ||
                 // (kind === 'secondary' &&
@@ -73,29 +78,42 @@ const baseTheme = {
                 (kind === 'secondary' && `2px solid ${shadesAndTints.primaryDark}`) ||
                 (kind === 'tertiary' && `3px solid ${shadesAndTints.primaryDark}`) ||
                 (kind === 'ghost' && 'none') ||
+                (kind === 'ghostOnDark' && 'none') ||
                 // (kind === 'tertiary' && `1px solid ${baseColors.tertiary}`) ||
                 undefined,
             color: (kind === 'primary' && 'white') ||
                 (kind === 'tertiary' && 'black') ||
                 (kind === 'secondary' && baseColors.primary) ||
+                (kind === 'ghost' && 'inherit') ||
+                (kind === 'ghostOnDark' && 'inherit') ||
                 'inherit',
             backgroundColor: (kind === 'primary' && baseColors.secondary) ||
                 (kind === 'secondary' && baseColors.tertiary) ||
                 (kind === 'ghost' && 'transparent') ||
+                (kind === 'ghostOnDark' && 'transparent') ||
                 // (kind === 'secondary' &&
                 //   `color-mix(in srgb, ${baseColors.primary} 75%, black)`) ||
                 undefined,
             '&:hover': {
-                boxShadow: kind === 'ghost' ? '' : `0 0 7px black`,
-                textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : ''
+                boxShadow: kind === 'ghost' || kind === 'ghostOnDark' ? '' : `0 0 7px black`,
+                textShadow: kind === 'ghost' || kind === 'ghostOnDark'
+                    ? `0 0 2px rgba(0,0,0,.75)`
+                    : ''
             }
         };
     },
-    buttonGroup: {
-        display: 'flex',
-        gap: '20px',
-        justifyContent: 'end',
-        marginTop: '20px'
+    buttonGroup: ({ direction = 'horizontal', gap = 'medium' } = {}) => {
+        const gapSize = (gap === 'small' && '10px') ||
+            (gap === 'medium' && '20px') ||
+            (gap === 'large' && '30px') ||
+            '20px';
+        return {
+            display: 'flex',
+            flexDirection: direction === 'vertical' ? 'column' : 'row',
+            gap: gapSize,
+            alignItems: 'center',
+            justifyContent: 'flex-start'
+        };
     },
     img: () => ({
         border: `1px solid ${baseColors.primary}`,
@@ -143,8 +161,70 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
         ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [icon, children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
 };
 
-const ButtonGroup = ({ children }) => {
-    return jsxRuntime.jsx("div", { css: [baseTheme.buttonGroup], children: children });
+const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId }) => {
+    const consumerTheme = react.useTheme();
+    return (jsxRuntime.jsx("div", { css: [
+            baseTheme.buttonGroup({ direction, gap }),
+            consumerTheme?.buttonGroup &&
+                consumerTheme.buttonGroup({ direction, gap }),
+            className?.buttonGroup
+        ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
+};
+
+const InputField = ({ label, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, id }) => {
+    const inputId = id || `input-${label.toLowerCase().replace(/\s+/g, '-')}`;
+    return (jsxRuntime.jsxs("div", { css: styles$1.container, children: [jsxRuntime.jsxs("label", { css: styles$1.label, htmlFor: inputId, children: [label, required && jsxRuntime.jsx("span", { css: styles$1.required, children: "*" })] }), jsxRuntime.jsx("input", { id: inputId, type: type, value: value, onChange: (e) => onChange(e.target.value), placeholder: placeholder, required: required, disabled: disabled, css: [styles$1.input, error && styles$1.inputError, disabled && styles$1.inputDisabled], "aria-describedby": error ? `${inputId}-error` : undefined }), error && (jsxRuntime.jsx("div", { css: styles$1.error, id: `${inputId}-error`, role: "alert", children: error }))] }));
+};
+const styles$1 = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.5rem'
+    },
+    label: {
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        color: '#374151',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.25rem'
+    },
+    required: {
+        color: '#ef4444',
+        fontSize: '0.875rem'
+    },
+    input: {
+        padding: '0.75rem',
+        border: '1px solid #d1d5db',
+        borderRadius: '6px',
+        fontSize: '1rem',
+        transition: 'all 0.2s ease',
+        '&:focus': {
+            outline: '2px solid #3b82f6',
+            outlineOffset: '2px',
+            borderColor: '#3b82f6'
+        },
+        '&::placeholder': {
+            color: '#9ca3af'
+        }
+    },
+    inputError: {
+        borderColor: '#ef4444',
+        '&:focus': {
+            outline: '2px solid #ef4444',
+            borderColor: '#ef4444'
+        }
+    },
+    inputDisabled: {
+        backgroundColor: '#f9fafb',
+        color: '#6b7280',
+        cursor: 'not-allowed'
+    },
+    error: {
+        fontSize: '0.875rem',
+        color: '#ef4444',
+        marginTop: '0.25rem'
+    }
 };
 
 const Form = ({ children, role, className, onSubmit }) => {
@@ -249,7 +329,7 @@ const baseStyles$9 = {
 };
 
 const FormTextArea = ({ label = '', name = '', labelPos, value = '', className, readonly, autoResize, onChange }) => {
-    const textAreaRef = react$1.useRef(null);
+    const textAreaRef = React.useRef(null);
     const onChangeHandler = (e) => {
         onChange?.(e);
         resize(e.target);
@@ -258,7 +338,7 @@ const FormTextArea = ({ label = '', name = '', labelPos, value = '', className, 
         textArea.style.height = 'auto';
         textArea.style.height = `${textArea.scrollHeight}px`;
     };
-    react$1.useLayoutEffect(() => {
+    React.useLayoutEffect(() => {
         if (textAreaRef.current && autoResize) {
             resize(textAreaRef.current);
         }
@@ -306,36 +386,106 @@ const baseStyles$7 = {
     }
 };
 
-const InnerWidth = ({ children, className }) => {
-    return (jsxRuntime.jsx("div", { css: [baseStyles$6.innerWidth, className?.innerWidth], className: "pa-inner-width", children: children }));
+const InnerWidth = ({ children, size = 'medium', className }) => {
+    const sizeStyles = getSizeStyles(size);
+    return (jsxRuntime.jsx("div", { css: [baseStyles$6.innerWidth, sizeStyles, className?.innerWidth], className: "pa-inner-width", children: children }));
+};
+const getSizeStyles = (size) => {
+    switch (size) {
+        case 'small':
+            return {
+                width: 'calc(100% - 2 * 20px)',
+                '@media (min-width: 634px)': {
+                    width: '594px'
+                },
+                '@media (min-width: 720px)': {
+                    width: 'calc(100% - 160px)'
+                },
+                '@media (min-width: 1000px)': {
+                    width: '640px'
+                },
+                '@media (min-width: 1100px)': {
+                    width: 'calc(100% - 360px)'
+                },
+                '@media (min-width: 1250px)': {
+                    width: '720px'
+                }
+            };
+        case 'medium':
+            return {
+                width: 'calc(100% - 2 * 20px)',
+                '@media (min-width: 634px)': {
+                    width: '594px'
+                },
+                '@media (min-width: 720px)': {
+                    width: 'calc(100% - 126px)'
+                },
+                '@media (min-width: 1000px)': {
+                    width: '874px'
+                },
+                '@media (min-width: 1100px)': {
+                    width: 'calc(100% - 226px)'
+                },
+                '@media (min-width: 1250px)': {
+                    width: '1024px'
+                }
+            };
+        case 'large':
+            return {
+                width: 'calc(100% - 2 * 40px)',
+                '@media (min-width: 634px)': {
+                    width: 'calc(100% - 2 * 40px)'
+                },
+                '@media (min-width: 720px)': {
+                    width: 'calc(100% - 2 * 50px)'
+                },
+                '@media (min-width: 1000px)': {
+                    width: 'calc(100% - 2 * 50px)'
+                },
+                '@media (min-width: 1100px)': {
+                    width: 'calc(100% - 2 * 55px)'
+                },
+                '@media (min-width: 1250px)': {
+                    width: 'calc(100% - 2 * 60px)'
+                }
+            };
+        case 'full':
+            return {
+                width: 'calc(100% - 2 * 60px)',
+                padding: '0 60px',
+                boxSizing: 'border-box'
+            };
+        default:
+            return {};
+    }
 };
 const baseStyles$6 = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        alignSelf: 'center',
-        width: 'calc(100% - 2 * 20px)',
-        '@media (min-width: 634px)': {
-            width: '594px'
-        },
-        '@media (min-width: 720px)': {
-            width: 'calc(100% - 126px)'
-        },
-        '@media (min-width: 1000px)': {
-            width: '874px'
-        },
-        '@media (min-width: 1100px)': {
-            width: 'calc(100% - 226px)'
-        },
-        '@media (min-width: 1250px)': {
-            width: '1024px'
-        }
+        alignSelf: 'center'
     }
 };
 
-const Header = ({ children, className, dataTestId }) => {
-    return (jsxRuntime.jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: children }));
+const Header = ({ children, logo, navigation, actions, className, dataTestId, layout = 'default' }) => {
+    // If children is provided, use legacy mode
+    if (children) {
+        return (jsxRuntime.jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: children }));
+    }
+    // New slot-based layout
+    const layoutStyles = getLayoutStyles(layout);
+    return (jsxRuntime.jsxs("header", { css: [baseStyles$5.header, layoutStyles, className?.header], className: "pa-header", "data-testid": dataTestId, children: [logo && (jsxRuntime.jsx("div", { css: [baseStyles$5.logoArea, className?.logoArea], children: logo })), navigation && (jsxRuntime.jsx("div", { css: [baseStyles$5.navigationArea, className?.navigationArea], children: navigation })), actions && (jsxRuntime.jsx("div", { css: [baseStyles$5.actionsArea, className?.actionsArea], children: actions }))] }));
+};
+const getLayoutStyles = (layout) => {
+    switch (layout) {
+        case 'centered':
+            return { justifyContent: 'center' };
+        case 'spread':
+            return { justifyContent: 'space-between' };
+        default:
+            return { justifyContent: 'space-between' };
+    }
 };
 const baseStyles$5 = {
     header: {
@@ -345,11 +495,28 @@ const baseStyles$5 = {
         color: baseColors.secondary,
         justifyContent: 'center',
         height: '115px',
-        borderBottom: `2px solid ${baseColors.primary}`,
         backgroundColor: shadesAndTints.tertiaryLight,
+        alignItems: 'center',
         '@media (max-width: 580px)': {
             height: '75px'
         }
+    },
+    logoArea: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: '0 0 auto'
+    },
+    navigationArea: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: '1 1 auto',
+        justifyContent: 'center'
+    },
+    actionsArea: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: '0 0 auto',
+        gap: '10px'
     }
 };
 
@@ -361,7 +528,6 @@ const baseStyles$4 = {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignSelf: 'end',
         flexDirection: 'column'
     }
 };
@@ -385,7 +551,7 @@ const baseStyles$3 = {
 };
 
 const Image = ({ src, className }) => {
-    const [isLoaded, setIsLoaded] = react$1.useState(false);
+    const [isLoaded, setIsLoaded] = React.useState(false);
     const handleImageLoad = () => {
         setIsLoaded(true);
     };
@@ -430,6 +596,169 @@ const baseStyles$1 = {
         ':hover': {
             boxShadow: `0 0 7px ${shadesAndTints.secondaryDark}`
         }
+    }
+};
+
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var e = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const y = (a, c) => {
+  const t = React.forwardRef(({
+    color: i = "currentColor",
+    size: e$1 = 24,
+    strokeWidth: l = 1.5,
+    className: m = "",
+    children: r,
+    ...n
+  }, d) => {
+    const f = {
+      ref: d,
+      ...e,
+      width: e$1,
+      height: e$1,
+      strokeWidth: l,
+      color: i,
+      className: m,
+      ...n
+    };
+    return React.createElement("svg", f, c?.map(([h, o]) => React.createElement(h, {
+      key: o.id,
+      ...o
+    })) ?? [], ...(Array.isArray(r) ? r : [r]));
+  });
+  return t.displayName = `${a}Icon`, t;
+};
+
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const r = y("CancelCircleIcon", [["path", {
+  d: "M14.9994 15L9 9M9.00064 15L15 9",
+  stroke: "currentColor",
+  key: "k0"
+}], ["path", {
+  d: "M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z",
+  stroke: "currentColor",
+  key: "k1"
+}]]);
+
+const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showCloseButton = true }) => {
+    if (!isOpen)
+        return null;
+    const handleBackdropClick = (e) => {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+    const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+            onClose();
+        }
+    };
+    React.useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+        if (isOpen) {
+            document.addEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'hidden';
+        }
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen, onClose]);
+    return (jsxRuntime.jsx("div", { css: styles.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { css: [styles.modal, { maxWidth }], role: "dialog", "aria-modal": "true", children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: styles.header, children: [title && jsxRuntime.jsx("h1", { css: styles.title, children: title }), showCloseButton && (jsxRuntime.jsx("button", { css: styles.closeButton, onClick: onClose, "aria-label": "Close modal", children: jsxRuntime.jsx(r, { size: 44 }) }))] })), jsxRuntime.jsx("div", { css: styles.content, children: children })] }) }));
+};
+const styles = {
+    backdrop: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+        padding: '1rem'
+    },
+    modal: {
+        backgroundColor: '#EEDECC',
+        borderRadius: '3px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        width: '100%',
+        maxHeight: '90vh',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    header: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0.75rem 1.5rem 0 1.5rem' // half the vertical padding
+        // No border bottom
+    },
+    title: {
+        margin: 0,
+        fontSize: '36px',
+        fontWeight: 400, // regular
+        lineHeight: 1.25,
+        letterSpacing: '-0.025em'
+    },
+    closeButton: {
+        background: 'none',
+        border: 'none',
+        padding: '0.5rem',
+        cursor: 'pointer',
+        borderRadius: '6px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#6b7280',
+        transition: 'all 0.2s ease',
+        '&:hover': {
+            backgroundColor: '#e5e7eb',
+            color: '#374151'
+        },
+        '&:focus': {
+            outline: '2px solid #3b82f6',
+            outlineOffset: '2px'
+        }
+    },
+    content: {
+        padding: '1.5rem',
+        overflow: 'auto',
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center'
     }
 };
 
@@ -487,14 +816,6 @@ const baseStyles = {
         paddingTop: '20px',
         background: 'white'
     },
-    resultsWrapper: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        '@media (max-width: 580px)': {
-            flexDirection: 'column'
-        }
-    },
     results: {
         alignSelf: 'end',
         '@media (max-width: 580px)': {
@@ -503,91 +824,9 @@ const baseStyles = {
     }
 };
 
-/**
- * @license hugeicons-react v0.2.0
- *
- * See the LICENSE file in the root directory of this source tree.
- */
-
-var e = {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: 24,
-  height: 24,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  strokeWidth: 1.5,
-  strokeLinecap: "round",
-  strokeLinejoin: "round"
-};
-
-/**
- * @license hugeicons-react v0.2.0
- *
- * See the LICENSE file in the root directory of this source tree.
- */
-
-const y = (a, c) => {
-  const t = react$1.forwardRef(({
-    color: i = "currentColor",
-    size: e$1 = 24,
-    strokeWidth: l = 1.5,
-    className: m = "",
-    children: r,
-    ...n
-  }, d) => {
-    const f = {
-      ref: d,
-      ...e,
-      width: e$1,
-      height: e$1,
-      strokeWidth: l,
-      color: i,
-      className: m,
-      ...n
-    };
-    return react$1.createElement("svg", f, c?.map(([h, o]) => react$1.createElement(h, {
-      key: o.id,
-      ...o
-    })) ?? [], ...(Array.isArray(r) ? r : [r]));
-  });
-  return t.displayName = `${a}Icon`, t;
-};
-
-/**
- * @license hugeicons-react v0.2.0
- *
- * See the LICENSE file in the root directory of this source tree.
- */
-
-const r = y("CancelCircleIcon", [["path", {
-  d: "M14.9994 15L9 9M9.00064 15L15 9",
-  stroke: "currentColor",
-  key: "k0"
-}], ["path", {
-  d: "M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z",
-  stroke: "currentColor",
-  key: "k1"
-}]]);
-
-const Modal = ({ className = {}, children, dataTestId, closeModal }) => {
-    const [hovering, setHovering] = react$1.useState(false);
-    const closeModalHandler = () => {
-        closeModal?.();
-    };
-    const mouseCloseHoverHandler = (e) => {
-        if (e.type === 'mouseenter') {
-            setHovering(true);
-        }
-        else {
-            setHovering(false);
-        }
-    };
-    return (jsxRuntime.jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", "data-testid": dataTestId, children: jsxRuntime.jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsxRuntime.jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsxRuntime.jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsxRuntime.jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
-};
-
 function useDebounce(func, wait) {
-    const timeoutRef = react$1.useRef();
-    const debounceFunc = react$1.useCallback((...args) => {
+    const timeoutRef = React.useRef();
+    const debounceFunc = React.useCallback((...args) => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
@@ -598,9 +837,39 @@ function useDebounce(func, wait) {
     return debounceFunc;
 }
 
+const useResponsiveHeader = () => {
+    const [screenSize, setScreenSize] = React.useState('large');
+    React.useEffect(() => {
+        const checkScreenSize = () => {
+            const width = window.innerWidth;
+            if (width < 580) {
+                setScreenSize('small');
+            }
+            else if (width < 1024) {
+                setScreenSize('medium');
+            }
+            else {
+                setScreenSize('large');
+            }
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+    return {
+        screenSize,
+        isSmall: screenSize === 'small',
+        isMedium: screenSize === 'medium',
+        isLarge: screenSize === 'large',
+        showCompactNav: screenSize === 'small',
+        showFullNav: screenSize !== 'small'
+    };
+};
+
 var index = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  useDebounce: useDebounce
+  useDebounce: useDebounce,
+  useResponsiveHeader: useResponsiveHeader
 });
 
 exports.Block = Block;
@@ -613,6 +882,7 @@ exports.FormTextInput = FormTextInput;
 exports.Header = Header;
 exports.Image = Image;
 exports.InnerWidth = InnerWidth;
+exports.InputField = InputField;
 exports.List = List;
 exports.ListItem = ListItem;
 exports.Main = Main;

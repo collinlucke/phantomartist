@@ -20,12 +20,10 @@ export declare const baseTheme: {
         size?: string;
         iconOnly?: boolean;
     }) => CSSObject;
-    buttonGroup: {
-        display: string;
-        gap: string;
-        justifyContent: string;
-        marginTop: string;
-    };
+    buttonGroup: ({ direction, gap }?: {
+        direction?: "horizontal" | "vertical";
+        gap?: "small" | "medium" | "large";
+    }) => CSSObject;
     img: () => {
         border: string;
         borderRadius: string;

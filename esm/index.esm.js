@@ -1,9 +1,9 @@
 import { jsx, jsxs, Fragment } from '@emotion/react/jsx-runtime';
 import { useTheme } from '@emotion/react';
-import { useRef, useLayoutEffect, useState, forwardRef, createElement, useCallback } from 'react';
+import React, { useRef, useLayoutEffect, useState, forwardRef, createElement, useCallback, useEffect } from 'react';
 
 function styleInject(css, ref) {
-  if (ref === undefined) ref = {};
+  if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
   if (typeof document === 'undefined') {
     return;
@@ -27,30 +27,25 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "/* Box sizing rules */\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n/* Prevent font size inflation */\nhtml {\n  -moz-text-size-adjust: none;\n  -webkit-text-size-adjust: none;\n  text-size-adjust: none;\n}\n\n/* Remove default margin in favour of better control in authored CSS */\nbody,\nh1,\nh2,\nh3,\nh4,\np,\nfigure,\nblockquote,\ndl,\ndd {\n  margin-block-end: 0;\n}\n\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\nul,\nol {\n  list-style: none;\n}\n\n/* Set core body defaults */\nbody {\n  min-height: 100vh;\n  line-height: 1.5;\n  margin: 0;\n}\n\n/* Set shorter line heights on headings and interactive elements */\nh1,\nh2,\nh3,\nh4,\nbutton,\ninput,\nlabel {\n  line-height: 1.1;\n}\n\n/* Balance text wrapping on headings */\nh1,\nh2,\nh3,\nh4 {\n  text-wrap: balance;\n  margin-top: 0px;\n}\n\n/* A elements that don't have a class get default styles */\na:not([class]) {\n  text-decoration-skip-ink: auto;\n  color: currentColor;\n}\n\n/* Make images easier to work with */\nimg,\npicture {\n  max-width: 100%;\n  display: block;\n}\n\n/* Inherit fonts for inputs and buttons */\ninput,\nbutton,\ntextarea,\nselect {\n  font-family: inherit;\n  font-size: inherit;\n}\n\n/* Make sure textareas without a rows attribute are not tiny */\ntextarea:not([rows]) {\n  min-height: 5em;\n}\n\n/* Anything that has been anchored to should have extra scroll margin */\n:target {\n  scroll-margin-block: 5ex;\n}\n";
+var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: border-box;\r\n}\r\n\r\n/* Prevent font size inflation */\r\nhtml {\r\n  -moz-text-size-adjust: none;\r\n  -webkit-text-size-adjust: none;\r\n  text-size-adjust: none;\r\n}\r\n\r\n/* Remove default margin in favour of better control in authored CSS */\r\nbody,\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\np,\r\nfigure,\r\nblockquote,\r\ndl,\r\ndd {\r\n  margin-block-end: 0;\r\n}\r\n\r\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\r\nul,\r\nol {\r\n  list-style: none;\r\n}\r\n\r\n/* Set core body defaults */\r\nbody {\r\n  min-height: 100vh;\r\n  line-height: 1.5;\r\n  margin: 0;\r\n}\r\n\r\n/* Set shorter line heights on headings and interactive elements */\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nbutton,\r\ninput,\r\nlabel {\r\n  line-height: 1.1;\r\n}\r\n\r\n/* Balance text wrapping on headings */\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n  text-wrap: balance;\r\n  margin-top: 0px;\r\n}\r\n\r\n/* A elements that don't have a class get default styles */\r\na:not([class]) {\r\n  text-decoration-skip-ink: auto;\r\n  color: currentColor;\r\n}\r\n\r\n/* Make images easier to work with */\r\nimg,\r\npicture {\r\n  max-width: 100%;\r\n  display: block;\r\n}\r\n\r\n/* Inherit fonts for inputs and buttons */\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font-family: inherit;\r\n  font-size: inherit;\r\n}\r\n\r\n/* Make sure textareas without a rows attribute are not tiny */\r\ntextarea:not([rows]) {\r\n  min-height: 5em;\r\n}\r\n\r\n/* Anything that has been anchored to should have extra scroll margin */\r\n:target {\r\n  scroll-margin-block: 5ex;\r\n}\r\n";
 styleInject(css_248z);
 
 const baseColors = {
     primary: '#02000d',
     secondary: '#07203f',
-    tertiary: '#f1d2b6',
-    accentLight: '#D9AA90',
-    accentDark: '#A65e46'
-};
+    tertiary: '#f1d2b6'};
 const shadesAndTints = {
     primaryLight: `color-mix(in srgb, ${baseColors.primary}, white)`,
     primaryDark: `color-mix(in srgb, ${baseColors.primary}, color)`,
-    secondaryLight: `color-mix(in srgb, ${baseColors.secondary}, white)`,
     secondaryDark: `color-mix(in srgb, ${baseColors.secondary}, black)`,
-    tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`,
-    tertiaryDark: `color-mix(in srgb, ${baseColors.tertiary}, black)`
-};
+    tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`};
 const baseTheme = {
     button: ({ kind, size, iconOnly }) => {
         return {
             display: 'flex',
-            alignItems: 'end',
-            fontWeight: '500',
+            alignItems: 'center',
+            fontWeight: kind === 'ghost' || kind === 'ghostOnDark' ? '600' : '500', // semibold for ghost buttons
+            fontSize: kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : undefined, // 18px for ghost buttons
             borderRadius: '5px',
             cursor: 'pointer',
             gap: '10px',
@@ -59,11 +54,21 @@ const baseTheme = {
                 ? (size === 'large' && kind === 'primary' && '10px 40px') ||
                     (size === 'large' && kind === 'secondary' && '8px 34px') ||
                     (size === 'large' && kind === 'tertiary' && '8px 34px') ||
+                    (size === 'large' && kind === 'ghost' && '10px 40px') ||
+                    (size === 'large' && kind === 'ghostOnDark' && '10px 40px') ||
                     (size === 'medium' && kind === 'primary' && '8px 15px') ||
+                    (size === 'medium' && kind === 'secondary' && '8px 15px') ||
+                    (size === 'medium' && kind === 'ghost' && '8px 15px') ||
+                    (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
                     (size === 'small' && kind === 'primary' && '5px 10px') ||
+                    (size === 'small' && kind === 'secondary' && '5px 10px') ||
+                    (size === 'small' && kind === 'ghost' && '5px 10px') ||
+                    (size === 'small' && kind === 'ghostOnDark' && '5px 10px') ||
                     undefined
                 : (kind === 'primary' && '8px') ||
-                    (size === 'large' && kind === 'ghost' && '0') ||
+                    (kind === 'secondary' && '8px') ||
+                    (kind === 'ghost' && '8px') ||
+                    (kind === 'ghostOnDark' && '8px') ||
                     undefined,
             border: (kind === 'primary' && 'none') ||
                 // (kind === 'secondary' &&
@@ -71,29 +76,42 @@ const baseTheme = {
                 (kind === 'secondary' && `2px solid ${shadesAndTints.primaryDark}`) ||
                 (kind === 'tertiary' && `3px solid ${shadesAndTints.primaryDark}`) ||
                 (kind === 'ghost' && 'none') ||
+                (kind === 'ghostOnDark' && 'none') ||
                 // (kind === 'tertiary' && `1px solid ${baseColors.tertiary}`) ||
                 undefined,
             color: (kind === 'primary' && 'white') ||
                 (kind === 'tertiary' && 'black') ||
                 (kind === 'secondary' && baseColors.primary) ||
+                (kind === 'ghost' && 'inherit') ||
+                (kind === 'ghostOnDark' && 'inherit') ||
                 'inherit',
             backgroundColor: (kind === 'primary' && baseColors.secondary) ||
                 (kind === 'secondary' && baseColors.tertiary) ||
                 (kind === 'ghost' && 'transparent') ||
+                (kind === 'ghostOnDark' && 'transparent') ||
                 // (kind === 'secondary' &&
                 //   `color-mix(in srgb, ${baseColors.primary} 75%, black)`) ||
                 undefined,
             '&:hover': {
-                boxShadow: kind === 'ghost' ? '' : `0 0 7px black`,
-                textShadow: kind === 'ghost' ? `0 0 2px rgba(0,0,0,.75)` : ''
+                boxShadow: kind === 'ghost' || kind === 'ghostOnDark' ? '' : `0 0 7px black`,
+                textShadow: kind === 'ghost' || kind === 'ghostOnDark'
+                    ? `0 0 2px rgba(0,0,0,.75)`
+                    : ''
             }
         };
     },
-    buttonGroup: {
-        display: 'flex',
-        gap: '20px',
-        justifyContent: 'end',
-        marginTop: '20px'
+    buttonGroup: ({ direction = 'horizontal', gap = 'medium' } = {}) => {
+        const gapSize = (gap === 'small' && '10px') ||
+            (gap === 'medium' && '20px') ||
+            (gap === 'large' && '30px') ||
+            '20px';
+        return {
+            display: 'flex',
+            flexDirection: direction === 'vertical' ? 'column' : 'row',
+            gap: gapSize,
+            alignItems: 'center',
+            justifyContent: 'flex-start'
+        };
     },
     img: () => ({
         border: `1px solid ${baseColors.primary}`,
@@ -141,8 +159,70 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
         ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, children: icon ? (jsxs(Fragment, { children: [icon, children] })) : (jsx(Fragment, { children: children })) }));
 };
 
-const ButtonGroup = ({ children }) => {
-    return jsx("div", { css: [baseTheme.buttonGroup], children: children });
+const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId }) => {
+    const consumerTheme = useTheme();
+    return (jsx("div", { css: [
+            baseTheme.buttonGroup({ direction, gap }),
+            consumerTheme?.buttonGroup &&
+                consumerTheme.buttonGroup({ direction, gap }),
+            className?.buttonGroup
+        ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
+};
+
+const InputField = ({ label, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, id }) => {
+    const inputId = id || `input-${label.toLowerCase().replace(/\s+/g, '-')}`;
+    return (jsxs("div", { css: styles$1.container, children: [jsxs("label", { css: styles$1.label, htmlFor: inputId, children: [label, required && jsx("span", { css: styles$1.required, children: "*" })] }), jsx("input", { id: inputId, type: type, value: value, onChange: (e) => onChange(e.target.value), placeholder: placeholder, required: required, disabled: disabled, css: [styles$1.input, error && styles$1.inputError, disabled && styles$1.inputDisabled], "aria-describedby": error ? `${inputId}-error` : undefined }), error && (jsx("div", { css: styles$1.error, id: `${inputId}-error`, role: "alert", children: error }))] }));
+};
+const styles$1 = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.5rem'
+    },
+    label: {
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        color: '#374151',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.25rem'
+    },
+    required: {
+        color: '#ef4444',
+        fontSize: '0.875rem'
+    },
+    input: {
+        padding: '0.75rem',
+        border: '1px solid #d1d5db',
+        borderRadius: '6px',
+        fontSize: '1rem',
+        transition: 'all 0.2s ease',
+        '&:focus': {
+            outline: '2px solid #3b82f6',
+            outlineOffset: '2px',
+            borderColor: '#3b82f6'
+        },
+        '&::placeholder': {
+            color: '#9ca3af'
+        }
+    },
+    inputError: {
+        borderColor: '#ef4444',
+        '&:focus': {
+            outline: '2px solid #ef4444',
+            borderColor: '#ef4444'
+        }
+    },
+    inputDisabled: {
+        backgroundColor: '#f9fafb',
+        color: '#6b7280',
+        cursor: 'not-allowed'
+    },
+    error: {
+        fontSize: '0.875rem',
+        color: '#ef4444',
+        marginTop: '0.25rem'
+    }
 };
 
 const Form = ({ children, role, className, onSubmit }) => {
@@ -304,36 +384,106 @@ const baseStyles$7 = {
     }
 };
 
-const InnerWidth = ({ children, className }) => {
-    return (jsx("div", { css: [baseStyles$6.innerWidth, className?.innerWidth], className: "pa-inner-width", children: children }));
+const InnerWidth = ({ children, size = 'medium', className }) => {
+    const sizeStyles = getSizeStyles(size);
+    return (jsx("div", { css: [baseStyles$6.innerWidth, sizeStyles, className?.innerWidth], className: "pa-inner-width", children: children }));
+};
+const getSizeStyles = (size) => {
+    switch (size) {
+        case 'small':
+            return {
+                width: 'calc(100% - 2 * 20px)',
+                '@media (min-width: 634px)': {
+                    width: '594px'
+                },
+                '@media (min-width: 720px)': {
+                    width: 'calc(100% - 160px)'
+                },
+                '@media (min-width: 1000px)': {
+                    width: '640px'
+                },
+                '@media (min-width: 1100px)': {
+                    width: 'calc(100% - 360px)'
+                },
+                '@media (min-width: 1250px)': {
+                    width: '720px'
+                }
+            };
+        case 'medium':
+            return {
+                width: 'calc(100% - 2 * 20px)',
+                '@media (min-width: 634px)': {
+                    width: '594px'
+                },
+                '@media (min-width: 720px)': {
+                    width: 'calc(100% - 126px)'
+                },
+                '@media (min-width: 1000px)': {
+                    width: '874px'
+                },
+                '@media (min-width: 1100px)': {
+                    width: 'calc(100% - 226px)'
+                },
+                '@media (min-width: 1250px)': {
+                    width: '1024px'
+                }
+            };
+        case 'large':
+            return {
+                width: 'calc(100% - 2 * 40px)',
+                '@media (min-width: 634px)': {
+                    width: 'calc(100% - 2 * 40px)'
+                },
+                '@media (min-width: 720px)': {
+                    width: 'calc(100% - 2 * 50px)'
+                },
+                '@media (min-width: 1000px)': {
+                    width: 'calc(100% - 2 * 50px)'
+                },
+                '@media (min-width: 1100px)': {
+                    width: 'calc(100% - 2 * 55px)'
+                },
+                '@media (min-width: 1250px)': {
+                    width: 'calc(100% - 2 * 60px)'
+                }
+            };
+        case 'full':
+            return {
+                width: 'calc(100% - 2 * 60px)',
+                padding: '0 60px',
+                boxSizing: 'border-box'
+            };
+        default:
+            return {};
+    }
 };
 const baseStyles$6 = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        alignSelf: 'center',
-        width: 'calc(100% - 2 * 20px)',
-        '@media (min-width: 634px)': {
-            width: '594px'
-        },
-        '@media (min-width: 720px)': {
-            width: 'calc(100% - 126px)'
-        },
-        '@media (min-width: 1000px)': {
-            width: '874px'
-        },
-        '@media (min-width: 1100px)': {
-            width: 'calc(100% - 226px)'
-        },
-        '@media (min-width: 1250px)': {
-            width: '1024px'
-        }
+        alignSelf: 'center'
     }
 };
 
-const Header = ({ children, className, dataTestId }) => {
-    return (jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: children }));
+const Header = ({ children, logo, navigation, actions, className, dataTestId, layout = 'default' }) => {
+    // If children is provided, use legacy mode
+    if (children) {
+        return (jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: children }));
+    }
+    // New slot-based layout
+    const layoutStyles = getLayoutStyles(layout);
+    return (jsxs("header", { css: [baseStyles$5.header, layoutStyles, className?.header], className: "pa-header", "data-testid": dataTestId, children: [logo && (jsx("div", { css: [baseStyles$5.logoArea, className?.logoArea], children: logo })), navigation && (jsx("div", { css: [baseStyles$5.navigationArea, className?.navigationArea], children: navigation })), actions && (jsx("div", { css: [baseStyles$5.actionsArea, className?.actionsArea], children: actions }))] }));
+};
+const getLayoutStyles = (layout) => {
+    switch (layout) {
+        case 'centered':
+            return { justifyContent: 'center' };
+        case 'spread':
+            return { justifyContent: 'space-between' };
+        default:
+            return { justifyContent: 'space-between' };
+    }
 };
 const baseStyles$5 = {
     header: {
@@ -343,11 +493,28 @@ const baseStyles$5 = {
         color: baseColors.secondary,
         justifyContent: 'center',
         height: '115px',
-        borderBottom: `2px solid ${baseColors.primary}`,
         backgroundColor: shadesAndTints.tertiaryLight,
+        alignItems: 'center',
         '@media (max-width: 580px)': {
             height: '75px'
         }
+    },
+    logoArea: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: '0 0 auto'
+    },
+    navigationArea: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: '1 1 auto',
+        justifyContent: 'center'
+    },
+    actionsArea: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: '0 0 auto',
+        gap: '10px'
     }
 };
 
@@ -359,7 +526,6 @@ const baseStyles$4 = {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignSelf: 'end',
         flexDirection: 'column'
     }
 };
@@ -431,76 +597,6 @@ const baseStyles$1 = {
     }
 };
 
-const Search = ({ searchTerm, searchLabel, totalResultsCount, className, buttonSize, inputSize, useSearchButton, onSearch, setSearchTerm }) => {
-    const onSearchHandler = e => {
-        onSearch?.(e);
-    };
-    const setSearchTermHandler = (e) => {
-        setSearchTerm(e);
-    };
-    return (jsxs("div", { css: [
-            baseStyles.searchWrapper,
-            className?.searchWrapper,
-            searchWrapperMediaQuery
-        ], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles.results, children: ["Total Results: ", totalResultsCount] }), jsxs(Form, { className: formStyles, onSubmit: onSearchHandler, role: "search", children: [jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: formTextInputStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: buttonStyles, type: "submit", children: "Search" }))] })] }));
-};
-const searchWrapperMediaQuery = {
-    '@media (max-width: 580px)': {
-        flexDirection: 'column'
-    }
-};
-const formTextInputStyles = {
-    inputWrapper: {
-        margin: 0,
-        flex: 1
-    }
-};
-const formStyles = {
-    form: {
-        display: 'flex',
-        justifyContent: 'end',
-        alignItems: 'flex-end',
-        flexWrap: 'wrap',
-        width: 'inherit',
-        border: 'none',
-        '@media (max-width: 580px)': {
-            width: '100%'
-        },
-        // Kill Form defaults
-        backgroundColor: 'transparent',
-        padding: '0'
-    }
-};
-const buttonStyles = {
-    button: {
-        marginLeft: '10px'
-    }
-};
-const baseStyles = {
-    searchWrapper: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'end',
-        paddingBottom: '20px',
-        paddingTop: '20px',
-        background: 'white'
-    },
-    resultsWrapper: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        '@media (max-width: 580px)': {
-            flexDirection: 'column'
-        }
-    },
-    results: {
-        alignSelf: 'end',
-        '@media (max-width: 580px)': {
-            alignSelf: 'start'
-        }
-    }
-};
-
 /**
  * @license hugeicons-react v0.2.0
  *
@@ -567,20 +663,163 @@ const r = y("CancelCircleIcon", [["path", {
   key: "k1"
 }]]);
 
-const Modal = ({ className = {}, children, dataTestId, closeModal }) => {
-    const [hovering, setHovering] = useState(false);
-    const closeModalHandler = () => {
-        closeModal?.();
-    };
-    const mouseCloseHoverHandler = (e) => {
-        if (e.type === 'mouseenter') {
-            setHovering(true);
-        }
-        else {
-            setHovering(false);
+const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showCloseButton = true }) => {
+    if (!isOpen)
+        return null;
+    const handleBackdropClick = (e) => {
+        if (e.target === e.currentTarget) {
+            onClose();
         }
     };
-    return (jsx("div", { css: [baseTheme.modal, className?.modal], className: "pa-modal", "data-testid": dataTestId, children: jsxs("div", { css: baseTheme.modalContentWrapper, children: [jsx("div", { css: baseTheme.modalHeading, className: "pa-modal-heading", children: closeModal && (jsx(r, { fill: hovering ? 'rgba(125,125,125,.5)' : 'none', onClick: closeModalHandler, onMouseEnter: mouseCloseHoverHandler, onMouseLeave: mouseCloseHoverHandler })) }), jsx("div", { css: baseTheme.modalContent, className: "pa-modal-content", children: children })] }) }));
+    const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+            onClose();
+        }
+    };
+    React.useEffect(() => {
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+        if (isOpen) {
+            document.addEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'hidden';
+        }
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen, onClose]);
+    return (jsx("div", { css: styles.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxs("div", { css: [styles.modal, { maxWidth }], role: "dialog", "aria-modal": "true", children: [(title || showCloseButton) && (jsxs("div", { css: styles.header, children: [title && jsx("h1", { css: styles.title, children: title }), showCloseButton && (jsx("button", { css: styles.closeButton, onClick: onClose, "aria-label": "Close modal", children: jsx(r, { size: 44 }) }))] })), jsx("div", { css: styles.content, children: children })] }) }));
+};
+const styles = {
+    backdrop: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+        padding: '1rem'
+    },
+    modal: {
+        backgroundColor: '#EEDECC',
+        borderRadius: '3px',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        width: '100%',
+        maxHeight: '90vh',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    header: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0.75rem 1.5rem 0 1.5rem' // half the vertical padding
+        // No border bottom
+    },
+    title: {
+        margin: 0,
+        fontSize: '36px',
+        fontWeight: 400, // regular
+        lineHeight: 1.25,
+        letterSpacing: '-0.025em'
+    },
+    closeButton: {
+        background: 'none',
+        border: 'none',
+        padding: '0.5rem',
+        cursor: 'pointer',
+        borderRadius: '6px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#6b7280',
+        transition: 'all 0.2s ease',
+        '&:hover': {
+            backgroundColor: '#e5e7eb',
+            color: '#374151'
+        },
+        '&:focus': {
+            outline: '2px solid #3b82f6',
+            outlineOffset: '2px'
+        }
+    },
+    content: {
+        padding: '1.5rem',
+        overflow: 'auto',
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center'
+    }
+};
+
+const Search = ({ searchTerm, searchLabel, totalResultsCount, className, buttonSize, inputSize, useSearchButton, onSearch, setSearchTerm }) => {
+    const onSearchHandler = e => {
+        onSearch?.(e);
+    };
+    const setSearchTermHandler = (e) => {
+        setSearchTerm(e);
+    };
+    return (jsxs("div", { css: [
+            baseStyles.searchWrapper,
+            className?.searchWrapper,
+            searchWrapperMediaQuery
+        ], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles.results, children: ["Total Results: ", totalResultsCount] }), jsxs(Form, { className: formStyles, onSubmit: onSearchHandler, role: "search", children: [jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: formTextInputStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: buttonStyles, type: "submit", children: "Search" }))] })] }));
+};
+const searchWrapperMediaQuery = {
+    '@media (max-width: 580px)': {
+        flexDirection: 'column'
+    }
+};
+const formTextInputStyles = {
+    inputWrapper: {
+        margin: 0,
+        flex: 1
+    }
+};
+const formStyles = {
+    form: {
+        display: 'flex',
+        justifyContent: 'end',
+        alignItems: 'flex-end',
+        flexWrap: 'wrap',
+        width: 'inherit',
+        border: 'none',
+        '@media (max-width: 580px)': {
+            width: '100%'
+        },
+        // Kill Form defaults
+        backgroundColor: 'transparent',
+        padding: '0'
+    }
+};
+const buttonStyles = {
+    button: {
+        marginLeft: '10px'
+    }
+};
+const baseStyles = {
+    searchWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'end',
+        paddingBottom: '20px',
+        paddingTop: '20px',
+        background: 'white'
+    },
+    results: {
+        alignSelf: 'end',
+        '@media (max-width: 580px)': {
+            alignSelf: 'start'
+        }
+    }
 };
 
 function useDebounce(func, wait) {
@@ -596,10 +835,40 @@ function useDebounce(func, wait) {
     return debounceFunc;
 }
 
+const useResponsiveHeader = () => {
+    const [screenSize, setScreenSize] = useState('large');
+    useEffect(() => {
+        const checkScreenSize = () => {
+            const width = window.innerWidth;
+            if (width < 580) {
+                setScreenSize('small');
+            }
+            else if (width < 1024) {
+                setScreenSize('medium');
+            }
+            else {
+                setScreenSize('large');
+            }
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+    return {
+        screenSize,
+        isSmall: screenSize === 'small',
+        isMedium: screenSize === 'medium',
+        isLarge: screenSize === 'large',
+        showCompactNav: screenSize === 'small',
+        showFullNav: screenSize !== 'small'
+    };
+};
+
 var index = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  useDebounce: useDebounce
+  useDebounce: useDebounce,
+  useResponsiveHeader: useResponsiveHeader
 });
 
-export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, List, ListItem, Main, Modal, index as PAHooks, Search, TwoColumn };
+export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, Search, TwoColumn };
 //# sourceMappingURL=index.esm.js.map
