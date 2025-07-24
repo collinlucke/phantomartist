@@ -54,7 +54,7 @@ export declare const baseTheme: {
     modalCloseButton: {
         cursor: string;
     };
-    modalContent: {};
+    modalContent: Record<string, unknown>;
 };
 export declare const testTheme: {
     h2: {

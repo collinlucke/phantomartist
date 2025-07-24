@@ -669,8 +669,6 @@ const r = y("CancelCircleIcon", [["path", {
 }]]);
 
 const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showCloseButton = true }) => {
-    if (!isOpen)
-        return null;
     const handleBackdropClick = (e) => {
         if (e.target === e.currentTarget) {
             onClose();
@@ -691,11 +689,16 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showClose
             document.addEventListener('keydown', handleEscape);
             document.body.style.overflow = 'hidden';
         }
+        else {
+            document.body.style.overflow = 'unset';
+        }
         return () => {
             document.removeEventListener('keydown', handleEscape);
             document.body.style.overflow = 'unset';
         };
     }, [isOpen, onClose]);
+    if (!isOpen)
+        return null;
     return (jsx("div", { css: styles.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxs("div", { css: [styles.modal, { maxWidth }], role: "dialog", "aria-modal": "true", children: [(title || showCloseButton) && (jsxs("div", { css: styles.header, children: [title && jsx("h1", { css: styles.title, children: title }), showCloseButton && (jsx("button", { css: styles.closeButton, onClick: onClose, "aria-label": "Close modal", children: jsx(r, { size: 44 }) }))] })), jsx("div", { css: styles.content, children: children })] }) }));
 };
 const styles = {

@@ -2,7 +2,7 @@
 import { Global, css } from '@emotion/react';
 import { testTheme } from './baseTheme';
 
-export default () => (
+const PhantomGlobals = () => (
   <Global
     styles={[
       css`
@@ -12,3 +12,5 @@ export default () => (
     ]}
   />
 );
+
+export default PhantomGlobals;

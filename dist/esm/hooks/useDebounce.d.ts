@@ -1,1 +1,1 @@
-export declare function useDebounce<T extends (...args: any[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void;
+export declare function useDebounce<T extends (...args: unknown[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void;

@@ -144,7 +144,7 @@ export const baseTheme = {
   modalCloseButton: {
     cursor: 'pointer'
   },
-  modalContent: {}
+  modalContent: {} as Record<string, unknown>
 };
 
 export const testTheme = {
