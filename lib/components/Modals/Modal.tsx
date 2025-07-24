@@ -42,6 +42,7 @@ export const Modal: FC<ModalTypes> = ({
         <div css={baseTheme.modalHeading} className="pa-modal-heading">
           {closeModal && (
             <CancelCircleIcon
+              size={24}
               fill={hovering ? 'rgba(125,125,125,.5)' : 'none'}
               onClick={closeModalHandler}
               onMouseEnter={mouseCloseHoverHandler}

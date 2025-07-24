@@ -36,11 +36,15 @@ export const InputField: React.FC<InputFieldProps> = ({
         id={inputId}
         type={type}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
         required={required}
         disabled={disabled}
-        css={[styles.input, error && styles.inputError, disabled && styles.inputDisabled]}
+        css={[
+          styles.input,
+          error && styles.inputError,
+          disabled && styles.inputDisabled
+        ]}
         aria-describedby={error ? `${inputId}-error` : undefined}
       />
       {error && (
@@ -56,7 +60,8 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column' as const,
-    gap: '0.5rem'
+    gap: '0.5rem',
+    width: '100%'
   } as CSSObject,
 
   label: {

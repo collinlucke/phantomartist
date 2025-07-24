@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'lib/**'
+      - '.storybook/**'
+      - 'package.json'
 
 permissions:
   contents: write
@@ -14,15 +18,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Storybook
         run: npx storybook build
