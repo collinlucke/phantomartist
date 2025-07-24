@@ -1,19 +1,76 @@
-# PhantomArtist
+# PhantomArtist 👻🎨
 
-<sub>(yes, I too want to read it as "Philanthropist" every time I look at it)</sub>
+A modern, flexible React component library built with TypeScript and Emotion CSS. PhantomArtist provides a collection of highly customizable UI components designed for building beautiful, responsive web applications.
 
-So, the initial goal of this was to make a sort of "joke" library. The gag was that each component would require configuring so many props, you'd be better of just creating your own components.
-Hilarious, right?
+## ✨ Features
 
-Anyway...
+- 🎯 **TypeScript First** - Full TypeScript support with comprehensive type definitions
+- 🎨 **Emotion CSS** - Powerful CSS-in-JS styling with theme support
+- 📱 **Responsive Design** - Mobile-first components with flexible breakpoints
+- 🧩 **Modular** - Import only the components you need
+- 🔧 **Highly Customizable** - Extensive prop interfaces for maximum flexibility
+- 📚 **Storybook Documentation** - Interactive component playground and documentation
+- ⚡ **Modern Build** - Optimized with Rollup for both ESM and CommonJS
 
-I started using it with another project and this library is now built upon the needs of that.
+## 🚀 Quick Start
 
-See the project I'm currently using it in https://collinlucke.com:
-<br/>
-Login --
-Email: notareal@email.address.com / Password: baphy!demo2024
-<br/>
-Repos -- UI: https://github.com/collinlucke/baphomet-ui / Server: https://github.com/collinlucke/baphomet-server
+### Installation
 
-Current Stack: JavaScript, TypeScript, Vite, Rollup, React, Emotion
+```bash
+npm install @collinlucke/phantomartist
+```
+
+### Basic Usage
+
+```tsx
+import { Modal, InputField, Button } from '@collinlucke/phantomartist';
+
+function App() {
+  return (
+    <div>
+      <Modal isOpen={true} onClose={() => {}}>
+        <h2>Welcome to PhantomArtist!</h2>
+        <InputField label="Email" type="email" placeholder="Enter your email" />
+        <Button variant="primary">Get Started</Button>
+      </Modal>
+    </div>
+  );
+}
+```
+
+## 📖 Documentation
+
+- **[Storybook Documentation](https://collinlucke.github.io/phantomartist/storybook)** - Interactive component examples and API documentation
+- **[Live Demo](https://baphomet.collinlucke.com)** - See PhantomArtist in action in a real application
+
+## 🛠️ Tech Stack
+
+- **React** - UI framework
+- **TypeScript** - Type safety and developer experience
+- **Emotion** - CSS-in-JS styling solution
+- **Rollup** - Module bundler for optimized builds
+- **Storybook** - Component development and documentation
+- **Vite** - Fast development and build tooling
+
+## 📦 Available Components
+
+- **Modal** - Accessible modal dialogs with customizable styling
+- **InputField** - Flexible form inputs with validation support
+- **Button** - Versatile button component with multiple variants
+- **Form Components** - Complete form building blocks
+- _...and more coming soon!_
+
+## 🔗 Related Projects
+
+PhantomArtist is actively used and developed alongside:
+
+- **[Baphomet UI](https://github.com/collinlucke/baphomet-ui)** - Frontend application
+- **[Baphomet Server](https://github.com/collinlucke/baphomet-server)** - GraphQL backend
+
+## 📄 License
+
+MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<sub>_Yes, it does look like "Philanthropist" at first glance, and that's perfectly fine! 😄_</sub>
