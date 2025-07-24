@@ -173,13 +173,18 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
 
 const InputField = ({ label, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, id }) => {
     const inputId = id || `input-${label.toLowerCase().replace(/\s+/g, '-')}`;
-    return (jsxRuntime.jsxs("div", { css: styles$1.container, children: [jsxRuntime.jsxs("label", { css: styles$1.label, htmlFor: inputId, children: [label, required && jsxRuntime.jsx("span", { css: styles$1.required, children: "*" })] }), jsxRuntime.jsx("input", { id: inputId, type: type, value: value, onChange: (e) => onChange(e.target.value), placeholder: placeholder, required: required, disabled: disabled, css: [styles$1.input, error && styles$1.inputError, disabled && styles$1.inputDisabled], "aria-describedby": error ? `${inputId}-error` : undefined }), error && (jsxRuntime.jsx("div", { css: styles$1.error, id: `${inputId}-error`, role: "alert", children: error }))] }));
+    return (jsxRuntime.jsxs("div", { css: styles$1.container, children: [jsxRuntime.jsxs("label", { css: styles$1.label, htmlFor: inputId, children: [label, required && jsxRuntime.jsx("span", { css: styles$1.required, children: "*" })] }), jsxRuntime.jsx("input", { id: inputId, type: type, value: value, onChange: e => onChange(e.target.value), placeholder: placeholder, required: required, disabled: disabled, css: [
+                    styles$1.input,
+                    error && styles$1.inputError,
+                    disabled && styles$1.inputDisabled
+                ], "aria-describedby": error ? `${inputId}-error` : undefined }), error && (jsxRuntime.jsx("div", { css: styles$1.error, id: `${inputId}-error`, role: "alert", children: error }))] }));
 };
 const styles$1 = {
     container: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '0.5rem'
+        gap: '0.5rem',
+        width: '100%'
     },
     label: {
         fontSize: '0.875rem',
