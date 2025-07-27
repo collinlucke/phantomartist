@@ -29,3 +29,6 @@ dist-ssr
 unused-*
 
 *storybook.log
+
+# Storybook static builds
+storybook-static/

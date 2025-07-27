@@ -6,5 +6,6 @@ export interface ModalProps {
     title?: string;
     maxWidth?: string;
     showCloseButton?: boolean;
+    dataTestId?: string;
 }
 export declare const Modal: React.FC<ModalProps>;

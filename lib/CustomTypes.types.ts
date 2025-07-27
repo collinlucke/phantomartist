@@ -6,4 +6,8 @@ export type ConsumerThemeTypes = Theme & {
     size?: string;
     iconOnly?: boolean;
   }) => CSSObject;
+  buttonGroup?: (params: {
+    direction?: 'horizontal' | 'vertical';
+    gap?: 'small' | 'medium' | 'large';
+  }) => CSSObject;
 };

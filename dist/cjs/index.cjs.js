@@ -670,7 +670,7 @@ const r = y("CancelCircleIcon", [["path", {
   key: "k1"
 }]]);
 
-const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showCloseButton = true }) => {
+const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showCloseButton = true, dataTestId }) => {
     const handleBackdropClick = (e) => {
         if (e.target === e.currentTarget) {
             onClose();
@@ -701,7 +701,7 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showClose
     }, [isOpen, onClose]);
     if (!isOpen)
         return null;
-    return (jsxRuntime.jsx("div", { css: styles.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { css: [styles.modal, { maxWidth }], role: "dialog", "aria-modal": "true", children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: styles.header, children: [title && jsxRuntime.jsx("h1", { css: styles.title, children: title }), showCloseButton && (jsxRuntime.jsx("button", { css: styles.closeButton, onClick: onClose, "aria-label": "Close modal", children: jsxRuntime.jsx(r, { size: 44 }) }))] })), jsxRuntime.jsx("div", { css: styles.content, children: children })] }) }));
+    return (jsxRuntime.jsx("div", { css: styles.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { css: [styles.modal, { maxWidth }], role: "dialog", "aria-modal": "true", "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: styles.header, children: [title && jsxRuntime.jsx("h1", { css: styles.title, children: title }), showCloseButton && (jsxRuntime.jsx("button", { css: styles.closeButton, onClick: onClose, "aria-label": "Close modal", children: jsxRuntime.jsx(r, { size: 44 }) }))] })), jsxRuntime.jsx("div", { css: styles.content, children: children })] }) }));
 };
 const styles = {
     backdrop: {
@@ -880,6 +880,290 @@ var index = /*#__PURE__*/Object.freeze({
   useResponsiveHeader: useResponsiveHeader
 });
 
+/**
+ * WCAG Color Contrast Utilities
+ *
+ * Professional-grade color contrast analysis following WCAG 2.1 guidelines.
+ * Essential utilities for accessible design systems.
+ */
+/**
+ * Convert hex color to RGB values
+ */
+const hexToRgb = (hex) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        }
+        : null;
+};
+/**
+ * Calculate relative luminance according to WCAG formula
+ */
+const getLuminance = (hex) => {
+    const rgb = hexToRgb(hex);
+    if (!rgb)
+        return 0;
+    const { r, g, b } = rgb;
+    // Convert to sRGB
+    const rsRGB = r / 255;
+    const gsRGB = g / 255;
+    const bsRGB = b / 255;
+    // Apply gamma correction
+    const rLinear = rsRGB <= 0.03928 ? rsRGB / 12.92 : Math.pow((rsRGB + 0.055) / 1.055, 2.4);
+    const gLinear = gsRGB <= 0.03928 ? gsRGB / 12.92 : Math.pow((gsRGB + 0.055) / 1.055, 2.4);
+    const bLinear = bsRGB <= 0.03928 ? bsRGB / 12.92 : Math.pow((bsRGB + 0.055) / 1.055, 2.4);
+    // Calculate relative luminance
+    return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+};
+/**
+ * Calculate contrast ratio between two colors
+ */
+const getContrastRatio = (color1, color2) => {
+    const lum1 = getLuminance(color1);
+    const lum2 = getLuminance(color2);
+    const lighter = Math.max(lum1, lum2);
+    const darker = Math.min(lum1, lum2);
+    return (lighter + 0.05) / (darker + 0.05);
+};
+/**
+ * WCAG compliance thresholds
+ */
+const WCAGThresholds = {
+    AA_NORMAL: 4.5,
+    AA_LARGE: 3,
+    AAA_NORMAL: 7,
+    AAA_LARGE: 4.5
+};
+/**
+ * Check WCAG compliance for a color combination
+ */
+const checkWCAGCompliance = (foreground, background, isLargeText = false) => {
+    const ratio = getContrastRatio(foreground, background);
+    const aaThreshold = isLargeText
+        ? WCAGThresholds.AA_LARGE
+        : WCAGThresholds.AA_NORMAL;
+    const aaaThreshold = isLargeText
+        ? WCAGThresholds.AAA_LARGE
+        : WCAGThresholds.AAA_NORMAL;
+    return {
+        ratio: Math.round(ratio * 100) / 100,
+        passesAA: ratio >= aaThreshold,
+        passesAAA: ratio >= aaaThreshold,
+        level: ratio >= aaaThreshold ? 'AAA' : ratio >= aaThreshold ? 'AA' : 'Fail',
+        isLargeText,
+        recommendation: ratio < aaThreshold
+            ? 'Consider darker/lighter colors for better accessibility'
+            : 'Good contrast ratio'
+    };
+};
+/**
+ * Analyze contrast and provide detailed feedback
+ */
+const analyzeContrast = (foreground, background, isLargeText = false) => {
+    const compliance = checkWCAGCompliance(foreground, background, isLargeText);
+    return {
+        ...compliance,
+        colors: {
+            foreground,
+            background
+        },
+        luminance: {
+            foreground: Math.round(getLuminance(foreground) * 1000) / 1000,
+            background: Math.round(getLuminance(background) * 1000) / 1000
+        }
+    };
+};
+/**
+ * Get contrast ratio with emoji indicator
+ */
+const getContrastEmoji = (ratio, isLargeText = false) => {
+    const aaThreshold = isLargeText
+        ? WCAGThresholds.AA_LARGE
+        : WCAGThresholds.AA_NORMAL;
+    const aaaThreshold = isLargeText
+        ? WCAGThresholds.AAA_LARGE
+        : WCAGThresholds.AAA_NORMAL;
+    if (ratio >= aaaThreshold)
+        return '🟢'; // AAA
+    if (ratio >= aaThreshold)
+        return '🟡'; // AA
+    return '🔴'; // Fail
+};
+
+/**
+ * Advanced Scoped Contrast Analysis for Design Systems
+ *
+ * Professional-grade accessibility analysis with defensive programming patterns.
+ * Provides component-level, page-level, and application-wide contrast validation.
+ */
+/**
+ * Analyze color combinations with comprehensive error handling
+ */
+const analyzeColorCombinations = (combinations, contextName) => {
+    if (!Array.isArray(combinations) || combinations.length === 0) {
+        console.error(`❌ No color combinations available for ${contextName} analysis`);
+        return { total: 0, passing: 0, issues: [] };
+    }
+    try {
+        console.log(`🔍 ${contextName} Analysis`);
+        console.log('═'.repeat(60));
+        let totalCombinations = 0;
+        let passingCombinations = 0;
+        const issues = [];
+        combinations.forEach(combo => {
+            try {
+                // Validate combo structure
+                if (!combo ||
+                    !combo.fg ||
+                    !combo.bg ||
+                    !combo.name ||
+                    !combo.component) {
+                    console.warn(`⚠️ Skipping incomplete color combination: ${combo?.name || 'unnamed'}`);
+                    return;
+                }
+                totalCombinations++;
+                const analysis = analyzeContrast(combo.fg, combo.bg);
+                const emoji = getContrastEmoji(analysis.ratio);
+                console.log(`\n${combo.component} - ${combo.name}:`);
+                console.log(`  Colors: ${combo.fg} on ${combo.bg}`);
+                console.log(`  Ratio: ${analysis.ratio}:1 ${emoji} (${analysis.level})`);
+                if (analysis.passesAA) {
+                    passingCombinations++;
+                }
+                else {
+                    issues.push({ ...combo, analysis });
+                    console.log(`  ⚠️  ${analysis.recommendation}`);
+                }
+            }
+            catch (error) {
+                console.error(`❌ Error analyzing ${combo?.name || 'unknown'}:`, error);
+            }
+        });
+        // Summary
+        console.log(`\n📊 ${contextName} Summary`);
+        console.log('═'.repeat(60));
+        console.log(`Total combinations: ${totalCombinations}`);
+        if (totalCombinations > 0) {
+            console.log(`Passing WCAG AA: ${passingCombinations}/${totalCombinations} (${Math.round((passingCombinations / totalCombinations) * 100)}%)`);
+        }
+        else {
+            console.log('No valid combinations to analyze');
+        }
+        if (issues.length > 0) {
+            console.log(`\n❌ ${issues.length} issues found:`);
+            issues.forEach(issue => {
+                console.log(`  • ${issue.component}: ${issue.name} (${issue.analysis.ratio}:1)`);
+            });
+        }
+        else {
+            console.log('\n✅ All color combinations pass WCAG AA standards!');
+        }
+        return {
+            total: totalCombinations,
+            passing: passingCombinations,
+            issues
+        };
+    }
+    catch (error) {
+        console.error(`❌ ${contextName} analysis failed:`, error);
+        return { total: 0, passing: 0, issues: [] };
+    }
+};
+/**
+ * Analyze color combinations filtered by component type
+ */
+const analyzeByComponent = (combinations, componentName) => {
+    // Input validation
+    if (!componentName || typeof componentName !== 'string') {
+        console.error('❌ Invalid component name provided. Expected non-empty string.');
+        return { total: 0, passing: 0, issues: [] };
+    }
+    const componentCombos = combinations.filter(combo => {
+        if (!combo || !combo.component || typeof combo.component !== 'string') {
+            console.warn('⚠️ Skipping invalid color combination entry');
+            return false;
+        }
+        return combo.component.toLowerCase() === componentName.toLowerCase();
+    });
+    if (componentCombos.length === 0) {
+        const availableComponents = [
+            ...new Set(combinations.filter(c => c && c.component).map(c => c.component))
+        ];
+        console.log(`No predefined color combinations found for ${componentName}`);
+        console.log('Available components:', availableComponents.join(', '));
+        return { total: 0, passing: 0, issues: [] };
+    }
+    return analyzeColorCombinations(componentCombos, `${componentName} Component`);
+};
+/**
+ * Create browser console analysis functions for any design system
+ */
+const createConsoleAnalysisFunctions = (colorCombinations) => {
+    const analyzeFullSystem = () => {
+        return analyzeColorCombinations(colorCombinations, 'Full Design System');
+    };
+    const analyzeComponent = (componentName) => {
+        return analyzeByComponent(colorCombinations, componentName);
+    };
+    const analyzeCustom = (customCombinations) => {
+        return analyzeColorCombinations(customCombinations, 'Custom Analysis');
+    };
+    // Make functions available globally in browser
+    if (typeof window !== 'undefined') {
+        try {
+            // Type-safe window extensions
+            window.analyzeFullSystem = analyzeFullSystem;
+            window.analyzeComponent = analyzeComponent;
+            window.analyzeCustom = analyzeCustom;
+            console.log('✅ Design System contrast analysis functions available globally');
+            console.log('📖 Available functions:');
+            console.log('  • analyzeFullSystem() - Analyze all color combinations');
+            console.log('  • analyzeComponent("ComponentName") - Analyze specific component');
+            console.log('  • analyzeCustom([{...combinations}]) - Analyze custom combinations');
+        }
+        catch (error) {
+            console.warn('⚠️ Could not attach functions to window object:', error);
+        }
+    }
+    return {
+        analyzeFullSystem,
+        analyzeComponent,
+        analyzeCustom
+    };
+};
+/**
+ * Quick accessibility audit of any color pair
+ */
+const quickAudit = (foreground, background, context) => {
+    try {
+        const analysis = analyzeContrast(foreground, background);
+        const emoji = getContrastEmoji(analysis.ratio);
+        console.log(`🎨 Quick Contrast Audit${context ? ` - ${context}` : ''}`);
+        console.log(`Colors: ${foreground} on ${background}`);
+        console.log(`Ratio: ${analysis.ratio}:1 ${emoji} (${analysis.level})`);
+        console.log(`WCAG AA: ${analysis.passesAA ? '✅ Pass' : '❌ Fail'}`);
+        if (!analysis.passesAA) {
+            console.log(`💡 ${analysis.recommendation}`);
+        }
+    }
+    catch (error) {
+        console.error('❌ Quick audit failed:', error);
+    }
+};
+
+var scopedContrastAnalysis = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  analyzeByComponent: analyzeByComponent,
+  analyzeColorCombinations: analyzeColorCombinations,
+  analyzeContrast: analyzeContrast,
+  createConsoleAnalysisFunctions: createConsoleAnalysisFunctions,
+  getContrastEmoji: getContrastEmoji,
+  quickAudit: quickAudit
+});
+
 exports.Block = Block;
 exports.Button = Button;
 exports.ButtonGroup = ButtonGroup;
@@ -896,6 +1180,14 @@ exports.ListItem = ListItem;
 exports.Main = Main;
 exports.Modal = Modal;
 exports.PAHooks = index;
+exports.ScopedContrastAnalysis = scopedContrastAnalysis;
 exports.Search = Search;
 exports.TwoColumn = TwoColumn;
+exports.WCAGThresholds = WCAGThresholds;
+exports.analyzeContrast = analyzeContrast;
+exports.checkWCAGCompliance = checkWCAGCompliance;
+exports.getContrastEmoji = getContrastEmoji;
+exports.getContrastRatio = getContrastRatio;
+exports.getLuminance = getLuminance;
+exports.hexToRgb = hexToRgb;
 //# sourceMappingURL=index.cjs.js.map

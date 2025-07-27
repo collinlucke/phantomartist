@@ -27,7 +27,10 @@
     "dev": "rollup -c -w",
     "lint": "eslint . --ext ts,tsx,.ts,.tsx --debug",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "contrast:check": "node lib/styling/contrast-cli.js",
+    "contrast:theme": "node lib/styling/theme-analyzer.js",
+    "contrast:help": "echo '🎨 Contrast Commands:' && echo '  npm run contrast:check \"#fg\" \"#bg\" [--large]' && echo '  npm run contrast:theme' && echo '  Example: npm run contrast:check \"#FFFFFF\" \"#146B68\"'"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.12.0",

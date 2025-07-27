@@ -9,6 +9,7 @@ export interface ModalProps {
   title?: string;
   maxWidth?: string;
   showCloseButton?: boolean;
+  dataTestId?: string;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -17,7 +18,8 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   title,
   maxWidth = '500px',
-  showCloseButton = true
+  showCloseButton = true,
+  dataTestId
 }) => {
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -59,7 +61,12 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={handleBackdropClick}
       onKeyDown={handleKeyDown}
     >
-      <div css={[styles.modal, { maxWidth }]} role="dialog" aria-modal="true">
+      <div
+        css={[styles.modal, { maxWidth }]}
+        role="dialog"
+        aria-modal="true"
+        data-testid={dataTestId}
+      >
         {(title || showCloseButton) && (
           <div css={styles.header}>
             {title && <h1 css={styles.title}>{title}</h1>}
