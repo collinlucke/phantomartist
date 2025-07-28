@@ -14,6 +14,8 @@ interface ButtonProps {
   iconOnly?: boolean;
   icon?: ReactElement | string;
   dataTestId?: string;
+  ariaLabel?: string;
+  ariaDescribedby?: string;
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -26,6 +28,8 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   iconOnly,
   dataTestId,
+  ariaLabel,
+  ariaDescribedby,
   onClick
 }) => {
   const consumerTheme = useTheme() as ConsumerThemeTypes;
@@ -43,6 +47,8 @@ export const Button: React.FC<ButtonProps> = ({
       ]}
       className={`pa-button ${kind} ${size}`}
       data-testid={dataTestId}
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedby}
     >
       {icon ? (
         <>

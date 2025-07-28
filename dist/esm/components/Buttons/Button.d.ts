@@ -11,6 +11,8 @@ interface ButtonProps {
     iconOnly?: boolean;
     icon?: ReactElement | string;
     dataTestId?: string;
+    ariaLabel?: string;
+    ariaDescribedby?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 export declare const Button: React.FC<ButtonProps>;

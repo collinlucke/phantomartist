@@ -147,7 +147,7 @@ const baseTheme = {
     modalContent: {}
 };
 
-const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, onClick }) => {
+const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, ariaLabel, ariaDescribedby, onClick }) => {
     const consumerTheme = useTheme();
     const onClickHandler = e => {
         onClick?.(e);
@@ -156,7 +156,7 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
             baseTheme.button({ kind, size, iconOnly }),
             consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
             className?.button
-        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, children: icon ? (jsxs(Fragment, { children: [icon, children] })) : (jsx(Fragment, { children: children })) }));
+        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, "aria-label": ariaLabel, "aria-describedby": ariaDescribedby, children: icon ? (jsxs(Fragment, { children: [icon, children] })) : (jsx(Fragment, { children: children })) }));
 };
 
 const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId }) => {
@@ -169,214 +169,176 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
         ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
 };
 
-const InputField = ({ label, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, id }) => {
-    const inputId = id || `input-${label.toLowerCase().replace(/\s+/g, '-')}`;
-    return (jsxs("div", { css: styles$1.container, children: [jsxs("label", { css: styles$1.label, htmlFor: inputId, children: [label, required && jsx("span", { css: styles$1.required, children: "*" })] }), jsx("input", { id: inputId, type: type, value: value, onChange: e => onChange(e.target.value), placeholder: placeholder, required: required, disabled: disabled, css: [
-                    styles$1.input,
-                    error && styles$1.inputError,
-                    disabled && styles$1.inputDisabled
-                ], "aria-describedby": error ? `${inputId}-error` : undefined }), error && (jsx("div", { css: styles$1.error, id: `${inputId}-error`, role: "alert", children: error }))] }));
-};
-const styles$1 = {
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.5rem',
-        width: '100%'
-    },
-    label: {
-        fontSize: '0.875rem',
-        fontWeight: 500,
-        color: '#374151',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.25rem'
-    },
-    required: {
-        color: '#ef4444',
-        fontSize: '0.875rem'
-    },
-    input: {
-        padding: '0.75rem',
-        border: '1px solid #d1d5db',
-        borderRadius: '6px',
-        fontSize: '1rem',
-        transition: 'all 0.2s ease',
-        '&:focus': {
-            outline: '2px solid #3b82f6',
-            outlineOffset: '2px',
-            borderColor: '#3b82f6'
-        },
-        '&::placeholder': {
-            color: '#9ca3af'
-        }
-    },
-    inputError: {
-        borderColor: '#ef4444',
-        '&:focus': {
-            outline: '2px solid #ef4444',
-            borderColor: '#ef4444'
-        }
-    },
-    inputDisabled: {
-        backgroundColor: '#f9fafb',
-        color: '#6b7280',
-        cursor: 'not-allowed'
-    },
-    error: {
-        fontSize: '0.875rem',
-        color: '#ef4444',
-        marginTop: '0.25rem'
-    }
-};
-
-const Form = ({ children, role, className, onSubmit }) => {
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        onSubmit?.(e);
-    };
-    return (jsx("form", { css: [baseStyles$b.form, className?.form], onSubmit: handleOnSubmit, role: role, children: children }));
-};
-const baseStyles$b = {
-    form: {
-        backgroundColor: shadesAndTints.tertiaryLight,
-        borderRadius: '6px',
-        padding: '20px',
-        width: '100%'
-    }
-};
-
-const FormInputLabel = ({ position, name, label, className }) => {
-    switch (position) {
-        case 'left':
-            return (jsx("label", { css: [
-                    baseStyles$a.label,
-                    baseStyles$a.left,
-                    className?.label,
-                    className?.left
-                ], htmlFor: name, children: label }));
-        case 'right':
-            return (jsx("label", { htmlFor: name, css: [
-                    baseStyles$a.label,
-                    baseStyles$a.right,
-                    className && className.label,
-                    className && className.right
-                ], children: label }));
-        case 'above':
-            return (jsx("label", { css: [
-                    baseStyles$a.label,
-                    baseStyles$a.above,
-                    className && className.label,
-                    className && className.above
-                ], htmlFor: name, children: label }));
-        case 'below':
-            return (jsx("label", { htmlFor: name, css: [
-                    baseStyles$a.label,
-                    baseStyles$a.below,
-                    className && className.label,
-                    className && className.below
-                ], children: label }));
-    }
-};
-const baseStyles$a = {
-    label: {
-        fontWeight: '500'
-    },
-    above: {
-        marginBottom: '5px'
-    },
-    left: {
-        alignSelf: 'end',
-        marginRight: '10px'
-    },
-    right: {
-        alignSelf: 'end',
-        marginLeft: '10px'
-    },
-    below: { marginTop: '7px' }
-};
-
-const FormTextInput = ({ label = '', name = '', type = 'text', labelPos = 'left', value = '', placeholder, size = 'large', className, readonly, onChange }) => {
-    const onChangeHandler = (e) => {
-        onChange?.(e);
-    };
-    return (jsxs("div", { css: [baseStyles$9.inputWrapper(labelPos), className?.inputWrapper], className: "pa-form-text-input", children: [(label && labelPos === 'left') || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : (''), jsx("input", { css: [
-                    baseStyles$9.input(size),
-                    readonly && baseStyles$9.readonly,
-                    className && className.input
-                ], value: value || '', type: type, name: name, id: name, onChange: onChangeHandler, readOnly: readonly, placeholder: placeholder }), (label && labelPos === 'right') || labelPos === 'below' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: className })) : ('')] }));
-};
-const baseStyles$9 = {
-    inputWrapper: (labelPos) => ({
-        marginBottom: '20px',
-        display: 'flex',
-        flexDirection: labelPos === 'above' || labelPos === 'below' ? 'column' : 'row'
-    }),
-    input: (size) => {
-        return {
-            border: `1px solid ${baseColors.tertiary}`,
-            padding: (size === 'large' && '9px') ||
-                (size === 'medium' && '8px') ||
-                (size === 'small' && '5px') ||
-                undefined,
-            borderRadius: '5px',
-            width: '100%'
-        };
-    },
-    readonly: {
-        backgroundColor: 'transparent',
-        outline: 'none',
-        padding: 0,
-        border: 'none'
-    }
-};
-
-const FormTextArea = ({ label = '', name = '', labelPos, value = '', className, readonly, autoResize, onChange }) => {
+const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className }) => {
     const textAreaRef = useRef(null);
-    const onChangeHandler = (e) => {
-        onChange?.(e);
-        resize(e.target);
+    const inputId = id ||
+        (typeof label === 'string'
+            ? `input-${label.toLowerCase().replace(/\s+/g, '-')}`
+            : name
+                ? `input-${name}`
+                : `input-${Math.random().toString(36).substr(2, 9)}`);
+    const handleInputChange = (e) => {
+        onChange(e.target.value);
     };
-    const resize = (textArea) => {
+    const handleTextAreaChange = (e) => {
+        onChange(e.target.value);
+        if (autoResize && textAreaRef.current) {
+            resizeTextArea(textAreaRef.current);
+        }
+    };
+    const resizeTextArea = (textArea) => {
         textArea.style.height = 'auto';
         textArea.style.height = `${textArea.scrollHeight}px`;
     };
     useLayoutEffect(() => {
-        if (textAreaRef.current && autoResize) {
-            resize(textAreaRef.current);
+        if (textAreaRef.current && type === 'textarea') {
+            if (autoResize) {
+                // Enable auto-resize: set height based on content
+                resizeTextArea(textAreaRef.current);
+            }
+            else {
+                // Disable auto-resize: reset to CSS-controlled height
+                textAreaRef.current.style.height = '';
+            }
         }
-    });
-    return (jsxs("div", { css: [baseStyles$8.textAreaWrapper, className?.textAreaWrapper], children: [labelPos === 'left' || labelPos === 'above' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
-                    [labelPos]: className?.[labelPos],
-                    label: className?.label
-                } })) : (''), jsx("textarea", { css: [
-                    baseStyles$8.textArea,
-                    readonly && baseStyles$8.readonly,
-                    className && className.textArea
-                ], value: value, name: name, id: name, onChange: onChangeHandler, readOnly: readonly, ref: textAreaRef }), labelPos === 'right' || labelPos === 'below' ? (jsx(FormInputLabel, { position: labelPos, name: name, label: label, className: {
-                    [labelPos]: className?.[labelPos],
-                    label: className?.label
-                } })) : ('')] }));
+    }, [value, autoResize, type]);
+    const labelElement = label ? (jsxs("label", { css: [getStyles(labelPosition, size, autoResize).label, className?.label], htmlFor: inputId, children: [label, required && (jsx("span", { css: getStyles(labelPosition, size, autoResize).required, children: "*" }))] })) : null;
+    const inputElement = type === 'textarea' ? (jsx("textarea", { ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, "data-testid": testId, css: [
+            getStyles(labelPosition, size, autoResize).textarea,
+            error && getStyles(labelPosition, size, autoResize).inputError,
+            disabled && getStyles(labelPosition, size, autoResize).inputDisabled,
+            readonly && getStyles(labelPosition, size, autoResize).inputReadonly,
+            className?.input
+        ], "aria-describedby": error ? `${inputId}-error` : undefined })) : (jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, "data-testid": testId, css: [
+            getStyles(labelPosition, size, autoResize).input,
+            error && getStyles(labelPosition, size, autoResize).inputError,
+            disabled && getStyles(labelPosition, size, autoResize).inputDisabled,
+            readonly && getStyles(labelPosition, size, autoResize).inputReadonly,
+            className?.input
+        ], "aria-describedby": error ? `${inputId}-error` : undefined }));
+    const errorElement = error ? (jsx("div", { css: [getStyles(labelPosition, size, autoResize).error, className?.error], id: `${inputId}-error`, role: "alert", children: error })) : null;
+    // Layout based on label position
+    return (jsxs("div", { css: [
+            getStyles(labelPosition, size, autoResize).container,
+            className?.container
+        ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement] }));
 };
-const baseStyles$8 = {
-    textAreaWrapper: {
-        marginBottom: '20px'
-    },
-    textArea: {
-        border: `1px solid ${baseColors.tertiary}`,
-        padding: '10px',
-        borderRadius: '5px',
-        width: '100%',
-        minHeight: '50px',
-        resize: 'none',
-        overflow: 'hidden'
-    },
-    readonly: {
-        backgroundColor: 'transparent',
-        outline: 'none',
-        padding: 0,
-        border: 'none'
-    }
+const getStyles = (labelPosition, size, autoResize = false) => {
+    const getSizeStyles = () => {
+        switch (size) {
+            case 'large':
+                return {
+                    padding: '0.9rem',
+                    fontSize: '1.1rem'
+                };
+            case 'small':
+                return {
+                    padding: '0.5rem',
+                    fontSize: '0.875rem'
+                };
+            default: // medium
+                return {
+                    padding: '0.75rem',
+                    fontSize: '1rem'
+                };
+        }
+    };
+    const getContainerLayout = () => {
+        return {
+            display: 'flex',
+            flexDirection: labelPosition === 'above' || labelPosition === 'below'
+                ? 'column'
+                : 'row',
+            gap: labelPosition === 'left' || labelPosition === 'right'
+                ? '0.75rem'
+                : '0.5rem',
+            flex: '1 1 0%', // Allow flex grow/shrink for side-by-side layouts
+            minWidth: 0, // Prevent flex items from overflowing
+            alignItems: labelPosition === 'left' || labelPosition === 'right'
+                ? 'center'
+                : 'stretch',
+            marginBottom: '1.25rem'
+        };
+    };
+    const sizeStyles = getSizeStyles();
+    return {
+        container: getContainerLayout(),
+        label: {
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            color: '#374151',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.25rem',
+            marginBottom: labelPosition === 'above' ? '0.25rem' : '0',
+            marginTop: labelPosition === 'below' ? '0.25rem' : '0',
+            marginRight: labelPosition === 'left' ? '0.5rem' : '0',
+            marginLeft: labelPosition === 'right' ? '0.5rem' : '0',
+            alignSelf: labelPosition === 'left' || labelPosition === 'right'
+                ? 'center'
+                : 'flex-start'
+        },
+        required: {
+            color: '#ef4444',
+            fontSize: '0.875rem'
+        },
+        input: {
+            ...sizeStyles,
+            border: `1px solid ${baseColors?.tertiary}`,
+            borderRadius: '6px',
+            transition: 'all 0.2s ease',
+            minWidth: 0, // Prevent overflow in flex containers
+            '&:focus': {
+                outline: '2px solid #3b82f6',
+                outlineOffset: '2px',
+                borderColor: '#3b82f6'
+            },
+            '&::placeholder': {
+                color: '#9ca3af'
+            }
+        },
+        textarea: {
+            ...sizeStyles,
+            border: `1px solid ${baseColors?.tertiary}`,
+            borderRadius: '6px',
+            transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Removed height transition for auto-resize
+            minWidth: 0, // Prevent overflow in flex containers
+            minHeight: '3rem',
+            resize: autoResize ? 'none' : 'vertical', // Conditional resize based on autoResize prop
+            overflow: autoResize ? 'hidden' : 'auto', // Conditional overflow for auto-resize
+            '&:focus': {
+                outline: '2px solid #3b82f6',
+                outlineOffset: '2px',
+                borderColor: '#3b82f6'
+            },
+            '&::placeholder': {
+                color: '#9ca3af'
+            }
+        },
+        inputError: {
+            borderColor: '#ef4444',
+            '&:focus': {
+                outline: '2px solid #ef4444',
+                borderColor: '#ef4444'
+            }
+        },
+        inputDisabled: {
+            backgroundColor: '#f9fafb',
+            color: '#6b7280',
+            cursor: 'not-allowed'
+        },
+        inputReadonly: {
+            backgroundColor: 'transparent',
+            outline: 'none',
+            border: 'none',
+            cursor: 'default'
+        },
+        error: {
+            fontSize: '0.875rem',
+            color: '#ef4444',
+            marginTop: '0.25rem'
+        }
+    };
 };
 
 const Main = ({ children, className }) => {
@@ -769,17 +731,18 @@ const styles = {
 };
 
 const Search = ({ searchTerm, searchLabel, totalResultsCount, className, buttonSize, inputSize, useSearchButton, onSearch, setSearchTerm }) => {
-    const onSearchHandler = e => {
+    const setSearchTermHandler = (value) => {
+        setSearchTerm(value);
+    };
+    const handleFormSubmit = e => {
+        e.preventDefault();
         onSearch?.(e);
     };
-    const setSearchTermHandler = (e) => {
-        setSearchTerm(e);
-    };
-    return (jsxs("div", { css: [
-            baseStyles.searchWrapper,
-            className?.searchWrapper,
-            searchWrapperMediaQuery
-        ], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles.results, children: ["Total Results: ", totalResultsCount] }), jsxs(Form, { className: formStyles, onSubmit: onSearchHandler, role: "search", children: [jsx(FormTextInput, { type: "search", value: searchTerm, name: "searchTerm", labelPos: "above", placeholder: searchLabel || 'Search', className: formTextInputStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: buttonStyles, type: "submit", children: "Search" }))] })] }));
+    return (jsx("form", { onSubmit: handleFormSubmit, children: jsxs("div", { css: [
+                baseStyles.searchWrapper,
+                className?.searchWrapper,
+                searchWrapperMediaQuery
+            ], className: "pa-search-wrapper", children: [jsxs("div", { css: baseStyles.results, children: ["Total Results: ", totalResultsCount] }), jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: "above", placeholder: searchLabel || 'Search', className: formTextInputStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsx(Button, { size: buttonSize, className: buttonStyles, type: "submit", children: "Search" }))] }) }));
 };
 const searchWrapperMediaQuery = {
     '@media (max-width: 580px)': {
@@ -787,25 +750,9 @@ const searchWrapperMediaQuery = {
     }
 };
 const formTextInputStyles = {
-    inputWrapper: {
+    container: {
         margin: 0,
         flex: 1
-    }
-};
-const formStyles = {
-    form: {
-        display: 'flex',
-        justifyContent: 'end',
-        alignItems: 'flex-end',
-        flexWrap: 'wrap',
-        width: 'inherit',
-        border: 'none',
-        '@media (max-width: 580px)': {
-            width: '100%'
-        },
-        // Kill Form defaults
-        backgroundColor: 'transparent',
-        padding: '0'
     }
 };
 const buttonStyles = {
@@ -1162,5 +1109,5 @@ var scopedContrastAnalysis = /*#__PURE__*/Object.freeze({
   quickAudit: quickAudit
 });
 
-export { Block, Button, ButtonGroup, Form, FormInputLabel, FormTextArea, FormTextInput, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, scopedContrastAnalysis as ScopedContrastAnalysis, Search, TwoColumn, WCAGThresholds, analyzeContrast, checkWCAGCompliance, getContrastEmoji, getContrastRatio, getLuminance, hexToRgb };
+export { Block, Button, ButtonGroup, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, scopedContrastAnalysis as ScopedContrastAnalysis, Search, TwoColumn, WCAGThresholds, analyzeContrast, checkWCAGCompliance, getContrastEmoji, getContrastRatio, getLuminance, hexToRgb };
 //# sourceMappingURL=index.esm.js.map

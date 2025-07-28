@@ -1,7 +1,6 @@
-import { ChangeEvent } from 'react';
 import { CSSObject } from '@emotion/react';
 type Search = {
-    searchTerm?: string | number;
+    searchTerm?: string;
     searchLabel?: string;
     resultsCount?: number;
     buttonSize?: 'large' | 'medium' | 'small';
@@ -12,7 +11,7 @@ type Search = {
         searchWrapper?: CSSObject;
     };
     onSearch?: React.FormEventHandler<HTMLFormElement>;
-    setSearchTerm: (e: ChangeEvent<HTMLInputElement>) => void;
+    setSearchTerm: (value: string) => void;
 };
 export declare const Search: React.FC<Search>;
 export {};

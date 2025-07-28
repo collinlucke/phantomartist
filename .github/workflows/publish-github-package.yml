@@ -51,16 +51,18 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Extracted version: $VERSION"
 
-      - name: Update package.json version
+      - name: Verify package.json version matches tag
         run: |
-          npm version ${{ steps.extract_version.outputs.version }} --no-git-tag-version
-          echo "Updated package.json to version ${{ steps.extract_version.outputs.version }}"
-
-      - name: Commit version bump
-        run: |
-          git add package.json
-          git commit -m "chore: bump version to ${{ steps.extract_version.outputs.version }} [skip ci]"
-          git push origin HEAD:master
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION=${{ steps.extract_version.outputs.version }}
+          echo "Package.json version: $PACKAGE_VERSION"
+          echo "Tag version: $TAG_VERSION"
+          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
+            echo "Version mismatch! Updating package.json..."
+            npm version $TAG_VERSION --no-git-tag-version
+          else
+            echo "Versions match, proceeding..."
+          fi
 
       - run: npm run build
       - run: npm publish

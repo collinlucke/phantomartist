@@ -1,10 +1,9 @@
-import { FormTextInput, Form } from '../FormElements';
+import { InputField } from '../Form';
 import { Button } from '../Buttons';
-import { ChangeEvent } from 'react';
 import { CSSObject } from '@emotion/react';
 
 type Search = {
-  searchTerm?: string | number;
+  searchTerm?: string;
   searchLabel?: string;
   resultsCount?: number;
   buttonSize?: 'large' | 'medium' | 'small';
@@ -16,7 +15,7 @@ type Search = {
   };
 
   onSearch?: React.FormEventHandler<HTMLFormElement>;
-  setSearchTerm: (e: ChangeEvent<HTMLInputElement>) => void;
+  setSearchTerm: (value: string) => void;
 };
 
 export const Search: React.FC<Search> = ({
@@ -31,30 +30,32 @@ export const Search: React.FC<Search> = ({
   onSearch,
   setSearchTerm
 }) => {
-  const onSearchHandler: React.FormEventHandler<HTMLFormElement> = e => {
-    onSearch?.(e);
+  const setSearchTermHandler = (value: string) => {
+    setSearchTerm(value);
   };
-  const setSearchTermHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e);
+
+  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = e => {
+    e.preventDefault();
+    onSearch?.(e);
   };
 
   return (
-    <div
-      css={[
-        baseStyles.searchWrapper,
-        className?.searchWrapper,
-        searchWrapperMediaQuery
-      ]}
-      className="pa-search-wrapper"
-    >
-      <div css={baseStyles.results}>Total Results: {totalResultsCount}</div>
+    <form onSubmit={handleFormSubmit}>
+      <div
+        css={[
+          baseStyles.searchWrapper,
+          className?.searchWrapper,
+          searchWrapperMediaQuery
+        ]}
+        className="pa-search-wrapper"
+      >
+        <div css={baseStyles.results}>Total Results: {totalResultsCount}</div>
 
-      <Form className={formStyles} onSubmit={onSearchHandler} role="search">
-        <FormTextInput
+        <InputField
           type="search"
-          value={searchTerm}
+          value={searchTerm || ''}
           name="searchTerm"
-          labelPos="above"
+          labelPosition="above"
           placeholder={searchLabel || 'Search'}
           className={formTextInputStyles}
           onChange={setSearchTermHandler}
@@ -65,11 +66,10 @@ export const Search: React.FC<Search> = ({
             Search
           </Button>
         )}
-      </Form>
-    </div>
+      </div>
+    </form>
   );
 };
-
 const searchWrapperMediaQuery = {
   '@media (max-width: 580px)': {
     flexDirection: 'column' as const
@@ -77,27 +77,9 @@ const searchWrapperMediaQuery = {
 };
 
 const formTextInputStyles = {
-  inputWrapper: {
+  container: {
     margin: 0,
     flex: 1
-  }
-};
-
-const formStyles = {
-  form: {
-    display: 'flex',
-    justifyContent: 'end',
-    alignItems: 'flex-end',
-    flexWrap: 'wrap' as const,
-    width: 'inherit',
-    border: 'none',
-    '@media (max-width: 580px)': {
-      width: '100%'
-    },
-
-    // Kill Form defaults
-    backgroundColor: 'transparent',
-    padding: '0'
   }
 };
 
