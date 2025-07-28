@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.1.1] - 07-28-2025
+
+### Added
+
+- ## N/A
+
+### Changed
+
+- **InputField Stories**: Updated all Storybook stories to use consistent event-based onChange handlers
+- **Form Event Handling**: Reverted to standardized React event-based pattern across all InputField examples
+- **Story Components**: Enhanced InputField stories with proper name attributes and event extraction patterns
+
+### Removed
+
+- ## N/A
+
+### Fixed
+
+- **Event Handler Consistency**: Fixed inconsistent onChange patterns in Storybook stories
+- **TypeScript Compatibility**: Resolved type mismatches between InputField component and story implementations
+
+<br/>
+
 ## [1.1.0] - 07-28-2025
 
 ### Added

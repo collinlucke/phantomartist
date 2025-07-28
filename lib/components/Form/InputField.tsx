@@ -7,7 +7,9 @@ export interface InputFieldProps {
   name?: string;
   type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'textarea' | 'search';
   value: string;
-  onChange: (value: string) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   placeholder?: string;
   required?: boolean;
   error?: string;
@@ -62,11 +64,11 @@ export const InputField: React.FC<InputFieldProps> = ({
       : `input-${Math.random().toString(36).substring(2, 9)}`);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
+    onChange(e);
   };
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChange(e.target.value);
+    onChange(e);
     if (autoResize && textAreaRef.current) {
       resizeTextArea(textAreaRef.current);
     }

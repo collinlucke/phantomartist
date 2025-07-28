@@ -15,7 +15,7 @@ type Search = {
   };
 
   onSearch?: React.FormEventHandler<HTMLFormElement>;
-  setSearchTerm: (value: string) => void;
+  setSearchTerm: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const Search: React.FC<Search> = ({
@@ -30,11 +30,15 @@ export const Search: React.FC<Search> = ({
   onSearch,
   setSearchTerm
 }) => {
-  const setSearchTermHandler = (value: string) => {
-    setSearchTerm(value);
+  const setSearchTermHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (e.target instanceof HTMLInputElement) {
+      setSearchTerm(e as React.ChangeEvent<HTMLInputElement>);
+    }
   };
 
-  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = e => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch?.(e);
   };

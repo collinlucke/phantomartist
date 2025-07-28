@@ -173,17 +173,18 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
 
 const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className }) => {
     const textAreaRef = React.useRef(null);
+    // Generate ID from label if it's a string, otherwise use name or fallback
     const inputId = id ||
         (typeof label === 'string'
             ? `input-${label.toLowerCase().replace(/\s+/g, '-')}`
             : name
                 ? `input-${name}`
-                : `input-${Math.random().toString(36).substr(2, 9)}`);
+                : `input-${Math.random().toString(36).substring(2, 9)}`);
     const handleInputChange = (e) => {
-        onChange(e.target.value);
+        onChange(e);
     };
     const handleTextAreaChange = (e) => {
-        onChange(e.target.value);
+        onChange(e);
         if (autoResize && textAreaRef.current) {
             resizeTextArea(textAreaRef.current);
         }
@@ -733,10 +734,12 @@ const styles = {
 };
 
 const Search = ({ searchTerm, searchLabel, totalResultsCount, className, buttonSize, inputSize, useSearchButton, onSearch, setSearchTerm }) => {
-    const setSearchTermHandler = (value) => {
-        setSearchTerm(value);
+    const setSearchTermHandler = (e) => {
+        if (e.target instanceof HTMLInputElement) {
+            setSearchTerm(e);
+        }
     };
-    const handleFormSubmit = e => {
+    const handleFormSubmit = (e) => {
         e.preventDefault();
         onSearch?.(e);
     };

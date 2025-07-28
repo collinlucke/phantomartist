@@ -92,8 +92,11 @@ const InputTypesComponent = () => {
     textarea: ''
   });
 
-  const updateValue = (field: string) => (value: string) => {
-    setValues(prev => ({ ...prev, [field]: value }));
+  const updateValue = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setValues(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -108,43 +111,49 @@ const InputTypesComponent = () => {
       <InputField
         label="Text Input"
         type="text"
+        name="text"
         value={values.text}
-        onChange={updateValue('text')}
+        onChange={updateValue}
         placeholder="Enter text..."
       />
       <InputField
         label="Email Input"
         type="email"
+        name="email"
         value={values.email}
-        onChange={updateValue('email')}
+        onChange={updateValue}
         placeholder="Enter email..."
       />
       <InputField
         label="Password Input"
         type="password"
+        name="password"
         value={values.password}
-        onChange={updateValue('password')}
+        onChange={updateValue}
         placeholder="Enter password..."
       />
       <InputField
         label="Phone Number"
         type="tel"
+        name="tel"
         value={values.tel}
-        onChange={updateValue('tel')}
+        onChange={updateValue}
         placeholder="(555) 123-4567"
       />
       <InputField
         label="Website URL"
         type="url"
+        name="url"
         value={values.url}
-        onChange={updateValue('url')}
+        onChange={updateValue}
         placeholder="https://example.com"
       />
       <InputField
         label="Text Area"
         type="textarea"
+        name="textarea"
         value={values.textarea}
-        onChange={updateValue('textarea')}
+        onChange={updateValue}
         placeholder="Enter some longer text..."
       />
     </div>
@@ -170,6 +179,18 @@ const TextareaWithAutoResizeComponent = () => {
   );
   const [isAutoResize, setIsAutoResize] = useState(true);
 
+  const updateValue = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setValue(e.target.value);
+  };
+
+  const updateToggleValue = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setToggleValue(e.target.value);
+  };
+
   return (
     <div style={{ maxWidth: '500px' }}>
       <div style={{ marginBottom: '2rem' }}>
@@ -177,7 +198,7 @@ const TextareaWithAutoResizeComponent = () => {
           label="Auto-Resizing Textarea"
           type="textarea"
           value={value}
-          onChange={setValue}
+          onChange={updateValue}
           placeholder="Start typing and watch the textarea grow automatically..."
           autoResize={true}
         />
@@ -207,7 +228,7 @@ const TextareaWithAutoResizeComponent = () => {
           label="Toggle Textarea"
           type="textarea"
           value={toggleValue}
-          onChange={setToggleValue}
+          onChange={updateToggleValue}
           autoResize={isAutoResize}
           placeholder="Test toggling auto-resize with this textarea..."
         />
@@ -251,8 +272,11 @@ const LabelPositionsComponent = () => {
     right: ''
   });
 
-  const updateValue = (field: string) => (value: string) => {
-    setValues(prev => ({ ...prev, [field]: value }));
+  const updateValue = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setValues(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -267,29 +291,33 @@ const LabelPositionsComponent = () => {
       <InputField
         label="Label Above (Default)"
         labelPosition="above"
+        name="above"
         value={values.above}
-        onChange={updateValue('above')}
+        onChange={updateValue}
         placeholder="Label is positioned above..."
       />
       <InputField
         label="Label Below"
         labelPosition="below"
+        name="below"
         value={values.below}
-        onChange={updateValue('below')}
+        onChange={updateValue}
         placeholder="Label is positioned below..."
       />
       <InputField
         label="Label Left"
         labelPosition="left"
+        name="left"
         value={values.left}
-        onChange={updateValue('left')}
+        onChange={updateValue}
         placeholder="Label is on the left..."
       />
       <InputField
         label="Label Right"
         labelPosition="right"
+        name="right"
         value={values.right}
-        onChange={updateValue('right')}
+        onChange={updateValue}
         placeholder="Label is on the right..."
       />
     </div>
@@ -316,8 +344,11 @@ const SizeVariantsComponent = () => {
     large: ''
   });
 
-  const updateValue = (field: string) => (value: string) => {
-    setValues(prev => ({ ...prev, [field]: value }));
+  const updateValue = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setValues(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -332,22 +363,25 @@ const SizeVariantsComponent = () => {
       <InputField
         label="Small Size"
         size="small"
+        name="small"
         value={values.small}
-        onChange={updateValue('small')}
+        onChange={updateValue}
         placeholder="Small input..."
       />
       <InputField
         label="Medium Size (Default)"
         size="medium"
+        name="medium"
         value={values.medium}
-        onChange={updateValue('medium')}
+        onChange={updateValue}
         placeholder="Medium input..."
       />
       <InputField
         label="Large Size"
         size="large"
+        name="large"
         value={values.large}
-        onChange={updateValue('large')}
+        onChange={updateValue}
         placeholder="Large input..."
       />
     </div>
@@ -373,8 +407,11 @@ const ErrorStatesComponent = () => {
     error: 'invalid@email'
   });
 
-  const updateValue = (field: string) => (value: string) => {
-    setValues(prev => ({ ...prev, [field]: value }));
+  const updateValue = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setValues(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -388,15 +425,17 @@ const ErrorStatesComponent = () => {
     >
       <InputField
         label="Normal State"
+        name="normal"
         value={values.normal}
-        onChange={updateValue('normal')}
+        onChange={updateValue}
         placeholder="This is a normal input..."
       />
       <InputField
         label="Error State"
         type="email"
+        name="error"
         value={values.error}
-        onChange={updateValue('error')}
+        onChange={updateValue}
         placeholder="Enter valid email..."
         error="Please enter a valid email address"
       />
@@ -477,17 +516,20 @@ const CompleteFormExampleComponent = () => {
     confirmPassword: ''
   });
 
-  const updateField = (field: string) => (value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const updateField = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
 
     // Clear errors when user starts typing
-    if (field === 'email' && errors.email) {
+    if (name === 'email' && errors.email) {
       setErrors(prev => ({ ...prev, email: '' }));
     }
-    if (field === 'password' && errors.password) {
+    if (name === 'password' && errors.password) {
       setErrors(prev => ({ ...prev, password: '' }));
     }
-    if (field === 'confirmPassword' && errors.confirmPassword) {
+    if (name === 'confirmPassword' && errors.confirmPassword) {
       setErrors(prev => ({ ...prev, confirmPassword: '' }));
     }
   };
@@ -517,16 +559,18 @@ const CompleteFormExampleComponent = () => {
         <div style={{ display: 'flex', gap: '1rem' }}>
           <InputField
             label="First Name"
+            name="firstName"
             value={formData.firstName}
-            onChange={updateField('firstName')}
+            onChange={updateField}
             placeholder="John"
             required={true}
             size="medium"
           />
           <InputField
             label="Last Name"
+            name="lastName"
             value={formData.lastName}
-            onChange={updateField('lastName')}
+            onChange={updateField}
             placeholder="Doe"
             required={true}
             size="medium"
@@ -537,8 +581,9 @@ const CompleteFormExampleComponent = () => {
         <InputField
           label="Email Address"
           type="email"
+          name="email"
           value={formData.email}
-          onChange={updateField('email')}
+          onChange={updateField}
           placeholder="john.doe@example.com"
           required={true}
           error={errors.email}
@@ -548,8 +593,9 @@ const CompleteFormExampleComponent = () => {
         <InputField
           label="Password"
           type="password"
+          name="password"
           value={formData.password}
-          onChange={updateField('password')}
+          onChange={updateField}
           placeholder="Minimum 6 characters"
           required={true}
           error={errors.password}
@@ -559,8 +605,9 @@ const CompleteFormExampleComponent = () => {
         <InputField
           label="Confirm Password"
           type="password"
+          name="confirmPassword"
           value={formData.confirmPassword}
-          onChange={updateField('confirmPassword')}
+          onChange={updateField}
           placeholder="Re-enter your password"
           required={true}
           error={errors.confirmPassword}
@@ -571,8 +618,9 @@ const CompleteFormExampleComponent = () => {
         <InputField
           label="Phone Number"
           type="tel"
+          name="phone"
           value={formData.phone}
-          onChange={updateField('phone')}
+          onChange={updateField}
           placeholder="(555) 123-4567"
           size="small"
         />
@@ -580,16 +628,18 @@ const CompleteFormExampleComponent = () => {
         <InputField
           label="Website"
           type="url"
+          name="website"
           value={formData.website}
-          onChange={updateField('website')}
+          onChange={updateField}
           placeholder="https://yourwebsite.com"
         />
 
         <InputField
           label="Age"
           type="text"
+          name="age"
           value={formData.age}
-          onChange={updateField('age')}
+          onChange={updateField}
           placeholder="25"
           size="small"
         />
@@ -598,8 +648,9 @@ const CompleteFormExampleComponent = () => {
         <InputField
           label="Tell us about yourself"
           type="textarea"
+          name="bio"
           value={formData.bio}
-          onChange={updateField('bio')}
+          onChange={updateField}
           placeholder="Share a bit about your background, interests, or anything you'd like others to know..."
           autoResize={true}
         />

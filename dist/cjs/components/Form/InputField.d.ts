@@ -5,7 +5,7 @@ export interface InputFieldProps {
     name?: string;
     type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'textarea' | 'search';
     value: string;
-    onChange: (value: string) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     placeholder?: string;
     required?: boolean;
     error?: string;

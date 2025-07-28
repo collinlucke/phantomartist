@@ -11,7 +11,7 @@ type Search = {
         searchWrapper?: CSSObject;
     };
     onSearch?: React.FormEventHandler<HTMLFormElement>;
-    setSearchTerm: (value: string) => void;
+    setSearchTerm: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 export declare const Search: React.FC<Search>;
 export {};
