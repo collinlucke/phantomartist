@@ -1,2 +1,1 @@
-declare const PhantomGlobals: () => import("@emotion/react/jsx-runtime").JSX.Element;
-export default PhantomGlobals;
+export declare const Globals: () => import("@emotion/react/jsx-runtime").JSX.Element;

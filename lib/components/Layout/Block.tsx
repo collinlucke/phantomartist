@@ -16,7 +16,7 @@ export const Block: React.FC<BlockProps> = ({
 }) => {
   return (
     <div
-      css={[baseStyles.block, className?.block]}
+      css={[localStyles.block, className?.block]}
       className="pa-block"
       data-testid={dataTestId}
     >
@@ -25,7 +25,7 @@ export const Block: React.FC<BlockProps> = ({
   );
 };
 
-const baseStyles = {
+const localStyles = {
   block: {
     width: '100%',
     display: 'flex',

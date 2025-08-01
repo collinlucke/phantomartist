@@ -32,22 +32,169 @@ function styleInject(css, ref) {
 var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: border-box;\r\n}\r\n\r\n/* Prevent font size inflation */\r\nhtml {\r\n  -moz-text-size-adjust: none;\r\n  -webkit-text-size-adjust: none;\r\n  text-size-adjust: none;\r\n}\r\n\r\n/* Remove default margin in favour of better control in authored CSS */\r\nbody,\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\np,\r\nfigure,\r\nblockquote,\r\ndl,\r\ndd {\r\n  margin-block-end: 0;\r\n}\r\n\r\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\r\nul,\r\nol {\r\n  list-style: none;\r\n}\r\n\r\n/* Set core body defaults */\r\nbody {\r\n  min-height: 100vh;\r\n  line-height: 1.5;\r\n  margin: 0;\r\n}\r\n\r\n/* Set shorter line heights on headings and interactive elements */\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nbutton,\r\ninput,\r\nlabel {\r\n  line-height: 1.1;\r\n}\r\n\r\n/* Balance text wrapping on headings */\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n  text-wrap: balance;\r\n  margin-top: 0px;\r\n}\r\n\r\n/* A elements that don't have a class get default styles */\r\na:not([class]) {\r\n  text-decoration-skip-ink: auto;\r\n  color: currentColor;\r\n}\r\n\r\n/* Make images easier to work with */\r\nimg,\r\npicture {\r\n  max-width: 100%;\r\n  display: block;\r\n}\r\n\r\n/* Inherit fonts for inputs and buttons */\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font-family: inherit;\r\n  font-size: inherit;\r\n}\r\n\r\n/* Make sure textareas without a rows attribute are not tiny */\r\ntextarea:not([rows]) {\r\n  min-height: 5em;\r\n}\r\n\r\n/* Anything that has been anchored to should have extra scroll margin */\r\n:target {\r\n  scroll-margin-block: 5ex;\r\n}\r\n";
 styleInject(css_248z);
 
+// export const baseColors = {
+//   primary: '#0B1828',
+//   secondary: '#146B68',
+//   tertiary: '#BFA081',
+//   accent: '#9F0001',
+//   quaternary: '#012c35',
+//   lightText: '#FFFFFF',
+//   darkText: '#040A0C'
+// };
 const baseColors = {
-    primary: '#02000d',
-    secondary: '#07203f',
-    tertiary: '#f1d2b6'};
-const shadesAndTints = {
-    primaryLight: `color-mix(in srgb, ${baseColors.primary}, white)`,
-    primaryDark: `color-mix(in srgb, ${baseColors.primary}, color)`,
-    secondaryDark: `color-mix(in srgb, ${baseColors.secondary}, black)`,
-    tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`};
+    primary: {
+        50: '#F0F2F5', // Very light blue-gray
+        100: '#D9DEE6', // Light blue-gray
+        200: '#B8C3D1', // Medium-light blue-gray
+        300: '#8A9BAE', // Medium blue-gray
+        400: '#4A5F7A', // Dark blue-gray
+        500: '#0B1828', // Base primary
+        600: '#081320', // Darker primary
+        700: '#060E18', // Very dark primary
+        800: '#04090F', // Almost black
+        900: '#020407' // Nearly black
+    },
+    secondary: {
+        50: '#E6F7F6', // Very light teal
+        100: '#B3E8E5', // Light teal
+        200: '#80D9D4', // Medium-light teal
+        300: '#4DCAC3', // Medium teal
+        400: '#2AA39B', // Dark teal
+        500: '#146B68', // Base secondary (darker for better contrast)
+        600: '#125A57', // Darker secondary
+        700: '#0F4A47', // Very dark teal
+        800: '#0C3835', // Almost black teal
+        900: '#081F1C' // Nearly black teal
+    },
+    tertiary: {
+        50: '#F7F4F0', // Very light beige
+        100: '#EEDECC', // Light beige
+        200: '#E5C8A8', // Medium-light beige
+        300: '#DCB184', // Medium beige
+        400: '#D19B60', // Dark beige
+        500: '#BFA081', // Base tertiary
+        600: '#A68965', // Darker tertiary
+        700: '#7D6748', // Very dark beige
+        800: '#54442C', // Almost brown
+        900: '#2B2216' // Nearly black brown
+    },
+    accent: {
+        50: '#FEE6E6', // Very light red
+        100: '#FBB3B3', // Light red
+        200: '#F88080', // Medium-light red
+        300: '#F54D4D', // Medium red
+        400: '#F21A1A', // Bright red
+        500: '#9F0001', // Base accent
+        600: '#800001', // Darker accent
+        700: '#600001', // Very dark red
+        800: '#400000', // Almost black red
+        900: '#200000' // Nearly black red
+    }
+};
+// Additional bright and vibrant colors
+const baseVibrantColors = {
+    primary: {
+        300: '#8AB6FF', // Light vibrant blue
+        500: '#4F86F7', // Base vibrant blue
+        700: '#255AFF' // Dark vibrant blue
+    },
+    secondary: {
+        300: '#75DAC7', // Light vibrant teal
+        500: '#1ABC9C', // Base vibrant teal
+        700: '#138F6E' // Dark vibrant teal
+    },
+    tertiary: {
+        300: '#F7C873', // Light vibrant orange
+        500: '#F39C12', // Base vibrant orange
+        700: '#C9780E' // Dark vibrant orange
+    },
+    accent: {
+        300: '#F48A6F', // Light vibrant red
+        500: '#E74C3C', // Base vibrant red
+        700: '#C0392B' // Dark vibrant red
+    }
+};
+const baseTypography = {
+    // Predefined text styles
+    // Headings
+    h1: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '36px',
+        fontWeight: 300, // normal
+        lineHeight: 1.25,
+        letterSpacing: '-0.025em',
+        color: baseColors.tertiary[50]
+    },
+    h2: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '30px',
+        fontWeight: 600, // semibold
+        lineHeight: 1.25,
+        letterSpacing: '-0.025em'
+    },
+    h3: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '24px',
+        fontWeight: 600, // semibold
+        lineHeight: 1.25,
+        letterSpacing: 'normal'
+    },
+    h4: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '20px',
+        fontWeight: 600, // semibold
+        lineHeight: 1.25,
+        letterSpacing: 'normal'
+    },
+    h5: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '18px',
+        fontWeight: 600, // semibold
+        lineHeight: 1.25,
+        letterSpacing: 'normal'
+    },
+    h6: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '16px',
+        fontWeight: 600, // semibold
+        lineHeight: 1.25,
+        letterSpacing: 'normal'
+    },
+    a: {
+        textDecoration: 'none',
+        color: baseColors.primary
+    },
+    // Body text
+    bodyLarge: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '18px',
+        fontWeight: 400,
+        lineHeight: 1.625,
+        letterSpacing: 'normal'
+    },
+    body: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '16px',
+        fontWeight: 400,
+        lineHeight: 1.5,
+        letterSpacing: 'normal'
+    },
+    bodySmall: {
+        fontFamily: '"Montserrat", sans-serif',
+        fontSize: '14px',
+        fontWeight: 400,
+        lineHeight: 1.5,
+        letterSpacing: 'normal'
+    }
+};
 const baseTheme = {
     button: ({ kind, size, iconOnly }) => {
         return {
             display: 'flex',
             alignItems: 'center',
-            fontWeight: kind === 'ghost' || kind === 'ghostOnDark' ? '600' : '500', // semibold for ghost buttons
-            fontSize: kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : undefined, // 18px for ghost buttons
+            lineHeight: size === 'small' ? 1.1 : 1.2, // Match input field line height for small size
+            fontSize: (size === 'small' && '0.875rem') ||
+                (kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : '1rem'),
             borderRadius: '5px',
             cursor: 'pointer',
             gap: '10px',
@@ -62,10 +209,10 @@ const baseTheme = {
                     (size === 'medium' && kind === 'secondary' && '8px 15px') ||
                     (size === 'medium' && kind === 'ghost' && '8px 15px') ||
                     (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
-                    (size === 'small' && kind === 'primary' && '5px 10px') ||
-                    (size === 'small' && kind === 'secondary' && '5px 10px') ||
-                    (size === 'small' && kind === 'ghost' && '5px 10px') ||
-                    (size === 'small' && kind === 'ghostOnDark' && '5px 10px') ||
+                    (size === 'small' && kind === 'primary' && '6px 15px') ||
+                    (size === 'small' && kind === 'secondary' && '6px 15px') ||
+                    (size === 'small' && kind === 'ghost' && '6px 15px') ||
+                    (size === 'small' && kind === 'ghostOnDark' && '6px 15px') ||
                     undefined
                 : (kind === 'primary' && '8px') ||
                     (kind === 'secondary' && '8px') ||
@@ -73,32 +220,35 @@ const baseTheme = {
                     (kind === 'ghostOnDark' && '8px') ||
                     undefined,
             border: (kind === 'primary' && 'none') ||
-                // (kind === 'secondary' &&
-                //   `3px solid color-mix(in srgb, ${baseColors.primary} 50%, white)`) ||
-                (kind === 'secondary' && `2px solid ${shadesAndTints.primaryDark}`) ||
-                (kind === 'tertiary' && `3px solid ${shadesAndTints.primaryDark}`) ||
+                (kind === 'secondary' && 'none') ||
+                (kind === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
                 (kind === 'ghost' && 'none') ||
                 (kind === 'ghostOnDark' && 'none') ||
-                // (kind === 'tertiary' && `1px solid ${baseColors.tertiary}`) ||
                 undefined,
             color: (kind === 'primary' && 'white') ||
                 (kind === 'tertiary' && 'black') ||
-                (kind === 'secondary' && baseColors.primary) ||
+                (kind === 'secondary' && baseColors.primary[500]) ||
                 (kind === 'ghost' && 'inherit') ||
-                (kind === 'ghostOnDark' && 'inherit') ||
+                (kind === 'ghostOnDark' && baseColors.tertiary[50]) ||
                 'inherit',
-            backgroundColor: (kind === 'primary' && baseColors.secondary) ||
-                (kind === 'secondary' && baseColors.tertiary) ||
+            backgroundColor: (kind === 'primary' && baseColors.primary[500]) ||
+                (kind === 'secondary' && baseColors.tertiary[500]) ||
                 (kind === 'ghost' && 'transparent') ||
                 (kind === 'ghostOnDark' && 'transparent') ||
-                // (kind === 'secondary' &&
-                //   `color-mix(in srgb, ${baseColors.primary} 75%, black)`) ||
+                (kind === 'secondary' &&
+                    `color-mix(in srgb, ${baseColors.primary[500]} 75%, black)`) ||
                 undefined,
             '&:hover': {
-                boxShadow: kind === 'ghost' || kind === 'ghostOnDark' ? '' : `0 0 7px black`,
-                textShadow: kind === 'ghost' || kind === 'ghostOnDark'
-                    ? `0 0 2px rgba(0,0,0,.75)`
-                    : ''
+                ...(iconOnly
+                    ? {
+                        filter: `drop-shadow(0 0 1px ${baseColors.primary[400]})`
+                    }
+                    : { boxShadow: `0 0 3px black` })
+            },
+            '&:disabled': {
+                opacity: 0.6,
+                cursor: 'not-allowed',
+                pointerEvents: 'none'
             }
         };
     },
@@ -116,7 +266,7 @@ const baseTheme = {
         };
     },
     img: () => ({
-        border: `1px solid ${baseColors.primary}`,
+        border: `1px solid ${baseColors.primary[500]}`,
         borderRadius: '5px'
     }),
     modal: {
@@ -128,12 +278,11 @@ const baseTheme = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: baseColors.secondary,
-        backgroundColor: `${shadesAndTints.primaryLight}`,
+        backgroundColor: `${baseColors.primary[100]}`,
         flexDirection: 'column'
     },
     modalContentWrapper: {
-        backgroundColor: shadesAndTints.tertiaryLight,
+        backgroundColor: baseColors.tertiary[100],
         padding: '20px',
         boxShadow: `0 0 4px black`,
         display: 'flex',
@@ -149,21 +298,22 @@ const baseTheme = {
     modalContent: {}
 };
 
-const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, ariaLabel, ariaDescribedby, onClick }) => {
+const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, ariaLabel, ariaDescribedBy, disabled = false, onClick }) => {
     const consumerTheme = react.useTheme();
     const onClickHandler = e => {
         onClick?.(e);
     };
-    return (jsxRuntime.jsx("button", { type: type, onClick: onClickHandler, css: [
+    return (jsxRuntime.jsx("button", { type: type, onClick: onClickHandler, disabled: disabled, css: [
             baseTheme.button({ kind, size, iconOnly }),
             consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
             className?.button
-        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, "aria-label": ariaLabel, "aria-describedby": ariaDescribedby, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [icon, children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
+        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, "aria-label": ariaLabel, "aria-describedby": ariaDescribedBy, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [icon, children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
 };
 
-const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId }) => {
+const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId, ariaLabel = 'Button group' }) => {
     const consumerTheme = react.useTheme();
-    return (jsxRuntime.jsx("div", { css: [
+    console.log(ariaLabel);
+    return (jsxRuntime.jsx("div", { "aria-label": ariaLabel, role: "group", css: [
             baseTheme.buttonGroup({ direction, gap }),
             consumerTheme?.buttonGroup &&
                 consumerTheme.buttonGroup({ direction, gap }),
@@ -171,7 +321,7 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
         ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
 };
 
-const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className }) => {
+const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown }) => {
     const textAreaRef = React.useRef(null);
     // Generate ID from label if it's a string, otherwise use name or fallback
     const inputId = id ||
@@ -205,158 +355,167 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             }
         }
     }, [value, autoResize, type]);
-    const labelElement = label ? (jsxRuntime.jsxs("label", { css: [getStyles(labelPosition, size, autoResize).label, className?.label], htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: getStyles(labelPosition, size, autoResize).required, children: "*" }))] })) : null;
-    const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, "data-testid": testId, css: [
-            getStyles(labelPosition, size, autoResize).textarea,
-            error && getStyles(labelPosition, size, autoResize).inputError,
-            disabled && getStyles(labelPosition, size, autoResize).inputDisabled,
-            readonly && getStyles(labelPosition, size, autoResize).inputReadonly,
+    const labelElement = label ? (jsxRuntime.jsxs("label", { css: [
+            localStyles$8({ labelPosition, size, autoResize }).label,
+            className?.label
+        ], 
+        // css={[getStyles(labelPosition, size, autoResize).label, className?.label]}
+        htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$8({ labelPosition, size, autoResize }).required, children: "*" }))] })) : null;
+    const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, "data-testid": testId, css: [
+            localStyles$8({ labelPosition, size, autoResize }).textarea,
+            error && localStyles$8({ labelPosition, size, autoResize }).inputError,
+            disabled &&
+                localStyles$8({ labelPosition, size, autoResize }).inputDisabled,
+            readonly &&
+                localStyles$8({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
-        ], "aria-describedby": error ? `${inputId}-error` : undefined })) : (jsxRuntime.jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, "data-testid": testId, css: [
-            getStyles(labelPosition, size, autoResize).input,
-            error && getStyles(labelPosition, size, autoResize).inputError,
-            disabled && getStyles(labelPosition, size, autoResize).inputDisabled,
-            readonly && getStyles(labelPosition, size, autoResize).inputReadonly,
+        ], "aria-describedby": error ? `${inputId}-error` : undefined })) : (jsxRuntime.jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, css: [
+            localStyles$8({ labelPosition, size, autoResize }).input,
+            error && localStyles$8({ labelPosition, size, autoResize }).inputError,
+            disabled &&
+                localStyles$8({ labelPosition, size, autoResize }).inputDisabled,
+            readonly &&
+                localStyles$8({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
         ], "aria-describedby": error ? `${inputId}-error` : undefined }));
-    const errorElement = error ? (jsxRuntime.jsx("div", { css: [getStyles(labelPosition, size, autoResize).error, className?.error], id: `${inputId}-error`, role: "alert", children: error })) : null;
+    const errorElement = error ? (jsxRuntime.jsx("div", { css: [
+            localStyles$8({ labelPosition, size, autoResize }).error,
+            className?.error
+        ], id: `${inputId}-error`, role: "alert", children: error })) : null;
     // Layout based on label position
     return (jsxRuntime.jsxs("div", { css: [
-            getStyles(labelPosition, size, autoResize).container,
+            // getStyles(labelPosition, size, autoResize).container,
+            localStyles$8({ labelPosition, size, autoResize }).container,
             className?.container
         ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement] }));
 };
-const getStyles = (labelPosition, size, autoResize = false) => {
-    const getSizeStyles = () => {
-        switch (size) {
-            case 'large':
-                return {
-                    padding: '0.9rem',
-                    fontSize: '1.1rem'
-                };
-            case 'small':
-                return {
-                    padding: '0.5rem',
-                    fontSize: '0.875rem'
-                };
-            default: // medium
-                return {
-                    padding: '0.75rem',
-                    fontSize: '1rem'
-                };
-        }
-    };
-    const getContainerLayout = () => {
-        return {
-            display: 'flex',
-            flexDirection: labelPosition === 'above' || labelPosition === 'below'
-                ? 'column'
-                : 'row',
-            gap: labelPosition === 'left' || labelPosition === 'right'
-                ? '0.75rem'
-                : '0.5rem',
-            flex: '1 1 0%', // Allow flex grow/shrink for side-by-side layouts
-            minWidth: 0, // Prevent flex items from overflowing
-            alignItems: labelPosition === 'left' || labelPosition === 'right'
-                ? 'center'
-                : 'stretch',
-            marginBottom: '1.25rem'
-        };
-    };
-    const sizeStyles = getSizeStyles();
-    return {
-        container: getContainerLayout(),
-        label: {
-            fontSize: '0.875rem',
-            fontWeight: 500,
-            color: '#374151',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.25rem',
-            marginBottom: labelPosition === 'above' ? '0.25rem' : '0',
-            marginTop: labelPosition === 'below' ? '0.25rem' : '0',
-            marginRight: labelPosition === 'left' ? '0.5rem' : '0',
-            marginLeft: labelPosition === 'right' ? '0.5rem' : '0',
-            alignSelf: labelPosition === 'left' || labelPosition === 'right'
-                ? 'center'
-                : 'flex-start'
-        },
-        required: {
-            color: '#ef4444',
-            fontSize: '0.875rem'
-        },
-        input: {
-            ...sizeStyles,
-            border: `1px solid ${baseColors?.tertiary}`,
-            borderRadius: '6px',
-            transition: 'all 0.2s ease',
-            minWidth: 0, // Prevent overflow in flex containers
-            '&:focus': {
-                outline: '2px solid #3b82f6',
-                outlineOffset: '2px',
-                borderColor: '#3b82f6'
-            },
-            '&::placeholder': {
-                color: '#9ca3af'
-            }
-        },
-        textarea: {
-            ...sizeStyles,
-            border: `1px solid ${baseColors?.tertiary}`,
-            borderRadius: '6px',
-            transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Removed height transition for auto-resize
-            minWidth: 0, // Prevent overflow in flex containers
-            minHeight: '3rem',
-            resize: autoResize ? 'none' : 'vertical', // Conditional resize based on autoResize prop
-            overflow: autoResize ? 'hidden' : 'auto', // Conditional overflow for auto-resize
-            '&:focus': {
-                outline: '2px solid #3b82f6',
-                outlineOffset: '2px',
-                borderColor: '#3b82f6'
-            },
-            '&::placeholder': {
-                color: '#9ca3af'
-            }
-        },
-        inputError: {
-            borderColor: '#ef4444',
-            '&:focus': {
-                outline: '2px solid #ef4444',
-                borderColor: '#ef4444'
-            }
-        },
-        inputDisabled: {
-            backgroundColor: '#f9fafb',
-            color: '#6b7280',
-            cursor: 'not-allowed'
-        },
-        inputReadonly: {
-            backgroundColor: 'transparent',
-            outline: 'none',
-            border: 'none',
-            cursor: 'default'
-        },
-        error: {
-            fontSize: '0.875rem',
-            color: '#ef4444',
-            marginTop: '0.25rem'
-        }
-    };
-};
-
-const Main = ({ children, className }) => {
-    return (jsxRuntime.jsx("main", { className: "pa-main", css: [baseStyles$7.main, className?.main], children: children }));
-};
-const baseStyles$7 = {
-    main: {
-        display: 'flex',
-        justifyContent: 'center'
+const getSizeStyles$1 = (size) => {
+    switch (size) {
+        case 'large':
+            return {
+                padding: '0.75rem',
+                fontSize: '1rem'
+            };
+        case 'small':
+            return {
+                padding: '0.3rem',
+                fontSize: '0.625rem'
+            };
+        default: // medium
+            return {
+                padding: '0.5rem',
+                fontSize: '0.875rem'
+            };
     }
 };
+const localStyles$8 = ({ labelPosition, size, autoResize, onDark }) => ({
+    container: {
+        display: 'flex',
+        flexDirection: labelPosition === 'above' || labelPosition === 'below'
+            ? 'column'
+            : 'row',
+        gap: labelPosition === 'left' || labelPosition === 'right'
+            ? '0.75rem'
+            : '0.5rem',
+        flex: '1 1 0%', // Allow flex grow/shrink for side-by-side layouts
+        width: '-webkit-fill-available', // Use available width in flex containers
+        minWidth: 0, // Prevent flex items from overflowing
+        alignItems: labelPosition === 'left' || labelPosition === 'right'
+            ? 'center'
+            : 'stretch' // marginBottom: '1.25rem'
+    },
+    label: {
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        color: onDark ? baseColors.tertiary[50] : baseColors.primary[900],
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.25rem',
+        marginTop: labelPosition === 'below' ? '0.25rem' : '0',
+        marginRight: labelPosition === 'left' ? '0.5rem' : '0',
+        marginLeft: labelPosition === 'right' ? '0.5rem' : '0',
+        alignSelf: labelPosition === 'left' || labelPosition === 'right'
+            ? 'center'
+            : 'flex-start'
+    },
+    required: {
+        color: '#ef4444',
+        fontSize: '0.875rem'
+    },
+    input: {
+        ...getSizeStyles$1(size),
+        border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
+        borderRadius: '6px',
+        transition: 'all 0.2s ease',
+        minWidth: 0, // Prevent overflow in flex containers
+        '&:focus': {
+            outline: '2px solid #3b82f6',
+            outlineOffset: '2px',
+            borderColor: '#3b82f6'
+        },
+        '&::placeholder': {
+            color: '#9ca3af'
+        }
+    },
+    textarea: {
+        ...getSizeStyles$1(size),
+        border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
+        borderRadius: '6px',
+        transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Removed height transition for auto-resize
+        minWidth: 0, // Prevent overflow in flex containers
+        minHeight: '3rem',
+        resize: autoResize ? 'none' : 'vertical', // Conditional resize based on autoResize prop
+        overflow: autoResize ? 'hidden' : 'auto', // Conditional overflow for auto-resize
+        '&:focus': {
+            outline: '2px solid #3b82f6',
+            outlineOffset: '2px',
+            borderColor: '#3b82f6'
+        },
+        '&::placeholder': {
+            color: '#9ca3af'
+        }
+    },
+    inputError: {
+        borderColor: '#ef4444',
+        '&:focus': {
+            outline: '2px solid #ef4444',
+            borderColor: '#ef4444'
+        }
+    },
+    inputDisabled: {
+        backgroundColor: '#f9fafb',
+        color: '#6b7280',
+        cursor: 'not-allowed'
+    },
+    inputReadonly: {
+        backgroundColor: 'transparent',
+        outline: 'none',
+        border: 'none',
+        cursor: 'default'
+    },
+    error: {
+        fontSize: '0.875rem',
+        color: '#ef4444',
+        marginTop: '0.25rem'
+    }
+});
+
+const Main = ({ children, className, isDark = false }) => {
+    // console.log(className);
+    return (jsxRuntime.jsx("main", { className: "pa-main", css: [localStyles$7(isDark).main, className?.main], children: children }));
+};
+const localStyles$7 = (isDark) => ({
+    main: {
+        display: 'flex',
+        justifyContent: 'center',
+        backgroundColor: isDark ? baseColors.primary[500] : baseColors.tertiary[50],
+        color: isDark ? baseColors.tertiary[50] : baseColors.primary[500]
+    }
+});
 
 const InnerWidth = ({ children, size = 'medium', className }) => {
     const sizeStyles = getSizeStyles(size);
-    return (jsxRuntime.jsx("div", { css: [baseStyles$6.innerWidth, sizeStyles, className?.innerWidth], className: "pa-inner-width", children: children }));
+    return (jsxRuntime.jsx("div", { css: [localStyles$6.innerWidth, sizeStyles, className?.innerWidth], className: "pa-inner-width", children: children }));
 };
 const getSizeStyles = (size) => {
     switch (size) {
@@ -427,7 +586,7 @@ const getSizeStyles = (size) => {
             return {};
     }
 };
-const baseStyles$6 = {
+const localStyles$6 = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -436,85 +595,28 @@ const baseStyles$6 = {
     }
 };
 
-const Header = ({ children, logo, navigation, actions, className, dataTestId, layout = 'default' }) => {
+const Header = ({ children, className, dataTestId }) => {
     // If children is provided, use legacy mode
-    if (children) {
-        return (jsxRuntime.jsx("header", { css: [baseStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: children }));
-    }
-    // New slot-based layout
-    const layoutStyles = getLayoutStyles(layout);
-    return (jsxRuntime.jsxs("header", { css: [baseStyles$5.header, layoutStyles, className?.header], className: "pa-header", "data-testid": dataTestId, children: [logo && (jsxRuntime.jsx("div", { css: [baseStyles$5.logoArea, className?.logoArea], children: logo })), navigation && (jsxRuntime.jsx("div", { css: [baseStyles$5.navigationArea, className?.navigationArea], children: navigation })), actions && (jsxRuntime.jsx("div", { css: [baseStyles$5.actionsArea, className?.actionsArea], children: actions }))] }));
+    return (jsxRuntime.jsx("header", { css: [localStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: jsxRuntime.jsx(jsxRuntime.Fragment, { children: children }) }));
 };
-const getLayoutStyles = (layout) => {
-    switch (layout) {
-        case 'centered':
-            return { justifyContent: 'center' };
-        case 'spread':
-            return { justifyContent: 'space-between' };
-        default:
-            return { justifyContent: 'space-between' };
-    }
-};
-const baseStyles$5 = {
+const localStyles$5 = {
     header: {
         display: 'flex',
-        marginBottom: '25px',
         padding: '20px 0',
-        color: baseColors.secondary,
         justifyContent: 'center',
-        height: '115px',
-        backgroundColor: shadesAndTints.tertiaryLight,
-        alignItems: 'center',
-        '@media (max-width: 580px)': {
-            height: '75px'
-        }
-    },
-    logoArea: {
-        display: 'flex',
-        alignItems: 'center',
-        flex: '0 0 auto'
-    },
-    navigationArea: {
-        display: 'flex',
-        alignItems: 'center',
-        flex: '1 1 auto',
-        justifyContent: 'center'
-    },
-    actionsArea: {
-        display: 'flex',
-        alignItems: 'center',
-        flex: '0 0 auto',
-        gap: '10px'
-    }
-};
+        maxHeight: '75px',
+        backgroundColor: baseColors.secondary[600]
+    }};
 
 const Block = ({ children, className, dataTestId }) => {
-    return (jsxRuntime.jsx("div", { css: [baseStyles$4.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
+    return (jsxRuntime.jsx("div", { css: [localStyles$4.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
 };
-const baseStyles$4 = {
+const localStyles$4 = {
     block: {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column'
-    }
-};
-
-const TwoColumn = ({ left, right }) => {
-    return (jsxRuntime.jsxs("div", { css: [baseStyles$3.columnWrapper], children: [jsxRuntime.jsx("div", { css: [baseStyles$3.column], children: left }), jsxRuntime.jsx("div", { css: [baseStyles$3.column], children: right })] }));
-};
-const baseStyles$3 = {
-    columnWrapper: {
-        gap: '50px',
-        display: 'flex',
-        flexDirection: 'row',
-        '@media (max-width: 740px)': {
-            flexDirection: 'column',
-            gap: '0'
-        }
-    },
-    column: {
-        width: '100%'
     }
 };
 
@@ -527,12 +629,11 @@ const Image = ({ src, className }) => {
 };
 
 const List = ({ className, children }) => {
-    return (jsxRuntime.jsx("ul", { css: [baseStyles$2.ul, className?.ul], className: "pa-list", children: children }));
+    return (jsxRuntime.jsx("ul", { css: [localStyles$3.ul, className?.ul], className: "pa-list", children: children }));
 };
-const baseStyles$2 = {
+const localStyles$3 = {
     ul: {
         borderRadius: '6px',
-        backgroundColor: shadesAndTints.tertiaryLight,
         fontWeight: '500',
         padding: '20px',
         margin: 0,
@@ -545,13 +646,13 @@ const baseStyles$2 = {
 
 const ListItem = ({ children, className, useHover }) => {
     return (jsxRuntime.jsx("li", { css: [
-            baseStyles$1.li,
+            localStyles$2.li,
             className && className.li,
-            useHover && baseStyles$1.liHover,
+            useHover && localStyles$2.liHover,
             className && useHover && className.liHover
         ], className: "pa-list-item", children: children }));
 };
-const baseStyles$1 = {
+const localStyles$2 = {
     li: {
         borderRadius: '6px',
         border: `1px solid ${baseColors.secondary}`,
@@ -561,9 +662,7 @@ const baseStyles$1 = {
         display: 'flex'
     },
     liHover: {
-        ':hover': {
-            boxShadow: `0 0 7px ${shadesAndTints.secondaryDark}`
-        }
+        ':hover': {}
     }
 };
 
@@ -633,7 +732,7 @@ const r = y("CancelCircleIcon", [["path", {
   key: "k1"
 }]]);
 
-const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showCloseButton = true, dataTestId }) => {
+const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showCloseButton = true, dataTestId }) => {
     const handleBackdropClick = (e) => {
         if (e.target === e.currentTarget) {
             onClose();
@@ -664,9 +763,9 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '500px', showClose
     }, [isOpen, onClose]);
     if (!isOpen)
         return null;
-    return (jsxRuntime.jsx("div", { css: styles.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { css: [styles.modal, { maxWidth }], role: "dialog", "aria-modal": "true", "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: styles.header, children: [title && jsxRuntime.jsx("h1", { css: styles.title, children: title }), showCloseButton && (jsxRuntime.jsx("button", { css: styles.closeButton, onClick: onClose, "aria-label": "Close modal", children: jsxRuntime.jsx(r, { size: 44 }) }))] })), jsxRuntime.jsx("div", { css: styles.content, children: children })] }) }));
+    return (jsxRuntime.jsx("div", { css: localStyles$1.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { css: [localStyles$1.modal, { maxWidth }], role: "dialog", "aria-modal": "true", "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: localStyles$1.header, children: [title && jsxRuntime.jsx("h1", { css: localStyles$1.title, children: title }), showCloseButton && (jsxRuntime.jsx(Button, { className: { button: localStyles$1.closeButton }, onClick: onClose, ariaLabel: "Close modal", kind: "ghost", size: "medium", iconOnly: true, icon: jsxRuntime.jsx(r, { size: 24 }) }))] })), jsxRuntime.jsx("div", { css: localStyles$1.content, children: children })] }) }));
 };
-const styles = {
+const localStyles$1 = {
     backdrop: {
         position: 'fixed',
         top: 0,
@@ -681,6 +780,7 @@ const styles = {
         padding: '1rem'
     },
     modal: {
+        position: 'relative',
         backgroundColor: '#EEDECC',
         borderRadius: '3px',
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -692,37 +792,19 @@ const styles = {
     },
     header: {
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0.75rem 1.5rem 0 1.5rem' // half the vertical padding
-        // No border bottom
+        padding: '0.75rem 1.5rem 0 1.5rem'
     },
     title: {
-        margin: 0,
-        fontSize: '36px',
-        fontWeight: 400, // regular
-        lineHeight: 1.25,
-        letterSpacing: '-0.025em'
+        color: baseColors.primary[500],
+        marginTop: '5px',
+        fontSize: '33px'
     },
     closeButton: {
-        background: 'none',
-        border: 'none',
-        padding: '0.5rem',
-        cursor: 'pointer',
-        borderRadius: '6px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#6b7280',
-        transition: 'all 0.2s ease',
-        '&:hover': {
-            backgroundColor: '#e5e7eb',
-            color: '#374151'
-        },
-        '&:focus': {
-            outline: '2px solid #3b82f6',
-            outlineOffset: '2px'
-        }
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        padding: '12px'
     },
     content: {
         padding: '1.5rem',
@@ -733,52 +815,57 @@ const styles = {
     }
 };
 
-const Search = ({ searchTerm, searchLabel, totalResultsCount, className, buttonSize, inputSize, useSearchButton, onSearch, setSearchTerm }) => {
+const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onSearch, setSearchTerm }) => {
     const setSearchTermHandler = (e) => {
         if (e.target instanceof HTMLInputElement) {
             setSearchTerm(e);
         }
     };
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        onSearch?.(e);
+    const handleFormSubmit = () => {
+        onSearch?.(searchTerm);
     };
-    return (jsxRuntime.jsx("form", { onSubmit: handleFormSubmit, children: jsxRuntime.jsxs("div", { css: [
-                baseStyles.searchWrapper,
+    const hitEnter = (e) => {
+        if (e.key === 'Enter') {
+            handleFormSubmit();
+        }
+    };
+    console.log(buttonKind);
+    return (jsxRuntime.jsx("div", { 
+        // onSubmit={handleFormSubmit}
+        css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxRuntime.jsxs("div", { css: [
+                localStyles.searchWrapper,
                 className?.searchWrapper,
                 searchWrapperMediaQuery
-            ], className: "pa-search-wrapper", children: [jsxRuntime.jsxs("div", { css: baseStyles.results, children: ["Total Results: ", totalResultsCount] }), jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: "above", placeholder: searchLabel || 'Search', className: formTextInputStyles, onChange: setSearchTermHandler, size: inputSize }), useSearchButton && (jsxRuntime.jsx(Button, { size: buttonSize, className: buttonStyles, type: "submit", children: "Search" }))] }) }));
+            ], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter }) }), jsxRuntime.jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleFormSubmit, kind: buttonKind, children: buttonText || 'Search' })] }) }));
 };
 const searchWrapperMediaQuery = {
     '@media (max-width: 580px)': {
         flexDirection: 'column'
     }
 };
-const formTextInputStyles = {
-    container: {
-        margin: 0,
-        flex: 1
-    }
-};
-const buttonStyles = {
-    button: {
-        marginLeft: '10px'
-    }
-};
-const baseStyles = {
+const localStyles = {
+    searchForm: {
+        display: 'flex',
+        width: '100%'
+    },
     searchWrapper: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'end',
-        paddingBottom: '20px',
-        paddingTop: '20px',
-        background: 'white'
+        gap: '15px',
+        width: '100%'
     },
     results: {
-        alignSelf: 'end',
-        '@media (max-width: 580px)': {
-            alignSelf: 'start'
-        }
+        alignSelf: 'end'
+    },
+    inputWrapper: {
+        position: 'relative',
+        flex: 1
+    },
+    searchFieldContainer: {
+        margin: 0,
+        flex: 'initial',
+        justifyContent: 'end'
     }
 };
 
@@ -829,6 +916,33 @@ var index = /*#__PURE__*/Object.freeze({
   useDebounce: useDebounce,
   useResponsiveHeader: useResponsiveHeader
 });
+
+const Globals = () => (jsxRuntime.jsx(react.Global, { styles: react.css `
+      @import url('./styling/normalizer.css');
+      h1 {
+        ${react.css(baseTypography.h1)}
+      }
+      h2 {
+        ${react.css(baseTypography.h2)}
+      }
+      h3 {
+        ${react.css(baseTypography.h3)}
+      }
+      h4 {
+        ${react.css(baseTypography.h4)}
+      }
+      h5 {
+        ${react.css(baseTypography.h5)}
+      }
+      h6 {
+        ${react.css(baseTypography.h6)}
+      }
+      a {
+        ${react.css(baseTypography.a)}
+      p {
+        ${react.css(baseTypography.body)}
+      }
+    ` }));
 
 /**
  * WCAG Color Contrast Utilities
@@ -1117,6 +1231,7 @@ var scopedContrastAnalysis = /*#__PURE__*/Object.freeze({
 exports.Block = Block;
 exports.Button = Button;
 exports.ButtonGroup = ButtonGroup;
+exports.Globals = Globals;
 exports.Header = Header;
 exports.Image = Image;
 exports.InnerWidth = InnerWidth;
@@ -1128,9 +1243,12 @@ exports.Modal = Modal;
 exports.PAHooks = index;
 exports.ScopedContrastAnalysis = scopedContrastAnalysis;
 exports.Search = Search;
-exports.TwoColumn = TwoColumn;
 exports.WCAGThresholds = WCAGThresholds;
 exports.analyzeContrast = analyzeContrast;
+exports.baseColors = baseColors;
+exports.baseTheme = baseTheme;
+exports.baseTypography = baseTypography;
+exports.baseVibrantColors = baseVibrantColors;
 exports.checkWCAGCompliance = checkWCAGCompliance;
 exports.getContrastEmoji = getContrastEmoji;
 exports.getContrastRatio = getContrastRatio;

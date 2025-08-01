@@ -2,10 +2,18 @@ import React, { ReactNode, useRef, useLayoutEffect } from 'react';
 import { CSSObject } from '@emotion/react';
 import { baseColors } from '../../styling/baseTheme';
 
-export interface InputFieldProps {
+export type InputFieldProps = {
   label?: string | ReactNode;
   name?: string;
-  type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'textarea' | 'search';
+  type?:
+    | 'text'
+    | 'email'
+    | 'password'
+    | 'tel'
+    | 'url'
+    | 'textarea'
+    | 'search'
+    | 'number';
   value: string;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -16,6 +24,10 @@ export interface InputFieldProps {
   disabled?: boolean;
   readonly?: boolean;
   id?: string;
+  onDark?: boolean;
+  onKeyDown?: React.KeyboardEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  >;
   'data-testid'?: string;
 
   // Layout options
@@ -32,7 +44,7 @@ export interface InputFieldProps {
     label?: CSSObject;
     error?: CSSObject;
   };
-}
+};
 
 export const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -50,7 +62,8 @@ export const InputField: React.FC<InputFieldProps> = ({
   labelPosition = 'above',
   size = 'medium',
   autoResize = false,
-  className
+  className,
+  onKeyDown
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -93,12 +106,18 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   const labelElement = label ? (
     <label
-      css={[getStyles(labelPosition, size, autoResize).label, className?.label]}
+      css={[
+        localStyles({ labelPosition, size, autoResize }).label,
+        className?.label
+      ]}
+      // css={[getStyles(labelPosition, size, autoResize).label, className?.label]}
       htmlFor={inputId}
     >
       {label}
       {required && (
-        <span css={getStyles(labelPosition, size, autoResize).required}>*</span>
+        <span css={localStyles({ labelPosition, size, autoResize }).required}>
+          *
+        </span>
       )}
     </label>
   ) : null;
@@ -115,12 +134,15 @@ export const InputField: React.FC<InputFieldProps> = ({
         required={required}
         disabled={disabled}
         readOnly={readonly}
+        onKeyDown={onKeyDown}
         data-testid={testId}
         css={[
-          getStyles(labelPosition, size, autoResize).textarea,
-          error && getStyles(labelPosition, size, autoResize).inputError,
-          disabled && getStyles(labelPosition, size, autoResize).inputDisabled,
-          readonly && getStyles(labelPosition, size, autoResize).inputReadonly,
+          localStyles({ labelPosition, size, autoResize }).textarea,
+          error && localStyles({ labelPosition, size, autoResize }).inputError,
+          disabled &&
+            localStyles({ labelPosition, size, autoResize }).inputDisabled,
+          readonly &&
+            localStyles({ labelPosition, size, autoResize }).inputReadonly,
           className?.input
         ]}
         aria-describedby={error ? `${inputId}-error` : undefined}
@@ -137,11 +159,14 @@ export const InputField: React.FC<InputFieldProps> = ({
         disabled={disabled}
         readOnly={readonly}
         data-testid={testId}
+        onKeyDown={onKeyDown}
         css={[
-          getStyles(labelPosition, size, autoResize).input,
-          error && getStyles(labelPosition, size, autoResize).inputError,
-          disabled && getStyles(labelPosition, size, autoResize).inputDisabled,
-          readonly && getStyles(labelPosition, size, autoResize).inputReadonly,
+          localStyles({ labelPosition, size, autoResize }).input,
+          error && localStyles({ labelPosition, size, autoResize }).inputError,
+          disabled &&
+            localStyles({ labelPosition, size, autoResize }).inputDisabled,
+          readonly &&
+            localStyles({ labelPosition, size, autoResize }).inputReadonly,
           className?.input
         ]}
         aria-describedby={error ? `${inputId}-error` : undefined}
@@ -150,7 +175,10 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   const errorElement = error ? (
     <div
-      css={[getStyles(labelPosition, size, autoResize).error, className?.error]}
+      css={[
+        localStyles({ labelPosition, size, autoResize }).error,
+        className?.error
+      ]}
       id={`${inputId}-error`}
       role="alert"
     >
@@ -162,7 +190,8 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <div
       css={[
-        getStyles(labelPosition, size, autoResize).container,
+        // getStyles(labelPosition, size, autoResize).container,
+        localStyles({ labelPosition, size, autoResize }).container,
         className?.container
       ]}
     >
@@ -174,139 +203,135 @@ export const InputField: React.FC<InputFieldProps> = ({
   );
 };
 
-const getStyles = (
-  labelPosition: string,
-  size: string,
-  autoResize: boolean = false
-) => {
-  const getSizeStyles = () => {
-    switch (size) {
-      case 'large':
-        return {
-          padding: '0.9rem',
-          fontSize: '1.1rem'
-        };
-      case 'small':
-        return {
-          padding: '0.5rem',
-          fontSize: '0.875rem'
-        };
-      default: // medium
-        return {
-          padding: '0.75rem',
-          fontSize: '1rem'
-        };
-    }
-  };
-
-  const getContainerLayout = () => {
-    return {
-      display: 'flex',
-      flexDirection:
-        labelPosition === 'above' || labelPosition === 'below'
-          ? ('column' as const)
-          : ('row' as const),
-      gap:
-        labelPosition === 'left' || labelPosition === 'right'
-          ? '0.75rem'
-          : '0.5rem',
-      flex: '1 1 0%', // Allow flex grow/shrink for side-by-side layouts
-      minWidth: 0, // Prevent flex items from overflowing
-      alignItems:
-        labelPosition === 'left' || labelPosition === 'right'
-          ? 'center'
-          : 'stretch',
-      marginBottom: '1.25rem'
-    };
-  };
-
-  const sizeStyles = getSizeStyles();
-
-  return {
-    container: getContainerLayout() as CSSObject,
-
-    label: {
-      fontSize: '0.875rem',
-      fontWeight: 500,
-      color: '#374151',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.25rem',
-      marginBottom: labelPosition === 'above' ? '0.25rem' : '0',
-      marginTop: labelPosition === 'below' ? '0.25rem' : '0',
-      marginRight: labelPosition === 'left' ? '0.5rem' : '0',
-      marginLeft: labelPosition === 'right' ? '0.5rem' : '0',
-      alignSelf:
-        labelPosition === 'left' || labelPosition === 'right'
-          ? 'center'
-          : 'flex-start'
-    } as CSSObject,
-
-    required: {
-      color: '#ef4444',
-      fontSize: '0.875rem'
-    } as CSSObject,
-
-    input: {
-      ...sizeStyles,
-      border: `1px solid ${baseColors?.tertiary || '#d1d5db'}`,
-      borderRadius: '6px',
-      transition: 'all 0.2s ease',
-      minWidth: 0, // Prevent overflow in flex containers
-      '&:focus': {
-        outline: '2px solid #3b82f6',
-        outlineOffset: '2px',
-        borderColor: '#3b82f6'
-      },
-      '&::placeholder': {
-        color: '#9ca3af'
-      }
-    } as CSSObject,
-
-    textarea: {
-      ...sizeStyles,
-      border: `1px solid ${baseColors?.tertiary || '#d1d5db'}`,
-      borderRadius: '6px',
-      transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Removed height transition for auto-resize
-      minWidth: 0, // Prevent overflow in flex containers
-      minHeight: '3rem',
-      resize: autoResize ? ('none' as const) : ('vertical' as const), // Conditional resize based on autoResize prop
-      overflow: autoResize ? ('hidden' as const) : ('auto' as const), // Conditional overflow for auto-resize
-      '&:focus': {
-        outline: '2px solid #3b82f6',
-        outlineOffset: '2px',
-        borderColor: '#3b82f6'
-      },
-      '&::placeholder': {
-        color: '#9ca3af'
-      }
-    } as CSSObject,
-
-    inputError: {
-      borderColor: '#ef4444',
-      '&:focus': {
-        outline: '2px solid #ef4444',
-        borderColor: '#ef4444'
-      }
-    } as CSSObject,
-
-    inputDisabled: {
-      backgroundColor: '#f9fafb',
-      color: '#6b7280',
-      cursor: 'not-allowed'
-    } as CSSObject,
-
-    inputReadonly: {
-      backgroundColor: 'transparent',
-      outline: 'none',
-      border: 'none',
-      cursor: 'default'
-    } as CSSObject,
-
-    error: {
-      fontSize: '0.875rem',
-      color: '#ef4444',
-      marginTop: '0.25rem'
-    } as CSSObject
-  };
+const getSizeStyles = (size: string) => {
+  switch (size) {
+    case 'large':
+      return {
+        padding: '0.75rem',
+        fontSize: '1rem'
+      };
+    case 'small':
+      return {
+        padding: '0.3rem',
+        fontSize: '0.625rem'
+      };
+    default: // medium
+      return {
+        padding: '0.5rem',
+        fontSize: '0.875rem'
+      };
+  }
 };
+
+const localStyles = ({
+  labelPosition,
+  size,
+  autoResize,
+  onDark
+}: {
+  labelPosition: string;
+  size: string;
+  autoResize?: boolean;
+  onDark?: boolean;
+}) => ({
+  container: {
+    display: 'flex',
+    flexDirection:
+      labelPosition === 'above' || labelPosition === 'below'
+        ? ('column' as const)
+        : ('row' as const),
+    gap:
+      labelPosition === 'left' || labelPosition === 'right'
+        ? '0.75rem'
+        : '0.5rem',
+    flex: '1 1 0%', // Allow flex grow/shrink for side-by-side layouts
+    width: '-webkit-fill-available', // Use available width in flex containers
+
+    minWidth: 0, // Prevent flex items from overflowing
+    alignItems:
+      labelPosition === 'left' || labelPosition === 'right'
+        ? 'center'
+        : 'stretch' // marginBottom: '1.25rem'
+  },
+  label: {
+    fontSize: '0.875rem',
+    fontWeight: 500,
+    color: onDark ? baseColors.tertiary[50] : baseColors.primary[900],
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.25rem',
+    marginTop: labelPosition === 'below' ? '0.25rem' : '0',
+    marginRight: labelPosition === 'left' ? '0.5rem' : '0',
+    marginLeft: labelPosition === 'right' ? '0.5rem' : '0',
+    alignSelf:
+      labelPosition === 'left' || labelPosition === 'right'
+        ? 'center'
+        : 'flex-start'
+  } as CSSObject,
+  required: {
+    color: '#ef4444',
+    fontSize: '0.875rem'
+  } as CSSObject,
+
+  input: {
+    ...getSizeStyles(size),
+    border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
+    borderRadius: '6px',
+    transition: 'all 0.2s ease',
+    minWidth: 0, // Prevent overflow in flex containers
+    '&:focus': {
+      outline: '2px solid #3b82f6',
+      outlineOffset: '2px',
+      borderColor: '#3b82f6'
+    },
+    '&::placeholder': {
+      color: '#9ca3af'
+    }
+  } as CSSObject,
+
+  textarea: {
+    ...getSizeStyles(size),
+    border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
+    borderRadius: '6px',
+    transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Removed height transition for auto-resize
+    minWidth: 0, // Prevent overflow in flex containers
+    minHeight: '3rem',
+    resize: autoResize ? ('none' as const) : ('vertical' as const), // Conditional resize based on autoResize prop
+    overflow: autoResize ? ('hidden' as const) : ('auto' as const), // Conditional overflow for auto-resize
+    '&:focus': {
+      outline: '2px solid #3b82f6',
+      outlineOffset: '2px',
+      borderColor: '#3b82f6'
+    },
+    '&::placeholder': {
+      color: '#9ca3af'
+    }
+  } as CSSObject,
+
+  inputError: {
+    borderColor: '#ef4444',
+    '&:focus': {
+      outline: '2px solid #ef4444',
+      borderColor: '#ef4444'
+    }
+  } as CSSObject,
+
+  inputDisabled: {
+    backgroundColor: '#f9fafb',
+    color: '#6b7280',
+    cursor: 'not-allowed'
+  } as CSSObject,
+
+  inputReadonly: {
+    backgroundColor: 'transparent',
+    outline: 'none',
+    border: 'none',
+    cursor: 'default'
+  } as CSSObject,
+
+  error: {
+    fontSize: '0.875rem',
+    color: '#ef4444',
+    marginTop: '0.25rem'
+  } as CSSObject
+});

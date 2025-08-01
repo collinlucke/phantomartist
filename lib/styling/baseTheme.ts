@@ -1,20 +1,164 @@
 import { CSSObject } from '@emotion/react';
 
+// export const baseColors = {
+//   primary: '#0B1828',
+//   secondary: '#146B68',
+//   tertiary: '#BFA081',
+//   accent: '#9F0001',
+//   quaternary: '#012c35',
+//   lightText: '#FFFFFF',
+//   darkText: '#040A0C'
+// };
+
 export const baseColors = {
-  primary: '#02000d',
-  secondary: '#07203f',
-  tertiary: '#f1d2b6',
-  accentLight: '#D9AA90',
-  accentDark: '#A65e46'
+  primary: {
+    50: '#F0F2F5', // Very light blue-gray
+    100: '#D9DEE6', // Light blue-gray
+    200: '#B8C3D1', // Medium-light blue-gray
+    300: '#8A9BAE', // Medium blue-gray
+    400: '#4A5F7A', // Dark blue-gray
+    500: '#0B1828', // Base primary
+    600: '#081320', // Darker primary
+    700: '#060E18', // Very dark primary
+    800: '#04090F', // Almost black
+    900: '#020407' // Nearly black
+  },
+  secondary: {
+    50: '#E6F7F6', // Very light teal
+    100: '#B3E8E5', // Light teal
+    200: '#80D9D4', // Medium-light teal
+    300: '#4DCAC3', // Medium teal
+    400: '#2AA39B', // Dark teal
+    500: '#146B68', // Base secondary (darker for better contrast)
+    600: '#125A57', // Darker secondary
+    700: '#0F4A47', // Very dark teal
+    800: '#0C3835', // Almost black teal
+    900: '#081F1C' // Nearly black teal
+  },
+  tertiary: {
+    50: '#F7F4F0', // Very light beige
+    100: '#EEDECC', // Light beige
+    200: '#E5C8A8', // Medium-light beige
+    300: '#DCB184', // Medium beige
+    400: '#D19B60', // Dark beige
+    500: '#BFA081', // Base tertiary
+    600: '#A68965', // Darker tertiary
+    700: '#7D6748', // Very dark beige
+    800: '#54442C', // Almost brown
+    900: '#2B2216' // Nearly black brown
+  },
+  accent: {
+    50: '#FEE6E6', // Very light red
+    100: '#FBB3B3', // Light red
+    200: '#F88080', // Medium-light red
+    300: '#F54D4D', // Medium red
+    400: '#F21A1A', // Bright red
+    500: '#9F0001', // Base accent
+    600: '#800001', // Darker accent
+    700: '#600001', // Very dark red
+    800: '#400000', // Almost black red
+    900: '#200000' // Nearly black red
+  }
 };
 
-export const shadesAndTints = {
-  primaryLight: `color-mix(in srgb, ${baseColors.primary}, white)`,
-  primaryDark: `color-mix(in srgb, ${baseColors.primary}, color)`,
-  secondaryLight: `color-mix(in srgb, ${baseColors.secondary}, white)`,
-  secondaryDark: `color-mix(in srgb, ${baseColors.secondary}, black)`,
-  tertiaryLight: `color-mix(in srgb, ${baseColors.tertiary}, white)`,
-  tertiaryDark: `color-mix(in srgb, ${baseColors.tertiary}, black)`
+// Additional bright and vibrant colors
+export const baseVibrantColors = {
+  primary: {
+    300: '#8AB6FF', // Light vibrant blue
+    500: '#4F86F7', // Base vibrant blue
+    700: '#255AFF' // Dark vibrant blue
+  },
+  secondary: {
+    300: '#75DAC7', // Light vibrant teal
+    500: '#1ABC9C', // Base vibrant teal
+    700: '#138F6E' // Dark vibrant teal
+  },
+  tertiary: {
+    300: '#F7C873', // Light vibrant orange
+    500: '#F39C12', // Base vibrant orange
+    700: '#C9780E' // Dark vibrant orange
+  },
+  accent: {
+    300: '#F48A6F', // Light vibrant red
+    500: '#E74C3C', // Base vibrant red
+    700: '#C0392B' // Dark vibrant red
+  }
+};
+
+export const baseTypography = {
+  // Predefined text styles
+
+  // Headings
+  h1: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '36px',
+    fontWeight: 300, // normal
+    lineHeight: 1.25,
+    letterSpacing: '-0.025em',
+    color: baseColors.tertiary[50]
+  },
+  h2: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '30px',
+    fontWeight: 600, // semibold
+    lineHeight: 1.25,
+    letterSpacing: '-0.025em'
+  },
+  h3: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '24px',
+    fontWeight: 600, // semibold
+    lineHeight: 1.25,
+    letterSpacing: 'normal'
+  },
+  h4: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '20px',
+    fontWeight: 600, // semibold
+    lineHeight: 1.25,
+    letterSpacing: 'normal'
+  },
+  h5: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '18px',
+    fontWeight: 600, // semibold
+    lineHeight: 1.25,
+    letterSpacing: 'normal'
+  },
+  h6: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '16px',
+    fontWeight: 600, // semibold
+    lineHeight: 1.25,
+    letterSpacing: 'normal'
+  },
+  a: {
+    textDecoration: 'none',
+    color: baseColors.primary
+  },
+
+  // Body text
+  bodyLarge: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '18px',
+    fontWeight: 400,
+    lineHeight: 1.625,
+    letterSpacing: 'normal'
+  },
+  body: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: 1.5,
+    letterSpacing: 'normal'
+  },
+  bodySmall: {
+    fontFamily: '"Montserrat", sans-serif',
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: 1.5,
+    letterSpacing: 'normal'
+  }
 };
 
 export const baseTheme = {
@@ -30,8 +174,10 @@ export const baseTheme = {
     return {
       display: 'flex',
       alignItems: 'center',
-      fontWeight: kind === 'ghost' || kind === 'ghostOnDark' ? '600' : '500', // semibold for ghost buttons
-      fontSize: kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : undefined, // 18px for ghost buttons
+      lineHeight: size === 'small' ? 1.1 : 1.2, // Match input field line height for small size
+      fontSize:
+        (size === 'small' && '0.875rem') ||
+        (kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : '1rem'),
       borderRadius: '5px',
       cursor: 'pointer',
       gap: '10px',
@@ -46,10 +192,10 @@ export const baseTheme = {
           (size === 'medium' && kind === 'secondary' && '8px 15px') ||
           (size === 'medium' && kind === 'ghost' && '8px 15px') ||
           (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
-          (size === 'small' && kind === 'primary' && '5px 10px') ||
-          (size === 'small' && kind === 'secondary' && '5px 10px') ||
-          (size === 'small' && kind === 'ghost' && '5px 10px') ||
-          (size === 'small' && kind === 'ghostOnDark' && '5px 10px') ||
+          (size === 'small' && kind === 'primary' && '6px 15px') ||
+          (size === 'small' && kind === 'secondary' && '6px 15px') ||
+          (size === 'small' && kind === 'ghost' && '6px 15px') ||
+          (size === 'small' && kind === 'ghostOnDark' && '6px 15px') ||
           undefined
         : (kind === 'primary' && '8px') ||
           (kind === 'secondary' && '8px') ||
@@ -58,37 +204,37 @@ export const baseTheme = {
           undefined,
       border:
         (kind === 'primary' && 'none') ||
-        // (kind === 'secondary' &&
-        //   `3px solid color-mix(in srgb, ${baseColors.primary} 50%, white)`) ||
-        (kind === 'secondary' && `2px solid ${shadesAndTints.primaryDark}`) ||
-        (kind === 'tertiary' && `3px solid ${shadesAndTints.primaryDark}`) ||
+        (kind === 'secondary' && 'none') ||
+        (kind === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
         (kind === 'ghost' && 'none') ||
         (kind === 'ghostOnDark' && 'none') ||
-        // (kind === 'tertiary' && `1px solid ${baseColors.tertiary}`) ||
         undefined,
-
       color:
         (kind === 'primary' && 'white') ||
         (kind === 'tertiary' && 'black') ||
-        (kind === 'secondary' && baseColors.primary) ||
+        (kind === 'secondary' && baseColors.primary[500]) ||
         (kind === 'ghost' && 'inherit') ||
-        (kind === 'ghostOnDark' && 'inherit') ||
+        (kind === 'ghostOnDark' && baseColors.tertiary[50]) ||
         'inherit',
       backgroundColor:
-        (kind === 'primary' && baseColors.secondary) ||
-        (kind === 'secondary' && baseColors.tertiary) ||
+        (kind === 'primary' && baseColors.primary[500]) ||
+        (kind === 'secondary' && baseColors.tertiary[500]) ||
         (kind === 'ghost' && 'transparent') ||
         (kind === 'ghostOnDark' && 'transparent') ||
-        // (kind === 'secondary' &&
-        //   `color-mix(in srgb, ${baseColors.primary} 75%, black)`) ||
+        (kind === 'secondary' &&
+          `color-mix(in srgb, ${baseColors.primary[500]} 75%, black)`) ||
         undefined,
       '&:hover': {
-        boxShadow:
-          kind === 'ghost' || kind === 'ghostOnDark' ? '' : `0 0 7px black`,
-        textShadow:
-          kind === 'ghost' || kind === 'ghostOnDark'
-            ? `0 0 2px rgba(0,0,0,.75)`
-            : ''
+        ...(iconOnly
+          ? {
+              filter: `drop-shadow(0 0 1px ${baseColors.primary[400]})`
+            }
+          : { boxShadow: `0 0 3px black` })
+      },
+      '&:disabled': {
+        opacity: 0.6,
+        cursor: 'not-allowed',
+        pointerEvents: 'none'
       }
     };
   },
@@ -114,7 +260,7 @@ export const baseTheme = {
     };
   },
   img: () => ({
-    border: `1px solid ${baseColors.primary}`,
+    border: `1px solid ${baseColors.primary[500]}`,
     borderRadius: '5px'
   }),
   modal: {
@@ -126,12 +272,11 @@ export const baseTheme = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: baseColors.secondary,
-    backgroundColor: `${shadesAndTints.primaryLight}`,
+    backgroundColor: `${baseColors.primary[100]}`,
     flexDirection: 'column' as const
   },
   modalContentWrapper: {
-    backgroundColor: shadesAndTints.tertiaryLight,
+    backgroundColor: baseColors.tertiary[100],
     padding: '20px',
     boxShadow: `0 0 4px black`,
     display: 'flex',
@@ -145,10 +290,4 @@ export const baseTheme = {
     cursor: 'pointer'
   },
   modalContent: {} as Record<string, unknown>
-};
-
-export const testTheme = {
-  h2: {
-    color: baseColors.primary
-  }
 };

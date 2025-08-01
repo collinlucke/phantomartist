@@ -1,6 +1,8 @@
 import React from 'react';
 import { CSSObject } from '@emotion/react';
 import { CancelCircleIcon } from 'hugeicons-react';
+import { baseColors } from '../../styling/baseTheme';
+import { Button } from '../Buttons/Button';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -17,7 +19,7 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
   title,
-  maxWidth = '500px',
+  maxWidth = '400px',
   showCloseButton = true,
   dataTestId
 }) => {
@@ -57,37 +59,39 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      css={styles.backdrop}
+      css={localStyles.backdrop}
       onClick={handleBackdropClick}
       onKeyDown={handleKeyDown}
     >
       <div
-        css={[styles.modal, { maxWidth }]}
+        css={[localStyles.modal, { maxWidth }]}
         role="dialog"
         aria-modal="true"
         data-testid={dataTestId}
       >
         {(title || showCloseButton) && (
-          <div css={styles.header}>
-            {title && <h1 css={styles.title}>{title}</h1>}
+          <div css={localStyles.header}>
+            {title && <h1 css={localStyles.title}>{title}</h1>}
             {showCloseButton && (
-              <button
-                css={styles.closeButton}
+              <Button
+                className={{ button: localStyles.closeButton }}
                 onClick={onClose}
-                aria-label="Close modal"
-              >
-                <CancelCircleIcon size={44} />
-              </button>
+                ariaLabel="Close modal"
+                kind="ghost"
+                size="medium"
+                iconOnly
+                icon={<CancelCircleIcon size={24} />}
+              />
             )}
           </div>
         )}
-        <div css={styles.content}>{children}</div>
+        <div css={localStyles.content}>{children}</div>
       </div>
     </div>
   );
 };
 
-const styles = {
+const localStyles: { [key: string]: CSSObject } = {
   backdrop: {
     position: 'fixed' as const,
     top: 0,
@@ -100,9 +104,9 @@ const styles = {
     justifyContent: 'center',
     zIndex: 1000,
     padding: '1rem'
-  } as CSSObject,
-
+  },
   modal: {
+    position: 'relative' as const,
     backgroundColor: '#EEDECC',
     borderRadius: '3px',
     boxShadow:
@@ -112,50 +116,28 @@ const styles = {
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column' as const
-  } as CSSObject,
-
+  },
   header: {
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0.75rem 1.5rem 0 1.5rem' // half the vertical padding
-    // No border bottom
-  } as CSSObject,
-
+    padding: '0.75rem 1.5rem 0 1.5rem'
+  },
   title: {
-    margin: 0,
-    fontSize: '36px',
-    fontWeight: 400, // regular
-    lineHeight: 1.25,
-    letterSpacing: '-0.025em'
-  } as CSSObject,
-
+    color: baseColors.primary[500],
+    marginTop: '5px',
+    fontSize: '33px'
+  },
   closeButton: {
-    background: 'none',
-    border: 'none',
-    padding: '0.5rem',
-    cursor: 'pointer',
-    borderRadius: '6px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#6b7280',
-    transition: 'all 0.2s ease',
-    '&:hover': {
-      backgroundColor: '#e5e7eb',
-      color: '#374151'
-    },
-    '&:focus': {
-      outline: '2px solid #3b82f6',
-      outlineOffset: '2px'
-    }
-  } as CSSObject,
-
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: '12px'
+  },
   content: {
     padding: '1.5rem',
     overflow: 'auto',
     flex: 1,
     display: 'flex',
     justifyContent: 'center'
-  } as CSSObject
+  }
 };

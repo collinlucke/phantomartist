@@ -20,7 +20,7 @@ export const InnerWidth: React.FC<InnerWidthProps> = ({
 
   return (
     <div
-      css={[baseStyles.innerWidth, sizeStyles, className?.innerWidth]}
+      css={[localStyles.innerWidth, sizeStyles, className?.innerWidth]}
       className="pa-inner-width"
     >
       {children}
@@ -102,7 +102,7 @@ const getSizeStyles = (size: InnerWidthSize): CSSObject => {
   }
 };
 
-const baseStyles = {
+const localStyles = {
   innerWidth: {
     display: 'flex',
     justifyContent: 'space-between',

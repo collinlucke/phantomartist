@@ -11,6 +11,7 @@ interface ButtonGroupProps {
   direction?: 'horizontal' | 'vertical';
   gap?: 'small' | 'medium' | 'large';
   dataTestId?: string;
+  ariaLabel?: string;
 }
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -18,12 +19,15 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   className,
   direction = 'horizontal',
   gap = 'medium',
-  dataTestId
+  dataTestId,
+  ariaLabel = 'Button group'
 }) => {
   const consumerTheme = useTheme() as ConsumerThemeTypes;
-
+  console.log(ariaLabel);
   return (
     <div
+      aria-label={ariaLabel}
+      role="group"
       css={[
         baseTheme.buttonGroup({ direction, gap }),
         consumerTheme?.buttonGroup &&

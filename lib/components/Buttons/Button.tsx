@@ -4,7 +4,7 @@ import { ConsumerThemeTypes } from '../../CustomTypes.types';
 import { baseTheme } from '../../styling/baseTheme';
 
 interface ButtonProps {
-  children: ReactElement | string;
+  children?: ReactElement | string;
   className?: {
     button?: CSSObject;
   };
@@ -15,7 +15,8 @@ interface ButtonProps {
   icon?: ReactElement | string;
   dataTestId?: string;
   ariaLabel?: string;
-  ariaDescribedby?: string;
+  ariaDescribedBy?: string;
+  disabled?: boolean;
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -29,17 +30,20 @@ export const Button: React.FC<ButtonProps> = ({
   iconOnly,
   dataTestId,
   ariaLabel,
-  ariaDescribedby,
+  ariaDescribedBy,
+  disabled = false,
   onClick
 }) => {
   const consumerTheme = useTheme() as ConsumerThemeTypes;
   const onClickHandler: MouseEventHandler<HTMLButtonElement> = e => {
     onClick?.(e);
   };
+
   return (
     <button
       type={type}
       onClick={onClickHandler}
+      disabled={disabled}
       css={[
         baseTheme.button({ kind, size, iconOnly }),
         consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
@@ -48,7 +52,7 @@ export const Button: React.FC<ButtonProps> = ({
       className={`pa-button ${kind} ${size}`}
       data-testid={dataTestId}
       aria-label={ariaLabel}
-      aria-describedby={ariaDescribedby}
+      aria-describedby={ariaDescribedBy}
     >
       {icon ? (
         <>

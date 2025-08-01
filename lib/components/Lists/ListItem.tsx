@@ -1,4 +1,4 @@
-import { baseColors, shadesAndTints } from '../../styling/baseTheme';
+import { baseColors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListItemProps = {
@@ -18,9 +18,9 @@ export const ListItem: React.FC<ListItemProps> = ({
   return (
     <li
       css={[
-        baseStyles.li,
+        localStyles.li,
         className && className.li,
-        useHover && baseStyles.liHover,
+        useHover && localStyles.liHover,
         className && useHover && className.liHover
       ]}
       className="pa-list-item"
@@ -30,7 +30,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   );
 };
 
-const baseStyles = {
+const localStyles = {
   li: {
     borderRadius: '6px',
     border: `1px solid ${baseColors.secondary}`,
@@ -40,8 +40,6 @@ const baseStyles = {
     display: 'flex'
   },
   liHover: {
-    ':hover': {
-      boxShadow: `0 0 7px ${shadesAndTints.secondaryDark}`
-    }
+    ':hover': {}
   }
 };

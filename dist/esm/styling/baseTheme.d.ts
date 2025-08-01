@@ -1,18 +1,156 @@
 import { CSSObject } from '@emotion/react';
 export declare const baseColors: {
-    primary: string;
-    secondary: string;
-    tertiary: string;
-    accentLight: string;
-    accentDark: string;
+    primary: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    secondary: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    tertiary: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
+    accent: {
+        50: string;
+        100: string;
+        200: string;
+        300: string;
+        400: string;
+        500: string;
+        600: string;
+        700: string;
+        800: string;
+        900: string;
+    };
 };
-export declare const shadesAndTints: {
-    primaryLight: string;
-    primaryDark: string;
-    secondaryLight: string;
-    secondaryDark: string;
-    tertiaryLight: string;
-    tertiaryDark: string;
+export declare const baseVibrantColors: {
+    primary: {
+        300: string;
+        500: string;
+        700: string;
+    };
+    secondary: {
+        300: string;
+        500: string;
+        700: string;
+    };
+    tertiary: {
+        300: string;
+        500: string;
+        700: string;
+    };
+    accent: {
+        300: string;
+        500: string;
+        700: string;
+    };
+};
+export declare const baseTypography: {
+    h1: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+        color: string;
+    };
+    h2: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
+    h3: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
+    h4: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
+    h5: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
+    h6: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
+    a: {
+        textDecoration: string;
+        color: {
+            50: string;
+            100: string;
+            200: string;
+            300: string;
+            400: string;
+            500: string;
+            600: string;
+            700: string;
+            800: string;
+            900: string;
+        };
+    };
+    bodyLarge: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
+    body: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
+    bodySmall: {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: number;
+        lineHeight: number;
+        letterSpacing: string;
+    };
 };
 export declare const baseTheme: {
     button: ({ kind, size, iconOnly }: {
@@ -55,9 +193,4 @@ export declare const baseTheme: {
         cursor: string;
     };
     modalContent: Record<string, unknown>;
-};
-export declare const testTheme: {
-    h2: {
-        color: string;
-    };
 };

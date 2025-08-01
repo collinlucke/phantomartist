@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.1.2] - 08-01-2025
+
+### Added
+
+- **Styling Index Export**: Added new styling index file for centralized theme and globals exports
+- **GlobalStyles Component**: Added new GlobalStyles component for enhanced global styling support
+
+### Changed
+
+- **Base Theme**: Updated baseTheme structure with improved color system and enhanced component styling
+- **Modal Component**: Enhanced Modal component with improved styling and accessibility features
+- **Search Component**: Updated Search component with better styling and interaction patterns
+- **Component Styling**: Improved styling consistency across Button, ButtonGroup, Header, Main, and Layout components
+- **Form Components**: Enhanced InputField component with better styling integration
+
+### Removed
+
+- **TwoColumns Layout**: Removed deprecated TwoColumns layout component
+- **package-lock.json**: Removed package-lock.json in favor of pnpm-lock.yaml
+
+### Fixed
+
+- **Theme Integration**: Fixed theme integration issues across components
+- **Type Definitions**: Updated TypeScript definitions for better component prop types
+- **Component Exports**: Fixed component export structure for better tree-shaking
+
+<br/>
+
 ## [1.1.1] - 07-28-2025
 
 ### Added

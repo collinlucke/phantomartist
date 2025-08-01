@@ -1,7 +1,7 @@
 import { MouseEventHandler, ReactElement } from 'react';
 import { CSSObject } from '@emotion/react';
 interface ButtonProps {
-    children: ReactElement | string;
+    children?: ReactElement | string;
     className?: {
         button?: CSSObject;
     };
@@ -12,7 +12,8 @@ interface ButtonProps {
     icon?: ReactElement | string;
     dataTestId?: string;
     ariaLabel?: string;
-    ariaDescribedby?: string;
+    ariaDescribedBy?: string;
+    disabled?: boolean;
     onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 export declare const Button: React.FC<ButtonProps>;

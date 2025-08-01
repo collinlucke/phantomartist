@@ -8,6 +8,7 @@ interface ButtonGroupProps {
     direction?: 'horizontal' | 'vertical';
     gap?: 'small' | 'medium' | 'large';
     dataTestId?: string;
+    ariaLabel?: string;
 }
 export declare const ButtonGroup: React.FC<ButtonGroupProps>;
 export {};

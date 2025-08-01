@@ -9,23 +9,38 @@ type Search = {
   buttonSize?: 'large' | 'medium' | 'small';
   inputSize?: 'large' | 'medium' | 'small';
   totalResultsCount?: string;
+  buttonKind?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'ghostOnDark';
+  showResultsCount?: boolean;
+  labelPosition?: 'left' | 'right' | 'above' | 'below';
+  label?: string;
+  buttonText?: string;
+
+  resultsLabel?: React.ReactNode;
   useSearchButton?: boolean;
   className?: {
     searchWrapper?: CSSObject;
+    resultsText?: CSSObject;
+    searchForm?: CSSObject;
+    searchFieldContainer?: CSSObject;
   };
 
-  onSearch?: React.FormEventHandler<HTMLFormElement>;
+  onSearch?: (searchTerm?: string) => void;
   setSearchTerm: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const Search: React.FC<Search> = ({
   searchTerm,
   searchLabel,
-  totalResultsCount,
+  totalResultsCount = '0',
+  resultsLabel,
   className,
   buttonSize,
   inputSize,
-  useSearchButton,
+  buttonKind = 'primary',
+  showResultsCount = true,
+  labelPosition = 'above',
+  label,
+  buttonText,
 
   onSearch,
   setSearchTerm
@@ -38,40 +53,62 @@ export const Search: React.FC<Search> = ({
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSearch?.(e);
+  const handleFormSubmit = () => {
+    onSearch?.(searchTerm);
   };
 
+  const hitEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleFormSubmit();
+    }
+  };
+  console.log(buttonKind);
   return (
-    <form onSubmit={handleFormSubmit}>
+    <div
+      // onSubmit={handleFormSubmit}
+      css={[localStyles.searchForm, className?.searchForm]}
+      className="pa-search-form"
+    >
       <div
         css={[
-          baseStyles.searchWrapper,
+          localStyles.searchWrapper,
           className?.searchWrapper,
           searchWrapperMediaQuery
         ]}
         className="pa-search-wrapper"
       >
-        <div css={baseStyles.results}>Total Results: {totalResultsCount}</div>
-
-        <InputField
-          type="search"
-          value={searchTerm || ''}
-          name="searchTerm"
-          labelPosition="above"
-          placeholder={searchLabel || 'Search'}
-          className={formTextInputStyles}
-          onChange={setSearchTermHandler}
-          size={inputSize}
-        />
-        {useSearchButton && (
-          <Button size={buttonSize} className={buttonStyles} type="submit">
-            Search
-          </Button>
+        {showResultsCount && (
+          <div css={[localStyles.results, className?.resultsText]}>
+            {resultsLabel ?? 'Total Results:'} {totalResultsCount}
+          </div>
         )}
+
+        <div css={localStyles.inputWrapper}>
+          <InputField
+            type="search"
+            value={searchTerm || ''}
+            name="searchTerm"
+            labelPosition={labelPosition}
+            label={label}
+            placeholder={searchLabel || 'Search'}
+            className={{ container: { ...localStyles.searchFieldContainer } }}
+            onChange={setSearchTermHandler}
+            size={inputSize}
+            onKeyDown={hitEnter}
+          />
+        </div>
+
+        <Button
+          data-testid="search-submit-button"
+          size={buttonSize}
+          type="button"
+          onClick={handleFormSubmit}
+          kind={buttonKind}
+        >
+          {buttonText || 'Search'}
+        </Button>
       </div>
-    </form>
+    </div>
   );
 };
 const searchWrapperMediaQuery = {
@@ -80,40 +117,33 @@ const searchWrapperMediaQuery = {
   }
 };
 
-const formTextInputStyles = {
-  container: {
-    margin: 0,
-    flex: 1
-  }
-};
-
-const buttonStyles = {
-  button: {
-    marginLeft: '10px'
-  }
-};
-
-const baseStyles = {
+const localStyles: { [key: string]: CSSObject } = {
+  searchForm: {
+    display: 'flex',
+    width: '100%'
+  },
   searchWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'end',
-    paddingBottom: '20px',
-    paddingTop: '20px',
-    background: 'white'
+    gap: '15px',
+    width: '100%'
   },
   resultsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    '@media (max-width: 580px)': {
-      flexDirection: 'column'
-    }
+    alignItems: 'center'
   },
   results: {
-    alignSelf: 'end',
-    '@media (max-width: 580px)': {
-      alignSelf: 'start'
-    }
+    alignSelf: 'end'
+  },
+  inputWrapper: {
+    position: 'relative' as const,
+    flex: 1
+  },
+  searchFieldContainer: {
+    margin: 0,
+    flex: 'initial',
+    justifyContent: 'end'
   }
 };
