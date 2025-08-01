@@ -9,13 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
+          cache: 'pnpm'
+          
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm build
 
   publish-gpr:
     needs: test-and-build
@@ -28,14 +35,19 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: 'pnpm'
           registry-url: https://npm.pkg.github.com/
           scope: '@collinlucke'
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       - name: Configure Git
         run: |
@@ -59,12 +71,12 @@ jobs:
           echo "Tag version: $TAG_VERSION"
           if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
             echo "Version mismatch! Updating package.json..."
-            npm version $TAG_VERSION --no-git-tag-version
+            pnpm version $TAG_VERSION --no-git-tag-version
           else
             echo "Versions match, proceeding..."
           fi
 
-      - run: npm run build
-      - run: npm publish
+      - run: pnpm build
+      - run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
