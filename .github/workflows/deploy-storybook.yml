@@ -8,6 +8,7 @@ on:
       - 'lib/**'
       - '.storybook/**'
       - 'package.json'
+      - 'pnpm-lock.yaml'
 
 permissions:
   contents: write
@@ -20,20 +21,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build Storybook
-        run: npx storybook build
+        run: pnpm build-storybook
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./storybook
+          publish_dir: ./storybook-static
