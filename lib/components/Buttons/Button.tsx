@@ -1,7 +1,7 @@
 import { MouseEventHandler, ReactElement } from 'react';
 import { CSSObject, useTheme } from '@emotion/react';
 import { ConsumerThemeTypes } from '../../CustomTypes.types';
-import { baseTheme, mediaQueries } from '../../styling/baseTheme';
+import { baseTheme } from '../../styling/baseTheme';
 
 interface ButtonProps {
   children?: ReactElement | string;
