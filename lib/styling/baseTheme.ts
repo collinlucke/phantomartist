@@ -1,14 +1,114 @@
 import { CSSObject } from '@emotion/react';
 
-// export const baseColors = {
-//   primary: '#0B1828',
-//   secondary: '#146B68',
-//   tertiary: '#BFA081',
-//   accent: '#9F0001',
-//   quaternary: '#012c35',
-//   lightText: '#FFFFFF',
-//   darkText: '#040A0C'
-// };
+export const screenSizes = {
+  xs: '480px',
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+  '2xl': '1536px'
+};
+
+// Media query utilities
+export const mediaQueries = {
+  // Min-width media queries (mobile-first approach)
+  minWidth: {
+    xs: `@media (min-width: ${screenSizes.xs})`,
+    sm: `@media (min-width: ${screenSizes.sm})`,
+    md: `@media (min-width: ${screenSizes.md})`,
+    lg: `@media (min-width: ${screenSizes.lg})`,
+    xl: `@media (min-width: ${screenSizes.xl})`,
+    '2xl': `@media (min-width: ${screenSizes['2xl']})`
+  },
+
+  // Max-width media queries (desktop-first approach)
+  maxWidth: {
+    xs: `@media (max-width: ${parseInt(screenSizes.xs) - 1}px)`,
+    sm: `@media (max-width: ${parseInt(screenSizes.sm) - 1}px)`,
+    md: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
+    lg: `@media (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
+    xl: `@media (max-width: ${parseInt(screenSizes.xl) - 1}px)`,
+    '2xl': `@media (max-width: ${parseInt(screenSizes['2xl']) - 1}px)`
+  },
+
+  // Range media queries (between two breakpoints)
+  between: {
+    xsToSm: `@media (min-width: ${screenSizes.xs}) and (max-width: ${
+      parseInt(screenSizes.sm) - 1
+    }px)`,
+    smToMd: `@media (min-width: ${screenSizes.sm}) and (max-width: ${
+      parseInt(screenSizes.md) - 1
+    }px)`,
+    mdToLg: `@media (min-width: ${screenSizes.md}) and (max-width: ${
+      parseInt(screenSizes.lg) - 1
+    }px)`,
+    lgToXl: `@media (min-width: ${screenSizes.lg}) and (max-width: ${
+      parseInt(screenSizes.xl) - 1
+    }px)`,
+    xlTo2xl: `@media (min-width: ${screenSizes.xl}) and (max-width: ${
+      parseInt(screenSizes['2xl']) - 1
+    }px)`
+  },
+
+  // Common device queries
+  mobile: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
+  tablet: `@media (min-width: ${screenSizes.md}) and (max-width: ${
+    parseInt(screenSizes.lg) - 1
+  }px)`,
+  desktop: `@media (min-width: ${screenSizes.lg})`,
+
+  // Orientation queries
+  portrait: '@media (orientation: portrait)',
+  landscape: '@media (orientation: landscape)',
+
+  // High DPI queries
+  retina:
+    '@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)',
+
+  // Hover capability
+  hover: '@media (hover: hover)',
+  noHover: '@media (hover: none)'
+};
+
+// Helper function for creating responsive styles
+export const createResponsiveStyle = (styles: {
+  base?: CSSObject;
+  xs?: CSSObject;
+  sm?: CSSObject;
+  md?: CSSObject;
+  lg?: CSSObject;
+  xl?: CSSObject;
+  '2xl'?: CSSObject;
+}): CSSObject => {
+  const responsiveStyle: CSSObject = {};
+
+  // Base styles (mobile-first)
+  if (styles.base) {
+    Object.assign(responsiveStyle, styles.base);
+  }
+
+  // Apply breakpoint-specific styles
+  if (styles.xs) {
+    responsiveStyle[mediaQueries.minWidth.xs] = styles.xs;
+  }
+  if (styles.sm) {
+    responsiveStyle[mediaQueries.minWidth.sm] = styles.sm;
+  }
+  if (styles.md) {
+    responsiveStyle[mediaQueries.minWidth.md] = styles.md;
+  }
+  if (styles.lg) {
+    responsiveStyle[mediaQueries.minWidth.lg] = styles.lg;
+  }
+  if (styles.xl) {
+    responsiveStyle[mediaQueries.minWidth.xl] = styles.xl;
+  }
+  if (styles['2xl']) {
+    responsiveStyle[mediaQueries.minWidth['2xl']] = styles['2xl'];
+  }
+
+  return responsiveStyle;
+};
 
 export const baseColors = {
   primary: {
@@ -174,6 +274,7 @@ export const baseTheme = {
     return {
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center',
       lineHeight: size === 'small' ? 1.1 : 1.2, // Match input field line height for small size
       fontSize:
         (size === 'small' && '0.875rem') ||
@@ -181,7 +282,6 @@ export const baseTheme = {
       borderRadius: '5px',
       cursor: 'pointer',
       gap: '10px',
-      width: 'fit-content',
       padding: !iconOnly
         ? (size === 'large' && kind === 'primary' && '10px 40px') ||
           (size === 'large' && kind === 'secondary' && '8px 34px') ||

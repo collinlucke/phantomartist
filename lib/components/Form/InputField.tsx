@@ -63,7 +63,8 @@ export const InputField: React.FC<InputFieldProps> = ({
   size = 'medium',
   autoResize = false,
   className,
-  onKeyDown
+  onKeyDown,
+  onDark = false
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -103,11 +104,11 @@ export const InputField: React.FC<InputFieldProps> = ({
       }
     }
   }, [value, autoResize, type]);
-
+  console.log(onDark);
   const labelElement = label ? (
     <label
       css={[
-        localStyles({ labelPosition, size, autoResize }).label,
+        localStyles({ labelPosition, size, autoResize, onDark }).label,
         className?.label
       ]}
       // css={[getStyles(labelPosition, size, autoResize).label, className?.label]}
@@ -115,7 +116,11 @@ export const InputField: React.FC<InputFieldProps> = ({
     >
       {label}
       {required && (
-        <span css={localStyles({ labelPosition, size, autoResize }).required}>
+        <span
+          css={
+            localStyles({ labelPosition, size, autoResize, onDark }).required
+          }
+        >
           *
         </span>
       )}

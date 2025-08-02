@@ -1,5 +1,6 @@
 import { InputField } from '../Form';
 import { Button } from '../Buttons';
+import { mediaQueries } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type Search = {
@@ -14,6 +15,7 @@ type Search = {
   labelPosition?: 'left' | 'right' | 'above' | 'below';
   label?: string;
   buttonText?: string;
+  onDark?: boolean;
 
   resultsLabel?: React.ReactNode;
   useSearchButton?: boolean;
@@ -41,6 +43,7 @@ export const Search: React.FC<Search> = ({
   labelPosition = 'above',
   label,
   buttonText,
+  onDark = false,
 
   onSearch,
   setSearchTerm
@@ -70,11 +73,7 @@ export const Search: React.FC<Search> = ({
       className="pa-search-form"
     >
       <div
-        css={[
-          localStyles.searchWrapper,
-          className?.searchWrapper,
-          searchWrapperMediaQuery
-        ]}
+        css={[localStyles.searchWrapper, className?.searchWrapper]}
         className="pa-search-wrapper"
       >
         {showResultsCount && (
@@ -95,6 +94,7 @@ export const Search: React.FC<Search> = ({
             onChange={setSearchTermHandler}
             size={inputSize}
             onKeyDown={hitEnter}
+            onDark={onDark}
           />
         </div>
 
@@ -104,17 +104,13 @@ export const Search: React.FC<Search> = ({
           type="button"
           onClick={handleFormSubmit}
           kind={buttonKind}
+          className={{ button: localStyles.searchButton }}
         >
           {buttonText || 'Search'}
         </Button>
       </div>
     </div>
   );
-};
-const searchWrapperMediaQuery = {
-  '@media (max-width: 580px)': {
-    flexDirection: 'column' as const
-  }
 };
 
 const localStyles: { [key: string]: CSSObject } = {
@@ -125,9 +121,13 @@ const localStyles: { [key: string]: CSSObject } = {
   searchWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'end',
     gap: '15px',
-    width: '100%'
+    width: '100%',
+    flexDirection: 'column' as const,
+    [mediaQueries.minWidth.md]: {
+      alignItems: 'end',
+      flexDirection: 'row' as const
+    }
   },
   resultsWrapper: {
     display: 'flex',
@@ -139,11 +139,17 @@ const localStyles: { [key: string]: CSSObject } = {
   },
   inputWrapper: {
     position: 'relative' as const,
-    flex: 1
+    flex: 1,
+    [mediaQueries.minWidth.sm]: {
+      // alignItems: 'end'
+    }
   },
   searchFieldContainer: {
     margin: 0,
     flex: 'initial',
     justifyContent: 'end'
+  },
+  searchButton: {
+    whiteSpace: 'nowrap'
   }
 };

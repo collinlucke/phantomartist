@@ -1,4 +1,54 @@
 import { CSSObject } from '@emotion/react';
+export declare const screenSizes: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    '2xl': string;
+};
+export declare const mediaQueries: {
+    minWidth: {
+        xs: string;
+        sm: string;
+        md: string;
+        lg: string;
+        xl: string;
+        '2xl': string;
+    };
+    maxWidth: {
+        xs: string;
+        sm: string;
+        md: string;
+        lg: string;
+        xl: string;
+        '2xl': string;
+    };
+    between: {
+        xsToSm: string;
+        smToMd: string;
+        mdToLg: string;
+        lgToXl: string;
+        xlTo2xl: string;
+    };
+    mobile: string;
+    tablet: string;
+    desktop: string;
+    portrait: string;
+    landscape: string;
+    retina: string;
+    hover: string;
+    noHover: string;
+};
+export declare const createResponsiveStyle: (styles: {
+    base?: CSSObject;
+    xs?: CSSObject;
+    sm?: CSSObject;
+    md?: CSSObject;
+    lg?: CSSObject;
+    xl?: CSSObject;
+    "2xl"?: CSSObject;
+}) => CSSObject;
 export declare const baseColors: {
     primary: {
         50: string;
