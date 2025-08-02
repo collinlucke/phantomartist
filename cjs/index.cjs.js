@@ -32,15 +32,83 @@ function styleInject(css, ref) {
 var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: border-box;\r\n}\r\n\r\n/* Prevent font size inflation */\r\nhtml {\r\n  -moz-text-size-adjust: none;\r\n  -webkit-text-size-adjust: none;\r\n  text-size-adjust: none;\r\n}\r\n\r\n/* Remove default margin in favour of better control in authored CSS */\r\nbody,\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\np,\r\nfigure,\r\nblockquote,\r\ndl,\r\ndd {\r\n  margin-block-end: 0;\r\n}\r\n\r\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\r\nul,\r\nol {\r\n  list-style: none;\r\n}\r\n\r\n/* Set core body defaults */\r\nbody {\r\n  min-height: 100vh;\r\n  line-height: 1.5;\r\n  margin: 0;\r\n}\r\n\r\n/* Set shorter line heights on headings and interactive elements */\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nbutton,\r\ninput,\r\nlabel {\r\n  line-height: 1.1;\r\n}\r\n\r\n/* Balance text wrapping on headings */\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n  text-wrap: balance;\r\n  margin-top: 0px;\r\n}\r\n\r\n/* A elements that don't have a class get default styles */\r\na:not([class]) {\r\n  text-decoration-skip-ink: auto;\r\n  color: currentColor;\r\n}\r\n\r\n/* Make images easier to work with */\r\nimg,\r\npicture {\r\n  max-width: 100%;\r\n  display: block;\r\n}\r\n\r\n/* Inherit fonts for inputs and buttons */\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font-family: inherit;\r\n  font-size: inherit;\r\n}\r\n\r\n/* Make sure textareas without a rows attribute are not tiny */\r\ntextarea:not([rows]) {\r\n  min-height: 5em;\r\n}\r\n\r\n/* Anything that has been anchored to should have extra scroll margin */\r\n:target {\r\n  scroll-margin-block: 5ex;\r\n}\r\n";
 styleInject(css_248z);
 
-// export const baseColors = {
-//   primary: '#0B1828',
-//   secondary: '#146B68',
-//   tertiary: '#BFA081',
-//   accent: '#9F0001',
-//   quaternary: '#012c35',
-//   lightText: '#FFFFFF',
-//   darkText: '#040A0C'
-// };
+const screenSizes = {
+    xs: '480px',
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px',
+    '2xl': '1536px'
+};
+// Media query utilities
+const mediaQueries = {
+    // Min-width media queries (mobile-first approach)
+    minWidth: {
+        xs: `@media (min-width: ${screenSizes.xs})`,
+        sm: `@media (min-width: ${screenSizes.sm})`,
+        md: `@media (min-width: ${screenSizes.md})`,
+        lg: `@media (min-width: ${screenSizes.lg})`,
+        xl: `@media (min-width: ${screenSizes.xl})`,
+        '2xl': `@media (min-width: ${screenSizes['2xl']})`
+    },
+    // Max-width media queries (desktop-first approach)
+    maxWidth: {
+        xs: `@media (max-width: ${parseInt(screenSizes.xs) - 1}px)`,
+        sm: `@media (max-width: ${parseInt(screenSizes.sm) - 1}px)`,
+        md: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
+        lg: `@media (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
+        xl: `@media (max-width: ${parseInt(screenSizes.xl) - 1}px)`,
+        '2xl': `@media (max-width: ${parseInt(screenSizes['2xl']) - 1}px)`
+    },
+    // Range media queries (between two breakpoints)
+    between: {
+        xsToSm: `@media (min-width: ${screenSizes.xs}) and (max-width: ${parseInt(screenSizes.sm) - 1}px)`,
+        smToMd: `@media (min-width: ${screenSizes.sm}) and (max-width: ${parseInt(screenSizes.md) - 1}px)`,
+        mdToLg: `@media (min-width: ${screenSizes.md}) and (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
+        lgToXl: `@media (min-width: ${screenSizes.lg}) and (max-width: ${parseInt(screenSizes.xl) - 1}px)`,
+        xlTo2xl: `@media (min-width: ${screenSizes.xl}) and (max-width: ${parseInt(screenSizes['2xl']) - 1}px)`
+    },
+    // Common device queries
+    mobile: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
+    tablet: `@media (min-width: ${screenSizes.md}) and (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
+    desktop: `@media (min-width: ${screenSizes.lg})`,
+    // Orientation queries
+    portrait: '@media (orientation: portrait)',
+    landscape: '@media (orientation: landscape)',
+    // High DPI queries
+    retina: '@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)',
+    // Hover capability
+    hover: '@media (hover: hover)',
+    noHover: '@media (hover: none)'
+};
+// Helper function for creating responsive styles
+const createResponsiveStyle = (styles) => {
+    const responsiveStyle = {};
+    // Base styles (mobile-first)
+    if (styles.base) {
+        Object.assign(responsiveStyle, styles.base);
+    }
+    // Apply breakpoint-specific styles
+    if (styles.xs) {
+        responsiveStyle[mediaQueries.minWidth.xs] = styles.xs;
+    }
+    if (styles.sm) {
+        responsiveStyle[mediaQueries.minWidth.sm] = styles.sm;
+    }
+    if (styles.md) {
+        responsiveStyle[mediaQueries.minWidth.md] = styles.md;
+    }
+    if (styles.lg) {
+        responsiveStyle[mediaQueries.minWidth.lg] = styles.lg;
+    }
+    if (styles.xl) {
+        responsiveStyle[mediaQueries.minWidth.xl] = styles.xl;
+    }
+    if (styles['2xl']) {
+        responsiveStyle[mediaQueries.minWidth['2xl']] = styles['2xl'];
+    }
+    return responsiveStyle;
+};
 const baseColors = {
     primary: {
         50: '#F0F2F5', // Very light blue-gray
@@ -192,13 +260,13 @@ const baseTheme = {
         return {
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             lineHeight: size === 'small' ? 1.1 : 1.2, // Match input field line height for small size
             fontSize: (size === 'small' && '0.875rem') ||
                 (kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : '1rem'),
             borderRadius: '5px',
             cursor: 'pointer',
             gap: '10px',
-            width: 'fit-content',
             padding: !iconOnly
                 ? (size === 'large' && kind === 'primary' && '10px 40px') ||
                     (size === 'large' && kind === 'secondary' && '8px 34px') ||
@@ -321,7 +389,7 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
         ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
 };
 
-const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown }) => {
+const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false }) => {
     const textAreaRef = React.useRef(null);
     // Generate ID from label if it's a string, otherwise use name or fallback
     const inputId = id ||
@@ -355,12 +423,13 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             }
         }
     }, [value, autoResize, type]);
+    console.log(onDark);
     const labelElement = label ? (jsxRuntime.jsxs("label", { css: [
-            localStyles$8({ labelPosition, size, autoResize }).label,
+            localStyles$8({ labelPosition, size, autoResize, onDark }).label,
             className?.label
         ], 
         // css={[getStyles(labelPosition, size, autoResize).label, className?.label]}
-        htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$8({ labelPosition, size, autoResize }).required, children: "*" }))] })) : null;
+        htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$8({ labelPosition, size, autoResize, onDark }).required, children: "*" }))] })) : null;
     const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, "data-testid": testId, css: [
             localStyles$8({ labelPosition, size, autoResize }).textarea,
             error && localStyles$8({ labelPosition, size, autoResize }).inputError,
@@ -815,7 +884,7 @@ const localStyles$1 = {
     }
 };
 
-const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onSearch, setSearchTerm }) => {
+const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onDark = false, onSearch, setSearchTerm }) => {
     const setSearchTermHandler = (e) => {
         if (e.target instanceof HTMLInputElement) {
             setSearchTerm(e);
@@ -832,16 +901,7 @@ const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel
     console.log(buttonKind);
     return (jsxRuntime.jsx("div", { 
         // onSubmit={handleFormSubmit}
-        css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxRuntime.jsxs("div", { css: [
-                localStyles.searchWrapper,
-                className?.searchWrapper,
-                searchWrapperMediaQuery
-            ], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter }) }), jsxRuntime.jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleFormSubmit, kind: buttonKind, children: buttonText || 'Search' })] }) }));
-};
-const searchWrapperMediaQuery = {
-    '@media (max-width: 580px)': {
-        flexDirection: 'column'
-    }
+        css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxRuntime.jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark }) }), jsxRuntime.jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleFormSubmit, kind: buttonKind, className: { button: localStyles.searchButton }, children: buttonText || 'Search' })] }) }));
 };
 const localStyles = {
     searchForm: {
@@ -851,21 +911,31 @@ const localStyles = {
     searchWrapper: {
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'end',
         gap: '15px',
-        width: '100%'
+        width: '100%',
+        flexDirection: 'column',
+        [mediaQueries.minWidth.md]: {
+            alignItems: 'end',
+            flexDirection: 'row'
+        }
     },
     results: {
         alignSelf: 'end'
     },
     inputWrapper: {
         position: 'relative',
-        flex: 1
+        flex: 1,
+        [mediaQueries.minWidth.sm]: {
+        // alignItems: 'end'
+        }
     },
     searchFieldContainer: {
         margin: 0,
         flex: 'initial',
         justifyContent: 'end'
+    },
+    searchButton: {
+        whiteSpace: 'nowrap'
     }
 };
 
@@ -1250,8 +1320,11 @@ exports.baseTheme = baseTheme;
 exports.baseTypography = baseTypography;
 exports.baseVibrantColors = baseVibrantColors;
 exports.checkWCAGCompliance = checkWCAGCompliance;
+exports.createResponsiveStyle = createResponsiveStyle;
 exports.getContrastEmoji = getContrastEmoji;
 exports.getContrastRatio = getContrastRatio;
 exports.getLuminance = getLuminance;
 exports.hexToRgb = hexToRgb;
+exports.mediaQueries = mediaQueries;
+exports.screenSizes = screenSizes;
 //# sourceMappingURL=index.cjs.js.map

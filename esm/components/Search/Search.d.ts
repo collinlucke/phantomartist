@@ -11,6 +11,7 @@ type Search = {
     labelPosition?: 'left' | 'right' | 'above' | 'below';
     label?: string;
     buttonText?: string;
+    onDark?: boolean;
     resultsLabel?: React.ReactNode;
     useSearchButton?: boolean;
     className?: {
