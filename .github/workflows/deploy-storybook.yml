@@ -48,10 +48,20 @@ jobs:
       - name: Build Storybook
         run: pnpm build-storybook
 
+      - name: Create Pages structure
+        run: |
+          mkdir -p _site/storybook
+          cp -r storybook-static/* _site/storybook/
+          # Preserve existing documentation if it exists
+          if [ -f "README.md" ]; then
+            echo "Copying README for GitHub Pages..."
+            # You can add logic here to convert README to index.html if needed
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./storybook-static
+          path: ./_site
 
   deploy:
     environment:
