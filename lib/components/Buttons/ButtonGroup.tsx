@@ -23,7 +23,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   ariaLabel = 'Button group'
 }) => {
   const consumerTheme = useTheme() as ConsumerThemeTypes;
-  console.log(ariaLabel);
+
   return (
     <div
       aria-label={ariaLabel}

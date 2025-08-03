@@ -104,7 +104,6 @@ export const InputField: React.FC<InputFieldProps> = ({
       }
     }
   }, [value, autoResize, type]);
-  console.log(onDark);
   const labelElement = label ? (
     <label
       css={[

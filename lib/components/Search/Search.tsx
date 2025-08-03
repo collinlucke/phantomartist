@@ -26,7 +26,7 @@ type Search = {
     searchFieldContainer?: CSSObject;
   };
 
-  onSearch?: (searchTerm?: string) => void;
+  onSearch?: (searchTerm: string) => void;
   setSearchTerm: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -56,19 +56,18 @@ export const Search: React.FC<Search> = ({
     }
   };
 
-  const handleFormSubmit = () => {
-    onSearch?.(searchTerm);
+  const handleOnSearch = () => {
+    onSearch?.(searchTerm || '');
   };
 
   const hitEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleFormSubmit();
+      handleOnSearch();
     }
   };
-  console.log(buttonKind);
+
   return (
     <div
-      // onSubmit={handleFormSubmit}
       css={[localStyles.searchForm, className?.searchForm]}
       className="pa-search-form"
     >
@@ -102,7 +101,7 @@ export const Search: React.FC<Search> = ({
           data-testid="search-submit-button"
           size={buttonSize}
           type="button"
-          onClick={handleFormSubmit}
+          onClick={handleOnSearch}
           kind={buttonKind}
           className={{ button: localStyles.searchButton }}
         >
