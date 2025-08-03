@@ -1,3 +1,4 @@
+import React from 'react';
 import { CSSObject } from '@emotion/react';
 type Search = {
     searchTerm?: string;

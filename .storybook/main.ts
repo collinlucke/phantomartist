@@ -16,7 +16,7 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {}
   },
-  viteFinal: async (config) => {
+  viteFinal: async config => {
     // Set base path for GitHub Pages subdirectory deployment
     if (process.env.NODE_ENV === 'production') {
       config.base = '/phantomartist/storybook/';

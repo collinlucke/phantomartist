@@ -22,7 +22,8 @@ const localStyles: CSSObject = {
     margin: 0,
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
+    flexWrap: 'wrap',
+    gap: '20px',
     listStyleType: 'none'
   }
 };

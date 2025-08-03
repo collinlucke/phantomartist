@@ -1,3 +1,4 @@
+import React from 'react';
 import { InputField } from '../Form';
 import { Button } from '../Buttons';
 import { mediaQueries } from '../../styling/baseTheme';
@@ -44,7 +45,7 @@ export const Search: React.FC<Search> = ({
   label,
   buttonText,
   onDark = false,
-
+  useSearchButton = true,
   onSearch,
   setSearchTerm
 }) => {
@@ -97,16 +98,18 @@ export const Search: React.FC<Search> = ({
           />
         </div>
 
-        <Button
-          data-testid="search-submit-button"
-          size={buttonSize}
-          type="button"
-          onClick={handleOnSearch}
-          kind={buttonKind}
-          className={{ button: localStyles.searchButton }}
-        >
-          {buttonText || 'Search'}
-        </Button>
+        {useSearchButton && (
+          <Button
+            data-testid="search-submit-button"
+            size={buttonSize}
+            type="button"
+            onClick={handleOnSearch}
+            kind={buttonKind}
+            className={{ button: localStyles.searchButton }}
+          >
+            {buttonText || 'Search'}
+          </Button>
+        )}
       </div>
     </div>
   );
