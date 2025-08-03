@@ -20,7 +20,7 @@ type Search = {
         searchForm?: CSSObject;
         searchFieldContainer?: CSSObject;
     };
-    onSearch?: (searchTerm?: string) => void;
+    onSearch?: (searchTerm: string) => void;
     setSearchTerm: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 export declare const Search: React.FC<Search>;

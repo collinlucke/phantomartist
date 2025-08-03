@@ -378,7 +378,6 @@ const Button = ({ children, className, type, kind = 'primary', size = 'large', i
 
 const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId, ariaLabel = 'Button group' }) => {
     const consumerTheme = useTheme();
-    console.log(ariaLabel);
     return (jsx("div", { "aria-label": ariaLabel, role: "group", css: [
             baseTheme.buttonGroup({ direction, gap }),
             consumerTheme?.buttonGroup &&
@@ -421,7 +420,6 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             }
         }
     }, [value, autoResize, type]);
-    console.log(onDark);
     const labelElement = label ? (jsxs("label", { css: [
             localStyles$8({ labelPosition, size, autoResize, onDark }).label,
             className?.label
@@ -888,18 +886,15 @@ const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel
             setSearchTerm(e);
         }
     };
-    const handleFormSubmit = () => {
-        onSearch?.(searchTerm);
+    const handleOnSearch = () => {
+        onSearch?.(searchTerm || '');
     };
     const hitEnter = (e) => {
         if (e.key === 'Enter') {
-            handleFormSubmit();
+            handleOnSearch();
         }
     };
-    console.log(buttonKind);
-    return (jsx("div", { 
-        // onSubmit={handleFormSubmit}
-        css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsx("div", { css: localStyles.inputWrapper, children: jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark }) }), jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleFormSubmit, kind: buttonKind, className: { button: localStyles.searchButton }, children: buttonText || 'Search' })] }) }));
+    return (jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsx("div", { css: localStyles.inputWrapper, children: jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark }) }), jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, className: { button: localStyles.searchButton }, children: buttonText || 'Search' })] }) }));
 };
 const localStyles = {
     searchForm: {
