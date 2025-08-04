@@ -25,6 +25,7 @@ type Search = {
     resultsText?: CSSObject;
     searchForm?: CSSObject;
     searchFieldContainer?: CSSObject;
+    searchButton?: CSSObject;
   };
 
   onSearch?: (searchTerm: string) => void;
@@ -105,7 +106,12 @@ export const Search: React.FC<Search> = ({
             type="button"
             onClick={handleOnSearch}
             kind={buttonKind}
-            className={{ button: localStyles.searchButton }}
+            className={{
+              button: {
+                ...localStyles.searchButton,
+                ...className?.searchButton
+              }
+            }}
           >
             {buttonText || 'Search'}
           </Button>
@@ -141,10 +147,7 @@ const localStyles: { [key: string]: CSSObject } = {
   },
   inputWrapper: {
     position: 'relative' as const,
-    flex: 1,
-    [mediaQueries.minWidth.sm]: {
-      // alignItems: 'end'
-    }
+    flex: 1
   },
   searchFieldContainer: {
     margin: 0,

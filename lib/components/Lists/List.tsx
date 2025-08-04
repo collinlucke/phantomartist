@@ -8,7 +8,7 @@ type ListProps = {
 
 export const List: React.FC<ListProps> = ({ className, children }) => {
   return (
-    <ul css={[localStyles.ul, className?.ul]} className="pa-list">
+    <ul css={[localStyles.ul, className?.ui]} className="pa-list">
       {children}
     </ul>
   );
@@ -16,14 +16,12 @@ export const List: React.FC<ListProps> = ({ className, children }) => {
 
 const localStyles: CSSObject = {
   ul: {
-    borderRadius: '6px',
     fontWeight: '500',
-    padding: '20px',
     margin: 0,
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '20px',
-    listStyleType: 'none'
+    listStyleType: 'none',
+    paddingInlineStart: '0' // Remove default padding
   }
 };

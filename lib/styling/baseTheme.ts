@@ -1,12 +1,13 @@
 import { CSSObject } from '@emotion/react';
 
 export const screenSizes = {
-  xs: '480px',
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  '2xl': '1536px'
+  xs: '360px', // Adjusted for a more common mobile breakpoint
+  sm: '480px',
+  md: '640px',
+  lg: '768px',
+  xl: '1024px',
+  '2xl': '1280px',
+  '3xl': '1536px'
 };
 
 // Media query utilities

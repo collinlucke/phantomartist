@@ -6,6 +6,7 @@ export declare const screenSizes: {
     lg: string;
     xl: string;
     '2xl': string;
+    '3xl': string;
 };
 export declare const mediaQueries: {
     minWidth: {

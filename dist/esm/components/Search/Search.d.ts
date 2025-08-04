@@ -20,6 +20,7 @@ type Search = {
         resultsText?: CSSObject;
         searchForm?: CSSObject;
         searchFieldContainer?: CSSObject;
+        searchButton?: CSSObject;
     };
     onSearch?: (searchTerm: string) => void;
     setSearchTerm: (e: React.ChangeEvent<HTMLInputElement>) => void;

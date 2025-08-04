@@ -31,12 +31,13 @@ var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  bo
 styleInject(css_248z);
 
 const screenSizes = {
-    xs: '480px',
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
-    '2xl': '1536px'
+    xs: '360px', // Adjusted for a more common mobile breakpoint
+    sm: '480px',
+    md: '640px',
+    lg: '768px',
+    xl: '1024px',
+    '2xl': '1280px',
+    '3xl': '1536px'
 };
 // Media query utilities
 const mediaQueries = {
@@ -694,19 +695,17 @@ const Image = ({ src, className }) => {
 };
 
 const List = ({ className, children }) => {
-    return (jsx("ul", { css: [localStyles$3.ul, className?.ul], className: "pa-list", children: children }));
+    return (jsx("ul", { css: [localStyles$3.ul, className?.ui], className: "pa-list", children: children }));
 };
 const localStyles$3 = {
     ul: {
-        borderRadius: '6px',
         fontWeight: '500',
-        padding: '20px',
         margin: 0,
         width: '100%',
         display: 'flex',
         flexWrap: 'wrap',
-        gap: '20px',
-        listStyleType: 'none'
+        listStyleType: 'none',
+        paddingInlineStart: '0' // Remove default padding
     }
 };
 
@@ -895,7 +894,12 @@ const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel
             handleOnSearch();
         }
     };
-    return (jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsx("div", { css: localStyles.inputWrapper, children: jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark }) }), useSearchButton && (jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, className: { button: localStyles.searchButton }, children: buttonText || 'Search' }))] }) }));
+    return (jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsx("div", { css: localStyles.inputWrapper, children: jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark }) }), useSearchButton && (jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, className: {
+                        button: {
+                            ...localStyles.searchButton,
+                            ...className?.searchButton
+                        }
+                    }, children: buttonText || 'Search' }))] }) }));
 };
 const localStyles = {
     searchForm: {
@@ -918,10 +922,7 @@ const localStyles = {
     },
     inputWrapper: {
         position: 'relative',
-        flex: 1,
-        [mediaQueries.minWidth.sm]: {
-        // alignItems: 'end'
-        }
+        flex: 1
     },
     searchFieldContainer: {
         margin: 0,
