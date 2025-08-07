@@ -32,6 +32,24 @@ function styleInject(css, ref) {
 var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: border-box;\r\n}\r\n\r\n/* Prevent font size inflation */\r\nhtml {\r\n  -moz-text-size-adjust: none;\r\n  -webkit-text-size-adjust: none;\r\n  text-size-adjust: none;\r\n}\r\n\r\n/* Remove default margin in favour of better control in authored CSS */\r\nbody,\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\np,\r\nfigure,\r\nblockquote,\r\ndl,\r\ndd {\r\n  margin-block-end: 0;\r\n}\r\n\r\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\r\nul,\r\nol {\r\n  list-style: none;\r\n}\r\n\r\n/* Set core body defaults */\r\nbody {\r\n  min-height: 100vh;\r\n  line-height: 1.5;\r\n  margin: 0;\r\n}\r\n\r\n/* Set shorter line heights on headings and interactive elements */\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nbutton,\r\ninput,\r\nlabel {\r\n  line-height: 1.1;\r\n}\r\n\r\n/* Balance text wrapping on headings */\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n  text-wrap: balance;\r\n  margin-top: 0px;\r\n}\r\n\r\n/* A elements that don't have a class get default styles */\r\na:not([class]) {\r\n  text-decoration-skip-ink: auto;\r\n  color: currentColor;\r\n}\r\n\r\n/* Make images easier to work with */\r\nimg,\r\npicture {\r\n  max-width: 100%;\r\n  display: block;\r\n}\r\n\r\n/* Inherit fonts for inputs and buttons */\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font-family: inherit;\r\n  font-size: inherit;\r\n}\r\n\r\n/* Make sure textareas without a rows attribute are not tiny */\r\ntextarea:not([rows]) {\r\n  min-height: 5em;\r\n}\r\n\r\n/* Anything that has been anchored to should have extra scroll margin */\r\n:target {\r\n  scroll-margin-block: 5ex;\r\n}\r\n";
 styleInject(css_248z);
 
+const hexToRgba = (hex, alpha) => {
+    // Ensure the hex is in the correct format
+    const hexPattern = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
+    if (!hexPattern.test(hex)) {
+        throw new Error('Invalid hex color format');
+    }
+    // Convert shorthand hex to full hex if necessary
+    const fullHex = hex.length === 4
+        ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
+        : hex;
+    // Extract RGB components
+    const r = parseInt(fullHex.slice(1, 3), 16);
+    const g = parseInt(fullHex.slice(3, 5), 16);
+    const b = parseInt(fullHex.slice(5, 7), 16);
+    // Return the RGBA string
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 const screenSizes = {
     xs: '360px', // Adjusted for a more common mobile breakpoint
     sm: '480px',
@@ -274,36 +292,43 @@ const baseTheme = {
                     (size === 'large' && kind === 'tertiary' && '8px 34px') ||
                     (size === 'large' && kind === 'ghost' && '10px 40px') ||
                     (size === 'large' && kind === 'ghostOnDark' && '10px 40px') ||
+                    (size === 'large' && kind === 'outline' && '10px 40px') ||
                     (size === 'medium' && kind === 'primary' && '8px 15px') ||
                     (size === 'medium' && kind === 'secondary' && '8px 15px') ||
                     (size === 'medium' && kind === 'ghost' && '8px 15px') ||
                     (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
+                    (size === 'medium' && kind === 'outline' && '8px 15px') ||
                     (size === 'small' && kind === 'primary' && '6px 15px') ||
                     (size === 'small' && kind === 'secondary' && '6px 15px') ||
                     (size === 'small' && kind === 'ghost' && '6px 15px') ||
                     (size === 'small' && kind === 'ghostOnDark' && '6px 15px') ||
+                    (size === 'small' && kind === 'outline' && '6px 15px') ||
                     undefined
                 : (kind === 'primary' && '8px') ||
                     (kind === 'secondary' && '8px') ||
                     (kind === 'ghost' && '8px') ||
                     (kind === 'ghostOnDark' && '8px') ||
+                    (kind === 'outline' && '8px') ||
                     undefined,
             border: (kind === 'primary' && 'none') ||
                 (kind === 'secondary' && 'none') ||
                 (kind === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
                 (kind === 'ghost' && 'none') ||
                 (kind === 'ghostOnDark' && 'none') ||
+                (kind === 'outline' && `1px solid ${baseColors.tertiary[500]}`) ||
                 undefined,
             color: (kind === 'primary' && 'white') ||
                 (kind === 'tertiary' && 'black') ||
                 (kind === 'secondary' && baseColors.primary[500]) ||
                 (kind === 'ghost' && 'inherit') ||
                 (kind === 'ghostOnDark' && baseColors.tertiary[50]) ||
+                (kind === 'outline' && baseColors.tertiary[50]) ||
                 'inherit',
             backgroundColor: (kind === 'primary' && baseColors.primary[500]) ||
                 (kind === 'secondary' && baseColors.tertiary[500]) ||
                 (kind === 'ghost' && 'transparent') ||
                 (kind === 'ghostOnDark' && 'transparent') ||
+                (kind === 'outline' && 'transparent') ||
                 (kind === 'secondary' &&
                     `color-mix(in srgb, ${baseColors.primary[500]} 75%, black)`) ||
                 undefined,
@@ -312,7 +337,10 @@ const baseTheme = {
                     ? {
                         filter: `drop-shadow(0 0 1px ${baseColors.primary[400]})`
                     }
-                    : { boxShadow: `0 0 3px black` })
+                    : { boxShadow: `0 0 3px black` }),
+                ...(kind === 'outline' && {
+                    backgroundColor: hexToRgba(baseColors.tertiary[50], 0.1)
+                })
             },
             '&:disabled': {
                 opacity: 0.6,

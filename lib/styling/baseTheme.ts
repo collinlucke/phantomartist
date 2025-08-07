@@ -1,4 +1,5 @@
 import { CSSObject } from '@emotion/react';
+import { hexToRgba } from './hexToRgba';
 
 export const screenSizes = {
   xs: '360px', // Adjusted for a more common mobile breakpoint
@@ -289,19 +290,23 @@ export const baseTheme = {
           (size === 'large' && kind === 'tertiary' && '8px 34px') ||
           (size === 'large' && kind === 'ghost' && '10px 40px') ||
           (size === 'large' && kind === 'ghostOnDark' && '10px 40px') ||
+          (size === 'large' && kind === 'outline' && '10px 40px') ||
           (size === 'medium' && kind === 'primary' && '8px 15px') ||
           (size === 'medium' && kind === 'secondary' && '8px 15px') ||
           (size === 'medium' && kind === 'ghost' && '8px 15px') ||
           (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
+          (size === 'medium' && kind === 'outline' && '8px 15px') ||
           (size === 'small' && kind === 'primary' && '6px 15px') ||
           (size === 'small' && kind === 'secondary' && '6px 15px') ||
           (size === 'small' && kind === 'ghost' && '6px 15px') ||
           (size === 'small' && kind === 'ghostOnDark' && '6px 15px') ||
+          (size === 'small' && kind === 'outline' && '6px 15px') ||
           undefined
         : (kind === 'primary' && '8px') ||
           (kind === 'secondary' && '8px') ||
           (kind === 'ghost' && '8px') ||
           (kind === 'ghostOnDark' && '8px') ||
+          (kind === 'outline' && '8px') ||
           undefined,
       border:
         (kind === 'primary' && 'none') ||
@@ -309,6 +314,7 @@ export const baseTheme = {
         (kind === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
         (kind === 'ghost' && 'none') ||
         (kind === 'ghostOnDark' && 'none') ||
+        (kind === 'outline' && `1px solid ${baseColors.tertiary[500]}`) ||
         undefined,
       color:
         (kind === 'primary' && 'white') ||
@@ -316,12 +322,14 @@ export const baseTheme = {
         (kind === 'secondary' && baseColors.primary[500]) ||
         (kind === 'ghost' && 'inherit') ||
         (kind === 'ghostOnDark' && baseColors.tertiary[50]) ||
+        (kind === 'outline' && baseColors.tertiary[50]) ||
         'inherit',
       backgroundColor:
         (kind === 'primary' && baseColors.primary[500]) ||
         (kind === 'secondary' && baseColors.tertiary[500]) ||
         (kind === 'ghost' && 'transparent') ||
         (kind === 'ghostOnDark' && 'transparent') ||
+        (kind === 'outline' && 'transparent') ||
         (kind === 'secondary' &&
           `color-mix(in srgb, ${baseColors.primary[500]} 75%, black)`) ||
         undefined,
@@ -330,7 +338,10 @@ export const baseTheme = {
           ? {
               filter: `drop-shadow(0 0 1px ${baseColors.primary[400]})`
             }
-          : { boxShadow: `0 0 3px black` })
+          : { boxShadow: `0 0 3px black` }),
+        ...(kind === 'outline' && {
+          backgroundColor: hexToRgba(baseColors.tertiary[50], 0.1)
+        })
       },
       '&:disabled': {
         opacity: 0.6,
