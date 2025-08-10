@@ -1321,5 +1321,5 @@ var scopedContrastAnalysis = /*#__PURE__*/Object.freeze({
   quickAudit: quickAudit
 });
 
-export { Block, Button, ButtonGroup, Globals, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, scopedContrastAnalysis as ScopedContrastAnalysis, Search, WCAGThresholds, analyzeContrast, baseColors, baseTheme, baseTypography, baseVibrantColors, checkWCAGCompliance, createResponsiveStyle, getContrastEmoji, getContrastRatio, getLuminance, hexToRgb, mediaQueries, screenSizes };
+export { Block, Button, ButtonGroup, Globals, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, scopedContrastAnalysis as ScopedContrastAnalysis, Search, WCAGThresholds, analyzeContrast, baseColors, baseTheme, baseTypography, baseVibrantColors, checkWCAGCompliance, createResponsiveStyle, getContrastEmoji, getContrastRatio, getLuminance, hexToRgb, hexToRgba, mediaQueries, screenSizes };
 //# sourceMappingURL=index.esm.js.map

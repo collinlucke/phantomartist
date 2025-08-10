@@ -3,7 +3,6 @@ import { CSSObject } from '@emotion/react';
 type Search = {
     searchTerm?: string;
     searchLabel?: string;
-    resultsCount?: number;
     buttonSize?: 'large' | 'medium' | 'small';
     inputSize?: 'large' | 'medium' | 'small';
     totalResultsCount?: string;

@@ -1350,6 +1350,7 @@ exports.getContrastEmoji = getContrastEmoji;
 exports.getContrastRatio = getContrastRatio;
 exports.getLuminance = getLuminance;
 exports.hexToRgb = hexToRgb;
+exports.hexToRgba = hexToRgba;
 exports.mediaQueries = mediaQueries;
 exports.screenSizes = screenSizes;
 //# sourceMappingURL=index.cjs.js.map
