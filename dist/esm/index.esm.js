@@ -483,7 +483,7 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             className?.container
         ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement] }));
 };
-const getSizeStyles$1 = (size) => {
+const getSizeStyles = (size) => {
     switch (size) {
         case 'large':
             return {
@@ -537,7 +537,7 @@ const localStyles$8 = ({ labelPosition, size, autoResize, onDark }) => ({
         fontSize: '0.875rem'
     },
     input: {
-        ...getSizeStyles$1(size),
+        ...getSizeStyles(size),
         border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
         borderRadius: '6px',
         transition: 'all 0.2s ease',
@@ -552,7 +552,7 @@ const localStyles$8 = ({ labelPosition, size, autoResize, onDark }) => ({
         }
     },
     textarea: {
-        ...getSizeStyles$1(size),
+        ...getSizeStyles(size),
         border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
         borderRadius: '6px',
         transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Removed height transition for auto-resize
@@ -607,79 +607,85 @@ const localStyles$7 = (isDark) => ({
     }
 });
 
-const InnerWidth = ({ children, size = 'medium', className }) => {
-    const sizeStyles = getSizeStyles(size);
-    return (jsx("div", { css: [localStyles$6.innerWidth, sizeStyles, className?.innerWidth], className: "pa-inner-width", children: children }));
+const InnerWidth = ({ children, 
+// size = 'medium',
+className, dataTestid = 'inner-width' }) => {
+    // const sizeStyles = getSizeStyles(size);
+    return (jsx("div", { css: [
+            localStyles$6.innerWidth,
+            // sizeStyles,
+            className?.innerWidth
+        ], className: "pa-inner-width", "data-testid": dataTestid, children: children }));
 };
-const getSizeStyles = (size) => {
-    switch (size) {
-        case 'small':
-            return {
-                width: 'calc(100% - 2 * 20px)',
-                '@media (min-width: 634px)': {
-                    width: '594px'
-                },
-                '@media (min-width: 720px)': {
-                    width: 'calc(100% - 160px)'
-                },
-                '@media (min-width: 1000px)': {
-                    width: '640px'
-                },
-                '@media (min-width: 1100px)': {
-                    width: 'calc(100% - 360px)'
-                },
-                '@media (min-width: 1250px)': {
-                    width: '720px'
-                }
-            };
-        case 'medium':
-            return {
-                width: 'calc(100% - 2 * 20px)',
-                '@media (min-width: 634px)': {
-                    width: '594px'
-                },
-                '@media (min-width: 720px)': {
-                    width: 'calc(100% - 126px)'
-                },
-                '@media (min-width: 1000px)': {
-                    width: '874px'
-                },
-                '@media (min-width: 1100px)': {
-                    width: 'calc(100% - 226px)'
-                },
-                '@media (min-width: 1250px)': {
-                    width: '1024px'
-                }
-            };
-        case 'large':
-            return {
-                width: 'calc(100% - 2 * 40px)',
-                '@media (min-width: 634px)': {
-                    width: 'calc(100% - 2 * 40px)'
-                },
-                '@media (min-width: 720px)': {
-                    width: 'calc(100% - 2 * 50px)'
-                },
-                '@media (min-width: 1000px)': {
-                    width: 'calc(100% - 2 * 50px)'
-                },
-                '@media (min-width: 1100px)': {
-                    width: 'calc(100% - 2 * 55px)'
-                },
-                '@media (min-width: 1250px)': {
-                    width: 'calc(100% - 2 * 60px)'
-                }
-            };
-        case 'full':
-            return {
-                width: 'calc(100% - 2 * 60px)',
-                padding: '0 60px',
-                boxSizing: 'border-box'
-            };
-        default:
-            return {};
-    }
-};
+// const getSizeStyles = (size: InnerWidthSize): CSSObject => {
+// switch (size) {
+//   case 'small':
+//     return {
+//       width: 'calc(100% - 2 * 20px)',
+//       '@media (min-width: 634px)': {
+//         width: '594px'
+//       },
+//       '@media (min-width: 720px)': {
+//         width: 'calc(100% - 160px)'
+//       },
+//       '@media (min-width: 1000px)': {
+//         width: '640px'
+//       },
+//       '@media (min-width: 1100px)': {
+//         width: 'calc(100% - 360px)'
+//       },
+//       '@media (min-width: 1250px)': {
+//         width: '720px'
+//       }
+//     };
+//   case 'medium':
+//     return {
+//       width: 'calc(100% - 2 * 20px)',
+//       '@media (min-width: 634px)': {
+//         width: '594px'
+//       },
+//       '@media (min-width: 720px)': {
+//         width: 'calc(100% - 126px)'
+//       },
+//       '@media (min-width: 1000px)': {
+//         width: '874px'
+//       },
+//       '@media (min-width: 1100px)': {
+//         width: 'calc(100% - 226px)'
+//       },
+//       '@media (min-width: 1250px)': {
+//         width: '1024px'
+//       }
+//     };
+//   case 'large':
+//     return {
+//       width: 'calc(100% - 2 * 40px)',
+//       '@media (min-width: 634px)': {
+//         width: 'calc(100% - 2 * 40px)'
+//       },
+//       '@media (min-width: 720px)': {
+//         width: 'calc(100% - 2 * 50px)'
+//       },
+//       '@media (min-width: 1000px)': {
+//         width: 'calc(100% - 2 * 50px)'
+//       },
+//       '@media (min-width: 1100px)': {
+//         width: 'calc(100% - 2 * 55px)'
+//       },
+//       '@media (min-width: 1250px)': {
+//         width: 'calc(100% - 2 * 60px)'
+//       }
+//     };
+//   case 'full':
+//     return {
+//       width: 'calc(100% - 2 * 60px)',
+//       padding: '0 60px',
+//       boxSizing: 'border-box'
+//     };
+//   default:
+//     return {};
+// }
+// };
 const localStyles$6 = {
     innerWidth: {
         display: 'flex',

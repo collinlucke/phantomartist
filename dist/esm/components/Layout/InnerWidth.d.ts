@@ -7,6 +7,7 @@ type InnerWidthProps = {
     className?: {
         innerWidth: CSSObject;
     };
+    dataTestid?: string;
 };
 export declare const InnerWidth: React.FC<InnerWidthProps>;
 export {};
