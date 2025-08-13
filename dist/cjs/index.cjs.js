@@ -1,8 +1,8 @@
 'use strict';
 
 var jsxRuntime = require('@emotion/react/jsx-runtime');
-var react = require('@emotion/react');
 var React = require('react');
+var react = require('@emotion/react');
 
 function styleInject(css, ref) {
   if (ref === void 0) ref = {};
@@ -395,21 +395,76 @@ const baseTheme = {
     modalContent: {}
 };
 
-const Button = ({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, ariaLabel, ariaDescribedBy, disabled = false, onClick }) => {
+const Button = React.forwardRef(({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, ariaLabel, ariaDescribedBy, ariaExpanded, ariaHaspopup, ariaPressed, role, disabled = false, autoFocus = false, tabIndex, onClick, onKeyDown, onFocus, onBlur }, ref) => {
     const consumerTheme = react.useTheme();
     const onClickHandler = e => {
         onClick?.(e);
     };
-    return (jsxRuntime.jsx("button", { type: type, onClick: onClickHandler, disabled: disabled, css: [
+    // Generate aria-label for icon-only buttons if not provided
+    const effectiveAriaLabel = ariaLabel || (iconOnly && !children ? 'Button' : undefined);
+    return (jsxRuntime.jsx("button", { ref: ref, type: type, onClick: onClickHandler, onKeyDown: onKeyDown, onFocus: onFocus, onBlur: onBlur, disabled: disabled, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, css: [
             baseTheme.button({ kind, size, iconOnly }),
-            consumerTheme?.button && consumerTheme.button({ kind, size, iconOnly }),
+            consumerTheme?.button &&
+                consumerTheme.button({ kind, size, iconOnly }),
             className?.button
-        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, "aria-label": ariaLabel, "aria-describedby": ariaDescribedBy, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [icon, children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
-};
+        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, "aria-label": effectiveAriaLabel, "aria-describedby": ariaDescribedBy, "aria-expanded": ariaExpanded, "aria-haspopup": ariaHaspopup, "aria-pressed": ariaPressed, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [typeof icon === 'string' ? (jsxRuntime.jsx("span", { "aria-hidden": "true", children: icon })) : (icon), children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
+});
+Button.displayName = 'Button';
 
-const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId, ariaLabel = 'Button group' }) => {
+const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'medium', dataTestId, ariaLabel, ariaLabelledBy, ariaDescribedBy, role = 'group', onKeyDown }) => {
     const consumerTheme = react.useTheme();
-    return (jsxRuntime.jsx("div", { "aria-label": ariaLabel, role: "group", css: [
+    // Handle keyboard navigation for button groups
+    const handleKeyDown = e => {
+        if (role === 'toolbar' || role === 'radiogroup') {
+            const buttons = e.currentTarget.querySelectorAll('button:not([disabled])');
+            const currentIndex = Array.from(buttons).findIndex(button => button === document.activeElement);
+            let nextIndex = currentIndex;
+            switch (e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                    e.preventDefault();
+                    nextIndex =
+                        direction === 'horizontal'
+                            ? e.key === 'ArrowRight'
+                                ? currentIndex + 1
+                                : currentIndex
+                            : e.key === 'ArrowDown'
+                                ? currentIndex + 1
+                                : currentIndex;
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    nextIndex =
+                        direction === 'horizontal'
+                            ? e.key === 'ArrowLeft'
+                                ? currentIndex - 1
+                                : currentIndex
+                            : e.key === 'ArrowUp'
+                                ? currentIndex - 1
+                                : currentIndex;
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    nextIndex = 0;
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    nextIndex = buttons.length - 1;
+                    break;
+            }
+            // Wrap around navigation
+            if (nextIndex < 0)
+                nextIndex = buttons.length - 1;
+            if (nextIndex >= buttons.length)
+                nextIndex = 0;
+            if (nextIndex !== currentIndex && buttons[nextIndex]) {
+                buttons[nextIndex].focus();
+            }
+        }
+        onKeyDown?.(e);
+    };
+    return (jsxRuntime.jsx("div", { "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, role: role, onKeyDown: handleKeyDown, css: [
             baseTheme.buttonGroup({ direction, gap }),
             consumerTheme?.buttonGroup &&
                 consumerTheme.buttonGroup({ direction, gap }),
@@ -417,7 +472,7 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
         ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
 };
 
-const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false, helperText }) => {
+const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false, helperText, autoFocus = false, autoComplete, ariaLabel, ariaDescribedBy, ariaInvalid, ariaRequired, role, tabIndex, maxLength, minLength, pattern, min, max, step }) => {
     const textAreaRef = React.useRef(null);
     // Generate ID from label if it's a string, otherwise use name or fallback
     const inputId = id ||
@@ -451,13 +506,25 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             }
         }
     }, [value, autoResize, type]);
+    // Generate comprehensive aria-describedby
+    const generateAriaDescribedBy = () => {
+        const descriptions = [];
+        if (error)
+            descriptions.push(`${inputId}-error`);
+        if (helperText)
+            descriptions.push(`${inputId}-helper`);
+        if (ariaDescribedBy)
+            descriptions.push(ariaDescribedBy);
+        return descriptions.length > 0 ? descriptions.join(' ') : undefined;
+    };
+    const effectiveAriaDescribedBy = generateAriaDescribedBy();
+    const effectiveAriaInvalid = ariaInvalid !== undefined ? ariaInvalid : !!error;
+    const effectiveAriaRequired = ariaRequired !== undefined ? ariaRequired : required;
     const labelElement = label ? (jsxRuntime.jsxs("label", { css: [
             localStyles$8({ labelPosition, size, autoResize, onDark }).label,
             className?.label
-        ], 
-        // css={[getStyles(labelPosition, size, autoResize).label, className?.label]}
-        htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$8({ labelPosition, size, autoResize, onDark }).required, children: "*" }))] })) : null;
-    const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, "data-testid": testId, css: [
+        ], htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$8({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
+    const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, "data-testid": testId, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, autoComplete: autoComplete, css: [
             localStyles$8({ labelPosition, size, autoResize }).textarea,
             error && localStyles$8({ labelPosition, size, autoResize }).inputError,
             disabled &&
@@ -465,7 +532,7 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             readonly &&
                 localStyles$8({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
-        ], "aria-describedby": error ? `${inputId}-error` : undefined })) : (jsxRuntime.jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: required, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, css: [
+        ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired })) : (jsxRuntime.jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, pattern: pattern, min: min, max: max, step: step, autoComplete: autoComplete, css: [
             localStyles$8({ labelPosition, size, autoResize }).input,
             error && localStyles$8({ labelPosition, size, autoResize }).inputError,
             disabled &&
@@ -473,12 +540,12 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             readonly &&
                 localStyles$8({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
-        ], "aria-describedby": error ? `${inputId}-error` : undefined }));
+        ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired }));
     const errorElement = error ? (jsxRuntime.jsx("div", { css: [
             localStyles$8({ labelPosition, size, autoResize }).error,
             className?.error
-        ], id: `${inputId}-error`, role: "alert", children: error })) : null;
-    const helperTextElement = (jsxRuntime.jsx("div", { css: localStyles$8({ labelPosition, size, autoResize }).helperText, children: helperText }));
+        ], id: `${inputId}-error`, role: "alert", "aria-live": "polite", children: error })) : null;
+    const helperTextElement = helperText ? (jsxRuntime.jsx("div", { css: localStyles$8({ labelPosition, size, autoResize }).helperText, id: `${inputId}-helper`, children: helperText })) : null;
     // Layout based on label position
     return (jsxRuntime.jsxs("div", { css: [
             // getStyles(labelPosition, size, autoResize).container,
@@ -698,9 +765,9 @@ const localStyles$6 = {
     }
 };
 
-const Header = ({ children, className, dataTestId }) => {
+const Header = ({ children, className, dataTestId, ariaLabel = 'Site header', ariaLabelledBy, role = 'banner' }) => {
     // If children is provided, use legacy mode
-    return (jsxRuntime.jsx("header", { css: [localStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, children: jsxRuntime.jsx(jsxRuntime.Fragment, { children: children }) }));
+    return (jsxRuntime.jsx("header", { css: [localStyles$5.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsxRuntime.jsx(jsxRuntime.Fragment, { children: children }) }));
 };
 const localStyles$5 = {
     header: {
@@ -731,11 +798,12 @@ const Image = ({ src, className }) => {
     return (jsxRuntime.jsx("img", { src: src, css: [baseTheme.img, className?.img], className: "pa-image", onLoad: handleImageLoad, style: { display: isLoaded ? 'block' : 'none' } }));
 };
 
-const List = ({ className, children }) => {
-    return (jsxRuntime.jsx("ul", { css: [localStyles$3.ul, className?.ui], className: "pa-list", children: children }));
+const List = ({ className, children, ariaLabel, ariaLabelledBy, ariaDescribedBy, role = 'list', dataTestId, ordered = false }) => {
+    const ListElement = ordered ? 'ol' : 'ul';
+    return (jsxRuntime.jsx(ListElement, { css: [localStyles$3.list, className], className: "pa-list", role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: children }));
 };
 const localStyles$3 = {
-    ul: {
+    list: {
         fontWeight: '500',
         margin: 0,
         width: '100%',
@@ -746,25 +814,27 @@ const localStyles$3 = {
     }
 };
 
-const ListItem = ({ children, className, useHover }) => {
+const ListItem = ({ children, className, useHover, role = 'listitem', ariaLabel, ariaDescribedBy, ariaSelected, ariaExpanded, ariaLevel, tabIndex, dataTestId, onClick, onKeyDown }) => {
     return (jsxRuntime.jsx("li", { css: [
             localStyles$2.li,
             className && className.li,
             useHover && localStyles$2.liHover,
             className && useHover && className.liHover
-        ], className: "pa-list-item", children: children }));
+        ], className: "pa-list-item", role: role, "aria-label": ariaLabel, "aria-describedby": ariaDescribedBy, "aria-selected": ariaSelected, "aria-expanded": ariaExpanded, "aria-level": ariaLevel, tabIndex: tabIndex, "data-testid": dataTestId, onClick: onClick, onKeyDown: onKeyDown, children: children }));
 };
 const localStyles$2 = {
     li: {
         borderRadius: '6px',
-        border: `1px solid ${baseColors.secondary}`,
+        border: `1px solid ${baseColors.secondary[500]}`,
         marginBottom: '10px',
         padding: '10px',
-        color: baseColors.secondary,
+        color: baseColors.secondary[500],
         display: 'flex'
     },
     liHover: {
-        ':hover': {}
+        ':hover': {
+            backgroundColor: baseColors.secondary[50]
+        }
     }
 };
 
@@ -834,38 +904,100 @@ const r = y("CancelCircleIcon", [["path", {
   key: "k1"
 }]]);
 
-const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showCloseButton = true, dataTestId }) => {
+const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showCloseButton = true, dataTestId, className, closeOnBackdropClick = true, closeOnEscape = true, trapFocus = true, initialFocusRef, finalFocusRef, ariaLabel, ariaLabelledBy, ariaDescribedBy }) => {
+    // Store the element that was focused before the modal opened
+    const [previouslyFocusedElement, setPreviouslyFocusedElement] = React.useState(null);
+    const modalRef = React.useRef(null);
     const handleBackdropClick = (e) => {
-        if (e.target === e.currentTarget) {
+        if (closeOnBackdropClick && e.target === e.currentTarget) {
             onClose();
         }
     };
+    // Focus trap implementation
     const handleKeyDown = (e) => {
-        if (e.key === 'Escape') {
-            onClose();
+        if (!trapFocus || e.key !== 'Tab')
+            return;
+        const modalElement = modalRef.current;
+        if (!modalElement)
+            return;
+        const focusableElements = modalElement.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])');
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement?.focus();
+            }
+        }
+        else {
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement?.focus();
+            }
         }
     };
     React.useEffect(() => {
+        if (isOpen) {
+            // Store the currently focused element
+            setPreviouslyFocusedElement(document.activeElement);
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+            // Focus management
+            setTimeout(() => {
+                if (initialFocusRef?.current) {
+                    initialFocusRef.current.focus();
+                }
+                else {
+                    // Focus the first focusable element in the modal
+                    const modalElement = modalRef.current;
+                    if (modalElement) {
+                        const firstFocusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                        if (firstFocusable) {
+                            firstFocusable.focus();
+                        }
+                    }
+                }
+            }, 0);
+        }
+        else {
+            // Restore body scrolling
+            document.body.style.overflow = '';
+            // Return focus to previously focused element
+            if (finalFocusRef?.current) {
+                finalFocusRef.current.focus();
+            }
+            else if (previouslyFocusedElement) {
+                previouslyFocusedElement.focus();
+            }
+        }
+        // Escape key handler
         const handleEscape = (e) => {
-            if (e.key === 'Escape') {
+            if (closeOnEscape && e.key === 'Escape') {
+                e.preventDefault();
                 onClose();
             }
         };
         if (isOpen) {
             document.addEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'hidden';
-        }
-        else {
-            document.body.style.overflow = 'unset';
         }
         return () => {
             document.removeEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = '';
         };
-    }, [isOpen, onClose]);
+    }, [
+        isOpen,
+        onClose,
+        closeOnEscape,
+        initialFocusRef,
+        finalFocusRef,
+        previouslyFocusedElement
+    ]);
     if (!isOpen)
         return null;
-    return (jsxRuntime.jsx("div", { css: localStyles$1.backdrop, onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { css: [localStyles$1.modal, { maxWidth }], role: "dialog", "aria-modal": "true", "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: localStyles$1.header, children: [title && jsxRuntime.jsx("h1", { css: localStyles$1.title, children: title }), showCloseButton && (jsxRuntime.jsx(Button, { className: { button: localStyles$1.closeButton }, onClick: onClose, ariaLabel: "Close modal", kind: "ghost", size: "medium", iconOnly: true, icon: jsxRuntime.jsx(r, { size: 24 }) }))] })), jsxRuntime.jsx("div", { css: localStyles$1.content, children: children })] }) }));
+    // Generate appropriate aria attributes
+    const titleId = title ? `${dataTestId || 'modal'}-title` : undefined;
+    const effectiveAriaLabelledBy = ariaLabelledBy || titleId;
+    return (jsxRuntime.jsx("div", { css: [localStyles$1.backdrop, className?.backdrop], onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { ref: modalRef, css: [localStyles$1.modal, { maxWidth }, className?.modal], role: "dialog", "aria-modal": "true", "aria-label": ariaLabel, "aria-labelledby": effectiveAriaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: [localStyles$1.header, className?.header], children: [title && (jsxRuntime.jsx("h1", { css: [localStyles$1.title, className?.title], id: titleId, children: title })), showCloseButton && (jsxRuntime.jsx(Button, { className: { button: localStyles$1.closeButton }, onClick: onClose, ariaLabel: "Close modal", kind: "ghost", size: "medium", iconOnly: true, icon: jsxRuntime.jsx(r, { size: 24 }) }))] })), jsxRuntime.jsx("div", { css: [localStyles$1.content, className?.content], children: children })] }) }));
 };
 const localStyles$1 = {
     backdrop: {
@@ -917,7 +1049,7 @@ const localStyles$1 = {
     }
 };
 
-const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onDark = false, useSearchButton = true, onSearch, setSearchTerm }) => {
+const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onDark = false, useSearchButton = true, ariaLabel, ariaLabelledBy, ariaDescribedBy, resultsAriaLive = 'polite', searchRole, dataTestId, autoFocus = false, onSearch, setSearchTerm }) => {
     const setSearchTermHandler = (e) => {
         if (e.target instanceof HTMLInputElement) {
             setSearchTerm(e);
@@ -931,7 +1063,7 @@ const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel
             handleOnSearch();
         }
     };
-    return (jsxRuntime.jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", children: jsxRuntime.jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles.results, className?.resultsText], children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark }) }), useSearchButton && (jsxRuntime.jsx(Button, { "data-testid": "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, className: {
+    return (jsxRuntime.jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", role: searchRole || 'search', "aria-label": ariaLabel || 'Search', "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: jsxRuntime.jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles.results, className?.resultsText], "aria-live": resultsAriaLive, "aria-atomic": "true", role: "status", children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', autoFocus: autoFocus, className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark, ariaLabel: !label ? searchLabel || 'Search' : undefined, ariaDescribedBy: showResultsCount ? 'search-results-count' : undefined }) }), useSearchButton && (jsxRuntime.jsx(Button, { dataTestId: "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, ariaLabel: `${buttonText || 'Search'} - ${totalResultsCount} results available`, className: {
                         button: {
                             ...localStyles.searchButton,
                             ...className?.searchButton

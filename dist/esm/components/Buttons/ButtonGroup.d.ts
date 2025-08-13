@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, KeyboardEventHandler } from 'react';
 import { CSSObject } from '@emotion/react';
-interface ButtonGroupProps {
+type ButtonGroupProps = {
     children: ReactElement | ReactElement[];
     className?: {
         buttonGroup?: CSSObject;
@@ -9,6 +9,10 @@ interface ButtonGroupProps {
     gap?: 'small' | 'medium' | 'large';
     dataTestId?: string;
     ariaLabel?: string;
-}
+    ariaLabelledBy?: string;
+    ariaDescribedBy?: string;
+    role?: 'group' | 'toolbar' | 'radiogroup';
+    onKeyDown?: KeyboardEventHandler<HTMLDivElement>;
+};
 export declare const ButtonGroup: React.FC<ButtonGroupProps>;
 export {};

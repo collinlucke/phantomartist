@@ -14,6 +14,13 @@ type Search = {
     onDark?: boolean;
     resultsLabel?: React.ReactNode;
     useSearchButton?: boolean;
+    ariaLabel?: string;
+    ariaLabelledBy?: string;
+    ariaDescribedBy?: string;
+    resultsAriaLive?: 'polite' | 'assertive' | 'off';
+    searchRole?: string;
+    dataTestId?: string;
+    autoFocus?: boolean;
     className?: {
         searchWrapper?: CSSObject;
         resultsText?: CSSObject;

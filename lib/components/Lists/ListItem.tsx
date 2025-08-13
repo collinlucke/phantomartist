@@ -8,12 +8,32 @@ type ListItemProps = {
     liHover?: CSSObject;
   };
   useHover?: boolean;
+  role?: 'listitem' | 'menuitem' | 'tab' | 'treeitem' | 'option';
+  ariaLabel?: string;
+  ariaDescribedBy?: string;
+  ariaSelected?: boolean;
+  ariaExpanded?: boolean;
+  ariaLevel?: number;
+  tabIndex?: number;
+  dataTestId?: string;
+  onClick?: (event: React.MouseEvent<HTMLLIElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLLIElement>) => void;
 };
 
 export const ListItem: React.FC<ListItemProps> = ({
   children,
   className,
-  useHover
+  useHover,
+  role = 'listitem',
+  ariaLabel,
+  ariaDescribedBy,
+  ariaSelected,
+  ariaExpanded,
+  ariaLevel,
+  tabIndex,
+  dataTestId,
+  onClick,
+  onKeyDown
 }) => {
   return (
     <li
@@ -24,22 +44,34 @@ export const ListItem: React.FC<ListItemProps> = ({
         className && useHover && className.liHover
       ]}
       className="pa-list-item"
+      role={role}
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
+      aria-selected={ariaSelected}
+      aria-expanded={ariaExpanded}
+      aria-level={ariaLevel}
+      tabIndex={tabIndex}
+      data-testid={dataTestId}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
     >
       {children}
     </li>
   );
 };
 
-const localStyles = {
+const localStyles: { [key: string]: CSSObject } = {
   li: {
     borderRadius: '6px',
-    border: `1px solid ${baseColors.secondary}`,
+    border: `1px solid ${baseColors.secondary[500]}`,
     marginBottom: '10px',
     padding: '10px',
-    color: baseColors.secondary,
+    color: baseColors.secondary[500],
     display: 'flex'
   },
   liHover: {
-    ':hover': {}
+    ':hover': {
+      backgroundColor: baseColors.secondary[50]
+    }
   }
 };

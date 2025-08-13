@@ -4,7 +4,7 @@ import { CancelCircleIcon } from 'hugeicons-react';
 import { baseColors } from '../../styling/baseTheme';
 import { Button } from '../Buttons/Button';
 
-export interface ModalProps {
+export type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
@@ -12,7 +12,22 @@ export interface ModalProps {
   maxWidth?: string;
   showCloseButton?: boolean;
   dataTestId?: string;
-}
+  className?: {
+    backdrop?: CSSObject;
+    modal?: CSSObject;
+    header?: CSSObject;
+    title?: CSSObject;
+    content?: CSSObject;
+  };
+  closeOnBackdropClick?: boolean;
+  closeOnEscape?: boolean;
+  trapFocus?: boolean;
+  initialFocusRef?: React.RefObject<HTMLElement>;
+  finalFocusRef?: React.RefObject<HTMLElement>;
+  ariaLabel?: string;
+  ariaLabelledBy?: string;
+  ariaDescribedBy?: string;
+};
 
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
@@ -21,57 +36,147 @@ export const Modal: React.FC<ModalProps> = ({
   title,
   maxWidth = '400px',
   showCloseButton = true,
-  dataTestId
+  dataTestId,
+  className,
+  closeOnBackdropClick = true,
+  closeOnEscape = true,
+  trapFocus = true,
+  initialFocusRef,
+  finalFocusRef,
+  ariaLabel,
+  ariaLabelledBy,
+  ariaDescribedBy
 }) => {
+  // Store the element that was focused before the modal opened
+  const [previouslyFocusedElement, setPreviouslyFocusedElement] =
+    React.useState<HTMLElement | null>(null);
+  const modalRef = React.useRef<HTMLDivElement>(null);
+
   const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
+    if (closeOnBackdropClick && e.target === e.currentTarget) {
       onClose();
     }
   };
 
+  // Focus trap implementation
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onClose();
+    if (!trapFocus || e.key !== 'Tab') return;
+
+    const modalElement = modalRef.current;
+    if (!modalElement) return;
+
+    const focusableElements = modalElement.querySelectorAll(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])'
+    );
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[
+      focusableElements.length - 1
+    ] as HTMLElement;
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement?.focus();
+      }
+    } else {
+      if (document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement?.focus();
+      }
     }
   };
 
   React.useEffect(() => {
+    if (isOpen) {
+      // Store the currently focused element
+      setPreviouslyFocusedElement(document.activeElement as HTMLElement);
+
+      // Prevent body scrolling
+      document.body.style.overflow = 'hidden';
+
+      // Focus management
+      setTimeout(() => {
+        if (initialFocusRef?.current) {
+          initialFocusRef.current.focus();
+        } else {
+          // Focus the first focusable element in the modal
+          const modalElement = modalRef.current;
+          if (modalElement) {
+            const firstFocusable = modalElement.querySelector(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            ) as HTMLElement;
+            if (firstFocusable) {
+              firstFocusable.focus();
+            }
+          }
+        }
+      }, 0);
+    } else {
+      // Restore body scrolling
+      document.body.style.overflow = '';
+
+      // Return focus to previously focused element
+      if (finalFocusRef?.current) {
+        finalFocusRef.current.focus();
+      } else if (previouslyFocusedElement) {
+        previouslyFocusedElement.focus();
+      }
+    }
+
+    // Escape key handler
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (closeOnEscape && e.key === 'Escape') {
+        e.preventDefault();
         onClose();
       }
     };
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     };
-  }, [isOpen, onClose]);
+  }, [
+    isOpen,
+    onClose,
+    closeOnEscape,
+    initialFocusRef,
+    finalFocusRef,
+    previouslyFocusedElement
+  ]);
 
   if (!isOpen) return null;
 
+  // Generate appropriate aria attributes
+  const titleId = title ? `${dataTestId || 'modal'}-title` : undefined;
+  const effectiveAriaLabelledBy = ariaLabelledBy || titleId;
+
   return (
     <div
-      css={localStyles.backdrop}
+      css={[localStyles.backdrop, className?.backdrop]}
       onClick={handleBackdropClick}
       onKeyDown={handleKeyDown}
     >
       <div
-        css={[localStyles.modal, { maxWidth }]}
+        ref={modalRef}
+        css={[localStyles.modal, { maxWidth }, className?.modal]}
         role="dialog"
         aria-modal="true"
+        aria-label={ariaLabel}
+        aria-labelledby={effectiveAriaLabelledBy}
+        aria-describedby={ariaDescribedBy}
         data-testid={dataTestId}
       >
         {(title || showCloseButton) && (
-          <div css={localStyles.header}>
-            {title && <h1 css={localStyles.title}>{title}</h1>}
+          <div css={[localStyles.header, className?.header]}>
+            {title && (
+              <h1 css={[localStyles.title, className?.title]} id={titleId}>
+                {title}
+              </h1>
+            )}
             {showCloseButton && (
               <Button
                 className={{ button: localStyles.closeButton }}
@@ -85,7 +190,7 @@ export const Modal: React.FC<ModalProps> = ({
             )}
           </div>
         )}
-        <div css={localStyles.content}>{children}</div>
+        <div css={[localStyles.content, className?.content]}>{children}</div>
       </div>
     </div>
   );

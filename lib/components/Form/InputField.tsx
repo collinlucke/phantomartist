@@ -30,6 +30,20 @@ export type InputFieldProps = {
     HTMLInputElement | HTMLTextAreaElement
   >;
   'data-testid'?: string;
+  autoFocus?: boolean;
+  autoComplete?: string;
+  ariaLabel?: string;
+  ariaDescribedBy?: string;
+  ariaInvalid?: boolean;
+  ariaRequired?: boolean;
+  role?: string;
+  tabIndex?: number;
+  maxLength?: number;
+  minLength?: number;
+  pattern?: string;
+  min?: string | number;
+  max?: string | number;
+  step?: string | number;
 
   // Layout options
   labelPosition?: 'left' | 'right' | 'above' | 'below';
@@ -66,7 +80,21 @@ export const InputField: React.FC<InputFieldProps> = ({
   className,
   onKeyDown,
   onDark = false,
-  helperText
+  helperText,
+  autoFocus = false,
+  autoComplete,
+  ariaLabel,
+  ariaDescribedBy,
+  ariaInvalid,
+  ariaRequired,
+  role,
+  tabIndex,
+  maxLength,
+  minLength,
+  pattern,
+  min,
+  max,
+  step
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -106,13 +134,27 @@ export const InputField: React.FC<InputFieldProps> = ({
       }
     }
   }, [value, autoResize, type]);
+  // Generate comprehensive aria-describedby
+  const generateAriaDescribedBy = () => {
+    const descriptions = [];
+    if (error) descriptions.push(`${inputId}-error`);
+    if (helperText) descriptions.push(`${inputId}-helper`);
+    if (ariaDescribedBy) descriptions.push(ariaDescribedBy);
+    return descriptions.length > 0 ? descriptions.join(' ') : undefined;
+  };
+
+  const effectiveAriaDescribedBy = generateAriaDescribedBy();
+  const effectiveAriaInvalid =
+    ariaInvalid !== undefined ? ariaInvalid : !!error;
+  const effectiveAriaRequired =
+    ariaRequired !== undefined ? ariaRequired : required;
+
   const labelElement = label ? (
     <label
       css={[
         localStyles({ labelPosition, size, autoResize, onDark }).label,
         className?.label
       ]}
-      // css={[getStyles(labelPosition, size, autoResize).label, className?.label]}
       htmlFor={inputId}
     >
       {label}
@@ -121,6 +163,7 @@ export const InputField: React.FC<InputFieldProps> = ({
           css={
             localStyles({ labelPosition, size, autoResize, onDark }).required
           }
+          aria-label="required"
         >
           *
         </span>
@@ -137,11 +180,17 @@ export const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={handleTextAreaChange}
         placeholder={placeholder}
-        required={required}
+        required={effectiveAriaRequired}
         disabled={disabled}
         readOnly={readonly}
         onKeyDown={onKeyDown}
         data-testid={testId}
+        autoFocus={autoFocus}
+        tabIndex={disabled ? -1 : tabIndex}
+        role={role}
+        maxLength={maxLength}
+        minLength={minLength}
+        autoComplete={autoComplete}
         css={[
           localStyles({ labelPosition, size, autoResize }).textarea,
           error && localStyles({ labelPosition, size, autoResize }).inputError,
@@ -151,7 +200,10 @@ export const InputField: React.FC<InputFieldProps> = ({
             localStyles({ labelPosition, size, autoResize }).inputReadonly,
           className?.input
         ]}
-        aria-describedby={error ? `${inputId}-error` : undefined}
+        aria-label={ariaLabel}
+        aria-describedby={effectiveAriaDescribedBy}
+        aria-invalid={effectiveAriaInvalid}
+        aria-required={effectiveAriaRequired}
       />
     ) : (
       <input
@@ -161,11 +213,21 @@ export const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={handleInputChange}
         placeholder={placeholder}
-        required={required}
+        required={effectiveAriaRequired}
         disabled={disabled}
         readOnly={readonly}
         data-testid={testId}
         onKeyDown={onKeyDown}
+        autoFocus={autoFocus}
+        tabIndex={disabled ? -1 : tabIndex}
+        role={role}
+        maxLength={maxLength}
+        minLength={minLength}
+        pattern={pattern}
+        min={min}
+        max={max}
+        step={step}
+        autoComplete={autoComplete}
         css={[
           localStyles({ labelPosition, size, autoResize }).input,
           error && localStyles({ labelPosition, size, autoResize }).inputError,
@@ -175,7 +237,10 @@ export const InputField: React.FC<InputFieldProps> = ({
             localStyles({ labelPosition, size, autoResize }).inputReadonly,
           className?.input
         ]}
-        aria-describedby={error ? `${inputId}-error` : undefined}
+        aria-label={ariaLabel}
+        aria-describedby={effectiveAriaDescribedBy}
+        aria-invalid={effectiveAriaInvalid}
+        aria-required={effectiveAriaRequired}
       />
     );
 
@@ -187,16 +252,20 @@ export const InputField: React.FC<InputFieldProps> = ({
       ]}
       id={`${inputId}-error`}
       role="alert"
+      aria-live="polite"
     >
       {error}
     </div>
   ) : null;
 
-  const helperTextElement = (
-    <div css={localStyles({ labelPosition, size, autoResize }).helperText}>
+  const helperTextElement = helperText ? (
+    <div
+      css={localStyles({ labelPosition, size, autoResize }).helperText}
+      id={`${inputId}-helper`}
+    >
       {helperText}
     </div>
-  );
+  ) : null;
 
   // Layout based on label position
   return (

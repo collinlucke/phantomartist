@@ -22,9 +22,15 @@ type Search = {
   label?: string;
   buttonText?: string;
   onDark?: boolean;
-
   resultsLabel?: React.ReactNode;
   useSearchButton?: boolean;
+  ariaLabel?: string;
+  ariaLabelledBy?: string;
+  ariaDescribedBy?: string;
+  resultsAriaLive?: 'polite' | 'assertive' | 'off';
+  searchRole?: string;
+  dataTestId?: string;
+  autoFocus?: boolean;
   className?: {
     searchWrapper?: CSSObject;
     resultsText?: CSSObject;
@@ -52,6 +58,13 @@ export const Search: React.FC<Search> = ({
   buttonText,
   onDark = false,
   useSearchButton = true,
+  ariaLabel,
+  ariaLabelledBy,
+  ariaDescribedBy,
+  resultsAriaLive = 'polite',
+  searchRole,
+  dataTestId,
+  autoFocus = false,
   onSearch,
   setSearchTerm
 }) => {
@@ -77,13 +90,23 @@ export const Search: React.FC<Search> = ({
     <div
       css={[localStyles.searchForm, className?.searchForm]}
       className="pa-search-form"
+      role={searchRole || 'search'}
+      aria-label={ariaLabel || 'Search'}
+      aria-labelledby={ariaLabelledBy}
+      aria-describedby={ariaDescribedBy}
+      data-testid={dataTestId}
     >
       <div
         css={[localStyles.searchWrapper, className?.searchWrapper]}
         className="pa-search-wrapper"
       >
         {showResultsCount && (
-          <div css={[localStyles.results, className?.resultsText]}>
+          <div
+            css={[localStyles.results, className?.resultsText]}
+            aria-live={resultsAriaLive}
+            aria-atomic="true"
+            role="status"
+          >
             {resultsLabel ?? 'Total Results:'} {totalResultsCount}
           </div>
         )}
@@ -96,21 +119,29 @@ export const Search: React.FC<Search> = ({
             labelPosition={labelPosition}
             label={label}
             placeholder={searchLabel || 'Search'}
+            autoFocus={autoFocus}
             className={{ container: { ...localStyles.searchFieldContainer } }}
             onChange={setSearchTermHandler}
             size={inputSize}
             onKeyDown={hitEnter}
             onDark={onDark}
+            ariaLabel={!label ? searchLabel || 'Search' : undefined}
+            ariaDescribedBy={
+              showResultsCount ? 'search-results-count' : undefined
+            }
           />
         </div>
 
         {useSearchButton && (
           <Button
-            data-testid="search-submit-button"
+            dataTestId="search-submit-button"
             size={buttonSize}
             type="button"
             onClick={handleOnSearch}
             kind={buttonKind}
+            ariaLabel={`${
+              buttonText || 'Search'
+            } - ${totalResultsCount} results available`}
             className={{
               button: {
                 ...localStyles.searchButton,

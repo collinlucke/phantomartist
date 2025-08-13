@@ -1,6 +1,6 @@
-import { MouseEventHandler, ReactElement } from 'react';
+import { MouseEventHandler, ReactElement, KeyboardEventHandler } from 'react';
 import { CSSObject } from '@emotion/react';
-interface ButtonProps {
+type ButtonProps = {
     children?: ReactElement | string;
     className?: {
         button?: CSSObject;
@@ -13,8 +13,17 @@ interface ButtonProps {
     dataTestId?: string;
     ariaLabel?: string;
     ariaDescribedBy?: string;
+    ariaExpanded?: boolean;
+    ariaHaspopup?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+    ariaPressed?: boolean;
+    role?: string;
     disabled?: boolean;
+    autoFocus?: boolean;
+    tabIndex?: number;
     onClick?: MouseEventHandler<HTMLButtonElement>;
-}
-export declare const Button: React.FC<ButtonProps>;
+    onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
+    onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+    onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+};
+export declare const Button: import("react").ForwardRefExoticComponent<ButtonProps & import("react").RefAttributes<HTMLButtonElement>>;
 export {};

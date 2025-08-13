@@ -7,6 +7,9 @@ type HeaderModifyProps = {
     actions?: ReactNode;
     useInnerWidth?: boolean;
     dataTestId?: string;
+    ariaLabel?: string;
+    ariaLabelledBy?: string;
+    role?: 'banner' | 'navigation' | 'header';
     className?: {
         header?: CSSObject;
     };

@@ -8,7 +8,7 @@
 import { analyzeContrast, getContrastEmoji } from './contrastChecker';
 
 // Define analysis result types
-export interface ContrastIssue {
+export type ContrastIssue = {
   name: string;
   fg: string;
   bg: string;
@@ -19,20 +19,20 @@ export interface ContrastIssue {
     passesAA: boolean;
     recommendation: string;
   };
-}
+};
 
-export interface AnalysisResult {
+export type AnalysisResult = {
   total: number;
   passing: number;
   issues: ContrastIssue[];
-}
+};
 
-export interface ColorCombination {
+export type ColorCombination = {
   name: string;
   fg: string;
   bg: string;
   component: string;
-}
+};
 
 /**
  * Analyze color combinations with comprehensive error handling

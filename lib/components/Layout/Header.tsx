@@ -9,6 +9,9 @@ type HeaderModifyProps = {
   actions?: ReactNode;
   useInnerWidth?: boolean;
   dataTestId?: string;
+  ariaLabel?: string;
+  ariaLabelledBy?: string;
+  role?: 'banner' | 'navigation' | 'header';
   className?: {
     header?: CSSObject;
   };
@@ -18,7 +21,10 @@ type HeaderModifyProps = {
 export const Header: React.FC<HeaderModifyProps> = ({
   children,
   className,
-  dataTestId
+  dataTestId,
+  ariaLabel = 'Site header',
+  ariaLabelledBy,
+  role = 'banner'
 }) => {
   // If children is provided, use legacy mode
 
@@ -27,6 +33,9 @@ export const Header: React.FC<HeaderModifyProps> = ({
       css={[localStyles.header, className?.header]}
       className="pa-header"
       data-testid={dataTestId}
+      role={role}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
     >
       <>{children}</>
     </header>
