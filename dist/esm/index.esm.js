@@ -592,9 +592,7 @@ const localStyles$8 = ({ labelPosition, size, autoResize, onDark }) => ({
     },
     helperText: {
         fontSize: '0.75rem',
-        color: '#6b7280',
-        marginLeft: labelPosition === 'left' ? '0.5rem' : '0',
-        marginRight: labelPosition === 'right' ? '0.5rem' : '0'
+        color: '#6b7280'
     }
 });
 
