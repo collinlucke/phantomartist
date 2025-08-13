@@ -1,6 +1,6 @@
 import React, { ReactNode, useRef, useLayoutEffect } from 'react';
 import { CSSObject } from '@emotion/react';
-import { baseColors } from '../../styling/baseTheme';
+import { baseColors, baseVibrantColors } from '../../styling/baseTheme';
 
 export type InputFieldProps = {
   label?: string | ReactNode;
@@ -25,6 +25,7 @@ export type InputFieldProps = {
   readonly?: boolean;
   id?: string;
   onDark?: boolean;
+  helperText?: string | ReactNode;
   onKeyDown?: React.KeyboardEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   >;
@@ -64,7 +65,8 @@ export const InputField: React.FC<InputFieldProps> = ({
   autoResize = false,
   className,
   onKeyDown,
-  onDark = false
+  onDark = false,
+  helperText
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -190,6 +192,12 @@ export const InputField: React.FC<InputFieldProps> = ({
     </div>
   ) : null;
 
+  const helperTextElement = (
+    <div css={localStyles({ labelPosition, size, autoResize }).helperText}>
+      {helperText}
+    </div>
+  );
+
   // Layout based on label position
   return (
     <div
@@ -203,6 +211,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       {inputElement}
       {(labelPosition === 'below' || labelPosition === 'right') && labelElement}
       {errorElement}
+      {helperTextElement}
     </div>
   );
 };
@@ -244,10 +253,7 @@ const localStyles = ({
       labelPosition === 'above' || labelPosition === 'below'
         ? ('column' as const)
         : ('row' as const),
-    gap:
-      labelPosition === 'left' || labelPosition === 'right'
-        ? '0.75rem'
-        : '0.5rem',
+    gap: labelPosition === 'left' || labelPosition === 'right' ? '0.75rem' : '',
     flex: '1 1 0%', // Allow flex grow/shrink for side-by-side layouts
     width: '-webkit-fill-available', // Use available width in flex containers
 
@@ -334,8 +340,12 @@ const localStyles = ({
   } as CSSObject,
 
   error: {
-    fontSize: '0.875rem',
-    color: '#ef4444',
-    marginTop: '0.25rem'
+    fontSize: '0.75rem',
+    color: baseVibrantColors.accent[500]
+  } as CSSObject,
+
+  helperText: {
+    fontSize: '0.75rem',
+    color: '#6b7280'
   } as CSSObject
 });

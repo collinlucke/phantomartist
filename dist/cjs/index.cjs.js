@@ -417,7 +417,7 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
         ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
 };
 
-const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false }) => {
+const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false, helperText }) => {
     const textAreaRef = React.useRef(null);
     // Generate ID from label if it's a string, otherwise use name or fallback
     const inputId = id ||
@@ -478,12 +478,13 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             localStyles$8({ labelPosition, size, autoResize }).error,
             className?.error
         ], id: `${inputId}-error`, role: "alert", children: error })) : null;
+    const helperTextElement = (jsxRuntime.jsx("div", { css: localStyles$8({ labelPosition, size, autoResize }).helperText, children: helperText }));
     // Layout based on label position
     return (jsxRuntime.jsxs("div", { css: [
             // getStyles(labelPosition, size, autoResize).container,
             localStyles$8({ labelPosition, size, autoResize }).container,
             className?.container
-        ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement] }));
+        ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement, helperTextElement] }));
 };
 const getSizeStyles = (size) => {
     switch (size) {
@@ -510,9 +511,7 @@ const localStyles$8 = ({ labelPosition, size, autoResize, onDark }) => ({
         flexDirection: labelPosition === 'above' || labelPosition === 'below'
             ? 'column'
             : 'row',
-        gap: labelPosition === 'left' || labelPosition === 'right'
-            ? '0.75rem'
-            : '0.5rem',
+        gap: labelPosition === 'left' || labelPosition === 'right' ? '0.75rem' : '',
         flex: '1 1 0%', // Allow flex grow/shrink for side-by-side layouts
         width: '-webkit-fill-available', // Use available width in flex containers
         minWidth: 0, // Prevent flex items from overflowing
@@ -590,9 +589,14 @@ const localStyles$8 = ({ labelPosition, size, autoResize, onDark }) => ({
         cursor: 'default'
     },
     error: {
-        fontSize: '0.875rem',
-        color: '#ef4444',
-        marginTop: '0.25rem'
+        fontSize: '0.75rem',
+        color: baseVibrantColors.accent[500]
+    },
+    helperText: {
+        fontSize: '0.75rem',
+        color: '#6b7280',
+        marginLeft: labelPosition === 'left' ? '0.5rem' : '0',
+        marginRight: labelPosition === 'right' ? '0.5rem' : '0'
     }
 });
 
@@ -612,7 +616,6 @@ const localStyles$7 = (isDark) => ({
 const InnerWidth = ({ children, 
 // size = 'medium',
 className, dataTestid = 'inner-width' }) => {
-    // const sizeStyles = getSizeStyles(size);
     return (jsxRuntime.jsx("div", { css: [
             localStyles$6.innerWidth,
             // sizeStyles,

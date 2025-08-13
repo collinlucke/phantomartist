@@ -13,6 +13,7 @@ export type InputFieldProps = {
     readonly?: boolean;
     id?: string;
     onDark?: boolean;
+    helperText?: string | ReactNode;
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     'data-testid'?: string;
     labelPosition?: 'left' | 'right' | 'above' | 'below';
