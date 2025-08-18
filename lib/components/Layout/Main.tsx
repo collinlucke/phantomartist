@@ -14,7 +14,6 @@ export const Main: React.FC<MainProps> = ({
   className,
   isDark = false
 }) => {
-  // console.log(className);
   return (
     <main className="pa-main" css={[localStyles(isDark).main, className?.main]}>
       {children}

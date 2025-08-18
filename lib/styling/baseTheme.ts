@@ -236,7 +236,7 @@ export const baseTypography = {
   },
   a: {
     textDecoration: 'none',
-    color: baseColors.primary
+    color: baseColors.primary[500]
   },
 
   // Body text
