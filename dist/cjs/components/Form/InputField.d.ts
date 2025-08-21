@@ -15,7 +15,7 @@ export type InputFieldProps = {
     onDark?: boolean;
     helperText?: string | ReactNode;
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-    'data-testid'?: string;
+    testId?: string;
     autoFocus?: boolean;
     autoComplete?: string;
     ariaLabel?: string;

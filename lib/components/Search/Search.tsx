@@ -23,13 +23,13 @@ type Search = {
   buttonText?: string;
   onDark?: boolean;
   resultsLabel?: React.ReactNode;
-  useSearchButton?: boolean;
+  showSearchButton?: boolean;
   ariaLabel?: string;
   ariaLabelledBy?: string;
   ariaDescribedBy?: string;
   resultsAriaLive?: 'polite' | 'assertive' | 'off';
   searchRole?: string;
-  dataTestId?: string;
+  testId?: string;
   autoFocus?: boolean;
   className?: {
     searchWrapper?: CSSObject;
@@ -57,13 +57,13 @@ export const Search: React.FC<Search> = ({
   label,
   buttonText,
   onDark = false,
-  useSearchButton = true,
+  showSearchButton = true,
   ariaLabel,
   ariaLabelledBy,
   ariaDescribedBy,
   resultsAriaLive = 'polite',
   searchRole,
-  dataTestId,
+  testId,
   autoFocus = false,
   onSearch,
   setSearchTerm
@@ -94,7 +94,7 @@ export const Search: React.FC<Search> = ({
       aria-label={ariaLabel || 'Search'}
       aria-labelledby={ariaLabelledBy}
       aria-describedby={ariaDescribedBy}
-      data-testid={dataTestId}
+      data-testid={testId}
     >
       <div
         css={[localStyles.searchWrapper, className?.searchWrapper]}
@@ -103,6 +103,7 @@ export const Search: React.FC<Search> = ({
         {showResultsCount && (
           <div
             css={[localStyles.results, className?.resultsText]}
+            data-testid="total-results"
             aria-live={resultsAriaLive}
             aria-atomic="true"
             role="status"
@@ -125,6 +126,7 @@ export const Search: React.FC<Search> = ({
             size={inputSize}
             onKeyDown={hitEnter}
             onDark={onDark}
+            testId="search-input"
             ariaLabel={!label ? searchLabel || 'Search' : undefined}
             ariaDescribedBy={
               showResultsCount ? 'search-results-count' : undefined
@@ -132,9 +134,9 @@ export const Search: React.FC<Search> = ({
           />
         </div>
 
-        {useSearchButton && (
+        {showSearchButton && (
           <Button
-            dataTestId="search-submit-button"
+            testId="search-submit-button"
             size={buttonSize}
             type="button"
             onClick={handleOnSearch}

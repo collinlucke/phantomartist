@@ -24,7 +24,6 @@ type ButtonProps = {
   size?: 'small' | 'medium' | 'large';
   iconOnly?: boolean;
   icon?: ReactElement | string;
-  dataTestId?: string;
   ariaLabel?: string;
   ariaDescribedBy?: string;
   ariaExpanded?: boolean;
@@ -42,6 +41,7 @@ type ButtonProps = {
   disabled?: boolean;
   autoFocus?: boolean;
   tabIndex?: number;
+  testId?: string;
 
   onClick?: MouseEventHandler<HTMLButtonElement>;
   onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
@@ -59,7 +59,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = 'large',
       icon,
       iconOnly,
-      dataTestId,
       ariaLabel,
       ariaDescribedBy,
       ariaExpanded,
@@ -69,6 +68,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled = false,
       autoFocus = false,
       tabIndex,
+      testId,
       onClick,
       onKeyDown,
       onFocus,
@@ -97,6 +97,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         autoFocus={autoFocus}
         tabIndex={disabled ? -1 : tabIndex}
         role={role}
+        data-testid={testId}
         css={[
           baseTheme.button({ kind, size, iconOnly }),
           consumerTheme?.button &&
@@ -104,7 +105,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className?.button
         ]}
         className={`pa-button ${kind} ${size}`}
-        data-testid={dataTestId}
         aria-label={effectiveAriaLabel}
         aria-describedby={ariaDescribedBy}
         aria-expanded={ariaExpanded}

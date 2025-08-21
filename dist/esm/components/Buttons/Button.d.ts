@@ -10,7 +10,6 @@ type ButtonProps = {
     size?: 'small' | 'medium' | 'large';
     iconOnly?: boolean;
     icon?: ReactElement | string;
-    dataTestId?: string;
     ariaLabel?: string;
     ariaDescribedBy?: string;
     ariaExpanded?: boolean;
@@ -20,6 +19,7 @@ type ButtonProps = {
     disabled?: boolean;
     autoFocus?: boolean;
     tabIndex?: number;
+    testId?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
     onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;

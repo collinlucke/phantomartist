@@ -29,7 +29,7 @@ export type InputFieldProps = {
   onKeyDown?: React.KeyboardEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   >;
-  'data-testid'?: string;
+  testId?: string;
   autoFocus?: boolean;
   autoComplete?: string;
   ariaLabel?: string;
@@ -73,13 +73,13 @@ export const InputField: React.FC<InputFieldProps> = ({
   disabled = false,
   readonly = false,
   id,
-  'data-testid': testId,
   labelPosition = 'above',
   size = 'medium',
   autoResize = false,
   className,
   onKeyDown,
   onDark = false,
+  testId,
   helperText,
   autoFocus = false,
   autoComplete,
@@ -174,6 +174,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   const inputElement =
     type === 'textarea' ? (
       <textarea
+        data-testid={testId}
         ref={textAreaRef}
         id={inputId}
         name={name}
@@ -184,7 +185,6 @@ export const InputField: React.FC<InputFieldProps> = ({
         disabled={disabled}
         readOnly={readonly}
         onKeyDown={onKeyDown}
-        data-testid={testId}
         autoFocus={autoFocus}
         tabIndex={disabled ? -1 : tabIndex}
         role={role}
@@ -227,7 +227,6 @@ export const InputField: React.FC<InputFieldProps> = ({
         min={min}
         max={max}
         step={step}
-        autoComplete={autoComplete}
         css={[
           localStyles({ labelPosition, size, autoResize }).input,
           error && localStyles({ labelPosition, size, autoResize }).inputError,

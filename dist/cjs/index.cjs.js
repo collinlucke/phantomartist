@@ -249,7 +249,7 @@ const baseTypography = {
     },
     a: {
         textDecoration: 'none',
-        color: baseColors.primary
+        color: baseColors.primary[500]
     },
     // Body text
     bodyLarge: {
@@ -395,19 +395,19 @@ const baseTheme = {
     modalContent: {}
 };
 
-const Button = React.forwardRef(({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, dataTestId, ariaLabel, ariaDescribedBy, ariaExpanded, ariaHaspopup, ariaPressed, role, disabled = false, autoFocus = false, tabIndex, onClick, onKeyDown, onFocus, onBlur }, ref) => {
+const Button = React.forwardRef(({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, ariaLabel, ariaDescribedBy, ariaExpanded, ariaHaspopup, ariaPressed, role, disabled = false, autoFocus = false, tabIndex, testId, onClick, onKeyDown, onFocus, onBlur }, ref) => {
     const consumerTheme = react.useTheme();
     const onClickHandler = e => {
         onClick?.(e);
     };
     // Generate aria-label for icon-only buttons if not provided
     const effectiveAriaLabel = ariaLabel || (iconOnly && !children ? 'Button' : undefined);
-    return (jsxRuntime.jsx("button", { ref: ref, type: type, onClick: onClickHandler, onKeyDown: onKeyDown, onFocus: onFocus, onBlur: onBlur, disabled: disabled, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, css: [
+    return (jsxRuntime.jsx("button", { ref: ref, type: type, onClick: onClickHandler, onKeyDown: onKeyDown, onFocus: onFocus, onBlur: onBlur, disabled: disabled, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, "data-testid": testId, css: [
             baseTheme.button({ kind, size, iconOnly }),
             consumerTheme?.button &&
                 consumerTheme.button({ kind, size, iconOnly }),
             className?.button
-        ], className: `pa-button ${kind} ${size}`, "data-testid": dataTestId, "aria-label": effectiveAriaLabel, "aria-describedby": ariaDescribedBy, "aria-expanded": ariaExpanded, "aria-haspopup": ariaHaspopup, "aria-pressed": ariaPressed, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [typeof icon === 'string' ? (jsxRuntime.jsx("span", { "aria-hidden": "true", children: icon })) : (icon), children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
+        ], className: `pa-button ${kind} ${size}`, "aria-label": effectiveAriaLabel, "aria-describedby": ariaDescribedBy, "aria-expanded": ariaExpanded, "aria-haspopup": ariaHaspopup, "aria-pressed": ariaPressed, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [typeof icon === 'string' ? (jsxRuntime.jsx("span", { "aria-hidden": "true", children: icon })) : (icon), children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
 });
 Button.displayName = 'Button';
 
@@ -472,7 +472,7 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
         ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
 };
 
-const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, 'data-testid': testId, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false, helperText, autoFocus = false, autoComplete, ariaLabel, ariaDescribedBy, ariaInvalid, ariaRequired, role, tabIndex, maxLength, minLength, pattern, min, max, step }) => {
+const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false, testId, helperText, autoFocus = false, autoComplete, ariaLabel, ariaDescribedBy, ariaInvalid, ariaRequired, role, tabIndex, maxLength, minLength, pattern, min, max, step }) => {
     const textAreaRef = React.useRef(null);
     // Generate ID from label if it's a string, otherwise use name or fallback
     const inputId = id ||
@@ -524,7 +524,7 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             localStyles$8({ labelPosition, size, autoResize, onDark }).label,
             className?.label
         ], htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$8({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
-    const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, "data-testid": testId, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, autoComplete: autoComplete, css: [
+    const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { "data-testid": testId, ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, autoComplete: autoComplete, css: [
             localStyles$8({ labelPosition, size, autoResize }).textarea,
             error && localStyles$8({ labelPosition, size, autoResize }).inputError,
             disabled &&
@@ -532,7 +532,7 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
             readonly &&
                 localStyles$8({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
-        ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired })) : (jsxRuntime.jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, pattern: pattern, min: min, max: max, step: step, autoComplete: autoComplete, css: [
+        ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired })) : (jsxRuntime.jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, pattern: pattern, min: min, max: max, step: step, css: [
             localStyles$8({ labelPosition, size, autoResize }).input,
             error && localStyles$8({ labelPosition, size, autoResize }).inputError,
             disabled &&
@@ -1048,7 +1048,7 @@ const localStyles$1 = {
     }
 };
 
-const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onDark = false, useSearchButton = true, ariaLabel, ariaLabelledBy, ariaDescribedBy, resultsAriaLive = 'polite', searchRole, dataTestId, autoFocus = false, onSearch, setSearchTerm }) => {
+const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onDark = false, showSearchButton = true, ariaLabel, ariaLabelledBy, ariaDescribedBy, resultsAriaLive = 'polite', searchRole, testId, autoFocus = false, onSearch, setSearchTerm }) => {
     const setSearchTermHandler = (e) => {
         if (e.target instanceof HTMLInputElement) {
             setSearchTerm(e);
@@ -1062,7 +1062,7 @@ const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel
             handleOnSearch();
         }
     };
-    return (jsxRuntime.jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", role: searchRole || 'search', "aria-label": ariaLabel || 'Search', "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: jsxRuntime.jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles.results, className?.resultsText], "aria-live": resultsAriaLive, "aria-atomic": "true", role: "status", children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', autoFocus: autoFocus, className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark, ariaLabel: !label ? searchLabel || 'Search' : undefined, ariaDescribedBy: showResultsCount ? 'search-results-count' : undefined }) }), useSearchButton && (jsxRuntime.jsx(Button, { dataTestId: "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, ariaLabel: `${buttonText || 'Search'} - ${totalResultsCount} results available`, className: {
+    return (jsxRuntime.jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", role: searchRole || 'search', "aria-label": ariaLabel || 'Search', "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": testId, children: jsxRuntime.jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles.results, className?.resultsText], "data-testid": "total-results", "aria-live": resultsAriaLive, "aria-atomic": "true", role: "status", children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', autoFocus: autoFocus, className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark, testId: "search-input", ariaLabel: !label ? searchLabel || 'Search' : undefined, ariaDescribedBy: showResultsCount ? 'search-results-count' : undefined }) }), showSearchButton && (jsxRuntime.jsx(Button, { testId: "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, ariaLabel: `${buttonText || 'Search'} - ${totalResultsCount} results available`, className: {
                         button: {
                             ...localStyles.searchButton,
                             ...className?.searchButton

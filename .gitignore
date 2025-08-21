@@ -36,3 +36,4 @@ storybook-static/
 # Contrast Analysis - Not right now
 index-with-accessibility.tsx
 contrastAnalysis/
+ACCESSIBILITY_IMPROVEMENTS.md

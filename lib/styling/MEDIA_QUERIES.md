@@ -10,12 +10,13 @@ The media query system provides a consistent, easy-to-use set of breakpoints and
 
 ```typescript
 export const screenSizes = {
-  xs: '480px', // Extra small devices (phones)
-  sm: '640px', // Small devices (large phones)
-  md: '768px', // Medium devices (tablets)
-  lg: '1024px', // Large devices (desktops)
-  xl: '1280px', // Extra large devices (large desktops)
-  '2xl': '1536px' // 2X large devices (larger desktops)
+  xs: '360px',
+  sm: '480px',
+  md: '640px',
+  lg: '768px',
+  xl: '1024px',
+  '2xl': '1280px',
+  '3xl': '1536px'
 };
 ```
 
