@@ -251,27 +251,15 @@ const baseTypography = {
         textDecoration: 'none',
         color: baseColors.primary[500]
     },
-    // Body text
-    bodyLarge: {
-        fontFamily: '"Montserrat", sans-serif',
-        fontSize: '18px',
-        fontWeight: 400,
-        lineHeight: 1.625,
-        letterSpacing: 'normal'
-    },
-    body: {
-        fontFamily: '"Montserrat", sans-serif',
-        fontSize: '16px',
-        fontWeight: 400,
-        lineHeight: 1.5,
-        letterSpacing: 'normal'
-    },
-    bodySmall: {
+    p: {
         fontFamily: '"Montserrat", sans-serif',
         fontSize: '14px',
         fontWeight: 400,
         lineHeight: 1.5,
-        letterSpacing: 'normal'
+        letterSpacing: 'normal',
+        [mediaQueries.minWidth.md]: {
+            fontSize: '16px'
+        }
     }
 };
 const baseTheme = {
@@ -771,7 +759,7 @@ const Header = ({ children, className, dataTestId, ariaLabel = 'Site header', ar
 const localStyles$5 = {
     header: {
         display: 'flex',
-        padding: '20px 0',
+        padding: '5px 0',
         justifyContent: 'center',
         maxHeight: '75px',
         backgroundColor: baseColors.secondary[600]
@@ -1034,6 +1022,7 @@ const localStyles$1 = {
         fontSize: '33px'
     },
     closeButton: {
+        color: baseColors.primary[500],
         position: 'absolute',
         top: 0,
         right: 0,
@@ -1172,8 +1161,9 @@ const Globals = () => (jsxRuntime.jsx(react.Global, { styles: react.css `
       }
       a {
         ${react.css(baseTypography.a)}
+      }
       p {
-        ${react.css(baseTypography.body)}
+        ${react.css(baseTypography.p)}
       }
     ` }));
 

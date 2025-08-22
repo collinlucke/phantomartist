@@ -170,21 +170,10 @@ export declare const baseTypography: {
         textDecoration: string;
         color: string;
     };
-    bodyLarge: {
-        fontFamily: string;
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: number;
-        letterSpacing: string;
-    };
-    body: {
-        fontFamily: string;
-        fontSize: string;
-        fontWeight: number;
-        lineHeight: number;
-        letterSpacing: string;
-    };
-    bodySmall: {
+    p: {
+        [mediaQueries.minWidth.md]: {
+            fontSize: string;
+        };
         fontFamily: string;
         fontSize: string;
         fontWeight: number;

@@ -45,7 +45,7 @@ export const Header: React.FC<HeaderModifyProps> = ({
 const localStyles = {
   header: {
     display: 'flex',
-    padding: '20px 0',
+    padding: '5px 0',
     justifyContent: 'center',
     maxHeight: '75px',
     backgroundColor: baseColors.secondary[600]

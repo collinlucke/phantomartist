@@ -233,6 +233,7 @@ const localStyles: { [key: string]: CSSObject } = {
     fontSize: '33px'
   },
   closeButton: {
+    color: baseColors.primary[500],
     position: 'absolute',
     top: 0,
     right: 0,

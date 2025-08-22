@@ -25,8 +25,9 @@ export const Globals = () => (
       }
       a {
         ${css(baseTypography.a)}
+      }
       p {
-        ${css(baseTypography.body)}
+        ${css(baseTypography.p)}
       }
     `}
   />
