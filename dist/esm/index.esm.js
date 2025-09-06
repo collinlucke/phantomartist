@@ -1,5 +1,5 @@
 import { jsx, jsxs, Fragment } from '@emotion/react/jsx-runtime';
-import React, { forwardRef, useRef, useLayoutEffect, useState, useEffect, useCallback, createElement } from 'react';
+import React, { forwardRef, useRef, useLayoutEffect, useState, useEffect, createElement, useCallback } from 'react';
 import { useTheme, Global, css } from '@emotion/react';
 
 function styleInject(css, ref) {
@@ -507,35 +507,35 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
     const effectiveAriaInvalid = ariaInvalid !== undefined ? ariaInvalid : !!error;
     const effectiveAriaRequired = ariaRequired !== undefined ? ariaRequired : required;
     const labelElement = label ? (jsxs("label", { css: [
-            localStyles$a({ labelPosition, size, autoResize, onDark }).label,
+            localStyles$9({ labelPosition, size, autoResize, onDark }).label,
             className?.label
-        ], htmlFor: inputId, children: [label, required && (jsx("span", { css: localStyles$a({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
+        ], htmlFor: inputId, children: [label, required && (jsx("span", { css: localStyles$9({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
     const inputElement = type === 'textarea' ? (jsx("textarea", { "data-testid": testId, ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, autoComplete: autoComplete, css: [
-            localStyles$a({ labelPosition, size, autoResize }).textarea,
-            error && localStyles$a({ labelPosition, size, autoResize }).inputError,
+            localStyles$9({ labelPosition, size, autoResize }).textarea,
+            error && localStyles$9({ labelPosition, size, autoResize }).inputError,
             disabled &&
-                localStyles$a({ labelPosition, size, autoResize }).inputDisabled,
+                localStyles$9({ labelPosition, size, autoResize }).inputDisabled,
             readonly &&
-                localStyles$a({ labelPosition, size, autoResize }).inputReadonly,
+                localStyles$9({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
         ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired })) : (jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, pattern: pattern, min: min, max: max, step: step, css: [
-            localStyles$a({ labelPosition, size, autoResize }).input,
-            error && localStyles$a({ labelPosition, size, autoResize }).inputError,
+            localStyles$9({ labelPosition, size, autoResize }).input,
+            error && localStyles$9({ labelPosition, size, autoResize }).inputError,
             disabled &&
-                localStyles$a({ labelPosition, size, autoResize }).inputDisabled,
+                localStyles$9({ labelPosition, size, autoResize }).inputDisabled,
             readonly &&
-                localStyles$a({ labelPosition, size, autoResize }).inputReadonly,
+                localStyles$9({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
         ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired }));
     const errorElement = error ? (jsx("div", { css: [
-            localStyles$a({ labelPosition, size, autoResize }).error,
+            localStyles$9({ labelPosition, size, autoResize }).error,
             className?.error
         ], id: `${inputId}-error`, role: "alert", "aria-live": "polite", children: error })) : null;
-    const helperTextElement = helperText ? (jsx("div", { css: localStyles$a({ labelPosition, size, autoResize }).helperText, id: `${inputId}-helper`, children: helperText })) : null;
+    const helperTextElement = helperText ? (jsx("div", { css: localStyles$9({ labelPosition, size, autoResize }).helperText, id: `${inputId}-helper`, children: helperText })) : null;
     // Layout based on label position
     return (jsxs("div", { css: [
             // getStyles(labelPosition, size, autoResize).container,
-            localStyles$a({ labelPosition, size, autoResize }).container,
+            localStyles$9({ labelPosition, size, autoResize }).container,
             className?.container
         ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement, helperTextElement] }));
 };
@@ -558,7 +558,7 @@ const getSizeStyles = (size) => {
             };
     }
 };
-const localStyles$a = ({ labelPosition, size, autoResize, onDark }) => ({
+const localStyles$9 = ({ labelPosition, size, autoResize, onDark }) => ({
     container: {
         display: 'flex',
         flexDirection: labelPosition === 'above' || labelPosition === 'below'
@@ -652,9 +652,9 @@ const localStyles$a = ({ labelPosition, size, autoResize, onDark }) => ({
 });
 
 const Main = ({ children, className, isDark = false }) => {
-    return (jsx("main", { className: "pa-main", css: [localStyles$9(isDark).main, className?.main], children: children }));
+    return (jsx("main", { className: "pa-main", css: [localStyles$8(isDark).main, className?.main], children: children }));
 };
-const localStyles$9 = (isDark) => ({
+const localStyles$8 = (isDark) => ({
     main: {
         display: 'flex',
         justifyContent: 'center',
@@ -667,7 +667,7 @@ const InnerWidth = ({ children,
 // size = 'medium',
 className, dataTestid = 'inner-width' }) => {
     return (jsx("div", { css: [
-            localStyles$8.innerWidth,
+            localStyles$7.innerWidth,
             // sizeStyles,
             className?.innerWidth
         ], className: "pa-inner-width", "data-testid": dataTestid, children: children }));
@@ -741,7 +741,7 @@ className, dataTestid = 'inner-width' }) => {
 //     return {};
 // }
 // };
-const localStyles$8 = {
+const localStyles$7 = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -752,9 +752,9 @@ const localStyles$8 = {
 
 const Header = ({ children, className, dataTestId, ariaLabel = 'Site header', ariaLabelledBy, role = 'banner' }) => {
     // If children is provided, use legacy mode
-    return (jsx("header", { css: [localStyles$7.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsx(Fragment, { children: children }) }));
+    return (jsx("header", { css: [localStyles$6.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsx(Fragment, { children: children }) }));
 };
-const localStyles$7 = {
+const localStyles$6 = {
     header: {
         display: 'flex',
         padding: '5px 0',
@@ -764,9 +764,9 @@ const localStyles$7 = {
     }};
 
 const Block = ({ children, className, dataTestId }) => {
-    return (jsx("div", { css: [localStyles$6.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
+    return (jsx("div", { css: [localStyles$5.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
 };
-const localStyles$6 = {
+const localStyles$5 = {
     block: {
         width: '100%',
         display: 'flex',
@@ -785,9 +785,9 @@ const Image = ({ src, className }) => {
 
 const List = ({ className, children, ariaLabel, ariaLabelledBy, ariaDescribedBy, role = 'list', dataTestId, ordered = false }) => {
     const ListElement = ordered ? 'ol' : 'ul';
-    return (jsx(ListElement, { css: [localStyles$5.list, className], className: "pa-list", role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: children }));
+    return (jsx(ListElement, { css: [localStyles$4.list, className], className: "pa-list", role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: children }));
 };
-const localStyles$5 = {
+const localStyles$4 = {
     list: {
         fontWeight: '500',
         margin: 0,
@@ -801,13 +801,13 @@ const localStyles$5 = {
 
 const ListItem = ({ children, className, useHover, role = 'listitem', ariaLabel, ariaDescribedBy, ariaSelected, ariaExpanded, ariaLevel, tabIndex, dataTestId, onClick, onKeyDown }) => {
     return (jsx("li", { css: [
-            localStyles$4.li,
+            localStyles$3.li,
             className && className.li,
-            useHover && localStyles$4.liHover,
+            useHover && localStyles$3.liHover,
             className && useHover && className.liHover
         ], className: "pa-list-item", role: role, "aria-label": ariaLabel, "aria-describedby": ariaDescribedBy, "aria-selected": ariaSelected, "aria-expanded": ariaExpanded, "aria-level": ariaLevel, tabIndex: tabIndex, "data-testid": dataTestId, onClick: onClick, onKeyDown: onKeyDown, children: children }));
 };
-const localStyles$4 = {
+const localStyles$3 = {
     li: {
         borderRadius: '6px',
         border: `1px solid ${baseColors.secondary[500]}`,
@@ -863,27 +863,27 @@ const AccordionListItem = ({ title, children, isOpen = false, onToggle, disabled
             handleToggle();
         }
     };
-    return (jsxs("li", { css: [localStyles$3.accordionItem, className?.item], className: "pa-accordion-item", "data-testid": dataTestId, children: [jsx(Button, { className: {
+    return (jsxs("li", { css: [localStyles$2.accordionItem, className?.item], className: "pa-accordion-item", "data-testid": dataTestId, children: [jsx(Button, { className: {
                     button: {
-                        ...localStyles$3.accordionHeader,
-                        ...(disabled && localStyles$3.disabled),
+                        ...localStyles$2.accordionHeader,
+                        ...(disabled && localStyles$2.disabled),
                         ...className?.header
                     }
-                }, onClick: handleToggle, onKeyDown: handleKeyDown, "aria-expanded": isExpanded, "aria-controls": `accordion-content-${dataTestId || 'default'}`, "aria-label": ariaLabel || `Toggle ${title}`, disabled: disabled, type: "button", testId: `pa-accordion-header-${dataTestId || 'default'}`, children: jsxs(Fragment, { children: [jsx("div", { css: localStyles$3.title, children: title }), jsx("span", { css: [
-                                localStyles$3.icon,
-                                isExpanded && localStyles$3.iconExpanded,
+                }, onClick: handleToggle, onKeyDown: handleKeyDown, "aria-expanded": isExpanded, "aria-controls": `accordion-content-${dataTestId || 'default'}`, "aria-label": ariaLabel || `Toggle ${title}`, disabled: disabled, type: "button", testId: `pa-accordion-header-${dataTestId || 'default'}`, children: jsxs(Fragment, { children: [jsx("div", { css: localStyles$2.title, children: title }), jsx("span", { css: [
+                                localStyles$2.icon,
+                                isExpanded && localStyles$2.iconExpanded,
                                 className?.icon
                             ], className: "pa-accordion-icon", "aria-hidden": "true", children: "\u25BC" })] }) }), jsx("div", { css: [
-                    localStyles$3.contentWrapper,
+                    localStyles$2.contentWrapper,
                     useAnimation && {
                         height: contentHeight,
                         overflow: 'hidden',
                         transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                     },
                     !useAnimation && !isExpanded && { display: 'none' }
-                ], className: "pa-accordion-content-wrapper", children: jsx("div", { ref: contentRef, css: [localStyles$3.content, className?.content], className: "pa-accordion-content", id: `accordion-content-${dataTestId || 'default'}`, role: "region", "aria-labelledby": `accordion-header-${dataTestId || 'default'}`, children: children }) })] }));
+                ], className: "pa-accordion-content-wrapper", children: jsx("div", { ref: contentRef, css: [localStyles$2.content, className?.content], className: "pa-accordion-content", id: `accordion-content-${dataTestId || 'default'}`, role: "region", "aria-labelledby": `accordion-header-${dataTestId || 'default'}`, children: children }) })] }));
 };
-const localStyles$3 = {
+const localStyles$2 = {
     accordionItem: {
         width: '100%',
         borderBottom: `1px solid ${baseColors.primary[200]}`,
@@ -942,51 +942,6 @@ const localStyles$3 = {
     content: {
         padding: '14px 20px 14px 40px',
         backgroundColor: hexToRgba(baseColors.primary[50], 0.2)
-    }
-};
-
-const AccordionList = ({ items, allowMultiple = false, defaultOpenItems = [], onItemToggle, className, useAnimation = true, ariaLabel, dataTestId }) => {
-    const [openItems, setOpenItems] = useState(new Set(defaultOpenItems));
-    const handleItemToggle = useCallback((itemId) => {
-        setOpenItems(prev => {
-            const newOpenItems = new Set(prev);
-            const isCurrentlyOpen = newOpenItems.has(itemId);
-            if (isCurrentlyOpen) {
-                // Close the item
-                newOpenItems.delete(itemId);
-            }
-            else {
-                // Open the item
-                if (!allowMultiple) {
-                    // If we don't allow multiple, close all others first
-                    newOpenItems.clear();
-                }
-                newOpenItems.add(itemId);
-            }
-            // Call the optional callback
-            onItemToggle?.(itemId, !isCurrentlyOpen);
-            return newOpenItems;
-        });
-    }, [allowMultiple, onItemToggle]);
-    return (jsx("ul", { css: [localStyles$2.accordionList, className?.list], className: "pa-accordion-list", role: "list", "aria-label": ariaLabel || 'Accordion list', "data-testid": dataTestId, children: items.map(item => (jsx(AccordionListItem, { title: item.title, isOpen: openItems.has(item.id), onToggle: () => handleItemToggle(item.id), disabled: item.disabled, useAnimation: useAnimation, className: {
-                item: className?.item,
-                header: className?.header,
-                content: className?.content
-            }, dataTestId: `accordion-item-${item.id}`, children: item.content }, item.id))) }));
-};
-const localStyles$2 = {
-    accordionList: {
-        listStyleType: 'none',
-        margin: 0,
-        padding: 0,
-        border: `1px solid ${baseColors.primary[200]}`,
-        borderRadius: '8px',
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        '& .pa-accordion-item:last-child': {
-            borderBottom: 'none'
-        }
     }
 };
 
@@ -1332,5 +1287,5 @@ const Globals = () => (jsx(Global, { styles: css `
       }
     ` }));
 
-export { AccordionList, AccordionListItem, Block, Button, ButtonGroup, Globals, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, Search, baseColors, baseTheme, baseTypography, baseVibrantColors, createResponsiveStyle, hexToRgba, mediaQueries, screenSizes };
+export { AccordionListItem, Block, Button, ButtonGroup, Globals, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, Search, baseColors, baseTheme, baseTypography, baseVibrantColors, createResponsiveStyle, hexToRgba, mediaQueries, screenSizes };
 //# sourceMappingURL=index.esm.js.map
