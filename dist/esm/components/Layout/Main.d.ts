@@ -8,3 +8,4 @@ type MainProps = {
 };
 export declare const Main: React.FC<MainProps>;
 export {};
+//# sourceMappingURL=Main.d.ts.map

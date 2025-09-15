@@ -41,3 +41,4 @@ export type InputFieldProps = {
     };
 };
 export declare const InputField: React.FC<InputFieldProps>;
+//# sourceMappingURL=InputField.d.ts.map

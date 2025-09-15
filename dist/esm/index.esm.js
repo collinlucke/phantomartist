@@ -49,45 +49,41 @@ const hexToRgba = (hex, alpha) => {
 };
 
 const screenSizes = {
-    xs: '360px', // Adjusted for a more common mobile breakpoint
-    sm: '480px',
-    md: '640px',
-    lg: '768px',
-    xl: '1024px',
-    '2xl': '1280px',
-    '3xl': '1536px'
+    xs: 360,
+    sm: 480,
+    md: 640,
+    lg: 768,
+    xl: 1024,
+    '2xl': 1280,
+    '3xl': 1536
 };
-// Media query utilities
 const mediaQueries = {
-    // Min-width media queries (mobile-first approach)
     minWidth: {
-        xs: `@media (min-width: ${screenSizes.xs})`,
-        sm: `@media (min-width: ${screenSizes.sm})`,
-        md: `@media (min-width: ${screenSizes.md})`,
-        lg: `@media (min-width: ${screenSizes.lg})`,
-        xl: `@media (min-width: ${screenSizes.xl})`,
-        '2xl': `@media (min-width: ${screenSizes['2xl']})`
+        xs: `@media (min-width: ${screenSizes.xs}px)`,
+        sm: `@media (min-width: ${screenSizes.sm}px)`,
+        md: `@media (min-width: ${screenSizes.md}px)`,
+        lg: `@media (min-width: ${screenSizes.lg}px)`,
+        xl: `@media (min-width: ${screenSizes.xl}px)`,
+        '2xl': `@media (min-width: ${screenSizes['2xl']}px)`
     },
-    // Max-width media queries (desktop-first approach)
     maxWidth: {
-        xs: `@media (max-width: ${parseInt(screenSizes.xs) - 1}px)`,
-        sm: `@media (max-width: ${parseInt(screenSizes.sm) - 1}px)`,
-        md: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
-        lg: `@media (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
-        xl: `@media (max-width: ${parseInt(screenSizes.xl) - 1}px)`,
-        '2xl': `@media (max-width: ${parseInt(screenSizes['2xl']) - 1}px)`
+        xs: `@media (max-width: ${parseInt(`screenSizes.xs`) - 1}px)`,
+        sm: `@media (max-width: ${parseInt(`screenSizes.sm`) - 1}px)`,
+        md: `@media (max-width: ${parseInt(`screenSizes.md`) - 1}px)`,
+        lg: `@media (max-width: ${parseInt(`screenSizes.lg`) - 1}px)`,
+        xl: `@media (max-width: ${parseInt(`screenSizes.xl`) - 1}px)`,
+        '2xl': `@media (max-width: ${parseInt(`screenSizes['2xl']`) - 1}px)`
     },
-    // Range media queries (between two breakpoints)
     between: {
-        xsToSm: `@media (min-width: ${screenSizes.xs}) and (max-width: ${parseInt(screenSizes.sm) - 1}px)`,
-        smToMd: `@media (min-width: ${screenSizes.sm}) and (max-width: ${parseInt(screenSizes.md) - 1}px)`,
-        mdToLg: `@media (min-width: ${screenSizes.md}) and (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
-        lgToXl: `@media (min-width: ${screenSizes.lg}) and (max-width: ${parseInt(screenSizes.xl) - 1}px)`,
-        xlTo2xl: `@media (min-width: ${screenSizes.xl}) and (max-width: ${parseInt(screenSizes['2xl']) - 1}px)`
+        xsToSm: `@media (min-width: ${screenSizes.xs}) and (max-width: ${parseInt(`screenSizes.sm`) - 1}px)`,
+        smToMd: `@media (min-width: ${screenSizes.sm}) and (max-width: ${parseInt(`screenSizes.md`) - 1}px)`,
+        mdToLg: `@media (min-width: ${screenSizes.md}) and (max-width: ${parseInt(`screenSizes.lg`) - 1}px)`,
+        lgToXl: `@media (min-width: ${screenSizes.lg}) and (max-width: ${parseInt(`screenSizes.xl`) - 1}px)`,
+        xlTo2xl: `@media (min-width: ${screenSizes.xl}) and (max-width: ${parseInt(`screenSizes['2xl']`) - 1}px)`
     },
     // Common device queries
-    mobile: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
-    tablet: `@media (min-width: ${screenSizes.md}) and (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
+    mobile: `@media (max-width: ${screenSizes.md - 1}px)`,
+    tablet: `@media (min-width: ${screenSizes.md}) and (max-width: ${screenSizes.lg - 1}px)`,
     desktop: `@media (min-width: ${screenSizes.lg})`,
     // Orientation queries
     portrait: '@media (orientation: portrait)',
@@ -507,35 +503,35 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
     const effectiveAriaInvalid = ariaInvalid !== undefined ? ariaInvalid : !!error;
     const effectiveAriaRequired = ariaRequired !== undefined ? ariaRequired : required;
     const labelElement = label ? (jsxs("label", { css: [
-            localStyles$9({ labelPosition, size, autoResize, onDark }).label,
+            localStyles$b({ labelPosition, size, autoResize, onDark }).label,
             className?.label
-        ], htmlFor: inputId, children: [label, required && (jsx("span", { css: localStyles$9({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
+        ], htmlFor: inputId, children: [label, required && (jsx("span", { css: localStyles$b({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
     const inputElement = type === 'textarea' ? (jsx("textarea", { "data-testid": testId, ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, autoComplete: autoComplete, css: [
-            localStyles$9({ labelPosition, size, autoResize }).textarea,
-            error && localStyles$9({ labelPosition, size, autoResize }).inputError,
+            localStyles$b({ labelPosition, size, autoResize }).textarea,
+            error && localStyles$b({ labelPosition, size, autoResize }).inputError,
             disabled &&
-                localStyles$9({ labelPosition, size, autoResize }).inputDisabled,
+                localStyles$b({ labelPosition, size, autoResize }).inputDisabled,
             readonly &&
-                localStyles$9({ labelPosition, size, autoResize }).inputReadonly,
+                localStyles$b({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
         ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired })) : (jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, pattern: pattern, min: min, max: max, step: step, css: [
-            localStyles$9({ labelPosition, size, autoResize }).input,
-            error && localStyles$9({ labelPosition, size, autoResize }).inputError,
+            localStyles$b({ labelPosition, size, autoResize }).input,
+            error && localStyles$b({ labelPosition, size, autoResize }).inputError,
             disabled &&
-                localStyles$9({ labelPosition, size, autoResize }).inputDisabled,
+                localStyles$b({ labelPosition, size, autoResize }).inputDisabled,
             readonly &&
-                localStyles$9({ labelPosition, size, autoResize }).inputReadonly,
+                localStyles$b({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
         ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired }));
     const errorElement = error ? (jsx("div", { css: [
-            localStyles$9({ labelPosition, size, autoResize }).error,
+            localStyles$b({ labelPosition, size, autoResize }).error,
             className?.error
         ], id: `${inputId}-error`, role: "alert", "aria-live": "polite", children: error })) : null;
-    const helperTextElement = helperText ? (jsx("div", { css: localStyles$9({ labelPosition, size, autoResize }).helperText, id: `${inputId}-helper`, children: helperText })) : null;
+    const helperTextElement = helperText ? (jsx("div", { css: localStyles$b({ labelPosition, size, autoResize }).helperText, id: `${inputId}-helper`, children: helperText })) : null;
     // Layout based on label position
     return (jsxs("div", { css: [
             // getStyles(labelPosition, size, autoResize).container,
-            localStyles$9({ labelPosition, size, autoResize }).container,
+            localStyles$b({ labelPosition, size, autoResize }).container,
             className?.container
         ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement, helperTextElement] }));
 };
@@ -558,7 +554,7 @@ const getSizeStyles = (size) => {
             };
     }
 };
-const localStyles$9 = ({ labelPosition, size, autoResize, onDark }) => ({
+const localStyles$b = ({ labelPosition, size, autoResize, onDark }) => ({
     container: {
         display: 'flex',
         flexDirection: labelPosition === 'above' || labelPosition === 'below'
@@ -652,9 +648,9 @@ const localStyles$9 = ({ labelPosition, size, autoResize, onDark }) => ({
 });
 
 const Main = ({ children, className, isDark = false }) => {
-    return (jsx("main", { className: "pa-main", css: [localStyles$8(isDark).main, className?.main], children: children }));
+    return (jsx("main", { className: "pa-main", css: [localStyles$a(isDark).main, className?.main], children: children }));
 };
-const localStyles$8 = (isDark) => ({
+const localStyles$a = (isDark) => ({
     main: {
         display: 'flex',
         justifyContent: 'center',
@@ -667,7 +663,7 @@ const InnerWidth = ({ children,
 // size = 'medium',
 className, dataTestid = 'inner-width' }) => {
     return (jsx("div", { css: [
-            localStyles$7.innerWidth,
+            localStyles$9.innerWidth,
             // sizeStyles,
             className?.innerWidth
         ], className: "pa-inner-width", "data-testid": dataTestid, children: children }));
@@ -741,7 +737,7 @@ className, dataTestid = 'inner-width' }) => {
 //     return {};
 // }
 // };
-const localStyles$7 = {
+const localStyles$9 = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -752,9 +748,9 @@ const localStyles$7 = {
 
 const Header = ({ children, className, dataTestId, ariaLabel = 'Site header', ariaLabelledBy, role = 'banner' }) => {
     // If children is provided, use legacy mode
-    return (jsx("header", { css: [localStyles$6.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsx(Fragment, { children: children }) }));
+    return (jsx("header", { css: [localStyles$8.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsx(Fragment, { children: children }) }));
 };
-const localStyles$6 = {
+const localStyles$8 = {
     header: {
         display: 'flex',
         padding: '5px 0',
@@ -764,9 +760,9 @@ const localStyles$6 = {
     }};
 
 const Block = ({ children, className, dataTestId }) => {
-    return (jsx("div", { css: [localStyles$5.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
+    return (jsx("div", { css: [localStyles$7.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
 };
-const localStyles$5 = {
+const localStyles$7 = {
     block: {
         width: '100%',
         display: 'flex',
@@ -785,9 +781,9 @@ const Image = ({ src, className }) => {
 
 const List = ({ className, children, ariaLabel, ariaLabelledBy, ariaDescribedBy, role = 'list', dataTestId, ordered = false }) => {
     const ListElement = ordered ? 'ol' : 'ul';
-    return (jsx(ListElement, { css: [localStyles$4.list, className], className: "pa-list", role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: children }));
+    return (jsx(ListElement, { css: [localStyles$6.list, className], className: "pa-list", role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: children }));
 };
-const localStyles$4 = {
+const localStyles$6 = {
     list: {
         fontWeight: '500',
         margin: 0,
@@ -801,13 +797,13 @@ const localStyles$4 = {
 
 const ListItem = ({ children, className, useHover, role = 'listitem', ariaLabel, ariaDescribedBy, ariaSelected, ariaExpanded, ariaLevel, tabIndex, dataTestId, onClick, onKeyDown }) => {
     return (jsx("li", { css: [
-            localStyles$3.li,
+            localStyles$5.li,
             className && className.li,
-            useHover && localStyles$3.liHover,
+            useHover && localStyles$5.liHover,
             className && useHover && className.liHover
         ], className: "pa-list-item", role: role, "aria-label": ariaLabel, "aria-describedby": ariaDescribedBy, "aria-selected": ariaSelected, "aria-expanded": ariaExpanded, "aria-level": ariaLevel, tabIndex: tabIndex, "data-testid": dataTestId, onClick: onClick, onKeyDown: onKeyDown, children: children }));
 };
-const localStyles$3 = {
+const localStyles$5 = {
     li: {
         borderRadius: '6px',
         border: `1px solid ${baseColors.secondary[500]}`,
@@ -863,27 +859,27 @@ const AccordionListItem = ({ title, children, isOpen = false, onToggle, disabled
             handleToggle();
         }
     };
-    return (jsxs("li", { css: [localStyles$2.accordionItem, className?.item], className: "pa-accordion-item", "data-testid": dataTestId, children: [jsx(Button, { className: {
+    return (jsxs("li", { css: [localStyles$4.accordionItem, className?.item], className: "pa-accordion-item", "data-testid": dataTestId, children: [jsx(Button, { className: {
                     button: {
-                        ...localStyles$2.accordionHeader,
-                        ...(disabled && localStyles$2.disabled),
+                        ...localStyles$4.accordionHeader,
+                        ...(disabled && localStyles$4.disabled),
                         ...className?.header
                     }
-                }, onClick: handleToggle, onKeyDown: handleKeyDown, "aria-expanded": isExpanded, "aria-controls": `accordion-content-${dataTestId || 'default'}`, "aria-label": ariaLabel || `Toggle ${title}`, disabled: disabled, type: "button", testId: `pa-accordion-header-${dataTestId || 'default'}`, children: jsxs(Fragment, { children: [jsx("div", { css: localStyles$2.title, children: title }), jsx("span", { css: [
-                                localStyles$2.icon,
-                                isExpanded && localStyles$2.iconExpanded,
+                }, onClick: handleToggle, onKeyDown: handleKeyDown, "aria-expanded": isExpanded, "aria-controls": `accordion-content-${dataTestId || 'default'}`, "aria-label": ariaLabel || `Toggle ${title}`, disabled: disabled, type: "button", testId: `pa-accordion-header-${dataTestId || 'default'}`, children: jsxs(Fragment, { children: [jsx("div", { css: localStyles$4.title, children: title }), jsx("span", { css: [
+                                localStyles$4.icon,
+                                isExpanded && localStyles$4.iconExpanded,
                                 className?.icon
                             ], className: "pa-accordion-icon", "aria-hidden": "true", children: "\u25BC" })] }) }), jsx("div", { css: [
-                    localStyles$2.contentWrapper,
+                    localStyles$4.contentWrapper,
                     useAnimation && {
                         height: contentHeight,
                         overflow: 'hidden',
                         transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                     },
                     !useAnimation && !isExpanded && { display: 'none' }
-                ], className: "pa-accordion-content-wrapper", children: jsx("div", { ref: contentRef, css: [localStyles$2.content, className?.content], className: "pa-accordion-content", id: `accordion-content-${dataTestId || 'default'}`, role: "region", "aria-labelledby": `accordion-header-${dataTestId || 'default'}`, children: children }) })] }));
+                ], className: "pa-accordion-content-wrapper", children: jsx("div", { ref: contentRef, css: [localStyles$4.content, className?.content], className: "pa-accordion-content", id: `accordion-content-${dataTestId || 'default'}`, role: "region", "aria-labelledby": `accordion-header-${dataTestId || 'default'}`, children: children }) })] }));
 };
-const localStyles$2 = {
+const localStyles$4 = {
     accordionItem: {
         width: '100%',
         borderBottom: `1px solid ${baseColors.primary[200]}`,
@@ -951,7 +947,7 @@ const localStyles$2 = {
  * See the LICENSE file in the root directory of this source tree.
  */
 
-var e = {
+var e$1 = {
   xmlns: "http://www.w3.org/2000/svg",
   width: 24,
   height: 24,
@@ -971,7 +967,7 @@ var e = {
 const y = (a, c) => {
   const t = forwardRef(({
     color: i = "currentColor",
-    size: e$1 = 24,
+    size: e = 24,
     strokeWidth: l = 1.5,
     className: m = "",
     children: r,
@@ -979,9 +975,9 @@ const y = (a, c) => {
   }, d) => {
     const f = {
       ref: d,
-      ...e,
-      width: e$1,
-      height: e$1,
+      ...e$1,
+      width: e,
+      height: e,
       strokeWidth: l,
       color: i,
       className: m,
@@ -1001,6 +997,18 @@ const y = (a, c) => {
  * See the LICENSE file in the root directory of this source tree.
  */
 
+const e = y("Cancel01Icon", [["path", {
+  d: "M19 5L5 19M5 5L19 19",
+  stroke: "currentColor",
+  key: "k0"
+}]]);
+
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
 const r = y("CancelCircleIcon", [["path", {
   d: "M14.9994 15L9 9M9.00064 15L15 9",
   stroke: "currentColor",
@@ -1011,8 +1019,27 @@ const r = y("CancelCircleIcon", [["path", {
   key: "k1"
 }]]);
 
+/**
+ * @license hugeicons-react v0.2.0
+ *
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const o = y("Menu01Icon", [["path", {
+  d: "M4 5L20 5",
+  stroke: "currentColor",
+  key: "k0"
+}], ["path", {
+  d: "M4 12L20 12",
+  stroke: "currentColor",
+  key: "k1"
+}], ["path", {
+  d: "M4 19L20 19",
+  stroke: "currentColor",
+  key: "k2"
+}]]);
+
 const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showCloseButton = true, dataTestId, className, closeOnBackdropClick = true, closeOnEscape = true, trapFocus = true, initialFocusRef, finalFocusRef, ariaLabel, ariaLabelledBy, ariaDescribedBy }) => {
-    // Store the element that was focused before the modal opened
     const [previouslyFocusedElement, setPreviouslyFocusedElement] = React.useState(null);
     const modalRef = React.useRef(null);
     const handleBackdropClick = (e) => {
@@ -1045,17 +1072,13 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showClose
     };
     React.useEffect(() => {
         if (isOpen) {
-            // Store the currently focused element
             setPreviouslyFocusedElement(document.activeElement);
-            // Prevent body scrolling
             document.body.style.overflow = 'hidden';
-            // Focus management
             setTimeout(() => {
                 if (initialFocusRef?.current) {
                     initialFocusRef.current.focus();
                 }
                 else {
-                    // Focus the first focusable element in the modal
                     const modalElement = modalRef.current;
                     if (modalElement) {
                         const firstFocusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
@@ -1067,9 +1090,7 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showClose
             }, 0);
         }
         else {
-            // Restore body scrolling
             document.body.style.overflow = '';
-            // Return focus to previously focused element
             if (finalFocusRef?.current) {
                 finalFocusRef.current.focus();
             }
@@ -1077,7 +1098,6 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showClose
                 previouslyFocusedElement.focus();
             }
         }
-        // Escape key handler
         const handleEscape = (e) => {
             if (closeOnEscape && e.key === 'Escape') {
                 e.preventDefault();
@@ -1101,12 +1121,11 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showClose
     ]);
     if (!isOpen)
         return null;
-    // Generate appropriate aria attributes
     const titleId = title ? `${dataTestId || 'modal'}-title` : undefined;
     const effectiveAriaLabelledBy = ariaLabelledBy || titleId;
-    return (jsx("div", { css: [localStyles$1.backdrop, className?.backdrop], onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxs("div", { ref: modalRef, css: [localStyles$1.modal, { maxWidth }, className?.modal], role: "dialog", "aria-modal": "true", "aria-label": ariaLabel, "aria-labelledby": effectiveAriaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxs("div", { css: [localStyles$1.header, className?.header], children: [title && (jsx("h1", { css: [localStyles$1.title, className?.title], id: titleId, children: title })), showCloseButton && (jsx(Button, { className: { button: localStyles$1.closeButton }, onClick: onClose, ariaLabel: "Close modal", kind: "ghost", size: "medium", iconOnly: true, icon: jsx(r, { size: 24 }) }))] })), jsx("div", { css: [localStyles$1.content, className?.content], children: children })] }) }));
+    return (jsx("div", { css: [localStyles$3.backdrop, className?.backdrop], onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxs("div", { ref: modalRef, css: [localStyles$3.modal, { maxWidth }, className?.modal], role: "dialog", "aria-modal": "true", "aria-label": ariaLabel, "aria-labelledby": effectiveAriaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxs("div", { css: [localStyles$3.header, className?.header], children: [title && (jsx("h1", { css: [localStyles$3.title, className?.title], id: titleId, children: title })), showCloseButton && (jsx(Button, { className: { button: localStyles$3.closeButton }, onClick: onClose, ariaLabel: "Close modal", kind: "ghost", size: "medium", iconOnly: true, icon: jsx(r, { size: 24 }) }))] })), jsx("div", { css: [localStyles$3.content, className?.content], children: children })] }) }));
 };
-const localStyles$1 = {
+const localStyles$3 = {
     backdrop: {
         position: 'fixed',
         top: 0,
@@ -1171,14 +1190,14 @@ const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel
             handleOnSearch();
         }
     };
-    return (jsx("div", { css: [localStyles.searchForm, className?.searchForm], className: "pa-search-form", role: searchRole || 'search', "aria-label": ariaLabel || 'Search', "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": testId, children: jsxs("div", { css: [localStyles.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxs("div", { css: [localStyles.results, className?.resultsText], "data-testid": "total-results", "aria-live": resultsAriaLive, "aria-atomic": "true", role: "status", children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsx("div", { css: localStyles.inputWrapper, children: jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', autoFocus: autoFocus, className: { container: { ...localStyles.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark, testId: "search-input", ariaLabel: !label ? searchLabel || 'Search' : undefined, ariaDescribedBy: showResultsCount ? 'search-results-count' : undefined }) }), showSearchButton && (jsx(Button, { testId: "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, ariaLabel: `${buttonText || 'Search'} - ${totalResultsCount} results available`, className: {
+    return (jsx("div", { css: [localStyles$2.searchForm, className?.searchForm], className: "pa-search-form", role: searchRole || 'search', "aria-label": ariaLabel || 'Search', "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": testId, children: jsxs("div", { css: [localStyles$2.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxs("div", { css: [localStyles$2.results, className?.resultsText], "data-testid": "total-results", "aria-live": resultsAriaLive, "aria-atomic": "true", role: "status", children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsx("div", { css: localStyles$2.inputWrapper, children: jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', autoFocus: autoFocus, className: { container: { ...localStyles$2.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark, testId: "search-input", ariaLabel: !label ? searchLabel || 'Search' : undefined, ariaDescribedBy: showResultsCount ? 'search-results-count' : undefined }) }), showSearchButton && (jsx(Button, { testId: "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, ariaLabel: `${buttonText || 'Search'} - ${totalResultsCount} results available`, className: {
                         button: {
-                            ...localStyles.searchButton,
+                            ...localStyles$2.searchButton,
                             ...className?.searchButton
                         }
                     }, children: buttonText || 'Search' }))] }) }));
 };
-const localStyles = {
+const localStyles$2 = {
     searchForm: {
         display: 'flex',
         width: '100%'
@@ -1208,6 +1227,106 @@ const localStyles = {
     },
     searchButton: {
         whiteSpace: 'nowrap'
+    }
+};
+
+const Avatar = ({ displayName, imageUrl }) => {
+    console.log(displayName);
+    // const initials = displayName
+    //   .split(' ')
+    //   .map(n => n[0])
+    //   .join('')
+    //   .toUpperCase();
+    return (jsx("div", { css: localStyles$1.avatar, children: imageUrl ? (jsx("img", { src: imageUrl, alt: displayName, css: localStyles$1.image })) : (jsx("div", { children: displayName })) }));
+};
+const localStyles$1 = {
+    avatar: {
+        borderRadius: '50%',
+        width: '40px',
+        height: '40px',
+        overflow: 'hidden',
+        display: 'inline-block'
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+    }
+};
+
+const SlideOutMenu = ({ children, from = 'right', isMobile = false }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleOpenClosed = () => {
+        setIsOpen(!isOpen);
+    };
+    return (jsxs("div", { css: localStyles.slideOutMenu, children: [jsx(Button, { kind: "ghostOnDark", size: "small", iconOnly: true, icon: jsx(o, { size: 24 }), onClick: toggleOpenClosed, ariaLabel: isOpen ? 'Close menu' : 'Open menu', className: { button: getOpenButtonStyles(isMobile) } }), jsx("div", { css: getOverlayStyles(isOpen), onClick: toggleOpenClosed, children: jsxs("div", { css: getMenuStyles(from, isOpen), children: [jsx(Button, { kind: "ghostOnDark", className: { button: getCloseButtonStyles(isMobile) }, icon: jsx(e, { size: 24 }), onClick: toggleOpenClosed }), children] }) })] }));
+};
+const getOpenButtonStyles = (isMobile) => {
+    return {
+        ...localStyles.openButton,
+        ...(isMobile ? { position: 'absolute', top: '16px', right: '16px' } : {})
+    };
+};
+const getOverlayStyles = (isOpen) => {
+    return {
+        ...localStyles.slideOutOverlay,
+        opacity: isOpen ? 1 : 0,
+        visibility: isOpen ? 'visible' : 'hidden',
+        transition: 'opacity 0.3s ease, visibility 0.3s ease'
+    };
+};
+const getMenuStyles = (from, isOpen) => {
+    return {
+        ...localStyles.menuContainer,
+        ...(from === 'left' ? { left: 0 } : { right: 0 }),
+        transform: isOpen
+            ? 'translateX(0)'
+            : `translateX(${from === 'left' ? '-100%' : '100%'})`,
+        transition: 'transform 0.3s ease-in-out'
+    };
+};
+const getCloseButtonStyles = (isMobile) => {
+    return {
+        ...localStyles.closeButton,
+        ...(isMobile ? { marginBottom: '10px' } : { marginBottom: '35px' })
+    };
+};
+const localStyles = {
+    slideOutMenu: {
+        display: 'flex'
+    },
+    slideOutOverlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        zIndex: 1000,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        pointerEvents: 'auto'
+    },
+    menuContainer: {
+        position: 'relative',
+        backgroundColor: baseColors.primary[500],
+        width: '280px',
+        height: '100%',
+        padding: '20px',
+        boxShadow: '-2px 0 8px rgba(0, 0, 0, 0.3)',
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    openButton: {
+        padding: '16px',
+        zIndex: 10,
+        '&:hover': { boxShadow: 'none' }
+    },
+    closeButton: {
+        padding: 0,
+        alignSelf: 'flex-end',
+        '&:hover': { boxShadow: 'none' }
     }
 };
 
@@ -1287,5 +1406,5 @@ const Globals = () => (jsx(Global, { styles: css `
       }
     ` }));
 
-export { AccordionListItem, Block, Button, ButtonGroup, Globals, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, Search, baseColors, baseTheme, baseTypography, baseVibrantColors, createResponsiveStyle, hexToRgba, mediaQueries, screenSizes };
+export { AccordionListItem, Avatar, Block, Button, ButtonGroup, Globals, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, Search, SlideOutMenu, baseColors, baseTheme, baseTypography, baseVibrantColors, createResponsiveStyle, hexToRgba, mediaQueries, screenSizes };
 //# sourceMappingURL=index.esm.js.map

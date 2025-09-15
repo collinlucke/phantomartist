@@ -3,7 +3,7 @@ import { baseColors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type HeaderModifyProps = {
-  children?: ReactElement[];
+  children?: ReactElement;
   logo?: ReactNode;
   navigation?: ReactNode;
   actions?: ReactNode;

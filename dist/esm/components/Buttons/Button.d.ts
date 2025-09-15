@@ -27,3 +27,4 @@ type ButtonProps = {
 };
 export declare const Button: import("react").ForwardRefExoticComponent<ButtonProps & import("react").RefAttributes<HTMLButtonElement>>;
 export {};
+//# sourceMappingURL=Button.d.ts.map

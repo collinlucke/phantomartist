@@ -47,7 +47,6 @@ export const Modal: React.FC<ModalProps> = ({
   ariaLabelledBy,
   ariaDescribedBy
 }) => {
-  // Store the element that was focused before the modal opened
   const [previouslyFocusedElement, setPreviouslyFocusedElement] =
     React.useState<HTMLElement | null>(null);
   const modalRef = React.useRef<HTMLDivElement>(null);
@@ -88,18 +87,14 @@ export const Modal: React.FC<ModalProps> = ({
 
   React.useEffect(() => {
     if (isOpen) {
-      // Store the currently focused element
       setPreviouslyFocusedElement(document.activeElement as HTMLElement);
 
-      // Prevent body scrolling
       document.body.style.overflow = 'hidden';
 
-      // Focus management
       setTimeout(() => {
         if (initialFocusRef?.current) {
           initialFocusRef.current.focus();
         } else {
-          // Focus the first focusable element in the modal
           const modalElement = modalRef.current;
           if (modalElement) {
             const firstFocusable = modalElement.querySelector(
@@ -112,10 +107,8 @@ export const Modal: React.FC<ModalProps> = ({
         }
       }, 0);
     } else {
-      // Restore body scrolling
       document.body.style.overflow = '';
 
-      // Return focus to previously focused element
       if (finalFocusRef?.current) {
         finalFocusRef.current.focus();
       } else if (previouslyFocusedElement) {
@@ -123,7 +116,6 @@ export const Modal: React.FC<ModalProps> = ({
       }
     }
 
-    // Escape key handler
     const handleEscape = (e: KeyboardEvent) => {
       if (closeOnEscape && e.key === 'Escape') {
         e.preventDefault();
@@ -150,7 +142,6 @@ export const Modal: React.FC<ModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Generate appropriate aria attributes
   const titleId = title ? `${dataTestId || 'modal'}-title` : undefined;
   const effectiveAriaLabelledBy = ariaLabelledBy || titleId;
 

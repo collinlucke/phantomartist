@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { CSSObject } from '@emotion/react';
 type HeaderModifyProps = {
-    children?: ReactElement[];
+    children?: ReactElement;
     logo?: ReactNode;
     navigation?: ReactNode;
     actions?: ReactNode;
@@ -17,3 +17,4 @@ type HeaderModifyProps = {
 };
 export declare const Header: React.FC<HeaderModifyProps>;
 export {};
+//# sourceMappingURL=Header.d.ts.map

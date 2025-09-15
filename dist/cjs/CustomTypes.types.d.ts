@@ -10,3 +10,4 @@ export type ConsumerThemeTypes = Theme & {
         gap?: 'small' | 'medium' | 'large';
     }) => CSSObject;
 };
+//# sourceMappingURL=CustomTypes.types.d.ts.map

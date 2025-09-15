@@ -2,60 +2,56 @@ import { CSSObject } from '@emotion/react';
 import { hexToRgba } from './hexToRgba';
 
 export const screenSizes = {
-  xs: '360px', // Adjusted for a more common mobile breakpoint
-  sm: '480px',
-  md: '640px',
-  lg: '768px',
-  xl: '1024px',
-  '2xl': '1280px',
-  '3xl': '1536px'
+  xs: 360,
+  sm: 480,
+  md: 640,
+  lg: 768,
+  xl: 1024,
+  '2xl': 1280,
+  '3xl': 1536
 };
 
-// Media query utilities
 export const mediaQueries = {
-  // Min-width media queries (mobile-first approach)
   minWidth: {
-    xs: `@media (min-width: ${screenSizes.xs})`,
-    sm: `@media (min-width: ${screenSizes.sm})`,
-    md: `@media (min-width: ${screenSizes.md})`,
-    lg: `@media (min-width: ${screenSizes.lg})`,
-    xl: `@media (min-width: ${screenSizes.xl})`,
-    '2xl': `@media (min-width: ${screenSizes['2xl']})`
+    xs: `@media (min-width: ${screenSizes.xs}px)`,
+    sm: `@media (min-width: ${screenSizes.sm}px)`,
+    md: `@media (min-width: ${screenSizes.md}px)`,
+    lg: `@media (min-width: ${screenSizes.lg}px)`,
+    xl: `@media (min-width: ${screenSizes.xl}px)`,
+    '2xl': `@media (min-width: ${screenSizes['2xl']}px)`
   },
 
-  // Max-width media queries (desktop-first approach)
   maxWidth: {
-    xs: `@media (max-width: ${parseInt(screenSizes.xs) - 1}px)`,
-    sm: `@media (max-width: ${parseInt(screenSizes.sm) - 1}px)`,
-    md: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
-    lg: `@media (max-width: ${parseInt(screenSizes.lg) - 1}px)`,
-    xl: `@media (max-width: ${parseInt(screenSizes.xl) - 1}px)`,
-    '2xl': `@media (max-width: ${parseInt(screenSizes['2xl']) - 1}px)`
+    xs: `@media (max-width: ${parseInt(`screenSizes.xs`) - 1}px)`,
+    sm: `@media (max-width: ${parseInt(`screenSizes.sm`) - 1}px)`,
+    md: `@media (max-width: ${parseInt(`screenSizes.md`) - 1}px)`,
+    lg: `@media (max-width: ${parseInt(`screenSizes.lg`) - 1}px)`,
+    xl: `@media (max-width: ${parseInt(`screenSizes.xl`) - 1}px)`,
+    '2xl': `@media (max-width: ${parseInt(`screenSizes['2xl']`) - 1}px)`
   },
 
-  // Range media queries (between two breakpoints)
   between: {
     xsToSm: `@media (min-width: ${screenSizes.xs}) and (max-width: ${
-      parseInt(screenSizes.sm) - 1
+      parseInt(`screenSizes.sm`) - 1
     }px)`,
     smToMd: `@media (min-width: ${screenSizes.sm}) and (max-width: ${
-      parseInt(screenSizes.md) - 1
+      parseInt(`screenSizes.md`) - 1
     }px)`,
     mdToLg: `@media (min-width: ${screenSizes.md}) and (max-width: ${
-      parseInt(screenSizes.lg) - 1
+      parseInt(`screenSizes.lg`) - 1
     }px)`,
     lgToXl: `@media (min-width: ${screenSizes.lg}) and (max-width: ${
-      parseInt(screenSizes.xl) - 1
+      parseInt(`screenSizes.xl`) - 1
     }px)`,
     xlTo2xl: `@media (min-width: ${screenSizes.xl}) and (max-width: ${
-      parseInt(screenSizes['2xl']) - 1
+      parseInt(`screenSizes['2xl']`) - 1
     }px)`
   },
 
   // Common device queries
-  mobile: `@media (max-width: ${parseInt(screenSizes.md) - 1}px)`,
+  mobile: `@media (max-width: ${screenSizes.md - 1}px)`,
   tablet: `@media (min-width: ${screenSizes.md}) and (max-width: ${
-    parseInt(screenSizes.lg) - 1
+    screenSizes.lg - 1
   }px)`,
   desktop: `@media (min-width: ${screenSizes.lg})`,
 

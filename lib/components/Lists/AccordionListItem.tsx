@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { CSSObject } from '@emotion/react';
 import { Button } from '../Buttons/Button';
-import { hexToRgba } from '../../styling/hexToRgba.ts';
+import { hexToRgba } from '../../styling/hexToRgba';
 import { baseColors } from '../../styling/baseTheme';
 
 type AccordionListItemProps = {

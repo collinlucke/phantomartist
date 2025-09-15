@@ -7,3 +7,4 @@ type ImageTypes = {
 };
 export declare const Image: React.FC<ImageTypes>;
 export {};
+//# sourceMappingURL=Image.d.ts.map

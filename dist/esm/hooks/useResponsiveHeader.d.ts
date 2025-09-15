@@ -7,3 +7,4 @@ export declare const useResponsiveHeader: () => {
     showCompactNav: boolean;
     showFullNav: boolean;
 };
+//# sourceMappingURL=useResponsiveHeader.d.ts.map

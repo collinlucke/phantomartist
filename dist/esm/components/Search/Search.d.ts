@@ -33,3 +33,4 @@ type Search = {
 };
 export declare const Search: React.FC<Search>;
 export {};
+//# sourceMappingURL=Search.d.ts.map

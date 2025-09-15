@@ -11,3 +11,4 @@ type InnerWidthProps = {
 };
 export declare const InnerWidth: React.FC<InnerWidthProps>;
 export {};
+//# sourceMappingURL=InnerWidth.d.ts.map

@@ -12,3 +12,4 @@ type ListProps = {
 };
 export declare const List: React.FC<ListProps>;
 export {};
+//# sourceMappingURL=List.d.ts.map

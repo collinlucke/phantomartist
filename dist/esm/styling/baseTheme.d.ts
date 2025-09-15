@@ -1,12 +1,12 @@
 import { CSSObject } from '@emotion/react';
 export declare const screenSizes: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    '2xl': string;
-    '3xl': string;
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+    '2xl': number;
+    '3xl': number;
 };
 export declare const mediaQueries: {
     minWidth: {
@@ -223,3 +223,4 @@ export declare const baseTheme: {
     };
     modalContent: Record<string, unknown>;
 };
+//# sourceMappingURL=baseTheme.d.ts.map

@@ -8,3 +8,4 @@ export declare const Vertical: Story;
 export declare const MixedKinds: Story;
 export declare const LargeGap: Story;
 export declare const SmallGap: Story;
+//# sourceMappingURL=ButtonGroup.stories.d.ts.map

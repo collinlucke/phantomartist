@@ -1,3 +1,3 @@
-export * from './Globals.tsx';
-export * from './baseTheme.ts';
-export * from './hexToRgba.ts';
+export * from './Globals';
+export * from './baseTheme';
+export * from './hexToRgba';

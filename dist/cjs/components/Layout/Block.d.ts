@@ -9,3 +9,4 @@ type BlockProps = {
 };
 export declare const Block: React.FC<BlockProps>;
 export {};
+//# sourceMappingURL=Block.d.ts.map
