@@ -31,9 +31,9 @@ export const Default: Story = {
   },
   render: args => (
     <ButtonGroup {...args}>
-      <Button kind="ghost">Arena</Button>
-      <Button kind="ghost">Leader Boards</Button>
-      <Button kind="ghost">All Movies</Button>
+      <Button variant="ghost">Arena</Button>
+      <Button variant="ghost">Leader Boards</Button>
+      <Button variant="ghost">All Movies</Button>
     </ButtonGroup>
   )
 };
@@ -45,23 +45,23 @@ export const Vertical: Story = {
   },
   render: args => (
     <ButtonGroup {...args}>
-      <Button kind="ghost">Arena</Button>
-      <Button kind="ghost">Leader Boards</Button>
-      <Button kind="ghost">All Movies</Button>
+      <Button variant="ghost">Arena</Button>
+      <Button variant="ghost">Leader Boards</Button>
+      <Button variant="ghost">All Movies</Button>
     </ButtonGroup>
   )
 };
 
-export const MixedKinds: Story = {
+export const MixedVariants: Story = {
   args: {
     direction: 'horizontal',
     gap: 'medium'
   },
   render: args => (
     <ButtonGroup {...args}>
-      <Button kind="primary">Primary</Button>
-      <Button kind="secondary">Secondary</Button>
-      <Button kind="ghost">Ghost</Button>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="ghost">Ghost</Button>
     </ButtonGroup>
   )
 };
@@ -73,9 +73,9 @@ export const LargeGap: Story = {
   },
   render: args => (
     <ButtonGroup {...args}>
-      <Button kind="ghost">Arena</Button>
-      <Button kind="ghost">Leader Boards</Button>
-      <Button kind="ghost">All Movies</Button>
+      <Button variant="ghost">Arena</Button>
+      <Button variant="ghost">Leader Boards</Button>
+      <Button variant="ghost">All Movies</Button>
     </ButtonGroup>
   )
 };
@@ -87,9 +87,9 @@ export const SmallGap: Story = {
   },
   render: args => (
     <ButtonGroup {...args}>
-      <Button kind="ghost">Arena</Button>
-      <Button kind="ghost">Leader Boards</Button>
-      <Button kind="ghost">All Movies</Button>
+      <Button variant="ghost">Arena</Button>
+      <Button variant="ghost">Leader Boards</Button>
+      <Button variant="ghost">All Movies</Button>
     </ButtonGroup>
   )
 };

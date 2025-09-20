@@ -2,7 +2,7 @@ import { baseColors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type ListItemProps = {
-  children?: JSX.Element;
+  children?: React.ReactNode;
   className?: {
     li?: CSSObject;
     liHover?: CSSObject;

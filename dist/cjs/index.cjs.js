@@ -259,61 +259,61 @@ const baseTypography = {
     }
 };
 const baseTheme = {
-    button: ({ kind, size, iconOnly }) => {
+    button: ({ variant, size, iconOnly }) => {
         return {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             lineHeight: size === 'small' ? 1.1 : 1.2, // Match input field line height for small size
             fontSize: (size === 'small' && '0.875rem') ||
-                (kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : '1rem'),
+                (variant === 'ghost' || variant === 'ghostOnDark' ? '18px' : '1rem'),
             borderRadius: '5px',
             cursor: 'pointer',
             gap: '10px',
             padding: !iconOnly
-                ? (size === 'large' && kind === 'primary' && '10px 40px') ||
-                    (size === 'large' && kind === 'secondary' && '8px 34px') ||
-                    (size === 'large' && kind === 'tertiary' && '8px 34px') ||
-                    (size === 'large' && kind === 'ghost' && '10px 40px') ||
-                    (size === 'large' && kind === 'ghostOnDark' && '10px 40px') ||
-                    (size === 'large' && kind === 'outline' && '10px 40px') ||
-                    (size === 'medium' && kind === 'primary' && '8px 15px') ||
-                    (size === 'medium' && kind === 'secondary' && '8px 15px') ||
-                    (size === 'medium' && kind === 'ghost' && '8px 15px') ||
-                    (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
-                    (size === 'medium' && kind === 'outline' && '8px 15px') ||
-                    (size === 'small' && kind === 'primary' && '6px 15px') ||
-                    (size === 'small' && kind === 'secondary' && '6px 15px') ||
-                    (size === 'small' && kind === 'ghost' && '6px 15px') ||
-                    (size === 'small' && kind === 'ghostOnDark' && '6px 15px') ||
-                    (size === 'small' && kind === 'outline' && '6px 15px') ||
+                ? (size === 'large' && variant === 'primary' && '10px 40px') ||
+                    (size === 'large' && variant === 'secondary' && '8px 34px') ||
+                    (size === 'large' && variant === 'tertiary' && '8px 34px') ||
+                    (size === 'large' && variant === 'ghost' && '10px 40px') ||
+                    (size === 'large' && variant === 'ghostOnDark' && '10px 40px') ||
+                    (size === 'large' && variant === 'outline' && '10px 40px') ||
+                    (size === 'medium' && variant === 'primary' && '8px 15px') ||
+                    (size === 'medium' && variant === 'secondary' && '8px 15px') ||
+                    (size === 'medium' && variant === 'ghost' && '8px 15px') ||
+                    (size === 'medium' && variant === 'ghostOnDark' && '8px 15px') ||
+                    (size === 'medium' && variant === 'outline' && '8px 15px') ||
+                    (size === 'small' && variant === 'primary' && '6px 15px') ||
+                    (size === 'small' && variant === 'secondary' && '6px 15px') ||
+                    (size === 'small' && variant === 'ghost' && '6px 15px') ||
+                    (size === 'small' && variant === 'ghostOnDark' && '6px 15px') ||
+                    (size === 'small' && variant === 'outline' && '6px 15px') ||
                     undefined
-                : (kind === 'primary' && '8px') ||
-                    (kind === 'secondary' && '8px') ||
-                    (kind === 'ghost' && '8px') ||
-                    (kind === 'ghostOnDark' && '8px') ||
-                    (kind === 'outline' && '8px') ||
+                : (variant === 'primary' && '8px') ||
+                    (variant === 'secondary' && '8px') ||
+                    (variant === 'ghost' && '8px') ||
+                    (variant === 'ghostOnDark' && '8px') ||
+                    (variant === 'outline' && '8px') ||
                     undefined,
-            border: (kind === 'primary' && 'none') ||
-                (kind === 'secondary' && 'none') ||
-                (kind === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
-                (kind === 'ghost' && 'none') ||
-                (kind === 'ghostOnDark' && 'none') ||
-                (kind === 'outline' && `1px solid ${baseColors.tertiary[500]}`) ||
+            border: (variant === 'primary' && 'none') ||
+                (variant === 'secondary' && 'none') ||
+                (variant === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
+                (variant === 'ghost' && 'none') ||
+                (variant === 'ghostOnDark' && 'none') ||
+                (variant === 'outline' && `1px solid ${baseColors.tertiary[500]}`) ||
                 undefined,
-            color: (kind === 'primary' && 'white') ||
-                (kind === 'tertiary' && 'black') ||
-                (kind === 'secondary' && baseColors.primary[500]) ||
-                (kind === 'ghost' && 'inherit') ||
-                (kind === 'ghostOnDark' && baseColors.tertiary[50]) ||
-                (kind === 'outline' && baseColors.tertiary[50]) ||
+            color: (variant === 'primary' && 'white') ||
+                (variant === 'tertiary' && 'black') ||
+                (variant === 'secondary' && baseColors.primary[500]) ||
+                (variant === 'ghost' && 'inherit') ||
+                (variant === 'ghostOnDark' && baseColors.tertiary[50]) ||
+                (variant === 'outline' && baseColors.tertiary[50]) ||
                 'inherit',
-            backgroundColor: (kind === 'primary' && baseColors.primary[500]) ||
-                (kind === 'secondary' && baseColors.tertiary[500]) ||
-                (kind === 'ghost' && 'transparent') ||
-                (kind === 'ghostOnDark' && 'transparent') ||
-                (kind === 'outline' && 'transparent') ||
-                (kind === 'secondary' &&
+            backgroundColor: (variant === 'primary' && baseColors.primary[500]) ||
+                (variant === 'secondary' && baseColors.tertiary[500]) ||
+                (variant === 'ghost' && 'transparent') ||
+                (variant === 'ghostOnDark' && 'transparent') ||
+                (variant === 'outline' && 'transparent') ||
+                (variant === 'secondary' &&
                     `color-mix(in srgb, ${baseColors.primary[500]} 75%, black)`) ||
                 undefined,
             '&:hover': {
@@ -322,7 +322,7 @@ const baseTheme = {
                         filter: `drop-shadow(0 0 1px ${baseColors.primary[400]})`
                     }
                     : { boxShadow: `0 0 3px black` }),
-                ...(kind === 'outline' && {
+                ...(variant === 'outline' && {
                     backgroundColor: hexToRgba(baseColors.tertiary[50], 0.1)
                 })
             },
@@ -379,7 +379,7 @@ const baseTheme = {
     modalContent: {}
 };
 
-const Button = React.forwardRef(({ children, className, type, kind = 'primary', size = 'large', icon, iconOnly, ariaLabel, ariaDescribedBy, ariaExpanded, ariaHaspopup, ariaPressed, role, disabled = false, autoFocus = false, tabIndex, testId, onClick, onKeyDown, onFocus, onBlur }, ref) => {
+const Button = React.forwardRef(({ children, className, type, variant = 'primary', size = 'large', icon, iconOnly, ariaLabel, ariaDescribedBy, ariaExpanded, ariaHaspopup, ariaPressed, role, disabled = false, autoFocus = false, tabIndex, testId, onClick, onKeyDown, onFocus, onBlur }, ref) => {
     const consumerTheme = react.useTheme();
     const onClickHandler = e => {
         onClick?.(e);
@@ -387,11 +387,11 @@ const Button = React.forwardRef(({ children, className, type, kind = 'primary', 
     // Generate aria-label for icon-only buttons if not provided
     const effectiveAriaLabel = ariaLabel || (iconOnly && !children ? 'Button' : undefined);
     return (jsxRuntime.jsx("button", { ref: ref, type: type, onClick: onClickHandler, onKeyDown: onKeyDown, onFocus: onFocus, onBlur: onBlur, disabled: disabled, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, "data-testid": testId, css: [
-            baseTheme.button({ kind, size, iconOnly }),
+            baseTheme.button({ variant, size, iconOnly }),
             consumerTheme?.button &&
-                consumerTheme.button({ kind, size, iconOnly }),
+                consumerTheme.button({ variant, size, iconOnly }),
             className?.button
-        ], className: `pa-button ${kind} ${size}`, "aria-label": effectiveAriaLabel, "aria-describedby": ariaDescribedBy, "aria-expanded": ariaExpanded, "aria-haspopup": ariaHaspopup, "aria-pressed": ariaPressed, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [typeof icon === 'string' ? (jsxRuntime.jsx("span", { "aria-hidden": "true", children: icon })) : (icon), children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
+        ], className: `pa-button ${variant} ${size}`, "aria-label": effectiveAriaLabel, "aria-describedby": ariaDescribedBy, "aria-expanded": ariaExpanded, "aria-haspopup": ariaHaspopup, "aria-pressed": ariaPressed, children: icon ? (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [typeof icon === 'string' ? (jsxRuntime.jsx("span", { "aria-hidden": "true", children: icon })) : (icon), children] })) : (jsxRuntime.jsx(jsxRuntime.Fragment, { children: children })) }));
 });
 Button.displayName = 'Button';
 
@@ -505,35 +505,35 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
     const effectiveAriaInvalid = ariaInvalid !== undefined ? ariaInvalid : !!error;
     const effectiveAriaRequired = ariaRequired !== undefined ? ariaRequired : required;
     const labelElement = label ? (jsxRuntime.jsxs("label", { css: [
-            localStyles$b({ labelPosition, size, autoResize, onDark }).label,
+            localStyles$c({ labelPosition, size, autoResize, onDark }).label,
             className?.label
-        ], htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$b({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
+        ], htmlFor: inputId, children: [label, required && (jsxRuntime.jsx("span", { css: localStyles$c({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
     const inputElement = type === 'textarea' ? (jsxRuntime.jsx("textarea", { "data-testid": testId, ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, autoComplete: autoComplete, css: [
-            localStyles$b({ labelPosition, size, autoResize }).textarea,
-            error && localStyles$b({ labelPosition, size, autoResize }).inputError,
+            localStyles$c({ labelPosition, size, autoResize }).textarea,
+            error && localStyles$c({ labelPosition, size, autoResize }).inputError,
             disabled &&
-                localStyles$b({ labelPosition, size, autoResize }).inputDisabled,
+                localStyles$c({ labelPosition, size, autoResize }).inputDisabled,
             readonly &&
-                localStyles$b({ labelPosition, size, autoResize }).inputReadonly,
+                localStyles$c({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
         ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired })) : (jsxRuntime.jsx("input", { id: inputId, name: name, type: type, value: value, onChange: handleInputChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, "data-testid": testId, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, pattern: pattern, min: min, max: max, step: step, css: [
-            localStyles$b({ labelPosition, size, autoResize }).input,
-            error && localStyles$b({ labelPosition, size, autoResize }).inputError,
+            localStyles$c({ labelPosition, size, autoResize }).input,
+            error && localStyles$c({ labelPosition, size, autoResize }).inputError,
             disabled &&
-                localStyles$b({ labelPosition, size, autoResize }).inputDisabled,
+                localStyles$c({ labelPosition, size, autoResize }).inputDisabled,
             readonly &&
-                localStyles$b({ labelPosition, size, autoResize }).inputReadonly,
+                localStyles$c({ labelPosition, size, autoResize }).inputReadonly,
             className?.input
         ], "aria-label": ariaLabel, "aria-describedby": effectiveAriaDescribedBy, "aria-invalid": effectiveAriaInvalid, "aria-required": effectiveAriaRequired }));
     const errorElement = error ? (jsxRuntime.jsx("div", { css: [
-            localStyles$b({ labelPosition, size, autoResize }).error,
+            localStyles$c({ labelPosition, size, autoResize }).error,
             className?.error
         ], id: `${inputId}-error`, role: "alert", "aria-live": "polite", children: error })) : null;
-    const helperTextElement = helperText ? (jsxRuntime.jsx("div", { css: localStyles$b({ labelPosition, size, autoResize }).helperText, id: `${inputId}-helper`, children: helperText })) : null;
+    const helperTextElement = helperText ? (jsxRuntime.jsx("div", { css: localStyles$c({ labelPosition, size, autoResize }).helperText, id: `${inputId}-helper`, children: helperText })) : null;
     // Layout based on label position
     return (jsxRuntime.jsxs("div", { css: [
             // getStyles(labelPosition, size, autoResize).container,
-            localStyles$b({ labelPosition, size, autoResize }).container,
+            localStyles$c({ labelPosition, size, autoResize }).container,
             className?.container
         ], children: [(labelPosition === 'above' || labelPosition === 'left') && labelElement, inputElement, (labelPosition === 'below' || labelPosition === 'right') && labelElement, errorElement, helperTextElement] }));
 };
@@ -556,7 +556,7 @@ const getSizeStyles = (size) => {
             };
     }
 };
-const localStyles$b = ({ labelPosition, size, autoResize, onDark }) => ({
+const localStyles$c = ({ labelPosition, size, autoResize, onDark }) => ({
     container: {
         display: 'flex',
         flexDirection: labelPosition === 'above' || labelPosition === 'below'
@@ -650,9 +650,9 @@ const localStyles$b = ({ labelPosition, size, autoResize, onDark }) => ({
 });
 
 const Main = ({ children, className, isDark = false }) => {
-    return (jsxRuntime.jsx("main", { className: "pa-main", css: [localStyles$a(isDark).main, className?.main], children: children }));
+    return (jsxRuntime.jsx("main", { className: "pa-main", css: [localStyles$b(isDark).main, className?.main], children: children }));
 };
-const localStyles$a = (isDark) => ({
+const localStyles$b = (isDark) => ({
     main: {
         display: 'flex',
         justifyContent: 'center',
@@ -665,7 +665,7 @@ const InnerWidth = ({ children,
 // size = 'medium',
 className, dataTestid = 'inner-width' }) => {
     return (jsxRuntime.jsx("div", { css: [
-            localStyles$9.innerWidth,
+            localStyles$a.innerWidth,
             // sizeStyles,
             className?.innerWidth
         ], className: "pa-inner-width", "data-testid": dataTestid, children: children }));
@@ -739,7 +739,7 @@ className, dataTestid = 'inner-width' }) => {
 //     return {};
 // }
 // };
-const localStyles$9 = {
+const localStyles$a = {
     innerWidth: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -750,9 +750,9 @@ const localStyles$9 = {
 
 const Header = ({ children, className, dataTestId, ariaLabel = 'Site header', ariaLabelledBy, role = 'banner' }) => {
     // If children is provided, use legacy mode
-    return (jsxRuntime.jsx("header", { css: [localStyles$8.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsxRuntime.jsx(jsxRuntime.Fragment, { children: children }) }));
+    return (jsxRuntime.jsx("header", { css: [localStyles$9.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsxRuntime.jsx(jsxRuntime.Fragment, { children: children }) }));
 };
-const localStyles$8 = {
+const localStyles$9 = {
     header: {
         display: 'flex',
         padding: '5px 0',
@@ -762,9 +762,9 @@ const localStyles$8 = {
     }};
 
 const Block = ({ children, className, dataTestId }) => {
-    return (jsxRuntime.jsx("div", { css: [localStyles$7.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
+    return (jsxRuntime.jsx("div", { css: [localStyles$8.block, className?.block], className: "pa-block", "data-testid": dataTestId, children: children }));
 };
-const localStyles$7 = {
+const localStyles$8 = {
     block: {
         width: '100%',
         display: 'flex',
@@ -783,9 +783,9 @@ const Image = ({ src, className }) => {
 
 const List = ({ className, children, ariaLabel, ariaLabelledBy, ariaDescribedBy, role = 'list', dataTestId, ordered = false }) => {
     const ListElement = ordered ? 'ol' : 'ul';
-    return (jsxRuntime.jsx(ListElement, { css: [localStyles$6.list, className], className: "pa-list", role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: children }));
+    return (jsxRuntime.jsx(ListElement, { css: [localStyles$7.list, className], className: "pa-list", role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: children }));
 };
-const localStyles$6 = {
+const localStyles$7 = {
     list: {
         fontWeight: '500',
         margin: 0,
@@ -799,13 +799,13 @@ const localStyles$6 = {
 
 const ListItem = ({ children, className, useHover, role = 'listitem', ariaLabel, ariaDescribedBy, ariaSelected, ariaExpanded, ariaLevel, tabIndex, dataTestId, onClick, onKeyDown }) => {
     return (jsxRuntime.jsx("li", { css: [
-            localStyles$5.li,
+            localStyles$6.li,
             className && className.li,
-            useHover && localStyles$5.liHover,
+            useHover && localStyles$6.liHover,
             className && useHover && className.liHover
         ], className: "pa-list-item", role: role, "aria-label": ariaLabel, "aria-describedby": ariaDescribedBy, "aria-selected": ariaSelected, "aria-expanded": ariaExpanded, "aria-level": ariaLevel, tabIndex: tabIndex, "data-testid": dataTestId, onClick: onClick, onKeyDown: onKeyDown, children: children }));
 };
-const localStyles$5 = {
+const localStyles$6 = {
     li: {
         borderRadius: '6px',
         border: `1px solid ${baseColors.secondary[500]}`,
@@ -861,27 +861,27 @@ const AccordionListItem = ({ title, children, isOpen = false, onToggle, disabled
             handleToggle();
         }
     };
-    return (jsxRuntime.jsxs("li", { css: [localStyles$4.accordionItem, className?.item], className: "pa-accordion-item", "data-testid": dataTestId, children: [jsxRuntime.jsx(Button, { className: {
+    return (jsxRuntime.jsxs("li", { css: [localStyles$5.accordionItem, className?.item], className: "pa-accordion-item", "data-testid": dataTestId, children: [jsxRuntime.jsx(Button, { className: {
                     button: {
-                        ...localStyles$4.accordionHeader,
-                        ...(disabled && localStyles$4.disabled),
+                        ...localStyles$5.accordionHeader,
+                        ...(disabled && localStyles$5.disabled),
                         ...className?.header
                     }
-                }, onClick: handleToggle, onKeyDown: handleKeyDown, "aria-expanded": isExpanded, "aria-controls": `accordion-content-${dataTestId || 'default'}`, "aria-label": ariaLabel || `Toggle ${title}`, disabled: disabled, type: "button", testId: `pa-accordion-header-${dataTestId || 'default'}`, children: jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("div", { css: localStyles$4.title, children: title }), jsxRuntime.jsx("span", { css: [
-                                localStyles$4.icon,
-                                isExpanded && localStyles$4.iconExpanded,
+                }, onClick: handleToggle, onKeyDown: handleKeyDown, "aria-expanded": isExpanded, "aria-controls": `accordion-content-${dataTestId || 'default'}`, "aria-label": ariaLabel || `Toggle ${title}`, disabled: disabled, type: "button", testId: `pa-accordion-header-${dataTestId || 'default'}`, children: jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("div", { css: localStyles$5.title, children: title }), jsxRuntime.jsx("span", { css: [
+                                localStyles$5.icon,
+                                isExpanded && localStyles$5.iconExpanded,
                                 className?.icon
                             ], className: "pa-accordion-icon", "aria-hidden": "true", children: "\u25BC" })] }) }), jsxRuntime.jsx("div", { css: [
-                    localStyles$4.contentWrapper,
+                    localStyles$5.contentWrapper,
                     useAnimation && {
                         height: contentHeight,
                         overflow: 'hidden',
                         transition: 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                     },
                     !useAnimation && !isExpanded && { display: 'none' }
-                ], className: "pa-accordion-content-wrapper", children: jsxRuntime.jsx("div", { ref: contentRef, css: [localStyles$4.content, className?.content], className: "pa-accordion-content", id: `accordion-content-${dataTestId || 'default'}`, role: "region", "aria-labelledby": `accordion-header-${dataTestId || 'default'}`, children: children }) })] }));
+                ], className: "pa-accordion-content-wrapper", children: jsxRuntime.jsx("div", { ref: contentRef, css: [localStyles$5.content, className?.content], className: "pa-accordion-content", id: `accordion-content-${dataTestId || 'default'}`, role: "region", "aria-labelledby": `accordion-header-${dataTestId || 'default'}`, children: children }) })] }));
 };
-const localStyles$4 = {
+const localStyles$5 = {
     accordionItem: {
         width: '100%',
         borderBottom: `1px solid ${baseColors.primary[200]}`,
@@ -1021,26 +1021,6 @@ const r = y("CancelCircleIcon", [["path", {
   key: "k1"
 }]]);
 
-/**
- * @license hugeicons-react v0.2.0
- *
- * See the LICENSE file in the root directory of this source tree.
- */
-
-const o = y("Menu01Icon", [["path", {
-  d: "M4 5L20 5",
-  stroke: "currentColor",
-  key: "k0"
-}], ["path", {
-  d: "M4 12L20 12",
-  stroke: "currentColor",
-  key: "k1"
-}], ["path", {
-  d: "M4 19L20 19",
-  stroke: "currentColor",
-  key: "k2"
-}]]);
-
 const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showCloseButton = true, dataTestId, className, closeOnBackdropClick = true, closeOnEscape = true, trapFocus = true, initialFocusRef, finalFocusRef, ariaLabel, ariaLabelledBy, ariaDescribedBy }) => {
     const [previouslyFocusedElement, setPreviouslyFocusedElement] = React.useState(null);
     const modalRef = React.useRef(null);
@@ -1125,9 +1105,9 @@ const Modal = ({ isOpen, onClose, children, title, maxWidth = '400px', showClose
         return null;
     const titleId = title ? `${dataTestId || 'modal'}-title` : undefined;
     const effectiveAriaLabelledBy = ariaLabelledBy || titleId;
-    return (jsxRuntime.jsx("div", { css: [localStyles$3.backdrop, className?.backdrop], onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { ref: modalRef, css: [localStyles$3.modal, { maxWidth }, className?.modal], role: "dialog", "aria-modal": "true", "aria-label": ariaLabel, "aria-labelledby": effectiveAriaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: [localStyles$3.header, className?.header], children: [title && (jsxRuntime.jsx("h1", { css: [localStyles$3.title, className?.title], id: titleId, children: title })), showCloseButton && (jsxRuntime.jsx(Button, { className: { button: localStyles$3.closeButton }, onClick: onClose, ariaLabel: "Close modal", kind: "ghost", size: "medium", iconOnly: true, icon: jsxRuntime.jsx(r, { size: 24 }) }))] })), jsxRuntime.jsx("div", { css: [localStyles$3.content, className?.content], children: children })] }) }));
+    return (jsxRuntime.jsx("div", { css: [localStyles$4.backdrop, className?.backdrop], onClick: handleBackdropClick, onKeyDown: handleKeyDown, children: jsxRuntime.jsxs("div", { ref: modalRef, css: [localStyles$4.modal, { maxWidth }, className?.modal], role: "dialog", "aria-modal": "true", "aria-label": ariaLabel, "aria-labelledby": effectiveAriaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": dataTestId, children: [(title || showCloseButton) && (jsxRuntime.jsxs("div", { css: [localStyles$4.header, className?.header], children: [title && (jsxRuntime.jsx("h1", { css: [localStyles$4.title, className?.title], id: titleId, children: title })), showCloseButton && (jsxRuntime.jsx(Button, { className: { button: localStyles$4.closeButton }, onClick: onClose, ariaLabel: "Close modal", variant: "ghost", size: "medium", iconOnly: true, icon: jsxRuntime.jsx(r, { size: 24 }) }))] })), jsxRuntime.jsx("div", { css: [localStyles$4.content, className?.content], children: children })] }) }));
 };
-const localStyles$3 = {
+const localStyles$4 = {
     backdrop: {
         position: 'fixed',
         top: 0,
@@ -1178,7 +1158,7 @@ const localStyles$3 = {
     }
 };
 
-const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonKind = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onDark = false, showSearchButton = true, ariaLabel, ariaLabelledBy, ariaDescribedBy, resultsAriaLive = 'polite', searchRole, testId, autoFocus = false, onSearch, setSearchTerm }) => {
+const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel, className, buttonSize, inputSize, buttonVariant = 'primary', showResultsCount = true, labelPosition = 'above', label, buttonText, onDark = false, showSearchButton = true, ariaLabel, ariaLabelledBy, ariaDescribedBy, resultsAriaLive = 'polite', searchRole, testId, autoFocus = false, onSearch, setSearchTerm }) => {
     const setSearchTermHandler = (e) => {
         if (e.target instanceof HTMLInputElement) {
             setSearchTerm(e);
@@ -1192,14 +1172,14 @@ const Search = ({ searchTerm, searchLabel, totalResultsCount = '0', resultsLabel
             handleOnSearch();
         }
     };
-    return (jsxRuntime.jsx("div", { css: [localStyles$2.searchForm, className?.searchForm], className: "pa-search-form", role: searchRole || 'search', "aria-label": ariaLabel || 'Search', "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": testId, children: jsxRuntime.jsxs("div", { css: [localStyles$2.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles$2.results, className?.resultsText], "data-testid": "total-results", "aria-live": resultsAriaLive, "aria-atomic": "true", role: "status", children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles$2.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', autoFocus: autoFocus, className: { container: { ...localStyles$2.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark, testId: "search-input", ariaLabel: !label ? searchLabel || 'Search' : undefined, ariaDescribedBy: showResultsCount ? 'search-results-count' : undefined }) }), showSearchButton && (jsxRuntime.jsx(Button, { testId: "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, kind: buttonKind, ariaLabel: `${buttonText || 'Search'} - ${totalResultsCount} results available`, className: {
+    return (jsxRuntime.jsx("div", { css: [localStyles$3.searchForm, className?.searchForm], className: "pa-search-form", role: searchRole || 'search', "aria-label": ariaLabel || 'Search', "aria-labelledby": ariaLabelledBy, "aria-describedby": ariaDescribedBy, "data-testid": testId, children: jsxRuntime.jsxs("div", { css: [localStyles$3.searchWrapper, className?.searchWrapper], className: "pa-search-wrapper", children: [showResultsCount && (jsxRuntime.jsxs("div", { css: [localStyles$3.results, className?.resultsText], "data-testid": "total-results", "aria-live": resultsAriaLive, "aria-atomic": "true", role: "status", children: [resultsLabel ?? 'Total Results:', " ", totalResultsCount] })), jsxRuntime.jsx("div", { css: localStyles$3.inputWrapper, children: jsxRuntime.jsx(InputField, { type: "search", value: searchTerm || '', name: "searchTerm", labelPosition: labelPosition, label: label, placeholder: searchLabel || 'Search', autoFocus: autoFocus, className: { container: { ...localStyles$3.searchFieldContainer } }, onChange: setSearchTermHandler, size: inputSize, onKeyDown: hitEnter, onDark: onDark, testId: "search-input", ariaLabel: !label ? searchLabel || 'Search' : undefined, ariaDescribedBy: showResultsCount ? 'search-results-count' : undefined }) }), showSearchButton && (jsxRuntime.jsx(Button, { testId: "search-submit-button", size: buttonSize, type: "button", onClick: handleOnSearch, variant: buttonVariant, ariaLabel: `${buttonText || 'Search'} - ${totalResultsCount} results available`, className: {
                         button: {
-                            ...localStyles$2.searchButton,
+                            ...localStyles$3.searchButton,
                             ...className?.searchButton
                         }
                     }, children: buttonText || 'Search' }))] }) }));
 };
-const localStyles$2 = {
+const localStyles$3 = {
     searchForm: {
         display: 'flex',
         width: '100%'
@@ -1232,70 +1212,63 @@ const localStyles$2 = {
     }
 };
 
-const Avatar = ({ displayName, imageUrl }) => {
-    console.log(displayName);
-    // const initials = displayName
-    //   .split(' ')
-    //   .map(n => n[0])
-    //   .join('')
-    //   .toUpperCase();
-    return (jsxRuntime.jsx("div", { css: localStyles$1.avatar, children: imageUrl ? (jsxRuntime.jsx("img", { src: imageUrl, alt: displayName, css: localStyles$1.image })) : (jsxRuntime.jsx("div", { children: displayName })) }));
+// TODO: Add images later
+const Avatar = ({ displayName }) => {
+    const initials = displayName.split(' ').map(n => n[0]);
+    return (jsxRuntime.jsx("div", { css: localStyles$2.avatar, children: jsxRuntime.jsxs("div", { css: localStyles$2.initials, children: [initials[0], initials[1]] }) }));
 };
-const localStyles$1 = {
+const localStyles$2 = {
     avatar: {
         borderRadius: '50%',
         width: '40px',
         height: '40px',
         overflow: 'hidden',
-        display: 'inline-block'
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: baseColors.secondary[700]
     },
-    image: {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover'
-    }
-};
+    initials: {
+        color: baseColors.tertiary[100],
+        fontWeight: '500',
+        fontSize: '1rem'
+    }};
 
-const SlideOutMenu = ({ children, from = 'right', isMobile = false }) => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const toggleOpenClosed = () => {
-        setIsOpen(!isOpen);
+const SlideOutMenu = ({ children, from = 'right', isMobile = false, showSlideOut = false, setShowSlideOut }) => {
+    const onCloseHandler = () => {
+        setShowSlideOut(false);
     };
-    return (jsxRuntime.jsxs("div", { css: localStyles.slideOutMenu, children: [jsxRuntime.jsx(Button, { kind: "ghostOnDark", size: "small", iconOnly: true, icon: jsxRuntime.jsx(o, { size: 24 }), onClick: toggleOpenClosed, ariaLabel: isOpen ? 'Close menu' : 'Open menu', className: { button: getOpenButtonStyles(isMobile) } }), jsxRuntime.jsx("div", { css: getOverlayStyles(isOpen), onClick: toggleOpenClosed, children: jsxRuntime.jsxs("div", { css: getMenuStyles(from, isOpen), children: [jsxRuntime.jsx(Button, { kind: "ghostOnDark", className: { button: getCloseButtonStyles(isMobile) }, icon: jsxRuntime.jsx(e, { size: 24 }), onClick: toggleOpenClosed }), children] }) })] }));
+    return (jsxRuntime.jsxs("div", { css: localStyles$1.slideOutMenu, children: [jsxRuntime.jsx("div", { css: getOverlayStyles(showSlideOut), onClick: onCloseHandler }), jsxRuntime.jsxs("div", { css: getMenuStyles(from, showSlideOut), children: [jsxRuntime.jsx(Button, { variant: "ghostOnDark", className: { button: getCloseButtonStyles(isMobile) }, icon: jsxRuntime.jsx(e, { size: 24 }), onClick: onCloseHandler }), children] })] }));
 };
-const getOpenButtonStyles = (isMobile) => {
+const getOverlayStyles = (showSlideOut) => {
     return {
-        ...localStyles.openButton,
-        ...(isMobile ? { position: 'absolute', top: '16px', right: '16px' } : {})
-    };
-};
-const getOverlayStyles = (isOpen) => {
-    return {
-        ...localStyles.slideOutOverlay,
-        opacity: isOpen ? 1 : 0,
-        visibility: isOpen ? 'visible' : 'hidden',
+        ...localStyles$1.slideOutOverlay,
+        opacity: showSlideOut ? 1 : 0,
+        visibility: showSlideOut ? 'visible' : 'hidden',
         transition: 'opacity 0.3s ease, visibility 0.3s ease'
     };
 };
-const getMenuStyles = (from, isOpen) => {
+const getMenuStyles = (from, showSlideOut) => {
     return {
-        ...localStyles.menuContainer,
+        ...localStyles$1.menuContainer,
         ...(from === 'left' ? { left: 0 } : { right: 0 }),
-        transform: isOpen
+        transform: showSlideOut
             ? 'translateX(0)'
             : `translateX(${from === 'left' ? '-100%' : '100%'})`,
-        transition: 'transform 0.3s ease-in-out'
+        transition: 'transform 0.1s ease-in-out',
+        boxShadow: showSlideOut ? '-2px 0 8px rgba(0, 0, 0, 0.3)' : 'none'
     };
 };
 const getCloseButtonStyles = (isMobile) => {
     return {
-        ...localStyles.closeButton,
+        ...localStyles$1.closeButton,
         ...(isMobile ? { marginBottom: '10px' } : { marginBottom: '35px' })
     };
 };
-const localStyles = {
+const localStyles$1 = {
     slideOutMenu: {
-        display: 'flex'
+        display: 'flex',
+        overflow: 'hidden'
     },
     slideOutOverlay: {
         position: 'fixed',
@@ -1304,26 +1277,22 @@ const localStyles = {
         right: 0,
         bottom: 0,
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        zIndex: 1000,
+        zIndex: 100,
         display: 'flex',
         justifyContent: 'flex-end',
         pointerEvents: 'auto'
     },
     menuContainer: {
-        position: 'relative',
+        position: 'fixed',
+        top: 0,
+        zIndex: 100,
         backgroundColor: baseColors.primary[500],
         width: '280px',
         height: '100%',
         padding: '20px',
-        boxShadow: '-2px 0 8px rgba(0, 0, 0, 0.3)',
         overflowY: 'auto',
         display: 'flex',
         flexDirection: 'column'
-    },
-    openButton: {
-        padding: '16px',
-        zIndex: 10,
-        '&:hover': { boxShadow: 'none' }
     },
     closeButton: {
         padding: 0,
@@ -1332,8 +1301,43 @@ const localStyles = {
     }
 };
 
+const Dropdown = ({ children, showDropdown, closeDropdown, className, dropdownRef }) => {
+    const hideDropdown = () => {
+        closeDropdown(false);
+    };
+    React.useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)) {
+                hideDropdown();
+            }
+        };
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    });
+    return (jsxRuntime.jsx("div", { css: { ...getDropdownStyles(showDropdown, className) }, ref: dropdownRef, "data-testid": "dropdown-wrapper", children: children }));
+};
+const getDropdownStyles = (showDropdown, className) => ({
+    ...localStyles.dropdownWrapper,
+    ...className?.dropdownWrapper,
+    display: showDropdown ? 'block' : 'none'
+});
+const localStyles = {
+    dropdownWrapper: {
+        position: 'absolute',
+        zIndex: 10,
+        backgroundColor: baseColors.tertiary[100],
+        borderRadius: '4px',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        padding: '8px',
+        minWidth: '160px'
+    }
+};
+
 function useDebounce(func, wait) {
-    const timeoutRef = React.useRef();
+    const timeoutRef = React.useRef(null);
     const debounceFunc = React.useCallback((...args) => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
@@ -1413,6 +1417,7 @@ exports.Avatar = Avatar;
 exports.Block = Block;
 exports.Button = Button;
 exports.ButtonGroup = ButtonGroup;
+exports.Dropdown = Dropdown;
 exports.Globals = Globals;
 exports.Header = Header;
 exports.Image = Image;

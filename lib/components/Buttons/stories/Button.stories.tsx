@@ -39,7 +39,7 @@ export const All: Story = {
     className: {
       button: {}
     },
-    kind: 'primary',
+    variant: 'primary',
     size: 'large'
   },
 
@@ -76,7 +76,7 @@ export const All: Story = {
         }
       }
     },
-    kind: {
+    variant: {
       options: ['primary', 'secondary', 'tertiary', 'ghost'],
       control: { type: 'inline-radio' },
       table: {

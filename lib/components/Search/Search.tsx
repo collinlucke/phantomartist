@@ -10,7 +10,7 @@ type Search = {
   buttonSize?: 'large' | 'medium' | 'small';
   inputSize?: 'large' | 'medium' | 'small';
   totalResultsCount?: string;
-  buttonKind?:
+  buttonVariant?:
     | 'primary'
     | 'secondary'
     | 'tertiary'
@@ -51,7 +51,7 @@ export const Search: React.FC<Search> = ({
   className,
   buttonSize,
   inputSize,
-  buttonKind = 'primary',
+  buttonVariant = 'primary',
   showResultsCount = true,
   labelPosition = 'above',
   label,
@@ -140,7 +140,7 @@ export const Search: React.FC<Search> = ({
             size={buttonSize}
             type="button"
             onClick={handleOnSearch}
-            kind={buttonKind}
+            variant={buttonVariant}
             ariaLabel={`${
               buttonText || 'Search'
             } - ${totalResultsCount} results available`}

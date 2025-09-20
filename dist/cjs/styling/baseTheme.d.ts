@@ -182,8 +182,8 @@ export declare const baseTypography: {
     };
 };
 export declare const baseTheme: {
-    button: ({ kind, size, iconOnly }: {
-        kind?: string;
+    button: ({ variant, size, iconOnly }: {
+        variant?: string;
         size?: string;
         iconOnly?: boolean;
     }) => CSSObject;

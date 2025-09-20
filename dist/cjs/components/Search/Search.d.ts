@@ -6,7 +6,7 @@ type Search = {
     buttonSize?: 'large' | 'medium' | 'small';
     inputSize?: 'large' | 'medium' | 'small';
     totalResultsCount?: string;
-    buttonKind?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'ghostOnDark' | 'outline';
+    buttonVariant?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'ghostOnDark' | 'outline';
     showResultsCount?: boolean;
     labelPosition?: 'left' | 'right' | 'above' | 'below';
     label?: string;

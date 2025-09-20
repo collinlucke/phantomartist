@@ -2,7 +2,7 @@ import { CSSObject, Theme } from '@emotion/react';
 
 export type ConsumerThemeTypes = Theme & {
   button?: (params: {
-    kind?: string;
+    variant?: string;
     size?: string;
     iconOnly?: boolean;
   }) => CSSObject;

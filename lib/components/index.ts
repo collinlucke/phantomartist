@@ -6,3 +6,4 @@ export * from './Modal';
 export * from './Search';
 export * from './Avatar';
 export * from './Menus';
+export * from './Dropdown';

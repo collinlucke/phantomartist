@@ -14,7 +14,7 @@ type ButtonProps = {
     button?: CSSObject;
   };
   type?: HTMLButtonElement['type'];
-  kind?:
+  variant?:
     | 'primary'
     | 'secondary'
     | 'tertiary'
@@ -55,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       className,
       type,
-      kind = 'primary',
+      variant = 'primary',
       size = 'large',
       icon,
       iconOnly,
@@ -98,12 +98,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         role={role}
         data-testid={testId}
         css={[
-          baseTheme.button({ kind, size, iconOnly }),
+          baseTheme.button({ variant, size, iconOnly }),
           consumerTheme?.button &&
-            consumerTheme.button({ kind, size, iconOnly }),
+            consumerTheme.button({ variant, size, iconOnly }),
           className?.button
         ]}
-        className={`pa-button ${kind} ${size}`}
+        className={`pa-button ${variant} ${size}`}
         aria-label={effectiveAriaLabel}
         aria-describedby={ariaDescribedBy}
         aria-expanded={ariaExpanded}

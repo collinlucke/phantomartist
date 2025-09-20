@@ -6,7 +6,7 @@ type ButtonProps = {
         button?: CSSObject;
     };
     type?: HTMLButtonElement['type'];
-    kind?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'ghostOnDark' | 'outline';
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'ghostOnDark' | 'outline';
     size?: 'small' | 'medium' | 'large';
     iconOnly?: boolean;
     icon?: ReactElement | string;

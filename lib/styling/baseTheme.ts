@@ -248,11 +248,11 @@ export const baseTypography = {
 
 export const baseTheme = {
   button: ({
-    kind,
+    variant,
     size,
     iconOnly
   }: {
-    kind?: string;
+    variant?: string;
     size?: string;
     iconOnly?: boolean;
   }): CSSObject => {
@@ -263,57 +263,57 @@ export const baseTheme = {
       lineHeight: size === 'small' ? 1.1 : 1.2, // Match input field line height for small size
       fontSize:
         (size === 'small' && '0.875rem') ||
-        (kind === 'ghost' || kind === 'ghostOnDark' ? '18px' : '1rem'),
+        (variant === 'ghost' || variant === 'ghostOnDark' ? '18px' : '1rem'),
       borderRadius: '5px',
       cursor: 'pointer',
       gap: '10px',
       padding: !iconOnly
-        ? (size === 'large' && kind === 'primary' && '10px 40px') ||
-          (size === 'large' && kind === 'secondary' && '8px 34px') ||
-          (size === 'large' && kind === 'tertiary' && '8px 34px') ||
-          (size === 'large' && kind === 'ghost' && '10px 40px') ||
-          (size === 'large' && kind === 'ghostOnDark' && '10px 40px') ||
-          (size === 'large' && kind === 'outline' && '10px 40px') ||
-          (size === 'medium' && kind === 'primary' && '8px 15px') ||
-          (size === 'medium' && kind === 'secondary' && '8px 15px') ||
-          (size === 'medium' && kind === 'ghost' && '8px 15px') ||
-          (size === 'medium' && kind === 'ghostOnDark' && '8px 15px') ||
-          (size === 'medium' && kind === 'outline' && '8px 15px') ||
-          (size === 'small' && kind === 'primary' && '6px 15px') ||
-          (size === 'small' && kind === 'secondary' && '6px 15px') ||
-          (size === 'small' && kind === 'ghost' && '6px 15px') ||
-          (size === 'small' && kind === 'ghostOnDark' && '6px 15px') ||
-          (size === 'small' && kind === 'outline' && '6px 15px') ||
+        ? (size === 'large' && variant === 'primary' && '10px 40px') ||
+          (size === 'large' && variant === 'secondary' && '8px 34px') ||
+          (size === 'large' && variant === 'tertiary' && '8px 34px') ||
+          (size === 'large' && variant === 'ghost' && '10px 40px') ||
+          (size === 'large' && variant === 'ghostOnDark' && '10px 40px') ||
+          (size === 'large' && variant === 'outline' && '10px 40px') ||
+          (size === 'medium' && variant === 'primary' && '8px 15px') ||
+          (size === 'medium' && variant === 'secondary' && '8px 15px') ||
+          (size === 'medium' && variant === 'ghost' && '8px 15px') ||
+          (size === 'medium' && variant === 'ghostOnDark' && '8px 15px') ||
+          (size === 'medium' && variant === 'outline' && '8px 15px') ||
+          (size === 'small' && variant === 'primary' && '6px 15px') ||
+          (size === 'small' && variant === 'secondary' && '6px 15px') ||
+          (size === 'small' && variant === 'ghost' && '6px 15px') ||
+          (size === 'small' && variant === 'ghostOnDark' && '6px 15px') ||
+          (size === 'small' && variant === 'outline' && '6px 15px') ||
           undefined
-        : (kind === 'primary' && '8px') ||
-          (kind === 'secondary' && '8px') ||
-          (kind === 'ghost' && '8px') ||
-          (kind === 'ghostOnDark' && '8px') ||
-          (kind === 'outline' && '8px') ||
+        : (variant === 'primary' && '8px') ||
+          (variant === 'secondary' && '8px') ||
+          (variant === 'ghost' && '8px') ||
+          (variant === 'ghostOnDark' && '8px') ||
+          (variant === 'outline' && '8px') ||
           undefined,
       border:
-        (kind === 'primary' && 'none') ||
-        (kind === 'secondary' && 'none') ||
-        (kind === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
-        (kind === 'ghost' && 'none') ||
-        (kind === 'ghostOnDark' && 'none') ||
-        (kind === 'outline' && `1px solid ${baseColors.tertiary[500]}`) ||
+        (variant === 'primary' && 'none') ||
+        (variant === 'secondary' && 'none') ||
+        (variant === 'tertiary' && `3px solid ${baseColors.primary[600]}`) ||
+        (variant === 'ghost' && 'none') ||
+        (variant === 'ghostOnDark' && 'none') ||
+        (variant === 'outline' && `1px solid ${baseColors.tertiary[500]}`) ||
         undefined,
       color:
-        (kind === 'primary' && 'white') ||
-        (kind === 'tertiary' && 'black') ||
-        (kind === 'secondary' && baseColors.primary[500]) ||
-        (kind === 'ghost' && 'inherit') ||
-        (kind === 'ghostOnDark' && baseColors.tertiary[50]) ||
-        (kind === 'outline' && baseColors.tertiary[50]) ||
+        (variant === 'primary' && 'white') ||
+        (variant === 'tertiary' && 'black') ||
+        (variant === 'secondary' && baseColors.primary[500]) ||
+        (variant === 'ghost' && 'inherit') ||
+        (variant === 'ghostOnDark' && baseColors.tertiary[50]) ||
+        (variant === 'outline' && baseColors.tertiary[50]) ||
         'inherit',
       backgroundColor:
-        (kind === 'primary' && baseColors.primary[500]) ||
-        (kind === 'secondary' && baseColors.tertiary[500]) ||
-        (kind === 'ghost' && 'transparent') ||
-        (kind === 'ghostOnDark' && 'transparent') ||
-        (kind === 'outline' && 'transparent') ||
-        (kind === 'secondary' &&
+        (variant === 'primary' && baseColors.primary[500]) ||
+        (variant === 'secondary' && baseColors.tertiary[500]) ||
+        (variant === 'ghost' && 'transparent') ||
+        (variant === 'ghostOnDark' && 'transparent') ||
+        (variant === 'outline' && 'transparent') ||
+        (variant === 'secondary' &&
           `color-mix(in srgb, ${baseColors.primary[500]} 75%, black)`) ||
         undefined,
       '&:hover': {
@@ -322,7 +322,7 @@ export const baseTheme = {
               filter: `drop-shadow(0 0 1px ${baseColors.primary[400]})`
             }
           : { boxShadow: `0 0 3px black` }),
-        ...(kind === 'outline' && {
+        ...(variant === 'outline' && {
           backgroundColor: hexToRgba(baseColors.tertiary[50], 0.1)
         })
       },

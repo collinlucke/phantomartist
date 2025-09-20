@@ -216,7 +216,7 @@ const TextareaWithAutoResizeComponent = () => {
         >
           <Button
             onClick={() => setIsAutoResize(!isAutoResize)}
-            kind={!isAutoResize ? 'primary' : 'secondary'}
+            variant={!isAutoResize ? 'primary' : 'secondary'}
           >
             {isAutoResize ? 'Disable Auto-Resize' : 'Enable Auto-Resize'}
           </Button>

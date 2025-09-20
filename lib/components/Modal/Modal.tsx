@@ -173,7 +173,7 @@ export const Modal: React.FC<ModalProps> = ({
                 className={{ button: localStyles.closeButton }}
                 onClick={onClose}
                 ariaLabel="Close modal"
-                kind="ghost"
+                variant="ghost"
                 size="medium"
                 iconOnly
                 icon={<CancelCircleIcon size={24} />}

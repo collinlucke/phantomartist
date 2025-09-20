@@ -1,35 +1,40 @@
 import { CSSObject } from '@emotion/react';
+import { baseColors } from '../../styling/baseTheme';
 
 type AvatarProps = {
   displayName: string;
   imageUrl?: string;
 };
 
-export const Avatar = ({ displayName, imageUrl }: AvatarProps) => {
-  console.log(displayName);
-  // const initials = displayName
-  //   .split(' ')
-  //   .map(n => n[0])
-  //   .join('')
-  //   .toUpperCase();
+// TODO: Add images later
+export const Avatar = ({ displayName }: AvatarProps) => {
+  const initials = displayName.split(' ').map(n => n[0]);
+
   return (
     <div css={localStyles.avatar}>
-      {imageUrl ? (
-        <img src={imageUrl} alt={displayName} css={localStyles.image} />
-      ) : (
-        <div>{displayName}</div>
-      )}
+      <div css={localStyles.initials}>
+        {initials[0]}
+        {initials[1]}
+      </div>
     </div>
   );
 };
 
-const localStyles: { avatar: CSSObject; image: CSSObject } = {
+const localStyles: { [key: string]: CSSObject } = {
   avatar: {
     borderRadius: '50%',
     width: '40px',
     height: '40px',
     overflow: 'hidden',
-    display: 'inline-block'
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: baseColors.secondary[700]
+  },
+  initials: {
+    color: baseColors.tertiary[100],
+    fontWeight: '500',
+    fontSize: '1rem'
   },
   image: {
     width: '100%',
