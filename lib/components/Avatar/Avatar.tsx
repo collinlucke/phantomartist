@@ -4,15 +4,23 @@ import { baseColors } from '../../styling/baseTheme';
 type AvatarProps = {
   displayName: string;
   imageUrl?: string;
+  className?: {
+    avatar?: CSSObject;
+    initials?: CSSObject;
+    image?: CSSObject;
+  };
 };
 
 // TODO: Add images later
-export const Avatar = ({ displayName }: AvatarProps) => {
-  const initials = displayName.split(' ').map(n => n[0]);
+export const Avatar = ({
+  displayName = 'Display Name',
+  className
+}: AvatarProps) => {
+  const initials = displayName.split(' ').map(n => n[0].toUpperCase());
 
   return (
-    <div css={localStyles.avatar}>
-      <div css={localStyles.initials}>
+    <div css={[localStyles.avatar, className?.avatar]}>
+      <div css={[localStyles.initials, className?.initials]}>
         {initials[0]}
         {initials[1]}
       </div>

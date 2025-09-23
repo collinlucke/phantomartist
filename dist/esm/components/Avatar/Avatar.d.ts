@@ -1,7 +1,13 @@
+import { CSSObject } from '@emotion/react';
 type AvatarProps = {
     displayName: string;
     imageUrl?: string;
+    className?: {
+        avatar?: CSSObject;
+        initials?: CSSObject;
+        image?: CSSObject;
+    };
 };
-export declare const Avatar: ({ displayName }: AvatarProps) => import("@emotion/react/jsx-runtime").JSX.Element;
+export declare const Avatar: ({ displayName, className }: AvatarProps) => import("@emotion/react/jsx-runtime").JSX.Element;
 export {};
 //# sourceMappingURL=Avatar.d.ts.map

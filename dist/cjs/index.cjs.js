@@ -385,7 +385,7 @@ const Button = React.forwardRef(({ children, className, type, variant = 'primary
         onClick?.(e);
     };
     // Generate aria-label for icon-only buttons if not provided
-    const effectiveAriaLabel = ariaLabel || (iconOnly && !children ? 'Button' : undefined);
+    const effectiveAriaLabel = ariaLabel || (iconOnly && !children ? `${icon} Button` : undefined);
     return (jsxRuntime.jsx("button", { ref: ref, type: type, onClick: onClickHandler, onKeyDown: onKeyDown, onFocus: onFocus, onBlur: onBlur, disabled: disabled, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, "data-testid": testId, css: [
             baseTheme.button({ variant, size, iconOnly }),
             consumerTheme?.button &&
@@ -1213,9 +1213,9 @@ const localStyles$3 = {
 };
 
 // TODO: Add images later
-const Avatar = ({ displayName }) => {
-    const initials = displayName.split(' ').map(n => n[0]);
-    return (jsxRuntime.jsx("div", { css: localStyles$2.avatar, children: jsxRuntime.jsxs("div", { css: localStyles$2.initials, children: [initials[0], initials[1]] }) }));
+const Avatar = ({ displayName = 'Display Name', className }) => {
+    const initials = displayName.split(' ').map(n => n[0].toUpperCase());
+    return (jsxRuntime.jsx("div", { css: [localStyles$2.avatar, className?.avatar], children: jsxRuntime.jsxs("div", { css: [localStyles$2.initials, className?.initials], children: [initials[0], initials[1]] }) }));
 };
 const localStyles$2 = {
     avatar: {

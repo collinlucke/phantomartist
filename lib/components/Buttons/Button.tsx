@@ -83,7 +83,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     // Generate aria-label for icon-only buttons if not provided
     const effectiveAriaLabel =
-      ariaLabel || (iconOnly && !children ? 'Button' : undefined);
+      ariaLabel || (iconOnly && !children ? `${icon} Button` : undefined);
     return (
       <button
         ref={ref}
