@@ -3,7 +3,7 @@ import { CSSObject } from '@emotion/react';
 export type InputFieldProps = {
     label?: string | ReactNode;
     name?: string;
-    type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'textarea' | 'search' | 'number';
+    type?: 'text' | 'email' | 'password' | 'tel' | 'url' | 'textarea' | 'search' | 'number' | 'date';
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     placeholder?: string;

@@ -590,6 +590,7 @@ const localStyles$c = ({ labelPosition, size, autoResize, onDark }) => ({
     },
     input: {
         ...getSizeStyles(size),
+        marginTop: '3px',
         border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
         borderRadius: '6px',
         transition: 'all 0.2s ease',
@@ -1213,16 +1214,23 @@ const localStyles$3 = {
 };
 
 // TODO: Add images later
-const Avatar = ({ displayName = 'Display Name', className }) => {
+const Avatar = ({ displayName = 'Display Name', className, size = 40 }) => {
     const initials = displayName.split(' ').map(n => n[0].toUpperCase());
-    return (jsxRuntime.jsx("div", { css: [localStyles$2.avatar, className?.avatar], children: jsxRuntime.jsxs("div", { css: [localStyles$2.initials, className?.initials], children: [initials[0], initials[1]] }) }));
+    return (jsxRuntime.jsx("div", { css: [getAvatarStyles(size), className?.avatar], children: jsxRuntime.jsxs("div", { css: [getInitialsStyles(size), className?.initials], children: [initials[0], initials[1]] }) }));
 };
+const getAvatarStyles = (size) => ({
+    ...localStyles$2.avatar,
+    width: `${size}px`,
+    height: `${size}px`,
+    lineHeight: `${size}px`
+});
+const getInitialsStyles = (size) => ({
+    ...localStyles$2.initials,
+    fontSize: `${size / 2}px`
+});
 const localStyles$2 = {
     avatar: {
         borderRadius: '50%',
-        width: '40px',
-        height: '40px',
-        overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -1230,8 +1238,7 @@ const localStyles$2 = {
     },
     initials: {
         color: baseColors.tertiary[100],
-        fontWeight: '500',
-        fontSize: '1rem'
+        fontWeight: '500'
     }};
 
 const SlideOutMenu = ({ children, from = 'right', isMobile = false, showSlideOut = false, setShowSlideOut }) => {

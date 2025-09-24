@@ -13,7 +13,8 @@ export type InputFieldProps = {
     | 'url'
     | 'textarea'
     | 'search'
-    | 'number';
+    | 'number'
+    | 'date';
   value: string;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -353,6 +354,7 @@ const localStyles = ({
 
   input: {
     ...getSizeStyles(size),
+    marginTop: '3px',
     border: `1px solid ${baseColors?.tertiary[500] || '#d1d5db'}`,
     borderRadius: '6px',
     transition: 'all 0.2s ease',
