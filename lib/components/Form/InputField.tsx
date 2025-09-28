@@ -1,6 +1,7 @@
 import React, { ReactNode, useRef, useLayoutEffect } from 'react';
 import { CSSObject } from '@emotion/react';
 import { baseColors, baseVibrantColors } from '../../styling/baseTheme';
+import { Label } from './Label';
 
 export type InputFieldProps = {
   label?: string | ReactNode;
@@ -15,7 +16,7 @@ export type InputFieldProps = {
     | 'search'
     | 'number'
     | 'date';
-  value: string;
+  value: string | number | undefined;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -99,7 +100,6 @@ export const InputField: React.FC<InputFieldProps> = ({
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Generate ID from label if it's a string, otherwise use name or fallback
   const inputId =
     id ||
     (typeof label === 'string'
@@ -127,15 +127,12 @@ export const InputField: React.FC<InputFieldProps> = ({
   useLayoutEffect(() => {
     if (textAreaRef.current && type === 'textarea') {
       if (autoResize) {
-        // Enable auto-resize: set height based on content
         resizeTextArea(textAreaRef.current);
       } else {
-        // Disable auto-resize: reset to CSS-controlled height
         textAreaRef.current.style.height = '';
       }
     }
   }, [value, autoResize, type]);
-  // Generate comprehensive aria-describedby
   const generateAriaDescribedBy = () => {
     const descriptions = [];
     if (error) descriptions.push(`${inputId}-error`);
@@ -151,25 +148,14 @@ export const InputField: React.FC<InputFieldProps> = ({
     ariaRequired !== undefined ? ariaRequired : required;
 
   const labelElement = label ? (
-    <label
-      css={[
-        localStyles({ labelPosition, size, autoResize, onDark }).label,
-        className?.label
-      ]}
+    <Label
+      label={label}
+      required={required}
       htmlFor={inputId}
-    >
-      {label}
-      {required && (
-        <span
-          css={
-            localStyles({ labelPosition, size, autoResize, onDark }).required
-          }
-          aria-label="required"
-        >
-          *
-        </span>
-      )}
-    </label>
+      className={className?.label}
+      labelPosition={labelPosition}
+      onDark={onDark}
+    />
   ) : null;
 
   const inputElement =
@@ -276,6 +262,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         className?.container
       ]}
     >
+      {/* {(labelPosition === 'above' || labelPosition === 'left') && labelElement} */}
       {(labelPosition === 'above' || labelPosition === 'left') && labelElement}
       {inputElement}
       {(labelPosition === 'below' || labelPosition === 'right') && labelElement}

@@ -454,6 +454,30 @@ const ButtonGroup = ({ children, className, direction = 'horizontal', gap = 'med
         ], className: `pa-button-group ${direction} ${gap}`, "data-testid": dataTestId, children: children }));
 };
 
+const Label = ({ label, required, htmlFor, className, labelPosition = 'above', onDark }) => {
+    return (jsxs("label", { css: [localStyles$d({ labelPosition, onDark }).label, className], htmlFor: htmlFor, children: [label, required && (jsx("span", { css: localStyles$d({ labelPosition, onDark }).required, "aria-label": "required", children: "*" }))] }));
+};
+const localStyles$d = ({ labelPosition, onDark }) => ({
+    label: {
+        fontSize: '0.875rem',
+        fontWeight: 500,
+        color: onDark ? baseColors.tertiary[50] : baseColors.primary[900],
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.25rem',
+        marginTop: labelPosition === 'below' ? '0.25rem' : '0',
+        marginRight: labelPosition === 'left' ? '0.5rem' : '0',
+        marginLeft: labelPosition === 'right' ? '0.5rem' : '0',
+        alignSelf: labelPosition === 'left' || labelPosition === 'right'
+            ? 'center'
+            : 'flex-start'
+    },
+    required: {
+        color: '#ef4444',
+        fontSize: '0.875rem'
+    }
+});
+
 const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false, testId, helperText, autoFocus = false, autoComplete, ariaLabel, ariaDescribedBy, ariaInvalid, ariaRequired, role, tabIndex, maxLength, minLength, pattern, min, max, step }) => {
     const textAreaRef = useRef(null);
     // Generate ID from label if it's a string, otherwise use name or fallback
@@ -502,10 +526,7 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
     const effectiveAriaDescribedBy = generateAriaDescribedBy();
     const effectiveAriaInvalid = ariaInvalid !== undefined ? ariaInvalid : !!error;
     const effectiveAriaRequired = ariaRequired !== undefined ? ariaRequired : required;
-    const labelElement = label ? (jsxs("label", { css: [
-            localStyles$c({ labelPosition, size, autoResize, onDark }).label,
-            className?.label
-        ], htmlFor: inputId, children: [label, required && (jsx("span", { css: localStyles$c({ labelPosition, size, autoResize, onDark }).required, "aria-label": "required", children: "*" }))] })) : null;
+    const labelElement = label ? (jsx(Label, { label: label, required: required, htmlFor: inputId, className: className?.label, labelPosition: labelPosition, onDark: onDark })) : null;
     const inputElement = type === 'textarea' ? (jsx("textarea", { "data-testid": testId, ref: textAreaRef, id: inputId, name: name, value: value, onChange: handleTextAreaChange, placeholder: placeholder, required: effectiveAriaRequired, disabled: disabled, readOnly: readonly, onKeyDown: onKeyDown, autoFocus: autoFocus, tabIndex: disabled ? -1 : tabIndex, role: role, maxLength: maxLength, minLength: minLength, autoComplete: autoComplete, css: [
             localStyles$c({ labelPosition, size, autoResize }).textarea,
             error && localStyles$c({ labelPosition, size, autoResize }).inputError,
@@ -1417,5 +1438,5 @@ const Globals = () => (jsx(Global, { styles: css `
       }
     ` }));
 
-export { AccordionListItem, Avatar, Block, Button, ButtonGroup, Dropdown, Globals, Header, Image, InnerWidth, InputField, List, ListItem, Main, Modal, index as PAHooks, Search, SlideOutMenu, baseColors, baseTheme, baseTypography, baseVibrantColors, createResponsiveStyle, hexToRgba, mediaQueries, screenSizes };
+export { AccordionListItem, Avatar, Block, Button, ButtonGroup, Dropdown, Globals, Header, Image, InnerWidth, InputField, Label, List, ListItem, Main, Modal, index as PAHooks, Search, SlideOutMenu, baseColors, baseTheme, baseTypography, baseVibrantColors, createResponsiveStyle, hexToRgba, mediaQueries, screenSizes };
 //# sourceMappingURL=index.esm.js.map
