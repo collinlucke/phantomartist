@@ -482,7 +482,6 @@ const localStyles$d = ({ labelPosition, onDark }) => ({
 
 const InputField = ({ label, name, type = 'text', value, onChange, placeholder, required = false, error, disabled = false, readonly = false, id, labelPosition = 'above', size = 'medium', autoResize = false, className, onKeyDown, onDark = false, testId, helperText, autoFocus = false, autoComplete, ariaLabel, ariaDescribedBy, ariaInvalid, ariaRequired, role, tabIndex, maxLength, minLength, pattern, min, max, step }) => {
     const textAreaRef = React.useRef(null);
-    // Generate ID from label if it's a string, otherwise use name or fallback
     const inputId = id ||
         (typeof label === 'string'
             ? `input-${label.toLowerCase().replace(/\s+/g, '-')}`
@@ -505,16 +504,13 @@ const InputField = ({ label, name, type = 'text', value, onChange, placeholder, 
     React.useLayoutEffect(() => {
         if (textAreaRef.current && type === 'textarea') {
             if (autoResize) {
-                // Enable auto-resize: set height based on content
                 resizeTextArea(textAreaRef.current);
             }
             else {
-                // Disable auto-resize: reset to CSS-controlled height
                 textAreaRef.current.style.height = '';
             }
         }
     }, [value, autoResize, type]);
-    // Generate comprehensive aria-describedby
     const generateAriaDescribedBy = () => {
         const descriptions = [];
         if (error)

@@ -1,9 +1,9 @@
 {
   "name": "@collinlucke/phantomartist",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public"
   },
-  "version": "1.4.0",
+  "version": "1.4.1",
   "type": "module",
   "module": "./dist/esm/index.esm.js",
   "main": "./dist/cjs/index.cjs.js",
