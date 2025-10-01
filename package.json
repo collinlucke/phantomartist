@@ -1,8 +1,5 @@
 {
-  "name": "@collinlucke/phantomartist",
-  "publishConfig": {
-    "access": "public"
-  },
+  "name": "phantomartist",
   "version": "1.4.1",
   "type": "module",
   "module": "./dist/esm/index.esm.js",
