@@ -27,7 +27,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: border-box;\r\n}\r\n\r\n/* Prevent font size inflation */\r\nhtml {\r\n  -moz-text-size-adjust: none;\r\n  -webkit-text-size-adjust: none;\r\n  text-size-adjust: none;\r\n}\r\n\r\n/* Remove default margin in favour of better control in authored CSS */\r\nbody,\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\np,\r\nfigure,\r\nblockquote,\r\ndl,\r\ndd {\r\n  margin-block-end: 0;\r\n}\r\n\r\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\r\nul,\r\nol {\r\n  list-style: none;\r\n}\r\n\r\n/* Set core body defaults */\r\nbody {\r\n  min-height: 100vh;\r\n  line-height: 1.5;\r\n  margin: 0;\r\n}\r\n\r\n/* Set shorter line heights on headings and interactive elements */\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nbutton,\r\ninput,\r\nlabel {\r\n  line-height: 1.1;\r\n}\r\n\r\n/* Balance text wrapping on headings */\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n  text-wrap: balance;\r\n  margin-top: 0px;\r\n}\r\n\r\n/* A elements that don't have a class get default styles */\r\na:not([class]) {\r\n  text-decoration-skip-ink: auto;\r\n  color: currentColor;\r\n}\r\n\r\n/* Make images easier to work with */\r\nimg,\r\npicture {\r\n  max-width: 100%;\r\n  display: block;\r\n}\r\n\r\n/* Inherit fonts for inputs and buttons */\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font-family: inherit;\r\n  font-size: inherit;\r\n}\r\n\r\n/* Make sure textareas without a rows attribute are not tiny */\r\ntextarea:not([rows]) {\r\n  min-height: 5em;\r\n}\r\n\r\n/* Anything that has been anchored to should have extra scroll margin */\r\n:target {\r\n  scroll-margin-block: 5ex;\r\n}\r\n";
+var css_248z = "/* Box sizing rules */\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: border-box;\r\n}\r\n\r\n/* Prevent font size inflation */\r\nhtml {\r\n  -moz-text-size-adjust: none;\r\n  -webkit-text-size-adjust: none;\r\n  text-size-adjust: none;\r\n}\r\n\r\n/* Remove default margin in favour of better control in authored CSS */\r\nbody,\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\np,\r\nfigure,\r\nblockquote,\r\ndl,\r\ndd {\r\n  margin-block-end: 0;\r\n}\r\n\r\n/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */\r\nul,\r\nol {\r\n  list-style: none;\r\n}\r\n\r\n/* Set core body defaults */\r\nbody {\r\n  line-height: 1.5;\r\n  margin: 0;\r\n}\r\n\r\n/* Set shorter line heights on headings and interactive elements */\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nbutton,\r\ninput,\r\nlabel {\r\n  line-height: 1.1;\r\n}\r\n\r\n/* Balance text wrapping on headings */\r\nh1,\r\nh2,\r\nh3,\r\nh4 {\r\n  text-wrap: balance;\r\n  margin-top: 0px;\r\n}\r\n\r\n/* A elements that don't have a class get default styles */\r\na:not([class]) {\r\n  text-decoration-skip-ink: auto;\r\n  color: currentColor;\r\n}\r\n\r\n/* Make images easier to work with */\r\nimg,\r\npicture {\r\n  max-width: 100%;\r\n  display: block;\r\n}\r\n\r\n/* Inherit fonts for inputs and buttons */\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font-family: inherit;\r\n  font-size: inherit;\r\n}\r\n\r\n/* Make sure textareas without a rows attribute are not tiny */\r\ntextarea:not([rows]) {\r\n  min-height: 5em;\r\n}\r\n\r\n/* Anything that has been anchored to should have extra scroll margin */\r\n:target {\r\n  scroll-margin-block: 5ex;\r\n}\r\n";
 styleInject(css_248z);
 
 const hexToRgba = (hex, alpha) => {
@@ -764,10 +764,10 @@ const localStyles$a = {
     }
 };
 
-const Header = ({ children, className, dataTestId, ariaLabel = 'Site header', ariaLabelledBy, role = 'banner' }) => {
-    // If children is provided, use legacy mode
-    return (jsx("header", { css: [localStyles$9.header, className?.header], className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsx(Fragment, { children: children }) }));
-};
+const Header = forwardRef(({ children, className, dataTestId, ariaLabel = 'Site header', ariaLabelledBy, role = 'banner' }, ref) => {
+    return (jsx("header", { css: [localStyles$9.header, className?.header], ref: ref, className: "pa-header", "data-testid": dataTestId, role: role, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, children: jsx(Fragment, { children: children }) }));
+});
+Header.displayName = 'Header';
 const localStyles$9 = {
     header: {
         display: 'flex',
@@ -1256,11 +1256,11 @@ const localStyles$2 = {
         fontWeight: '500'
     }};
 
-const SlideOutMenu = ({ children, from = 'right', isMobile = false, showSlideOut = false, setShowSlideOut }) => {
+const SlideOutMenu = ({ children, from = 'right', showSlideOut = false, setShowSlideOut }) => {
     const onCloseHandler = () => {
         setShowSlideOut(false);
     };
-    return (jsxs("div", { css: localStyles$1.slideOutMenu, children: [jsx("div", { css: getOverlayStyles(showSlideOut), onClick: onCloseHandler }), jsxs("div", { css: getMenuStyles(from, showSlideOut), children: [jsx(Button, { variant: "ghostOnDark", className: { button: getCloseButtonStyles(isMobile) }, icon: jsx(e, { size: 24 }), onClick: onCloseHandler }), children] })] }));
+    return (jsxs("div", { css: localStyles$1.slideOutMenu, children: [jsx("div", { css: getOverlayStyles(showSlideOut), onClick: onCloseHandler }), jsxs("div", { css: getMenuStyles(from, showSlideOut), children: [jsx(Button, { variant: "ghostOnDark", className: { button: localStyles$1.closeButton }, icon: jsx(e, { size: 24 }), onClick: onCloseHandler }), children] })] }));
 };
 const getOverlayStyles = (showSlideOut) => {
     return {
@@ -1279,12 +1279,6 @@ const getMenuStyles = (from, showSlideOut) => {
             : `translateX(${from === 'left' ? '-100%' : '100%'})`,
         transition: 'transform 0.1s ease-in-out',
         boxShadow: showSlideOut ? '-2px 0 8px rgba(0, 0, 0, 0.3)' : 'none'
-    };
-};
-const getCloseButtonStyles = (isMobile) => {
-    return {
-        ...localStyles$1.closeButton,
-        ...(isMobile ? { marginBottom: '10px' } : { marginBottom: '35px' })
     };
 };
 const localStyles$1 = {
@@ -1319,6 +1313,7 @@ const localStyles$1 = {
     closeButton: {
         padding: 0,
         alignSelf: 'flex-end',
+        marginBottom: '10px',
         '&:hover': { boxShadow: 'none' }
     }
 };

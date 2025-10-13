@@ -1,6 +1,6 @@
 {
   "name": "phantomartist",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "type": "module",
   "module": "./dist/esm/index.esm.js",
   "main": "./dist/cjs/index.cjs.js",

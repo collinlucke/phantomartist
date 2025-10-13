@@ -1,9 +1,9 @@
-import { ReactElement, ReactNode } from 'react';
+import { forwardRef, ReactNode, Ref } from 'react';
 import { baseColors } from '../../styling/baseTheme';
 import { CSSObject } from '@emotion/react';
 
 type HeaderModifyProps = {
-  children?: ReactElement;
+  children?: ReactNode;
   logo?: ReactNode;
   navigation?: ReactNode;
   actions?: ReactNode;
@@ -18,29 +18,39 @@ type HeaderModifyProps = {
   layout?: 'default' | 'centered' | 'spread';
 };
 
-export const Header: React.FC<HeaderModifyProps> = ({
-  children,
-  className,
-  dataTestId,
-  ariaLabel = 'Site header',
-  ariaLabelledBy,
-  role = 'banner'
-}) => {
-  // If children is provided, use legacy mode
+export type RefProp = Ref<HTMLDivElement>;
 
-  return (
-    <header
-      css={[localStyles.header, className?.header]}
-      className="pa-header"
-      data-testid={dataTestId}
-      role={role}
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledBy}
-    >
-      <>{children}</>
-    </header>
-  );
-};
+export const Header = forwardRef<HTMLDivElement, HeaderModifyProps>(
+  (
+    {
+      children,
+      className,
+      dataTestId,
+      ariaLabel = 'Site header',
+      ariaLabelledBy,
+      role = 'banner'
+    },
+    ref
+  ) => {
+    return (
+      <header
+        css={[localStyles.header, className?.header]}
+        ref={ref}
+        className="pa-header"
+        data-testid={dataTestId}
+        role={role}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+      >
+        <>{children}</>
+      </header>
+    );
+  }
+) as React.ForwardRefExoticComponent<
+  HeaderModifyProps & React.RefAttributes<HTMLDivElement>
+>;
+
+Header.displayName = 'Header';
 
 const localStyles = {
   header: {

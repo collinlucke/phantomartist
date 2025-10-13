@@ -1,7 +1,7 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactNode, Ref } from 'react';
 import { CSSObject } from '@emotion/react';
 type HeaderModifyProps = {
-    children?: ReactElement;
+    children?: ReactNode;
     logo?: ReactNode;
     navigation?: ReactNode;
     actions?: ReactNode;
@@ -15,6 +15,7 @@ type HeaderModifyProps = {
     };
     layout?: 'default' | 'centered' | 'spread';
 };
-export declare const Header: React.FC<HeaderModifyProps>;
+export type RefProp = Ref<HTMLDivElement>;
+export declare const Header: React.ForwardRefExoticComponent<HeaderModifyProps & React.RefAttributes<HTMLDivElement>>;
 export {};
 //# sourceMappingURL=Header.d.ts.map

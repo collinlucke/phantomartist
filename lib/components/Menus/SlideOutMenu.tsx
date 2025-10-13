@@ -6,7 +6,6 @@ import { Button } from '../Buttons/Button';
 type SlideOutMenuProps = {
   children: React.ReactNode;
   from?: 'left' | 'right';
-  isMobile?: boolean;
   showSlideOut: boolean;
   setShowSlideOut: (show: boolean) => void;
 };
@@ -14,7 +13,6 @@ type SlideOutMenuProps = {
 export const SlideOutMenu: React.FC<SlideOutMenuProps> = ({
   children,
   from = 'right',
-  isMobile = false,
   showSlideOut = false,
   setShowSlideOut
 }) => {
@@ -27,7 +25,7 @@ export const SlideOutMenu: React.FC<SlideOutMenuProps> = ({
       <div css={getMenuStyles(from, showSlideOut)}>
         <Button
           variant="ghostOnDark"
-          className={{ button: getCloseButtonStyles(isMobile) }}
+          className={{ button: localStyles.closeButton }}
           icon={<Cancel01Icon size={24} />}
           onClick={onCloseHandler}
         />
@@ -58,13 +56,6 @@ const getMenuStyles = (
       : `translateX(${from === 'left' ? '-100%' : '100%'})`,
     transition: 'transform 0.1s ease-in-out',
     boxShadow: showSlideOut ? '-2px 0 8px rgba(0, 0, 0, 0.3)' : 'none'
-  };
-};
-
-const getCloseButtonStyles = (isMobile: boolean): CSSObject => {
-  return {
-    ...localStyles.closeButton,
-    ...(isMobile ? { marginBottom: '10px' } : { marginBottom: '35px' })
   };
 };
 
@@ -100,6 +91,7 @@ const localStyles: { [key: string]: CSSObject } = {
   closeButton: {
     padding: 0,
     alignSelf: 'flex-end',
+    marginBottom: '10px',
     '&:hover': { boxShadow: 'none' }
   }
 };

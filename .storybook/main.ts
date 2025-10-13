@@ -17,7 +17,6 @@ const config: StorybookConfig = {
     options: {}
   },
   viteFinal: async config => {
-    // Set base path for GitHub Pages subdirectory deployment
     if (process.env.NODE_ENV === 'production') {
       config.base = '/phantomartist/storybook/';
     }
